@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <style>
+    			/*清除浮动*/
+			 .clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		    }
+		    .clearfix{
+		    	zoom:1;
+		    }
+    	/*顶部标题*/
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.35rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.cjwait{padding: 1.5rem 1rem;width: 100%;background: white;margin-bottom: 1rem;}
+		.cjwait img{width: 1.5rem;margin-right: 0.5rem;margin-bottom: 0.15rem;}
+		.cjdd-address{padding: 1.5rem 1rem;background: white;width: 100%;}
+		.cjdd-address img{width: 0.9rem;height: 1.3rem;margin-right: 0.5rem ;}
+		/*内容*/
+		.cj-content{margin-top: 0.95rem;}
+		.cjservice-list{background: white;padding: 1.5rem 0;border-bottom: 0.05rem solid #F0F0F0;}
+    	.cjservice-list>div:nth-of-type(2){width: 62%;}
+		.cjservice-list>div:first-of-type{width:27.4666%;margin-left: 2.66%;margin-right: 2%;}
+		.cjservice-list>div:first-of-type img{width: 100%;}
+		.cjservice-list>div:nth-of-type(2)>div:first-of-type{font-size: 1.3rem;color: #333333;margin: 1rem 0 0;}
+		.cjservice-list-drug-num{font-size: 1.2rem;color: #999999;margin-top: 2.5rem;}
+		.cjservice-list-drug-num span{margin-right: 2.45rem;}
+		/*订单信息*/
+		.cjorder{padding: 1rem;line-height: 2.5rem;background: white;width: 100%;margin-top: 1rem;}
+		.cjorder button{margin-left: 1.65rem;padding: 0.2rem 0.85rem;background: #cccccc;border: none;border-radius: 1.5rem;}
+		/*商品价格*/
+		.cjallprice{width: 100%;background: white;line-height: 2rem;padding: 1.25rem 1rem;color: #666666;}
+		.cjallprice li span.mui-pull-left{color: #666666;}
+		.cjallprice li:nth-of-type(2){border-bottom: 0.05rem solid #f0f0f0;}
+		/*支付*/
+		.cjsub{width: 100%;margin: 1rem 0 0.5rem;}
+		.cjsub span{width: 50%;height: 4.9rem;line-height: 4.9rem;text-align: center;font-size: 1.8rem;display: inline-block;}
+		.cjsub span:first-of-type{background: #CCCCCC;color: #333333;}
+		.cjsub span:last-of-type{background: #15BBDC;color: white;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">订单详情</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="cjwait">
+	<img src="{$Think.HTML_STATIC}/images/44.png"/>等待付款
+</div>
+<div class="cjdd-address clearfix">
+	<div class="mui-pull-left"><img src="{$Think.HTML_STATIC}/images/45.png"/></div><div class="mui-pull-left"><p>令狐冲  13601001589</p><p>地址：北京朝阳区四环到五环之间甘露园南里20号</p></div>
+</div>
+<div class="cj-content">
+	<div class="cjservice-list clearfix">
+		<div class="mui-pull-left">
+			<img src="{$Think.HTML_STATIC}/images/31.jpg"/>
+		</div>
+		<div class="mui-pull-left">
+			<div class="cjintro">
+				史云逊正品生姜无硅油落发专用洗发水护 发素套装控油清洁头发洗露
+			</div>
+			<div class="cjservice-list-drug-num">
+				<span>数量：x1</span><span>价格：38.00</span>				
+			</div>
+		</div>
+	</div>
+	<div class="cjservice-list clearfix">
+		<div class="mui-pull-left">
+			<img src="{$Think.HTML_STATIC}/images/31.jpg"/>
+		</div>
+		<div class="mui-pull-left">
+			<div class="cjintro">
+				史云逊正品生姜无硅油落发专用洗发水护 发素套装控油清洁头发洗露
+			</div>
+			<div class="cjservice-list-drug-num">
+				<span>数量：x1</span><span>价格：38.00</span>				
+			</div>
+		</div>
+	</div>
+</div>
+<ul class="cjorder">
+	<li>订单编号：<span id="copy">6960171354852</span><button onclick="copyToClipboard('#copy')">复制</button></li>
+	<li>下单时间：2017-12-08  15:51:11</li>
+	<li>发票类型：不开发票</li>
+</ul>
+<ul class="cjallprice">
+	<li class="clearfix"><span class="mui-pull-left">商品总额</span><span class="mui-pull-right">￥556.00</span></li>
+	<li class="clearfix"><span class="mui-pull-left">运费总额</span><span class="mui-pull-right">￥0.00</span></li>
+	<li class="clearfix"><span class="mui-pull-left">需付款：</span><span class="mui-pull-right">566.00</span></li>
+</ul>
+<div class="cjsub">
+	<span>取消订单</span><span>去支付</span>
+</div>
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script src="{$Think.HTML_STATIC}/js/jquery.zclip.js"></script>
+
+{include file="public/fx" /}
+<script>
+//点我复制
+function copyToClipboard(element) {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  $temp.val($(element).text()).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+</script>
+</body>
+</html>

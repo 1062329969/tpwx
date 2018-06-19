@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/circle.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+        .yard .mui-action-back, .mui-title, .mui-icon-search{color:#4a4a4a;}
+        #appo{width:88%;margin:6rem auto 0;}
+        .gap{width:100%;background:#f5f5f5;height:1rem;}
+        /*顶部标题*/
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;font-weight: normal;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;}
+        #header h1.mui-title{line-height: 4.4rem}
+    </style>
+</head>
+
+<body style="background: #fff;">
+
+<header id="header" class="mui-bar mui-bar-nav yard" style="border-bottom:1px solid #f0f0f0;">
+    <a class="mui-action-back mui-pull-left" href="{:url('track/index')}" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">到院检测</h1>
+</header>
+
+<!--<div class="gap"></div>-->
+<style>
+    #appo li{height:3rem;line-height:3rem;margin-top:8%;}
+    #appo li label{float:left;width:19.69697%;font-size:1.4rem;position:relative;top:1rem;}
+    #appo li div.se{float:left;width:80%;line-height:3rem;border:1px solid #dcdcdc;border-radius:5px;}
+    #appo li div select{border:1px solid #dcdcdc;border-radius:5px;padding:0 0 0 1em;display:block;position:relative;top:1rem;}
+    select option{color:#dcdcdc;}
+    #appo li div.se1{border-radius:5px;border:1px solid #dcdcdc;border:none;}
+    #appo #txt{font-size:1.2rem;color:#999;line-height:1.8rem;}
+    .opt{height:1rem;line-height:1rem;float:left;margin-top:3%;}
+    .se1 >div:nth-of-type(2){padding-left:6%;}
+    #submits{width:100%;margin:40% auto 0;padding:4.6rem 0 0 0;background:url({$Think.HTML_STATIC}/images/submit.jpg) no-repeat;background-size:100% auto;display:block;border:none;position:fixed;bottom:0;}
+    .mui-bar-nav{box-shadow:none;}
+    .magic-radio + label:after {
+        top: 3px;
+        left: 3px;
+        width: 6px;
+        height: 6px;
+        border-radius: 100%;
+        background: #3e97eb;
+    }
+    /*清除浮动*/
+    .clearfix:after{
+        content: "";
+        display: block;
+        clear:both;
+        height: 0;
+        overflow: hidden;
+    }
+    .clearfix{
+        zoom:1;
+    }
+</style>
+<form action="{:url('track/reservation')}" method="post">
+    <ul id="appo">
+        <li class="clearfix">
+            <label>选择院部</label>
+            <div class="se">
+                <select name="res_hid">
+                    {volist name='hlist' id='vo'}
+                    <option value="{$vo.id}">{$vo.hosname}</option>
+                    {/volist}
+                </select>
+            </div>
+        </li>
+        <!--<li>-->
+            <!--<label>预约项目</label>-->
+            <!--<div class="se">-->
+                <!--<select name="res_project">-->
+                    <!--<option value="1">头发种植</option>-->
+                    <!--<option value="2">顶部加密</option>-->
+                    <!--<option value="3">美人尖种植</option>-->
+                    <!--<option value="4">发际线种植</option>-->
+                    <!--<option value="5">眉毛种植</option>-->
+                    <!--<option value="6">胡须种植</option>-->
+                    <!--<option value="7">鬓角种植</option>-->
+                    <!--<option value="8">体毛种植</option>-->
+                    <!--<option value="9">疤痕种植</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</li>-->
+        <li>
+            <label>到院时间</label>
+            <div class="se se1">
+                <input type="date" name="res_time" style="border:1px solid #dcdcdc;border-radius:5px;">
+            </div>
+        </li>
+        <li>
+            <label>姓<span style="padding-left:2.8rem;"></span>名</label>
+            <div class="se se1">
+                <input type="text" name="res_name" style="border:1px solid #dcdcdc;border-radius:5px;">
+            </div>
+        </li>
+        <li>
+            <label>手<span style="padding-left:2.8rem;"></span>机</label>
+            <div class="se se1">
+                <input type="text" name="res_tel" style="border:1px solid #dcdcdc;border-radius:5px;">
+            </div>
+        </li>
+        <li>
+            <label>性<span style="padding-left:2.8rem;"></span>别</label>
+            <div class="se se1" style="padding-left:8%;">
+                <div class="opt">
+                    <input class="magic-radio" type="radio" name="res_sex" id="r1" value="1">
+                    <label for="r1" style="margin-left:5%;padding-top:2px;">男</label>
+                </div>
+                <div class="opt">
+                    <input class="magic-radio" type="radio" name="res_sex" id="r2" value="2" checked>
+                    <label for="r2" style="margin-left:5%;padding-top:2px;">女</label>
+                </div>
+            </div>
+        </li>
+        <li>
+            <label>年<span style="padding-left:2.8rem;"></span>龄</label>
+            <div class="se se1">
+                <input type="text" name="res_age" style="border:1px solid #dcdcdc;border-radius:5px;">
+            </div>
+        </li>
+        <li>
+            <label>备<span style="padding-left:2.8rem;"></span>注</label>
+            <div class="se se1">
+                <textarea name="res_content" rows="5" style="border:1px solid #dcdcdc;border-radius:5px;"></textarea>
+                <p id="txt" style="padding-bottom:25%;">如果您有特殊情况，或预约时间不在选择范围内，请备注您的到院时间，以便我们安排医生等待您的到来。</p>
+            </div>
+        </li>
+    </ul>
+    <a href="javascript:;" id="submits" /></a>
+    <!-- <button id="submits" ></button> -->
+</form>
+
+<script type="text/javascript">
+    $(function(){
+        $('#submits').click(function(){
+
+            var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(17[0-9]{1})|(18[0-9]{1}))+\d{8})$/;
+            var res = myreg.test($("input[name=res_tel]").val());
+            if(!res)
+            {
+                alert('请输入有效的手机号码！');
+                return false;
+            }
+            var namereg = /(^[\u4e00-\u9fa5]{2,15}$)/;
+            if(!namereg.test($("input[name=res_name]").val()))
+            {
+                alert('请输入正确用户名！');
+                return false;
+            }
+            var regNum = /^[0-9]{1,2}$/;
+            if (!regNum.test($('input[name=res_age]').val())) {
+                alert("请输入正确的年龄！")
+                return false;
+            }
+
+            if(!$('input[name=res_time]').val()){
+                alert('请选择时间');
+                return false;
+            }
+            if (!confirm("每天只能预约一次，您确定提交预约吗?"))
+            {
+                return false;
+            }
+            else
+            {
+                var x = $('form').serializeArray();
+                var m = [], idata;
+                // 按 AJAX数据格式归入数组，方便后面的数据打包
+                $.each(x, function(i, field){
+                    // 由于会出现"双引号字符会导致接下来的数据打包失败，故此对元素内容进行encodeURI编码
+                    // 后台PHP采用urldecode()函数还原数据
+                    m.push('"' + field.name + '":"' + encodeURI(field.value) + '"');
+                });
+                m.push('"__token__":"{$Request.token}"');
+                idata ='{' +  m.join(',') + '}';
+                // 按字符 idata 转换成 JSON 格式
+                idata = eval('(' +idata+ ')');
+                $.ajax({
+                    type: "post",
+                    url: "{:url('track/reservation')}",
+                    data: idata,
+                    dataType: "json",
+                    success: function(data)
+                    {
+                        if(data.code==1){
+                            alert('预约成功');
+                            window.location.href="{:url('index')}"
+                        }else{
+                            alert(data.msg);
+                        }
+                    }
+                });
+            }
+        })
+    })
+</script>
+</body>
+</html>

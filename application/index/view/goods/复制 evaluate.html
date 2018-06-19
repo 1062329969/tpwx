@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        .mui-content{ margin: 1.5rem; background: none;}
+        .gspicpf{ margin-bottom: 1rem; overflow: hidden;}
+        .gspicc{ float: left; width: 25%;}
+        .gspicc img{ width: 90%; float: left;}
+        .gspl{ float: right; width: 75%; font-size: 1.6rem;}
+        .pjtitle{ margin:1rem 0 1rem 0;}
+        .pjxx{ font-size:2rem;}
+        .pjxx font{ padding: 0 1rem 0 0;color: red;}
+        .pjxx font.on{ }
+        .pjcontent textarea{ padding:0.5rem;}
+        #imgPicker p{ color: #fff}
+        #loading{ height: 100%; margin-top: 0px;}
+    </style>
+</head>
+
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">评价</h1>
+</header>
+
+{notempty name='$goods'}
+<div class="mui-content">
+
+    <div class="gspicpf">
+         <div class="gspicc">
+               <img src="{$goods.pic}">
+         </div>
+         <div class="gspl">
+              <div class="pjtitle">评价</div>
+              <div class="pjxx"><font data-id="1">★</font><font data-id="2">★</font><font data-id="3">★</font><font data-id="4">★</font><font data-id="5">★</font></div>
+         </div>
+     </div>
+    <div class="pjcontent">
+         <textarea id="textarea" rows="5" placeholder="请输入评价内容"></textarea>
+    </div>
+    <div class="form2">
+        <p>照片上传</p>
+        <div class="addimg" id="uploadimg">
+            <div id="imgPicker"><p style="font-size: 50px; color: #fff">+</p><p>最多9张图片</p></div>
+            <div id="fileList" class="uploader-list" style="margin-top: 15px;"></div>
+        </div>
+    </div>
+
+</div>
+
+<div class="upsub" id="subbutt">提交</div>
+{else}
+<div class="mui-content"><p style="text-align: center;">该商品已经下架，无法评价了！</p></div>
+{/notempty}
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+
+    var xx=5;  //默认五星好评
+
+    $(".pjxx font").click(function()
+    {
+        id=$(this).attr('data-id')-1;
+        xx=$(this).attr('data-id');
+        $(".pjxx font").each(function(e)
+        {
+            if(e>id)
+            {
+                $(this).html('☆');
+            }
+            else
+            {
+                $(this).html('★');
+            }
+        });
+    });
+
+    $("#subbutt").click(function ()
+    {
+        var mycars=new Array();
+        $('#fileList img').each(function(index){
+            mycars[index]=$(this).attr('data-preview-src');
+        });
+
+        content=$('#textarea').val();
+        if(content=="")
+        {
+            alert('请输入评价的内容');
+            return false;
+        }
+
+        $('body').append("<div class='mb' id='loading'></div>");
+        $.ajax({
+            type: "post",
+            url: '{:url("evaluate")}',
+            data: {images:mycars,content:content,xx:xx,goods_id:{$goods.id},oid:{$oid},__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    window.location.href="{:url('goods/comment')}?id="+data.id;
+                }
+                else
+                {
+                    $('#loading').remove();
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+
+    //上传图片
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: false,
+        //允许上传的图片个数
+        fileNumLimit: 9,
+        // swf文件路径
+        swf: 'js/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#imgPicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $list = $("#fileList"),
+                $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '</div>'
+                ),
+                $img = $li.find('img');
+
+        // $list为容器jQuery实例
+        $list.append( $li );
+
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 200 x 200
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'src', src );
+        }, 200, 200);
+
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'data-preview-src', src );
+        }, 0.5, 0.5);
+    });
+
+
+</script>
+</body>
+</html>

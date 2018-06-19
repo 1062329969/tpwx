@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+    <link href="{$Think.HTML_STATIC}/css/goods.css?v=1.1.0" rel="stylesheet">
+    <style>
+        .mui-content{background: none;width: 100%;}
+        .mui-table-view{ background: none; border: none;}
+        .mui-table-view li{ background: #fff; margin-bottom: 1rem;}
+        .mui-table-view p{ text-align: center; padding-top: 30px; font-size: 20px;}
+        .mui-table-view:before{ background: none;}
+        .mui-table-view:after{ background: none;}
+        .mui-checkbox input[type=checkbox]:checked:before{ color: #ff803a}
+        .bgdtitle,.bgdprice{ margin-bottom: 3px;color: #666666;}
+        .bgdtitle{height: 4rem;}
+        .mui-checkbox.mui-left input[type=checkbox]{ left:3rem;}
+        .mui-checkbox span{padding-left: 3.9rem;}
+        /*清除浮动*/
+        .clearfix:after{
+            content: "";
+            display: block;
+            clear:both;
+            height: 0;
+            overflow: hidden;
+        }
+        .clearfix{
+            zoom:1;
+        }
+        /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+        #header a.mui-pull-right{font-size:1.4rem;color: #666666;line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        /*内容*/
+        .mui-bar-nav~.mui-content{padding-top: 0;}
+        .mui-checkbox input[type=checkbox]:checked:before{color: #15bbdc;position:relative;left:0;}
+        .mui-table-view-cell{padding: 1.5rem 1rem;}
+        .mui-table-view-cell:after{background-color: white;}
+        .buygoods img{width:9.8rem;height: 9.8rem;border:1px solid #f0f0f0;}
+        .bgdstp{width: 56%;}
+        .cart{padding-left: 8%;}
+        .nums{color: #666666;}
+        .bgdprice{color: #ff2942;f999999;margin-top:3.6rem;}
+        #all{left: 1rem;}
+        .cartprice p{color: #333333;font-size:1.7rem;}
+        .cartprice span{color: #ff2942;}
+        /*支付*/
+        .cartFooter{width: 100%;}
+        .gobuy{background: none;background: url({$Think.HTML_STATIC}/images/51.png) no-repeat;width: 14.5rem;background-size: cover;height: 100%;}
+        @media only screen and (min-width: 320px) and (max-width: 350px) {
+            .gobuy{width: 10.5rem;font-size: 1.7rem;}
+            .buygoods img{width: 6.2rem;height: 6.2rem;}
+            .bgdstp{width: 66%;}
+        }
+        .cartFooter{height:49px;line-height:49px;}
+        .gobuy{font-size:1.7rem;line-height:49px;}
+        .cartFooter .mui-checkbox span{line-height:49px;}
+        .cartFooter .mui-checkbox input{margin-top:10%;}
+        .cartFooter .mui-checkbox span{padding-left:40px;font-size:1.7rem;color:#666666;}
+        .bgdtitle,.bgdprice{font-size:1.6rem;}
+        .baddgnum{margin-left:3rem;}
+        .addgnum{padding-bottom:0;margin-bottom:0;}
+        .nums{position:absolute;top:64%;width:58%;right:-32%;}
+        .nreduce, input.numsinput, .nadd{border:1px solid #d2d2d2;}
+        .cartprice p{color: #333333;font-size:1.7rem;}
+        .sc{width:6rem;line-height:2.5rem;color:#ff2942;text-align:center;font-size:1.7rem;border:1px solid #ff2942;border-radius:15px;margin-top:16%;display:none;margin-right:1rem;}
+        .mui-btn-danger, .mui-btn-negative, .mui-btn-red{background: #15BBDC;}
+        /*弹窗*/
+        .mui-toast-container{left:50%;margin-left: -135px;bottom: 80px;}
+        .sd{background:#15bbdc;}
+        .mui-toast-container{left:50%;margin-left: -135px;bottom: 80px;}
+        .cart .lose{left: -16px;top: 33px;}
+        .lose span{width: 3.3rem;text-align: center;line-height:2rem;color: white; display: inline-block;background: #ababab;border-radius: 1.75rem;font-size: 1rem;padding-left: 0;}
+        .lose_title{color: #999;}
+        .lose_price{color: #999;}
+        .lose_top{width: 100%;line-height: 4.5rem;background: white;padding: 0 1rem;border-bottom: 1px solid #F0F0F0;}
+        .lose_top .mui-pull-left{color: #666;font-size: 1.5rem;}
+        .lose_top .mui-pull-right{color:#15BBDC;font-size: 1.5rem;}
+    </style>
+</head>
+
+<body>
+<header id="header" class="mui-bar mui-bar-nav clearfix">
+    <a class="mui-action-back mui-pull-left" onclick="{:url('goods/index')}"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title" style="color:#333333;font-weight:normal;">购物车</h1>
+    <a class="mui-pull-right" id="editor">编辑</a>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="mui-content">
+    <form action="{:url('buy')}" method="post">
+        <ul id="OA_task" class="mui-table-view">
+            <?php $sums = 0; ?>
+            <?php $oldsums = 0; ?>
+            <?php $oldidarr=array();?>
+            {volist name='$goodsCart' id='vo' empty="<p>购物车还没有商品哦~</p>"}
+            {if $vo.goods.status!=0 && $vo.goods.del != 1 && $vo.goods.number>0}
+            <?php $sums = $sums + $vo['nums']; ?>
+            <li class="mui-table-view-cell">
+                <div class="mui-slider-right mui-disabled goods_id" data-id="{$vo.id}">
+                    <a class="mui-btn sd">删除</a>
+                </div>
+                <div class="mui-slider-handle">
+                    <div class="buygoods buygoodscart">
+                        <div class="buygoodslist cart clearfix">
+                            <div class="mui-checkbox mui-left">
+                                <input name="id[]" value="{$vo.goods.id}" type="checkbox" class="gdcheckbox"  checked="checked">
+                                <input name="gg[]" value="{$vo.gg}" class="gg_input" type="hidden">
+                            </div>
+                            <img src="{$vo.goods.pic}">
+                            <div class="bgdstp mui-pull-left">
+                                <div class="bgdtitle">{$vo.goods.gdname}</div>
+                                <div class="cjprice-num clearfix">
+                                    <div class="bgdprice mui-pull-left">￥{$vo.price} {$vo.ggName}</div>
+                                    <div class="addgnum baddgnum lr mui-pull-right">
+                                        <div class="nums"><div class="nreduce nreduceno" data-id="{$vo.id}">-</div><input data-nums="{$vo.goods.number}" data-price="{$vo.price}" class="numsinput price_input" readonly="readonly" name="nums[]" type="number" value="{$vo.nums}" /><div class="nadd"  data-id="{$vo.id}">+</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {else /}
+            <?php
+                $oldsums = $oldsums + $vo['nums'];
+                $oldidarr[] = $vo['id'];
+            ?>
+
+            {/if}
+            {/volist}
+        </ul>
+
+        {if $oldsums!=0}
+        <div class="lose_top clearfix">
+            <div class="mui-pull-left">失效商品<span>{$oldsums}</span>件</div>
+            <div class="mui-pull-right" data-id="<?php echo implode(',',$oldidarr); ?>" >清空失效商品</div>
+        </div>
+        <ul id="OA_task" class="mui-table-view lose_goods">
+            {volist name='$goodsCart' id='vo' empty="<p></p>"}
+            {if condition="($vo.goods.status eq 0) OR ($vo.goods.del eq 1) OR ($vo.goods.number eq 0)"}
+            <li class="mui-table-view-cell">
+                <div class="mui-slider-right mui-disabled goods_id" data-id="{$vo.id}">
+                    <a class="mui-btn sd">删除</a>
+                </div>
+                <div class="mui-slider-handle">
+                    <div class="buygoods buygoodscart">
+                        <div class="buygoodslist cart clearfix">
+                            <div class="mui-checkbox mui-left lose">
+                                <span>失效</span>
+                            </div>
+                            <img src="{$vo.goods.pic}">
+                            <div class="bgdstp mui-pull-left">
+                                <div class="bgdtitle lose_title">{$vo.goods.gdname}</div>
+                                <div class="cjprice-num clearfix">
+                                    <div class="bgdprice mui-pull-left lose_price">￥{$vo.price} {$vo.ggName}x{$vo.nums}</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {/if}
+            {/volist}
+        </ul>
+        {/if}
+        <div class="h65"></div>
+        <div class="cartFooter clearfix">
+            <div class="mui-checkbox mui-left">
+                <input name="checkbox" value="Item 1" type="checkbox" id="all"><span>全选</span>
+            </div>
+            <div class="carttotal clearfix">
+                <div class="gobuy">去结算（<span><?php echo $sums; ?></span>）</div>
+                <div class="sc">删除</div>
+            </div>
+            <div class="cartprice"><p>合计:<span>￥<font id="totalPrice">0</font></span></div>
+        </div>
+    </form>
+
+</div>
+
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script>
+
+    $(document).ready(function(){
+    	
+        //清空失效商品
+        $(".lose_top .mui-pull-right").click(function(){
+            var ids = $(this).attr('data-id');
+            $.ajax({
+                url:"{:url('deloldcart')}",
+                data:{id:ids,__token__:'{$Request.token}'},
+                type:'post',
+                dataType:'json',
+                success:function(data){
+                    $(".lose_goods").remove()
+                    $(".lose_top").remove()
+                }
+            });
+
+        })
+
+        eachPrice();
+
+        //价格计算
+        function eachPrice() {
+            var totalPrice=0;
+            var goodssum = 0;
+            if($('.buygoodslist').length>0)
+            {
+                $('.cart').each(function()
+                {
+                    if($(this).find('input[type="checkbox"]').is(':checked'))
+                    {
+                        totalPrice=Number(totalPrice)+Number($(this).find('.numsinput').val())*Number($(this).find('.numsinput').attr('data-price'));
+                        totalPrice=totalPrice.toFixed(2);
+                        goodssum +=Number($(this).find('.numsinput').val());
+                    }
+                });
+                $('.gobuy span').html(goodssum);
+                $('#totalPrice').html(totalPrice);
+            }
+            else {
+                $('#totalPrice').html(0.00);
+            }
+        }
+
+
+        $('.nreduce').click(function()
+        {
+            goodsNum=parseInt($(this).next().val());
+            id=$(this).attr('data-id');
+            if(!$.isNumeric(goodsNum)){
+                mui.alert('商品数量必须是数字');
+            }
+            //删除商品
+//            sum=sum+1;
+            goodsNum=goodsNum-1;
+            $(this).next().val(goodsNum);
+//            if(sum==n){
+//                $("#all").attr("checked","checked");
+//            }
+            if(goodsNum<1)
+            {
+                mui.alert('购买的商品数量必须大于等于1');
+                $(this).next().val(1);
+                return false;
+            }
+            alterNums(id,goodsNum);
+            eachPrice();
+
+            editgobuy();
+        });
+        $('.nadd').click(function(){
+            goodsNum=parseInt($(this).prev().val());
+            id=$(this).attr('data-id');
+            if(!$.isNumeric(goodsNum)){
+                mui.alert('商品数量必须是数字');
+            }
+            goodsNum=goodsNum+1;
+            $(this).prev().val(goodsNum);
+            if(goodsNum>parseInt($(this).prev().attr('data-nums')))
+            {
+                mui.alert('购买的商品数量超过库存');
+                $(this).prev().val($(this).prev().attr('data-nums'));
+                return false;
+            }
+            alterNums(id,goodsNum);
+            eachPrice();
+
+            editgobuy();
+        });
+
+        //单个商品勾选和取消 计算价格
+        $('.mui-disabled').click(function(){
+            id=$(this).attr('data-id');
+            del=$(this);
+            $.ajax({
+                url:"{:url('cartDel')}",
+                data:{id:id,__token__:'{$Request.token}'},
+                type:'post',
+                dataType:'json',
+                success:function(data)
+                {
+                    if(data.code==1)
+                    {
+                        mui.toast('删除成功');
+                        del.parent().remove();
+                        eachPrice();
+                    }
+                    else
+                    {
+                        mui.toast(data.msg);
+                    }
+                }
+            });
+
+            window.location.reload();
+        });
+        //全选和取消全选
+        $(".gdcheckbox").click(function () {
+            if(!$(this).is(':checked')) {
+                $(this).parents(".buygoodslist").find('.price_input').attr('disabled','disabled')
+                $(this).parents(".buygoodslist").find('.gg_input').attr('disabled','disabled')
+            }else{
+                $(this).parents(".buygoodslist").find('.price_input').removeAttr('disabled')
+                $(this).parents(".buygoodslist").find('.gg_input').removeAttr('disabled')
+            }
+            var eachPrice2 = eachPrice;
+            eachPrice2();
+        });
+//      $('.gdcheckbox').click(function(){
+//          var eachPrice2 = eachPrice;
+//          eachPrice2();
+//      });
+        //全选
+        /*$('#all').toggle(function() {
+         if($(this).is(':checked'))
+         {
+         $('.gdcheckbox').attr("checked",true);
+         eachPrice();
+         }
+         else
+         {
+         $('.gdcheckbox').removeAttr("checked");
+         eachPrice();
+         }
+         });*/
+        //支付
+        $("#all").click(function() {
+            if (this.checked == true) {
+                $(".gdcheckbox").each(function() {
+                    this.checked = true;
+                    eachPrice();
+                });
+            } else {
+                $(".gdcheckbox").each(function() {
+                    this.checked = false;
+                    eachPrice();
+                });
+            }
+        });
+        /*$(".gdcheckbox").click(function(){
+         $("#all").attr("checked",false);
+         });*/
+        //修改商品数量
+        $('.gobuy').click(function(){
+            if(Number($('#totalPrice').html())>0)
+            {
+                $("form").submit();
+            }
+            else
+            {
+                return false;
+
+            }
+        });
+
+        //编辑
+        function alterNums(id,nums)
+        {
+            $.ajax({
+                url:"{:url('alterNums')}",
+                data:{id:id,nums:nums,__token__:'{$Request.token}'},
+                type:'post',
+                dataType:'json',
+                success:function(data)
+                {
+                    if(data.code!=1)
+                    {
+                        mui.toast(data.msg);
+                    }
+                }
+            });
+        }
+        $("#OA_task li input").click(function() {
+            isAllChecked();
+        });
+        function isAllChecked(){
+            if( $("#OA_task li input[type='checkbox']").length == $("#OA_task li input[type='checkbox']:checked").length){
+                $("#all")[0].checked=true;
+            } else {
+                $("#all").removeAttr("checked");
+            }
+        }
+        //编辑删除
+        $("#editor").click(function () {
+            if ($(this).html() == "编辑") {
+                $(this).html("完成");
+                $(".cartprice").hide();
+                $(".gobuy").hide();
+
+                $(".sc").show();
+
+                $(".bottom").eq(1).show();
+                editgobuy2();
+            }else{
+                window.location.reload();
+                $(this).html("编辑");
+                $(".cartprice").show();
+                $(".gobuy").show();
+                $(".sc").hide();
+
+
+                $(".bottom").eq(1).hide();
+                editgobuy();
+
+            }
+        });
+        $('.sc').click(function(){
+            var garr = {};
+            $.each($('#OA_task >li'), function(m,n) {
+                var s=$(this).find("input[type=checkbox]:checked");
+                if (s&&s.length>0) {
+                    garr[m] = $(this).find('.goods_id').attr('data-id');
+                    $(this).remove();
+                }
+            });
+            $.ajax({
+                url:"{:url('cartDel')}",
+                data:{id:garr,__token__:'{$Request.token}'},
+                type:'post',
+                dataType:'json',
+                success:function(data)
+                {
+                    if(data.code==1){
+                        mui.toast('删除成功');
+                    }else{
+                        mui.toast(data.msg);
+                    }
+                }
+            });
+
+            eachPrice();
+            editgobuy();
+            var n=$('#OA_task >li').length;
+            var sum=0;
+            for(var i=0;i<n;i++){
+                var ins=$('#OA_task >li').eq(i).find("input[type=checkbox]:checked");
+                if(ins&&ins.length>0){
+                    sum=sum+1;
+                }
+            }
+            if(sum==n){
+                $("#all").attr("checked","checked");
+            }
+            if(sum==0){
+                $("#all").removeAttr("checked");
+
+            }
+        });
+
+
+        /*var n=$('#OA_task >li').length;
+         var sum=0;
+         for(var i=0;i<n;i++){
+         var ins=$('#OA_task >li').eq(i).find("input[type=checkbox]:checked");
+         if(ins&&ins.length>0){
+         }
+         }
+         if(sum==0){
+         $("#all").removeAttr("checked");
+         }*/
+    });
+    function editgobuy() {
+        //  var sums = 0;
+        // $.each($('#OA_task >li'), function() {
+        //      var s=$(this).find("input[type=checkbox]:checked");
+        //      if(s&&s.length>0)
+        //      {
+        //          // $('.numsinput').each(function(m,n){
+        //              sums = sums+Number($(s).val());
+        //          // })
+        //          // $('.gobuy span').html(sums);
+        //      }
+        //     // }
+        // });
+        //  // else {
+        //  $('.gobuy span').html(sums);
+    }
+
+    function editgobuy2() {
+        var n=$('#OA_task >li').length;
+        var sum=0;
+        for(var i=0;i<n;i++){
+            var ins=$('#OA_task >li').eq(i).find("input[type=checkbox]:checked");
+            if(ins&&ins.length>0){
+                sum=sum+1;
+            }
+        }
+        if(sum==n){
+            $("#all").attr("checked","checked");
+        }
+        if(sum==0){
+            $("#all").removeAttr("checked");
+        }
+    }
+
+    if( $("#OA_task li input[type='checkbox']").length == $("#OA_task li input[type='checkbox']:checked").length){
+        $("#all")[0].checked=true;
+    } else {
+        $("#all").removeAttr("checked");
+    }
+</script>
+</body>
+</html>

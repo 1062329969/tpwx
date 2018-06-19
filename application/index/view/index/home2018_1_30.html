@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <style>
+        .topsearch{ position: fixed; top:44px; height: 46px; margin: 0px; width: 100%; z-index:10001;border-top:1px solid #fbfafa; }
+        .xldj{height:87%; overflow: scroll;}
+        /*::-webkit-scrollbar{
+				  display:none;
+				}*/
+		/*.xlmenus ul{padding-bottom: 0;}*/
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">植发日记</h1>
+</header>
+
+<div class="topsearch"><div class="docsmleft {neq name='$gid' value='0'}on{/neq}" id="showArea"><span>全部院部</span><img src="{neq name='$gid' value='0'}{$Think.HTML_STATIC}/images/ld.png{else/}{$Think.HTML_STATIC}/images/dowojt.jpg{/neq}"><p class="on"></p></div><div class="docsmright {neq name='$pid' value='0'}on{/neq}" id="showPro">全部项目 <img src="{neq name='$pid' value='0'}{$Think.HTML_STATIC}/images/ld.png{else/}{$Think.HTML_STATIC}/images/dowojt.jpg{/neq}"><p class="on"></p></div><div class="docsmright"  id="showUpdate">最近更新 <img src="{neq name='$gid' value='0'}{$Think.HTML_STATIC}/images/ld.png{else/}{$Think.HTML_STATIC}/images/dowojt.jpg{/neq}"><p class="on"></p></div></div>
+<div style="height:90px;"></div>
+<!--跳到机器人那里的链接-->
+<!--onclick="location.href='{$Think.config.zoosnet}'"-->
+{volist name='$cases' id='vo'}
+<a href="{:url('detail',array('id'=>$vo.id))}">
+<div class="csmian" style="padding:0px;">
+     <div class="csmian" style="border:0px;">
+           <div class="csuser abtx">
+                  <img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">
+                  <p>{$vo.userInfo.wechaname}</p>
+                  <p class="ddtime">{:get_time($vo.create_time)}</p>
+            </div>
+            <div class="aliimg">
+                  <div class="albf"><img src="{$vo.pic}"><span>术前</span></div>
+                  <div class="alaf"><img src="{$vo.pic2}"><span>术后</span></div>
+            </div>
+            <p class="alinfs">{$vo.info}</p>
+            <div class="tags"><img src="{$Think.HTML_STATIC}/images/tags.png">{$vo.project.proname}</div>
+     </div>
+     <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/yan.png">浏览·{$vo.click}</div><div class="pl"><img src="{$Think.HTML_STATIC}/images/hl.png">评论·{$vo.comment}</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/adz.png">点赞·{$vo.praise}</div></div>
+</div>
+</a>
+
+{/volist}
+
+<!--下拉搜索等级-->
+<div class="xlmenus xldj" id="xldj">
+    <ul>
+        {volist name='$grade' id='vo'}
+        <li><a href="{:url('index',['gid'=>$vo.id])}">{$vo.gradename}<span {eq name="$vo.id" value="$gid"}class="mui-icon mui-icon-checkmarkempty"{/eq}></span></a></li>
+        {/volist}
+    </ul>
+</div>
+
+<!--下拉搜索服务项目-->
+<div class="xlmenus xlpro">
+    <ul>
+        {volist name='project' id='vo'}
+        <li><a href="{:url('index',['pid'=>$vo.id])}">{$vo.proname}<span {eq name="$vo.id" value="$pid"}class="mui-icon mui-icon-checkmarkempty"{/eq}></span></a></li>
+        {/volist}
+    </ul>
+</div>
+<!--下拉搜索最近更新-->
+<div class="xlmenus xlupdate">
+	<ul>
+		<li><a href="">最近更新<span class="mui-icon mui-icon-checkmarkempty"></span></a></li>
+		<li><a href="">人气日记<span class="mui-icon mui-icon-checkmarkempty"></span></a></li>
+		<li><a href="">最新回复<span class="mui-icon mui-icon-checkmarkempty"></span></a></li>
+	</ul>
+</div>
+
+
+<script type="text/javascript">
+	
+</script>
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">当前列表为空</div>
+<?php } ?>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/data-2.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$(function(){
+		//上传文字超过两行显示...
+		 var cctxt=$(".alinfs").text();
+	     var ssstr=cctxt.substr(0,49) + '...' ;
+        $(".alinfs").text(ssstr);
+	})
+	//点击顶部三个下拉菜单出现列表
+    $("#showArea").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }
+        $(this).children('img').attr('src','/static/index/images/ld.png');
+        $(this).addClass('on')
+        
+        $("#showPro").children('img').attr('src','/static/index/images/dowojt.jpg'); 
+        $("#showUpdate").children('img').attr('src','/static/index/images/dowojt.jpg');
+		$("#showUpdate").removeClass('on');
+		$("#showPro").removeClass('on');
+//		$(".xldj li").click(function(){
+//		   		var djVal=$(this).text();
+//		   		$("#showArea span").html(djVal)
+// 		})
+        if($('.xldj').css('display')=='block')
+        {
+            $('.xldj').hide();
+            $('.xlpro').hide();
+            $(".xlupdate").hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xldj').show();
+            $('.xlpro').hide();
+            $(".xlupdate").hide();
+        }
+        
+    });
+   
+
+    $("#showPro").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }
+        $(this).children('img').attr('src','/static/index/images/ld.png');
+        $(this).addClass('on');
+        $("#showArea").children('img').attr('src','/static/index/images/dowojt.jpg');
+        $("#showUpdate").children('img').attr('src','/static/index/images/dowojt.jpg');
+		$("#showUpdate").removeClass('on');        
+        $("#showArea").removeClass('on');
+        if($('.xlpro').css('display')=='block')
+        {
+            $('.xlpro').hide();
+            $('.xldj').hide();
+            $(".xlupdate").hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xlpro').show();
+            $('.xldj').hide();
+            $(".xlupdate").hide();
+        }
+
+    });
+    $("#showUpdate").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }
+        $(this).children('img').attr('src','/static/index/images/ld.png');
+        $(this).addClass('on');
+        $("#showArea").children('img').attr('src','/static/index/images/dowojt.jpg');
+        $("#showPro").children('img').attr('src','/static/index/images/dowojt.jpg');
+        $("#showPro").removeClass('on');
+        $("#showArea").removeClass('on');
+        if($('.xlupdate').css('display')=='block')
+        {
+            $('.xlpro').hide();
+            $('.xldj').hide();
+            $(".xlupdate").hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xlupdate').show();
+            $('.xldj').hide();
+            $(".xlpro").hide();
+        }
+
+    });
+	
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        pid:{$pid},
+                        hid:{$hid}
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+    
+</script>
+</body>
+</html>

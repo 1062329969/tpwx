@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问券调查</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        ul li{list-style:none;}
+        .ibox-title{border-width:0;}
+        .table{margin-bottom:0;}
+        .table-responsive{width:100%;border:1px solid #868686;margin-bottom:2%;}
+        .table-responsive h2{font-size:20px;line-hieght:22px;padding-left:1%;}
+        .table-responsive table thead{background:#c3c3c3;}
+        .table-responsive table tbody tr td{border-right:1px solid #D3D3D3;}
+        .table-responsive table tbody tr td:nth-of-type(3){border-right:none;}
+        .outer{width:80%;background:#c3c3c3;height:15px;position:relative;border-radius:10px;}
+        .inner{position:absolute;left:0;top:0;height:15px;background:#15B9DA;border-radius:10px;width:30%;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <div class="ibox-title">
+                        <h5>调研题目</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <?php
+                        foreach($list as $k=>$v ){
+                        ?>
+                        <div class="table-responsive">
+                            <h2>{$k+1}、{$v.qt_topic}【{if $v.qt_type==1}单选题{else /} 多选题 {/if}】</h2>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="50%">选项</th>
+                                        <th width="20%">选中数</th>
+                                        <th width="30%">各选项本题占比</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($v['option'] as $ko=>$vo){ ?>
+                                    <tr>
+                                        <td width="50%">{$vo.code}、{$vo.content}</td>
+                                        <td width="20%">{$vo.sum}</td>
+                                        <td width="30%">
+                                            <div class="outer pull-left">
+                                                <div class="inner" style="width:{$vo.proportion}%;"></div>
+                                            </div>
+                                            <div class="txt pull-left">{$vo.proportion}%</div>
+                                        </td>
+                                    </tr>
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <?php } ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script>
+$(function(){
+//    //外面的
+//    var a=100;
+//    //里面的
+//    var b=10;
+//    var d=b/a*100;
+//    $(".inner").width(d+"%");
+//    $(".txt").html(d+"%");
+})
+</script>
+</body>
+</html>

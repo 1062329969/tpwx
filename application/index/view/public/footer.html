@@ -1,0 +1,38 @@
+<div style="height:6rem;"></div>
+<link href="{$Think.HTML_STATIC}/css/layer.css" rel="stylesheet">
+<script src="{$Think.HTML_STATIC}/js/layer.js"></script>
+<div class="bottom">
+
+<div class="bmenu {if request()->controller()=="Index"} on{/if}" onclick="location.href='{:url('index/home')}'"><img src="{$Think.HTML_STATIC}/images/{eq name='controller' value='Index'}f10.png{else/}f5.png{/eq}"><p>首页</p></div>
+<div class="bmenu {if request()->controller()=="Track" || request()->controller()=="Haircare"} on{/if}" onclick="location.href='{:url('track/stage',['from'=>'bottom'])}'"><img src="{$Think.HTML_STATIC}/images/{if request()->controller()=="Track" || request()->controller()=="Haircare"}f11.png{else/}f6.png{/if}"><p>跟踪</p></div>
+<div class="bmenu {if request()->controller()=="Goods"} on{/if}" onclick="location.href='{:url('goods/index')}'"><img src="{$Think.HTML_STATIC}/images/{in name="controller" value="Goods"}f12.png{else/}f7.png{/in}"><p>商城</p></div>
+<div class="bmenu {if request()->controller()=="Forum"} on{/if}" onclick="location.href='{:url('forum/index')}'"><img src="{$Think.HTML_STATIC}/images/{in name="controller" value="Forum"}f13.png{else/}f8.png{/in}"><p>头条</p></div>
+<div class="bmenu {if request()->controller()=="My"} on{/if}" onclick="location.href='{:url('my/index')}'"><img src="{$Think.HTML_STATIC}/images/{in name="controller" value="My"}f14.png{else}f9.png{/in}"><p>我的</p><?php $count = getinformationcount($fansInfo['id']); if($count){ ?><span> </span><?php } ?></div>
+
+</div>
+<style>
+    .tmenu{ padding-top: 1rem; border-top:solid 1px #eeeeee; overflow: hidden; position: relative; background: #fff; height:110px;}
+    .tmenu .ming{ float: left; width: 25%; text-align: center;}
+    .tmenu .ming img{ width:68%}
+    .mclose { width:12%; position: absolute; bottom: 0px; left: 45%;}
+    .mclose img{ width: 100%;}
+    body .layui-m-layer .layui-m-layer-footer{ width: 100%; bottom: 0px;}
+    .layui-m-layer-footer .layui-m-layercont{ background: none; padding: 20px 0 0 0}
+</style>
+<script>
+    //底部提示
+    function tc()
+    {
+        layer.open({
+                    content: '<div class="tmenu"><div class="ming"><a href="{:url('cases/index')}"><img src="{$Think.HTML_STATIC}/images/t2.png"></a></div><div class="ming"><a href="{:url('video/index')}"><img src="{$Think.HTML_STATIC}/images/t3.png"></a></div><div class="ming"><a href="{:url('ask/add')}"><img src="{$Think.HTML_STATIC}/images/t4.png"></a></div><div class="ming"><a href="{$Think.config.zoosnet}"><img src="{$Think.HTML_STATIC}/images/t1.png"></a></div><div class="mclose"><img src="{$Think.HTML_STATIC}/images/close.png" onclick="tclose()"></div></div>'
+            ,skin: 'footer'
+    });
+    }
+
+    function tclose() {
+        layer.closeAll();
+    }
+
+
+
+</script>

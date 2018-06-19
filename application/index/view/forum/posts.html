@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/case1.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/case2.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+
+    <header id="header" class="mui-bar">
+        <a class="mui-action-back  mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+        <h1 class="mui-title">发帖</h1>
+        <a ><button id="submits" class="mui-pull-right">提交</button></a>
+        </header>
+        <div style="height: 4.4rem;"></div>
+        <div class="mui-content">
+            <ul>
+                <li><input id="titles"  class="title" placeholder="标题" /></li>
+                <!--文本内容-->
+                <li><div id="info" contenteditable="true" class="txtare" ></div></li>
+            </ul>
+        </div>
+        <div class="footer">
+            <div class="mui-pull-right">
+                <span id="spans"><img src="{$Think.HTML_STATIC}/images/16.png"/> 选择版块</span>
+                <span><img src="{$Think.HTML_STATIC}/images/17.png"/> 插入图片 <input type="file" accept="image/*" id="file"/></span>
+            </div>
+        </div>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/data-2.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    //上传照片
+    $("#file").change(function(){
+        drawTempPhoto();
+    });
+    //绘制照片
+    function drawTempPhoto() {
+        //检验是否为图像文件
+        var file = document.getElementById("file").files[0];
+        if(!/image\/\w+/.test(file.type)){
+            alert("请选择图片文件。")
+            return false;
+        }
+        var reader = new FileReader();
+        // 将文件的格式以Data URL形式读入页面
+        reader.readAsDataURL(file)
+        //等待图片加载完成
+        reader.onload = function (e) {
+            //预览效果
+            //加载图片，此处的this.result为base64格式
+            $(".txtare").append("<img src='"+this.result+"'/>");
+//      $(".upload").before("<div></div>")
+            $("#file").val("")
+
+        }
+    }
+
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#submits").click(function(){
+            var info = $("#info").text();
+            var titles = $("#titles").val();
+                $.ajax({
+                    type:"post",
+                    url:"{:url('postss')}",
+                    dataType:"json",
+                    data:{text:info,foname:titles},
+                    success:function(data){
+                        if(data!==""){
+                            alert('发帖成功');window.location.href="{:url('index')}";
+                        }else{
+                            alert("no");
+                        }
+                    }
+                });
+        });
+    });
+    $("#spans").on('click',function () {
+        window.location.href="/forum/bbss.html";
+    })
+</script>
+</body>
+</html>

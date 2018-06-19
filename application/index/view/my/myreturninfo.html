@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.sitename}</title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+	<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+	<link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+	<link href="{$Think.HTML_STATIC}/css/after-sale1.css" rel="stylesheet" type="text/css">
+	<style>
+		/*服务类型*/
+		.cjservice-style p{margin-bottom: 0;color: #333333;}
+		.cjservice-style p span{color: #999999;font-size: 1.3rem;}
+		/*申请状态*/
+		.cjreturn-state{padding: 2rem 1.5rem;background: white;width: 100%;margin-bottom: 1rem;}
+		.cjreturn-state img{width: 1.5rem;height: 1.5rem;margin-right: 0.45rem;}
+		.cjreturn-state .cjreturn-stating{color: #15bbdc;font-size: 1.6rem;margin-bottom: 1.25rem;}
+		.cjreturn-state .cjreturn-state-complete{color: #333333;font-size: 1.6rem;margin-bottom: 1.25rem;}
+		.cjreturn-state .cjreturn-state-tips{color: #999999;font-size: 1.3rem;}
+		.cjcarful{padding-left: 1.7rem;}
+		/*内容*/
+		.cjservice-content{margin: 0.9rem 0 0.95rem;background: white;width: 100%;}
+		.cjservice-content>div:last-of-type{padding: 1.5rem 0;}
+		.cjpt{padding-bottom: 4.4rem;}
+		.cjservice-num{border-bottom: 0.05rem solid #F0F0F0;}
+		.cjservice-num span{line-height: 5.35rem;}
+		.cjservice-num span.mui-pull-left{font-size: 1.4rem;color: #4e4e4e;margin-left: 1rem;}
+		.cjservice-num span.mui-pull-right{font-size: 1.2rem;color: #999999;margin-right: 1rem;}
+		.cjservice-list{width: 100%;padding: 1.5rem 0 1.95rem;border-bottom: 0.05rem solid #F0F0F0;}
+		.cjpt{border: none;}
+		.cjservice-list>div:nth-of-type(2){width: 62%;}
+		.cjservice-list>div:first-of-type{width:27.4666%;margin-left: 2.66%;margin-right: 2%;}
+		.cjservice-list>div:first-of-type img{width: 100%;}
+		.cjservice-list>div:nth-of-type(2)>div:first-of-type{font-size: 1.3rem;color: #333333;margin: 1rem 0 0;}
+		.cjservice-list>div:nth-of-type(2)>div:last-of-type span:first-of-type{font-size: 1.2rem;color: #999999;}
+		/*申请原因*/
+		.cjreason .mui-pull-left span{color: #666666;}
+		.cjissue-content{width: 100%;border-radius: 0.5rem;background: #F0F0F0;color: #9f9f9f;padding: 1.5rem;height: 11rem;margin-bottom: 1.5rem;}
+		.appliance li{float: left;}
+		/*地址信息*/
+		.cjaddress{background: white;width: 100%;}
+		.cjaddress-title{padding: 1.35rem 0 0.85rem 1rem;border-bottom: 0.05rem solid #F0F0F0;font-size: 1.4rem;color: #333333;}
+		.cjaddress-personl{padding: 1rem;line-height: 2rem;1.2rem;color: #666666;}
+	</style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+	<h1 class="mui-title">售后服务</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+
+<?php
+		if($myreturninfo['gog']['status']==5){
+	?>
+<ul class="cjreturn-state">
+	<li class="cjreturn-state-complete"><img src="/static/index/images/34.png">退货完成</li>
+	<li class="cjreturn-state-tips cjcarful">货款将原路返回，请留意。</li>
+</ul>
+<?php
+		}elseif($myreturninfo['return_auditstate']==1){
+	?>
+<ul class="cjreturn-state">
+	<li class="cjreturn-state-complete">售后申请审核通过，待寄回</li>
+	<li class="cjreturn-state-tips">请您将完整药品及包装（药品外包装、说明书）发票原件、 发货凭证等一并退回。</li>
+</ul>
+<?php
+		}elseif($myreturninfo['return_auditstate']==2){
+	?>
+<ul class="cjreturn-state">
+	<li class="cjreturn-state-no">售后申请审核不通过，请重新提交</li>
+	<li class="cjreturn-state-tips cjcarful1 ">我们会在3个工作日（不包含节假日）内完成审核，请留意</li>
+</ul>
+<?php
+		}else{
+	?>
+<ul class="cjreturn-state">
+	<li class="cjreturn-stating">申请提交成功，审核中...</li>
+	<li class="cjreturn-state-tips">我们会尽快审核，请留意</li>
+</ul>
+<?php
+		}
+	?>
+<?php
+	if($myreturninfo['return_auditstate']==2){
+?>
+<div class="cjaddress">
+	<div class="cjaddress-title">
+		审核意见
+	</div>
+	<ul class="cjaddress-personl">
+		<li>您的提交的售后申请不符合退货条件，审核不通过。如有疑 问请及时联系在线客服或重新提交售后服务。</li>
+	</ul>
+</div>
+<div class="cjservice-content">
+	<div class="cjservice-num clearfix">
+			<span class="mui-pull-left">
+				服务单号 : {$myreturninfo.return_code}
+			</span>
+		<span class="mui-pull-right">
+				下单时间：{$myreturninfo.return_addtime|date='Y-m-d H:i',###}
+			</span>
+	</div>
+	<!--内容1-->
+	<div class="cjservice-list clearfix">
+		<div class="mui-pull-left">
+			<img src="{$myreturninfo.g.pic}"/>
+		</div>
+		<div class="mui-pull-left">
+			<div class="cjintro">
+				{$myreturninfo.g.gdname}
+			</div>
+			<div class="cjservice-list-drug-num">
+				<span class="mui-pull-left">数量：{$myreturninfo.gog.nums}</span>
+			</div>
+		</div>
+	</div>
+</div>
+<?php
+	}else{
+?>
+<div class="cjservice-style">
+	<p>服务类型：
+		<span>
+				{if $myreturninfo.return_stype==1}
+					退货
+				{elseif $myreturninfo.return_stype==2 /}
+					换货
+				{else /}
+					补发商品
+				{/if}
+			</span>
+	</p>
+</div>
+<?php
+	}
+?>
+
+<?php
+	if($myreturninfo['return_auditstate']==2){
+?>
+<div class="cjbtn">
+	<span class="cjbtn-custom" onclick='window.location.href="https://www.sobot.com/chat/h5/index.html?sysNum=4bd44e32f01b4e50b69273c9626193c4&source=1"'>在线客服</span>
+	<span class="cjbtn-again" onclick='window.location.href="{:url('goods/refund',['order_id'=>$order_id,'goods_order_goods'=>$goods_order_goods,'gid'=>$gid,'returntype'=>2,'return_id'=>$return_id])}"'>
+	重新提交
+	</span>
+</div>
+<?php
+	}else{
+?>
+<div class="cjservice-content">
+	<div class="cjservice-num clearfix">
+			<span class="mui-pull-left">
+				服务单号 : {$myreturninfo.return_code}
+			</span>
+		<span class="mui-pull-right">
+				下单时间：{$myreturninfo.return_addtime|date='Y-m-d H:i',###}
+			</span>
+	</div>
+	<!--内容1-->
+	<div class="cjservice-list clearfix">
+		<div class="mui-pull-left">
+			<img src="{$myreturninfo.g.pic}"/>
+		</div>
+		<div class="mui-pull-left">
+			<div class="cjintro">
+				{$myreturninfo.g.gdname}
+			</div>
+			<div class="cjservice-list-drug-num">
+				<span class="mui-pull-left">数量：{$myreturninfo.gog.nums}</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="cjreason clearfix">
+	<span class="mui-pull-left">申请原因：<span>
+		{switch name="$myreturninfo.return_reasontype"}
+        {case value="0"}请选择退款原因{/case}
+        {case value="1"}订单不能按预计时间送达{/case}
+        {case value="2"}操作有误（商品、地址等选错）{/case}
+        {case value="3"}重复下单/误下单{/case}
+        {case value="4"}其他渠道价格更低{/case}
+        {case value="5"}不想买了{/case}
+        {case value="6"}其他原因{/case}
+        {/switch}
+	</span></span>
+</div>
+<div class="cjissue">
+	<p>备注</p>
+	<div class="cjissue-content">
+		{$myreturninfo.return_content}
+	</div>
+	<ul class="appliance clearfix">
+		<?php
+			$imgarr = json_decode($myreturninfo['return_img']);
+			if($imgarr){
+				foreach ($imgarr as $key => $value) {
+		?>
+		<li>
+			<img src="{$value}"/>
+		</li>
+		<?php
+				}
+			}
+		?>
+	</ul>
+</div>
+<div class="cjtip">
+	售后专员可能与您电话沟通（下单手机），请保持手机畅通
+</div>
+
+<?php
+	}
+?>
+
+
+<p class="mui-backdrop" style="display: none;" ></p>
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+.show_img img {width: 100px}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{$data?'修改':'添加'}广告</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('ad_index')}">返回列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('ad_add')}">
+                            <input name="id" value="{$data.id}" type="hidden">
+                          
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>广告标题：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入广告标题" name="title" value="{$data.title}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>广告图片：</label>
+
+                                <div class="col-sm-10">
+                                     <input type="file" id="upload" accept="image/png,image/gif,image/jpg,image/jpeg" />
+                                     <input name="img" type="hidden" value="{$data.img}" />
+                                     <div class="show_img">
+                                        {if condition="$data['img']"}
+                                         <img src="{$data['img']}"  />
+                                         {/if}
+
+                                     </div>
+                                </div> 
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>所属分类：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="cate_id" required>
+                                        <option value="">--请选择--</option> 
+                                        {volist name="$cate" id="vo"}
+                                        <option {eq name="$data.cate_id" value="$vo.cate_id"}selected{/eq} value="{$vo.cate_id}">{$vo.cate_name}</option> 
+                                        {/volist}
+                                    </select>
+                                </div> 
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="sort_order" value="{$data.sort_order?:0}">
+                                </div>
+                            </div>
+
+                             <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否显示：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="radio"  name="status" value="1" checked="checked">显示&nbsp;&nbsp;
+                                    <input type="radio"  name="status" value="0" {eq name="$data.status" value="0"}checked="checked"{/eq} >不显示
+                                </div>
+                            </div>
+                        
+                           
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/laydate/laydate.js"></script>
+    <script type="text/javascript">
+        $('#upload').on('change' , function(){
+            readFile(this,{
+                ajax : true,
+                ajaxUrl : '{:url('adUpload')}',
+                success : function(res){
+                    var res = $.parseJSON(res);
+                    if(res.error > 0){
+                        alert(res.msg);
+                    }else{
+                        var img = res.img;
+                        $('input[name="img"]').val(img);
+                        $('.show_img').html('<img src="'+img+'"  />')
+                    }
+                    
+                }
+            });
+        });
+
+
+        function readFile(obj,options){   
+            options.ajax = options.ajax || false;
+            options.ajaxUrl = options.ajaxUrl || '/Index/ajaxUpload';
+            options.ext = options.ext || 'jpeg,png,jpg';
+            options.size = options.size || 2;
+            var file = obj.files[0];
+            var size = file.size;
+            var zj = options.size * 1024 * 1024;
+            var fileType = file.type.split('/')[1];
+
+            var errorMsg = '';
+
+            if( typeof options.before == 'function' ){
+                if( !options.before() ){
+                    return false;
+                }
+            }
+
+            if( options.ext.indexOf(fileType ) == -1){
+                errorMsg = '上传文件类型不允许,支持'+options.ext;
+            }
+
+            if(zj < size){
+                errorMsg ='上传文件大小不能超过'+options.size+'M';
+            }
+
+            if(errorMsg != ''){
+                if(typeof options.error == 'function'){
+                    options.error(errorMsg);
+                }else{ 
+                    alert(errorMsg);
+                }
+                obj.value="";
+                return false;
+            } 
+            var reader = new FileReader();   
+            reader.readAsDataURL(file);   
+            reader.onload = function(e){ 
+                if(typeof options.success == 'function')   options.seccess = options.success;
+                if( options.ajax == true){
+                 
+                    $.post(options.ajaxUrl,{baseData:this.result},function(res){
+                        $('.upload_tip').hide();
+                        options.seccess(res);
+                     
+                    });
+                }else{
+                    options.seccess(this.result);
+                }
+            }   
+        }   
+    </script>
+   
+</script>
+
+</body>
+</html>

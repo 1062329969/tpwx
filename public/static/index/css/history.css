@@ -1,0 +1,97 @@
+﻿body{
+    margin: 0px
+}
+.history {
+	text-align: center;
+}
+
+#idNumber1 {
+	width: 77%;
+    overflow: hidden;
+    text-align: left;
+    height: 2rem;
+
+    border-radius: 1rem;
+
+    font-size: 14px;
+
+	background:#f0f0f0;
+
+	margin-top:-1rem;
+
+	position: absolute;
+	top:-0.3rem;
+
+
+	}
+
+.delete:after {
+	clear: both;
+	content: '.';
+	display: block;
+	width: 0;
+	height: 0;
+	visibility: hidden;
+}
+
+.delete>div {
+	width:100%;
+	height: 4rem;
+	border-bottom: 1px solid #eaeaea;
+	background: #ffffff;
+	text-align: left;
+	padding-left:1rem;
+
+
+	line-height:4rem;
+	font-size: 1.3rem;
+
+	color:#999999;
+}
+
+
+#idNumber1 input[type="image"]{
+	width: 1.16rem;height: 1.16rem;
+	float: left;
+	margin-right: .42rem;
+}
+#idNumber1 input[type="text"]{
+	height: 1.16rem;
+	line-height: 1.16rem;
+	float: left;
+	color: #878787;
+	text-align: left;
+	font-size: .62rem;
+	background: none;
+}
+
+p{
+    width: 100%;
+
+    overflow: hidden;
+    clear: both;
+
+    background: #fff;
+    text-align: left;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    margin-top: -.05rem;
+
+
+}
+
+input::-webkit-input-placeholder {
+	color: #cecece;font-size:1.2rem;
+}
+input:-ms-input-placeholder {
+	color: #cecece;font-size:1.2rem;
+}
+input:-moz-placeholder {
+	color: #cecece;font-size:1.2rem;
+}
+input::-moz-placeholder {
+	color: #cecece;font-size:1.2rem;
+}
+
+
+

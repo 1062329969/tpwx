@@ -1,0 +1,42 @@
+@import url(style.css);
+
+.fmfouce{ margin-top: 10px; width: 100%; overflow: hidden;}
+.fmfouce img{ width: 100%;}
+
+
+.fmlist{ margin-top: 10px; background: #fff; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; overflow: hidden;}
+.cswho,.csinfos,.fmimg,.ainfo{ padding:8px 10px; overflow: hidden;}
+.cswho img{ float: left; width: 15%; border-radius: 50%;}
+.cswho p{ float: right; padding-top:1%; width: 82%; color: #cccccc; text-align: right;}
+.cswho p font{ float: left; color: #999999;}
+.csinfos{ color: #333333;}
+.fmimg{ margin:0px 0px 10px;}
+.fmimg img{ float: left; width:32%; margin-right:1.33%;}
+.fmimg img + img +img{ margin-right: 0px;}
+
+.ainfo{ overflow: hidden; padding:10px 20px 10px; border-top: 1px solid #eaeaea; }
+.spi1,.spi2,.spi3{ float: left; width:33.33%; line-height:30px; color: #a6a6a6; font-size: 14px;font-family: Georgia;}
+.spi1 img,.spi2 img,.spi3 img{margin-right:5px; height:16px;}
+.spi1{ text-align: left;}
+.spi2{ text-align: center;}
+.spi3{ text-align: right;}
+.spi3[data-id='1']{ color: #2d7fbb}
+
+
+.fmmain{ margin-top: 10px; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; background: #fff}
+.fmmmm{padding: 15px; }
+.ffbr{ overflow: hidden;}
+.ffbin{ float: left; width: 50%;}
+.ffbin img{ float: left; margin-right:10px; width:30%; border-radius: 50%;}
+.ffbin p{ padding-top:8%; color: #999999;}
+.ffzxt{ float: right;}
+.ffzxt p{ margin-bottom:3px; color: #999999}
+.ffzxt p.ffzxzx{ background: #0083ce; color: #fff; width:70px; height:28px; line-height:28px; text-align: center; border-radius: 3px;}
+.ffzxt p.ffzxzx a{ color: #fff}
+.ffcontent{ margin-top: 10px; line-height:25px; color: #333333; font-size: 16px;}
+.ffcontent p{ margin-bottom:10px;}
+.ffcontent img{ width: 100%;  margin-bottom:10px;}
+
+
+
+

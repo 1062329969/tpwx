@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+        #table{width:100%;display:-webkit-box;-webkit-box-pack:justify;background: #fff;padding:0.8rem 0;border-bottom:1px solid #e6e6e6;}
+        #table li{width:33%;}
+        #table li{border-right:1px solid #e6e6e6;}
+        #table li:nth-of-type(3){border-right:none;}
+        #table li p{width:100%;margin:0 auto;text-align:center;font-size: 1.6rem;}
+        .appointment a{color:#666;}
+        .appointment h1{color:#666;}
+        .applist ul li{padding:0;}
+        .applist ul li p a{color:#666;}
+        #appcontent{background:#ffffff;}
+        #appcontent li{padding-left:2.6667%;color:#505050;font-size:1.4rem;line-height:2.5rem;}
+        #appcontent li span{color:#999999;}
+        #appcontent li input[type=button]:disabled{opacity:1;}
+        mui-btn, button, input[type=button], input[type=reset], input[type=submit]{padding:0.3rem 0;width:19.8667%;border-radius:20px;border:1px solid #999999;text-align:center;color:#999999;font-size:1.4rem;}
+        #appcontent input[type=button]{margin-top:-10%;}
+        #all{width:44%;float:left;margin-left:54.333%;display:-webkit-box;-webkit-box-pack:justify;margin-top:-5%;}
+        #all input{display:block;width:48%;}
+        #appcontent .mui-table-view-cell:after{left:0;}
+        .applist ul li p.active a{color:#15bbdc;}
+        .abtn1{margin-left:52%;}
+        
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        #header h1.mui-title{color: #333;font-weight: normal; line-height: 4.4rem;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+      	.mui-bar-nav~.mui-content{padding-top: 0;}
+      	input[type=button]{padding: 0.5rem 0;}
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="window.location.href='{:url('my/index')}'"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">我的预约</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="mui-content applist">
+    <ul id="table">
+        <li><p {if $type==1}class="active"{/if}><a href="{:url('index',['type'=>1])}">全部</a></p></li>
+        <li><p {if $type==2}class="active"{/if}><a href="{:url('index',['type'=>2])}">已预约</a></p></li>
+        <li><p {if $type==3}class="active"{/if}><a href="{:url('index',['type'=>3])}">已取消</a></p></li>
+    </ul>
+    <ul id="appcontent">
+        {volist name='list' id='vo'}
+        <li class="mui-table-view-cell">
+            就诊人：<span>{$vo.res_name}</span><br>
+            手机号码：<span>{$vo.res_tel}</span><br>
+            {if 0==1}
+            预约项目：<span>{$pro[$vo.res_project]}</span><br>
+            {/if}
+            预约院部：<span>{$hlist[$vo.res_hid]}</span><br>
+            就诊时间：<span>{$vo.res_time|date='Y-m-d',###}</span><br>
+            {php}
+            if($vo['res_state']==3){
+            {/php}
+            <div id="all">
+                <input type="button" value="已取消" disabled="disabled" class="abtn abtn1">
+            </div>
+            {php}
+            }elseif($vo['res_time']+86400<time() && $vo['res_state']!=3){
+            {/php}
+            <div id="all">
+                <input type="button" value="已作废" disabled="disabled" class="abtn abtn1">
+            </div>
+            {php}
+            }elseif(
+            ($vo['res_time']+86400>time()) ||
+            ($vo['res_time']==time() && date('G')<12 && $vo['res_ampm']==1)||
+            ($vo['res_time']==time() && date('G')>12 && $vo['res_ampm']==2)
+            ){
+            {/php}
+            <div id="all">
+                <input type="button" value="已预约" disabled="disabled" class="abtn" style="border-color:#60C1E6;color:#60C1E6">
+                <input type="button" value="取消" onclick="del({$vo.res_id})" class="abtn">
+            </div>
+            {php}
+            }else{
+            {/php}
+            <div id="all">
+                <input type="button" value="已过期" disabled="disabled" class="abtn abtn1">
+            </div>
+            {php}
+            }
+            {/php}
+        </li>
+        {/volist}
+    </ul>
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+
+<script src="/static/style/js/plugins/layer/layer.js"></script>
+<script type="text/javascript">
+    function del(id){
+        confirm("确定要取消预约吗？");
+        $.ajax({
+            type: "post",
+            url: "{:url('del')}",
+            data: {id:id},
+            dataType: "json",
+            success: function(data){
+
+                if(data.code==1)
+                {
+                    window.location.reload();
+                }
+                else
+                {
+                    layer.msg('删除失败');
+                }
+            }
+        });
+    }
+    $(function () {
+        backH();
+        window.addEventListener('popstate',function(e){
+            window.location.href="{:url('my/index')}"
+        },false);
+
+
+        function backH(){
+            var state = {
+                        title:'title',
+                        url:'{:url('my/index')}'
+        };
+            window.history.pushState(state,'title','#');
+        }
+    })
+</script>
+{include file="public/global_footer" /}
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>管理项目</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="javascript:;" onclick="add();">添加词汇</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>名称</th>
+                                        <th>添加时间</th>
+                                        <th>修改时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name='$list' id='vo'}
+                                    <tr>
+                                        <td>{$vo.b_content}</td>
+                                        <td>{$vo.b_addtime|date='Y-m-d H:i:s',###}</td>
+                                        <td>{$vo.b_updatetime|date='Y-m-d H:i:s',###}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline btn-info alter" onclick="edit({$vo.b_id},'{$vo.b_content}')" data-id='{$vo.b_id}'>编辑</button>
+                                            <button type="button" class="btn btn-outline btn-info del" onclick="del(this,{$vo.b_id})" data-id='{$vo.b_id}'>删除</button>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                            {$list->render()} <div class="pagesc">共计：{$list->total()}条</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+		 function add() {
+             layer.prompt({
+                 formType: 2,
+                 title: '请输入值',
+                 area: ['800px', '350px'] //自定义文本域宽高
+             }, function(value, index, elem){
+                 $.ajax({
+                     type: 'get',
+                     url: "{:url('add')}",
+                     data:{vals:value},
+                     dataType: "json",
+                     success: function(data){
+                         if(data.code==1){
+                             layer.msg('添加成功');
+                             setTimeout(window.location.reload(),10000);
+                         }else{
+                             layer.msg('添加失败');
+                         }
+                     }
+                 });
+                 layer.close(index);
+             });
+
+         }
+         function edit(bid,content) {
+             layer.prompt({
+                 formType: 2,
+                 value: content,
+                 title: '请输入值',
+                 area: ['800px', '350px'] //自定义文本域宽高
+             }, function(value, index, elem){
+                 $.ajax({
+                     type: 'get',
+                     url: "{:url('alter')}",
+                     data:{vals:value,bid:bid},
+                     dataType: "json",
+                     success: function(data){
+                         if(data.code==1){
+                             layer.msg('修改成功');
+                             setTimeout(window.location.reload(),10000);
+                         }else{
+                             layer.msg('修改失败');
+                         }
+                     }
+                 });
+                 layer.close(index);
+             });
+         }
+         function del(_self,bid) {
+             layer.confirm('确定删除吗?', function(index){
+                 $.ajax({
+                     type: 'get',
+                     url: "{:url('del')}",
+                     data:{bid:bid},
+                     dataType: "json",
+                     success: function(data){
+                         if(data.code==1){
+                             layer.msg('修改成功');
+                             $(_self).parents('tr').remove();
+                         }else{
+                             layer.msg('修改失败');
+                         }
+                     }
+                 });
+                 layer.close(index);
+             });
+         }
+    </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/after-sale1.css" rel="stylesheet" type="text/css">
+    <style>
+    	/*服务类型*/
+    	.cjservice-style p{margin-bottom: 0;color: #333333;}
+    	.cjservice-style p span{color: #999999;font-size: 1.3rem;}
+    	/*申请状态*/
+    	.cjreturn-state{padding: 2rem 1.5rem;background: white;width: 100%;margin-bottom: 1rem;}
+    	.cjreturn-state img{width: 1.5rem;height: 1.5rem;margin-right: 0.45rem;}
+    	.cjreturn-state .cjreturn-stating{color: #15bbdc;font-size: 1.6rem;margin-bottom: 1.25rem;}
+    	.cjreturn-state .cjreturn-state-complete{color: #333333;font-size: 1.6rem;margin-bottom: 1.25rem;}
+    	.cjreturn-state .cjreturn-state-tips{color: #999999;font-size: 1.3rem;}
+    	.cjcarful{padding-left: 1.7rem;}
+		/*内容*/
+		.cjservice-content{margin: 0.9rem 0 0.95rem;background: white;width: 100%;}
+		.cjservice-content>div:last-of-type{padding: 1.5rem 0;}
+		.cjpt{padding-bottom: 4.4rem;}
+		.cjservice-num{border-bottom: 0.05rem solid #F0F0F0;}
+		.cjservice-num span{line-height: 5.35rem;}
+		.cjservice-num span.mui-pull-left{font-size: 1.4rem;color: #4e4e4e;margin-left: 1rem;}
+		.cjservice-num span.mui-pull-right{font-size: 1.2rem;color: #999999;margin-right: 1rem;}
+		.cjservice-list{width: 100%;padding: 1.5rem 0 1.95rem;border-bottom: 0.05rem solid #F0F0F0;}
+		.cjpt{border: none;}
+		.cjservice-list>div:nth-of-type(2){width: 62%;}
+		.cjservice-list>div:first-of-type{width:27.4666%;margin-left: 2.66%;margin-right: 2%;}
+		.cjservice-list>div:first-of-type img{width: 100%;}
+		.cjservice-list>div:nth-of-type(2)>div:first-of-type{font-size: 1.3rem;color: #333333;margin: 1rem 0 0;}
+		.cjservice-list>div:nth-of-type(2)>div:last-of-type span:first-of-type{font-size: 1.2rem;color: #999999;}
+		/*申请原因*/
+		.cjreason .mui-pull-left span{color: #666666;}
+		.cjissue-content{width: 100%;border-radius: 0.5rem;background: #F0F0F0;color: #9f9f9f;padding: 1.5rem;height: 11rem;margin-bottom: 1.5rem;}
+		.appliance li{float: left;}
+		/*地址信息*/
+		.cjaddress{background: white;width: 100%;}
+		.cjaddress-title{padding: 1.35rem 0 0.85rem 1rem;border-bottom: 0.05rem solid #F0F0F0;font-size: 1.4rem;color: #333333;}
+		.cjaddress-personl{padding: 1rem;line-height: 2rem;1.2rem;color: #666666;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">售后服务</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<ul class="cjreturn-state">
+	<li class="cjreturn-state-complete">售后申请审核通过，待寄回</li>
+	<li class="cjreturn-state-tips">请您将完整药品及包装（药品外包装、说明书）发票原件、 发货凭证等一并退回。</li>
+</ul>
+<div class="cjservice-content">
+	<div class="cjservice-num clearfix">
+		<span class="mui-pull-left">
+			服务单号 : 6960171354852
+		</span>
+		<span class="mui-pull-right">
+			下单时间：2018/01/23 
+		</span>
+	</div>
+	<!--内容1-->
+	<div class="cjservice-list clearfix">
+		<div class="mui-pull-left">
+			<img src="{$Think.HTML_STATIC}/images/31.jpg"/>
+		</div>
+		<div class="mui-pull-left">
+			<div class="cjintro">
+				史云逊正品生姜无硅油落发专用洗发水护 发素套装控油清洁头发洗露
+			</div>
+			<div class="cjservice-list-drug-num">
+				<span class="mui-pull-left">数量：1</span>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="cjaddress">
+	<div class="cjaddress-title">
+		退货地址
+	</div>
+	<ul class="cjaddress-personl">
+		<li>收货人：李先生</li>
+		<li>联系电话：13344455511</li>
+		<li>退货地址：北京市朝阳区甘露园20号核建大厦8层植发库房</li>
+	</ul>
+</div>
+<p class="mui-backdrop" style="display: none;" ></p>
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+
+</script>
+</body>
+</html>

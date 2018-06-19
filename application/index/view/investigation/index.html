@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问卷调查</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/add.css">
+    <style>
+        .mui-bar-nav~.mui-content{ padding:55px 1.5rem 1.5rem;}
+        .dctitle{ color: #333333; font-size: 1.4rem;}
+        .dccontent{ padding:8px 0px; line-height: 2.8rem; color: #666666; overflow:hidden;}
+        .dccontent input{ margin:5px 10px 5px 18px;}
+        .tishi{ padding: 5px 0px; color: #888888; line-height: 24px;  font-size: 1.7rem; text-align: center;}
+        .dccontent input{ float: left;}
+        .dccontent font{ float: left;}
+        .mui-checkbox input[type=checkbox], .mui-radio input[type=radio]{ position:relative; width:19px; top: -1px; height:19px;}
+        .mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{ font-size: 20px;}
+        .mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio]{ left: 0px;}
+        #subbutt{ width: 80%; margin: 0 auto; height:4rem; line-height:4rem; border-radius: 5px; text-align:center; background:#0875cc; color: #fff}
+        .form1, .form2{ border: none;}
+        #loading{ height: 100%; margin-top: 0px;}
+        .webuploader-pick{ padding: 5px;}
+        #fileList{ overflow: hidden;}
+        .gspl{ width:100%; font-size: 1.6rem; overflow: hidden; margin-bottom: 10px; text-align: center;}
+        .pjxx{ display: inline-block; font-size:2.5rem;}
+        .pjxx font{ padding: 0 1rem 0 0;color:red;}
+        .pjxx{ margin-right: 10px;}
+        .xindex{ display: inline-block; line-height:40px; margin-bottom: 1rem;}
+        .pjxx font img{ width:24px;}
+    </style>
+</head>
+<body class="bodyb">
+
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="window.history.go(-1);"></a>
+    <h1 class="mui-title">{$investigation.title}</h1>
+</header>
+
+<div class="mui-content" style="background: #fff">
+
+    <p class="tishi">请您对我们的整体服务做出评价，谢谢！</p>
+    <div class="gspl">
+        <div class="pjxx"><font data-id="1"><img src="{$Think.HTML_STATIC}/images/xxxx2.png"></font><font data-id="2"><img src="{$Think.HTML_STATIC}/images/xxxx2.png"></font><font data-id="3"><img src="{$Think.HTML_STATIC}/images/xxxx2.png"></font><font data-id="4"><img src="{$Think.HTML_STATIC}/images/xxxx2.png"></font><font data-id="5"><img src="{$Think.HTML_STATIC}/images/xxxx2.png"></font></div>
+        <div class="xindex"><font>0</font>星</div>
+    </div>
+
+
+     {volist name='investigationOptionModel' id='vo'}
+            <div class="dctitle">{$i}、{$vo.title}{eq name='$vo.tid' value='1'}(多选){/eq}</div>
+            <div class="dccontent">
+                <?php
+                  $optionArr=explode(',',$vo['content']);
+                  foreach($optionArr as $key=>$value)
+                  {
+                      if($vo['tid']==0)
+                      {
+                         echo  "<span class='mui-radio mui-left'><input name='".$vo['id']."-".$i."[]' type='radio' value='".$value."' /><font>".$value."</font></span>";
+                      }
+                      else
+                      {
+                         echo  "<span class='mui-checkbox mui-left'><input name='".$vo['id']."-".$i."[]' type='checkbox' value='".$value."' /><font>".$value."</font></span>";
+                      }
+
+                  }
+                ?>
+            </div>
+
+      {/volist}
+
+        <div class="dctitle">{$i+1}、照片</div>
+        <div class="addimg" id="uploadimg" style="margin-top: 5px;">
+            <div id="imgPicker"><p style="font-size:40px; color: #fff">+</p><p style="color: #fff">最多9张图片</p></div>
+            <div id="fileList" class="uploader-list" style="margin-top: 15px;"></div>
+        </div>
+        <div class="">
+            <div class="dctitle">备注</div>
+            <textarea name="text" cols="" rows="5" name="text" id="text" placeholder="" id="text"></textarea>
+        </div>
+
+    <div style="height: 45px;"></div>
+    <div id="subbutt" style="width: 100%">提交</div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+
+    mui.previewImage();
+
+    var xx=0;  //默认五星好评
+
+    $(".pjxx font").click(function()
+    {
+        var id=$(this).attr('data-id')-1;
+        xx=$(this).attr('data-id');
+        $('.xindex font').html(xx);
+        $(".pjxx font").each(function(e)
+        {
+            if(e>id)
+            {
+                $(this).children('img').attr('src','{$Think.HTML_STATIC}/images/xxxx2.png');
+            }
+            else
+            {
+                $(this).children('img').attr('src','{$Think.HTML_STATIC}/images/xxxx.png');
+            }
+        });
+    });
+
+
+    $('#subbutt').click(function()
+    {
+
+        var mycars=new Array();
+        $('#fileList img').each(function(index){
+            mycars[index]=$(this).attr('data-preview-src');
+        });
+        var season=new Array()
+        j=0;
+
+        $(".dccontent span").each(function(i)
+        {
+
+            if($(this).children('input').is(":checked"))
+            {
+                season=season+" "+$(this).children('input').val();
+            }
+        });
+
+        if(season=='')
+        {
+            alert('您还有选任何内容哦~');
+            return false;
+        }
+
+
+        $('body').append("<div class='mb' id='loading'></div>");
+        $.ajax({
+            type: "post",
+            url: '{:url("add")}',
+            data: {images:mycars,season:season,iid:{$investigation.id},xx:xx,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    alert('感谢您的参与');
+                    window.location.href="{:url('index/home')}";
+                }
+                else
+                {
+                    $('#loading').remove();
+                    alert(data.msg);
+                }
+            }
+        });
+
+
+
+    });
+
+    //上传图片
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: false,
+        //允许上传的图片个数
+        fileNumLimit: 9,
+        // swf文件路径
+        swf: 'js/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#imgPicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $list = $("#fileList"),
+                $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '</div>'
+                ),
+                $img = $li.find('img');
+
+        // $list为容器jQuery实例
+        $list.append( $li );
+
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 200 x 200
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'src', src );
+        }, 200, 200);
+
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'data-preview-src', src );
+        }, 0.5, 0.5);
+    });
+</script>
+</body>
+</html>

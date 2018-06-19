@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.sitename}</title>
+	<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+	<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+	<link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+	<link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+	<style>
+		/*页面新添加头部*/
+		#header{border: 1px solid #F0F0F0;}
+		#header .mui-pull-left img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header .mui-title{font-size: 1.7rem;color: #4a4a4a;}
+		.mui-bar-nav{box-shadow:0 0px 0px #ccc}
+
+		.topmenu div{ margin: 0px;}
+		.topmenu{top: 44px; z-index: 10000;border-top:1px solid #fbfafa; overflow: hidden;}
+		.gallerytitle {
+			text-align: left;
+			font-size: 1em;
+			padding: 0 1rem;
+			height: 42px;
+			line-height: 42px;
+			color: #fafafa;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			font-weight: normal;
+			text-shadow: 1px 1px 1px #000;
+			/* background-color: rgba(21,20,20,0.5); */
+			background-color: rgba(0,0,0,0);
+			background: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+			background: -webkit-gradient(linear,top,from(rgba(0,0,0,0)),to(rgba(0,0,0,0.7)));
+			background: -webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+			background: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+		}
+		.pagination {
+			position: absolute;
+			z-index: 20;
+			bottom: 10px;
+			width: 66px;
+			text-align: center;
+			right:0;
+		}
+		.swiper-pagination-bullet {
+			display: inline-block;
+			width: 8px;
+			height: 8px;
+			border-radius:5px;
+			background: #fff;
+			margin: 0 2px;
+			opacity: 0.8;
+			cursor: pointer;
+		}
+		.swiper-pagination-bullet-active {
+			background: #007aff;
+		}
+		#banner{position:relative; overflow: hidden;}
+		.swiper-container-horizontal>.swiper-pagination-bullets{ padding: 0 1rem; text-align: right;}
+		/*养护 nav*/
+		.cjcuring-nav{width: 100%;border-bottom: 1px solid #F0F0F0;background: white;position: fixed;left: 0;top: 3.4rem;height:4.5rem;}
+		.cjcuring-nav span{width:33.333%;text-align: center;display:block;float:left;border-right: 0.05rem solid #F0F0F0;box-sizing:border-box;height:2rem;position:relative;top:1.8rem;}
+		.cjcuring-nav span:last-of-type{border-right: none;}
+		.cjcuring-nav span a{font-size: 1.4rem;color: #333333;width:100%;display:block;}
+		.cjcuring-nav span a.on4{color: #15bdde;border-bottom: 0.15rem solid #15bdde;}
+
+		/*养护列表*/
+		.cjcuring-content li{padding: 0.8rem 1.5rem 1.5rem 1.5rem;margin-bottom: 1rem;background: white;width: 100%;}
+		.cjcuring-content-img{width: 23%;margin-top:4%;}
+		.cjcuring-content-img img{width: 100%;}
+		.cjcuring-content-list{width: 72%;}
+		.cjcuring-content-list h2{width:85%;margin:0;font-weight:600;font-size: 1.6rem;color: #333333;margin:1.5rem 0 0 0;white-space: nowrap;text-overflow:ellipsis;overflow: hidden;line-height:3rem;height:3rem;}
+		.cjcuring-content-list h4{font-weight:normal;font-size: 1.4rem;color: #666666;line-height:2rem;margin-top:0.5rem;}
+		.cjcuring-content-list p{font-size: 1.2rem;color: #676767;line-height: 1.5rem;}
+		body{background: white;}
+		@media only screen and (min-width: 320px) and (max-width: 375px) {
+			.cjcuring-content-list h2{margin:0.5rem 0 0 0;}
+		}
+		.cjcuring-content-list h2{font-weight: normal;}
+	</style>
+</head>
+
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+	<h1 class="mui-title">养护健康</h1>
+</header>
+
+<style>
+.lc{width:100%;margin-top:4rem;height:0rem;}
+.lc li{width:33.333%;float:left;padding:1rem 0 0.5rem 0;}
+.lc li a{display:block;width:100%;text-align:center;border-right:1px solid #f0f0f0;font-size:1.4rem;color:#333333;position: relative;top:3px;}
+.lc li:nth-of-type(3){border-right:none;}
+.lc li.active a{color:#15bdde;}
+.lc li.active:after{content: "";height:2px;background:#15bdde;position:relative;top: 0;left:19%;display:block;width:60%;margin-top:0.6rem;}
+#header .mui-title{font-weight:normal;}
+</style>
+<ul class="lc">
+	<li {if $tid==1 || $tid==0}class="active"{/if}>
+		<a href="{:url('curing/index',['tid'=>1])}">养护内容</a>
+	</li>
+	<!--<span>
+		<a href="{:url('curing/index',['tid'=>2])}" >脱发专区</a>
+	</span>-->
+	<li {if $tid==3}class="active"{/if}>
+		<a  href="{:url('curing/index',['tid'=>3])}">护理常识</a>
+	</li>
+	<li {if $tid==4}class="active"{/if}>
+		<a  href="{:url('curing/index',['tid'=>4])}">常见问题</a>
+	</li>
+</ul>
+
+<div style="height:3.9rem;border-bottom:1px solid #f0f0f0;" id="navy"></div>
+<ul class="cjcuring-content">
+	{volist name="$res" id="vo"}
+	<a href="{:url('curing/detail',['id'=>$vo.id])}">
+		<li>
+			<div class="cjcuring-content-img mui-pull-left">
+				<img src="{$vo.smallimg}"/>
+			</div>
+			<div class="cjcuring-content-list mui-pull-right">
+				<h2>{$vo.title}</h2>
+				<h4>{$vo.info}</h4>
+			</div>
+			<div style="clear: both;"></div>
+		</li></a>
+	<div style="width:100%;height:10px;background:#f3f3f3;"></div>
+	{/volist}
+</ul>
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">暂无内容</div>
+<?php } ?>
+
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript">
+	function goserachtid(_self) {
+		var dataurl = "http://ihair.yongxianghui.net/curing/index";
+		dataurl += '/id/' + $(_self).attr('id');
+		var num=$('.cjcuring-nav span a[active=2]').attr('data-id');
+		alert(num);
+		if ($(' span [active=2] a').attr('data-id') != undefined) {
+			dataurl += '/id/' + $('span a[active=1] ').attr('id');
+		}
+		if($(' span [active=2] a').attr('data-id')!=undefined){
+			dataurl +='/id/'+$('span a[active=2] ').attr('id');
+		}
+		dataurl += '.html';
+		window.location.href = dataurl;
+	}
+</script>
+
+
+
+<script>
+	var swiper = new Swiper('.swiper-container', {
+		nextButton: '.swiper-button-next',
+		prevButton: '.swiper-button-prev',
+		pagination: '.swiper-pagination',
+	});
+
+	var mySwiper2 = new Swiper('#banner',{
+		autoplay:5000,
+		visibilityFullFit : true,
+		loop:true,
+		pagination : '.pagination',
+	});
+
+	//下拉加载用户数据
+	var a = 0;
+	var offsize = 10;//起始位置(查询数据表时的起始位置)
+	$(document).ready(function(){
+		var range = 80;//距下边界长度/单位px
+		var totalheight = 0;
+		var main = $("#loadinguser");//主体元素
+		$(window).scroll(function(){
+			var srollPos = $(window).scrollTop();
+			totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+			if(($(document).height()-range) <= totalheight) {
+				if(a==0)
+				{
+					a = 1;
+					$('#loading').html("正在努力为您加载...");
+					$.post("{:url('nextPage')}",{
+						offsize:offsize,
+						tid:{$tid},
+						vid:{$vid},
+					},function(data){
+
+						if(data==0)
+						{
+							$('#loading').html("已为您加载全部");
+							a = 0;
+						}
+						else
+						{
+							main.append(data);
+							offsize = offsize+10;
+							a = 0;
+						}
+					});
+				}
+			}
+		});
+	});
+
+</script>
+<script type="text/javascript">
+
+	$(function(){
+		//养护nav切换
+		$(".cjcuring-nav span a").click(function(){
+			$(this).addClass("on4").parent().siblings().find("a").removeClass("on4");
+
+
+
+		});
+		//养护内容多出来的加...
+		var cjcurVal=$(".cjcuring-content-list p").text();
+		var str=cjcurVal.substr("0,27")+"...";
+		$(".cjcuring-content-list p").text(str)
+	})
+</script>
+<script>
+	if (/(Android)/i.test(navigator.userAgent)) {
+		$(".cjcuring-nav span").css("padding","0.5rem 0");
+		$(".cjcuring-nav span a").css("top","8px");
+		$(".lc li a").css("marginTop","1rem");
+		//$(".lc li").css({"padding","1.5rem 0 1rem 0");
+		$("#navy").css("height","4.5rem");
+		$(".lc li a").css("top","0px");
+	}
+</script>
+</body>
+</html>

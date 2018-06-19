@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="return void(0)"></a>
+    <h1 class="mui-title">疗程跟踪</h1>
+</header>
+
+<div class="lcgz">
+    <div class="gzdoc">
+        <div class="docimg">
+            <img src="{$Think.HTML_STATIC}/images/jz.png">
+            <p class="docname">{$visit.doctor}</p>
+            <p class="zctitle"></p>
+        </div>
+        <div class="anniu">
+            <font onclick="location.href='{$Think.config.zoosnet}'">咨询</font>
+            <font onclick="location.href='{:url('track_add',['id'=>$vid])}'">反馈</font>
+        </div>
+    </div>
+    <div class="lctitle">亲，手术日期：<font>{$visit.op_time}</font></div>
+    <div style="padding: 1.5rem; background: #fff; font-size: 1.4rem;">
+         {volist name="imges" id="vo"}
+            <img src="{$vo.pic}" style="width: 100%; margin-bottom: 1rem;">
+         {/volist}
+         <p>{$track.feedback}</p>
+    </div>
+
+    <div style="padding:0 1.5rem 3rem; background: #fff; font-size: 1.4rem; line-height: 25px;">
+        <strong>医生反馈：</strong>{empty name='$track.doc_back'}医生暂无回复{else/}{$track.doc_back}{/empty}
+    </div>
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+</body>
+</html>

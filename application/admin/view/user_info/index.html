@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>用户列表</h5>
+
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('add')}">添加模拟用户</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <div style="text-align: center;margin: 30px 0 50px">
+                                            <a href="{:url('index',['type'=>0])}" class="btn btn-outline btn-info alter" style="margin-bottom: 0" >真实用户</a>
+                                            <a href="{:url('index')}" class="btn btn-outline btn-info alter"   style="margin: 0 100px">首页</a>
+
+                                            <a href="{:url('index',['type'=>1])}" class="btn btn-outline btn-info alter" >模拟用户</a>
+                                        </div>
+                                        <th width="10%">头像</th>
+                                        <th width="15%">昵称</th>
+                                        <th width="15%">用户类别</th>
+                                        <th width="15%">性别</th>
+                                        <th width="15%">生日</th>
+                                        <th width="15%">手机号码</th>
+                                        <th width="15%">加入时间</th>
+                                        <th width="15%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name='user_info' id='vo'}
+                                    <tr>
+                                        <td><img src="{$vo.portrait}" style="width:60%" /></td>
+                                        <td>{$vo.wechaname}</td>
+                                        <td>{eq name='$vo.type' value='1'}模拟用户{else/}真实用户{/eq}</td>
+                                        <td>{$vo.sex}</td>
+                                        <td>{$vo.birthday}</td>
+                                        <td>{$vo.phonenum}</td>
+                                        <td>{$vo.regtime|date='Y-m-d H:i:s',###}</td>
+                                        <td>
+                                            <a href="{:url('alter',['id'=>$vo.id])}" class="btn btn-outline btn-info alter" data-id='{$vo.id}'>修改</a>
+                                            <a href="{:url('del',['id'=>$vo.id])}" class="btn btn-outline btn-info alter" data-id='{$vo.id}'>删除</a>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                            {$user_info->render()} <div class="pagesc">共计：{$user_info->total()}条</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+		 $(document).ready(function()
+		 {			 
+
+		 });
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+@import url(style.css);
+
+.gsad{ width: 100%; overflow: hidden;}
+.gsad img{ width: 100%;}
+
+.gdtype{ padding:20px 15px; background: #fff; overflow: hidden;}
+.gdtype .gdtinfo{ float: left; width: 20%; text-align: center;}
+.gdtype .gdtinfo img{ width:70%;}
+.gdtype .gdtinfo p{ line-height: 35px; font-size: 16px; color: #666666}
+
+.brd{background: #fff; border-top:1px solid #eaeaea; border-bottom:1px solid #eaeaea; overflow: hidden;}
+
+.goodslist{ margin-top: 10px; padding-bottom: 15px; overflow: hidden; }
+.igoodtitle{ margin-left: 10px; padding: 15px 15px 15px 10px; font-size: 18px; color: #333333; background:url("../image/icon2.jpg") left center no-repeat;}
+.igoodsinfo{ padding:15px; overflow: hidden;}
+.igoodsinfo img{ float: left; width:25%; }
+.igoodt{float: right; width:72%; }
+.igoodsinfo h3{color: #333333; font-size: 16px;}
+.igoodsinfo p{ padding:5px 0px 5px; color: #666666;display:-webkit-box; -webkit-box-orient: vertical;  -webkit-line-clamp:2; overflow: hidden;}
+.iprice{ color: #ff5400; font-size: 16px;}
+.iprice font{ font-family: "Microsoft YaHei UI";}
+.iprice s{ padding-left:5px; color: #a9aaaa; font-size: 14px;}
+
+.lgoodslist{ margin-top: 10px; padding:25px 15px 10px;}
+.lgoodslist img{ width: 100%;}
+.ltitleprice{ padding:8px 0px; font-size: 16px;}
+.ltitleprice span{ float: right; color: #ff5400; font-size: 18px;}
+.ltitleprice font{ font-family: "Microsoft YaHei UI"}
+.ltitleprice s{ color: #a9aaaa; font-size: 14px;}
+
+.gdimg{ margin-top: 10px;}
+.gdimg img{ width: 100%;}
+.dprice{ margin-top: 10px; padding: 15px; background: #fff;}
+.dgtitle{ font-size: 18px; font-weight: 500}
+.dgprice{ color:#ff5400; font-size: 16px;}
+.dgprice font{ font-family: "Microsoft YaHei UI";}
+.dgprice s{ color: #a9aaaa; font-size: 14px;}
+.dgprice span{ float: right; padding:3px 5px; background: #0083ce; color: #fff; border-radius: 5px;}
+.dgprice span a{ color: #fff;}
+
+.gdinfos{ margin-top: 10px; }
+.goodscontent{ padding: 15px; font-size: 16px; color: #666666}
+.goodscontent p{ margin-bottom: 10px;}
+.tjdocs{ margin-top: 10px;}
+.tjdoctitle{ padding:15px 15px 15px 20px; font-size: 16px; border-bottom:1px solid #eaeaea; overflow: hidden; background: url('../image/icon2.jpg') 10px center no-repeat;}
+.doclist{ padding: 15px 0px; width:95%; margin: 0 auto; overflow: hidden; border-bottom:1px solid #f2f0f0;}
+.doclist img{ float: left; width: 25%;}
+.docinfo { position: relative; float: right; width: 72%; line-height:28px;}
+.docname{ font-size: 20px; color: #3598db;}
+.doczc{ color: #9b9b9b;overflow: hidden; text-overflow:ellipsis;  white-space: nowrap;}
+.docsc{ color: #3d3d3d; line-height:18px;display: -webkit-box;  -webkit-box-orient: vertical;  -webkit-line-clamp:2; overflow: hidden;}
+.docpj{ color: #a6a6a6;}
+.dwyzx{ display: inline; position: absolute; top:0px; right:0px; padding: 2px 7px; line-height:22px; background: #0083ce; color: #fff; font-size: 14px; border-radius: 5px;}
+.dwyzx a{ color: #fff}
+.xqgoodslist{ float: left; margin-bottom: 15px; overflow: hidden;width: 32.33%; margin-right: 1%;}
+.xqgsinfo{ padding: 15px 10px 0 15px;}
+.xqgsinfo img{ width: 100%;}
+.xqgsinfo p{ margin-top: 5px;}
+.xqprice{color:#ff5400; font-size: 16px;}
+.xqgsinfo font{ font-family: "Microsoft YaHei UI";}
+.xqgsinfo s{ color: #a9aaaa; font-size: 14px;}
+
+.gsdfoot{ position: fixed; bottom: 0px; width: 100%; height:50px; z-index: 999; background: #ffffff; font-size: 14px; text-align: center}
+.backhome{ width:15%; float: left; height:45px;}
+.backhome p,.shoppingCart p{ font-size: 12px; color: #0083ce}
+.shoppingCart{ width:15%; float: left; height:50px; position: relative;}
+.shoppingCart i{ position: absolute; top:2px; right:18px; width:8px; height:8px; background: #0083ce; border-radius: 50px; z-index: 1000}
+.addWishList{ width:35%; float: left; background: #0083ce; color: #fff; height:50px; line-height:50px;}
+.fastBuy{ width:35%; float: left; height:50px; line-height:50px; background: #0074ce; color: #fff;}
+.ficon{ display: block; margin-top:5px; font-size: 20px; line-height: 20px; color: #8f8f94}
+.h50{ height: 60px;}
+
+.buy{ position: fixed; bottom: 0px; width: 100%; height:263px; background: #fff; font-size: 12px; z-index: 10001; display: none;}
+.buymain{ padding:10px;}
+.bgdsi{ margin-bottom: 5px; padding: 5px; overflow: hidden; border-bottom: 1px solid #f8f8f8}
+.bgdsi img{float: left; margin-right: 10px; height: 74px;}
+.bgdprice{ font-size: 12px; color: #ea5e5f}
+.bgdprice i{ font-style: normal;}
+
+.nums{ overflow: hidden;}
+.numst{margin-bottom: 5px; }
+.nreduce,input.numsinput,.nadd{ margin:0px; padding:0px; border-radius:0px; float: left; border: 1px solid #f5f5f5; width: 30px; height:30px; line-height:30px; float: left; text-align: center; font-size: 14px;}
+.nreduce{ border-right: none;}
+.nreduceno{ border: 1px solid #f5f5f5; border-right: none;}
+.nadd{ border-left:none}
+.naddno{ border: 1px solid #f5f5f5; border-right: none;}
+
+.addgnum{ margin-bottom:5px; padding-bottom: 10px; border-bottom: 1px solid #f8f8f8; overflow: hidden;}
+.addtotal{ margin-bottom:5px; padding-bottom: 10px; border-bottom: 1px solid #f8f8f8;overflow: hidden;}
+.addtotal i{ font-style: normal;}
+.nextbutt{ width: 100%; height:50px; line-height:50px; color: #fff; background: #0083ce; text-align: center; font-size: 16px;}
+
+
+/*购买页面*/
+.address{ margin-bottom: 10px; width: 100%; height: 50px; line-height: 50px; text-align: center; background: #fff; border-bottom: 1px solid #f8f8f8}
+.buygoodslist{ margin-top: 5px; overflow: hidden; border-bottom: 1px solid #f8f8f8}
+.buygoods{ margin-bottom: 10px; padding:5px 10px 10px 15px; background: #fff;}
+.buygoods img{ float: left;height: 74px; margin-right: 10px;}
+.baddgnum{ border: none;}
+
+.buyer{ margin-bottom: 10px; padding: 10px; font-size: 14px; border-bottom: 1px solid #f8f8f8; border-top:  1px solid #f8f8f8; background: #fff; }
+.ly,.yf,.pt{ line-height:30px;}
+.ly{margin-bottom: 5px;}
+.ly span{ float: left;}
+.ly textarea{ padding: 10px; height:70px;}
+.yf p{ float: right; font-size: 12px;}
+.pt p{ float: right; font-size: 12px; color: #ff803a;}
+.buysub{ margin: 0 auto 20px; width: 90%; height:50px; line-height:50px; text-align: center; color: #fff; background:#56bb37; border-radius:5px; }
+
+.mui-backdrop{z-index: 10000;}
+
+/*购物车*/
+.h65{ height: 65px;}
+.cart{ position: relative; overflow: inherit; height: 90px; border: none;}
+.cart .mui-checkbox{ position: absolute; left:-42px; top: 20px;}
+.cart .mui-checkbox input[type=checkbox]:before{ font-size: 24px;}
+.buygoodscart{ margin-bottom: 0px; padding-bottom: 0px;}
+
+.cartFooter{ position: fixed;bottom: 0px; width: 100%; height:60px; line-height:60px; border-top: 1px solid #e4e3e6; background: #f7f7f7}
+.cartFooter .mui-checkbox{ float: left;}
+.cartFooter .mui-checkbox input{margin-top: 15px;}
+.cartFooter .mui-checkbox span{ padding-left: 50px; line-height:60px;}
+.cartFooter .mui-checkbox input[type=checkbox]:before{ font-size: 24px;}
+
+.carttotal{ float: right;}
+.cartprice{ float: right; margin-right: 10px;}
+.gobuy{ float: right; width: 100px; line-height:60px; text-align: center; background: #ef874a; color: #fff}
+.cartprice span{ color: #ff783c}
+.nogoods{ clear: both; position:absolute; bottom: 0px; color: red;}
+#gdcartcount{ display: none;}
+
+.addressInfo{ display: none; margin-bottom: 10px; padding: 10px; background: #fff;}
+.yuezf{ background: #ff803a;}
+

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+
+    <style type="text/css">
+
+        *{margin:0;padding:0;list-style:none;}
+        html{background-color:#E3E3E3; font-size:14px; color:#000; font-family:'微软雅黑'}
+        h2{line-height:30px; font-size:20px;}
+        a,a:hover{ text-decoration:none;}
+        pre{font-family:'微软雅黑'}
+        .jq22 a{padding-right:20px;}
+        jq22 .date { width: 200px; padding: 5px; font-family: Arial, Helvetica, sans-serif;}
+        h3{margin:10px 0;}
+        .layinput{height: 22px;line-height: 22px;width: 150px;margin: 0;}
+
+    </style>
+
+
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回案例列表</a></li>
+                                <li><a href="{:url('add')}">添加案例</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data"  action="{:url('alter')}">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属项目：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="pid">
+                                        <option value="0">请选择分类</option>
+                                        {volist name='$project' id='vo'}
+                                        <option value="{$vo.id}" {eq name="$content.pid" value="$vo.id"}selected{/eq}>{$vo.proname}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属地区：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="hid">
+                                        <option value="0">请选择地区</option>
+                                        {volist name='$city' id='vo'}
+                                        <option value="{$key}" {eq name="$content.hid" value="$key"}selected{/eq}>{$vo}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">医院：</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="hosname_id">
+                                        <option value="0">请选择医院</option>
+                                        {volist name='$hospital' id='vo3'}
+                                            <option value="{$vo3.id}" {eq name="$hospital_i.hosname" value="$vo3.hosname"}selected{/eq}>{$vo3.hosname}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">医生：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="doctor">
+                                        <option value="0">请选择</option>
+                                        {volist name='$doctor' id='vo1'}
+                                        <option value="{$vo1.id}" {eq name="$res.docname" value="$vo1.docname"}selected{/eq}>{$vo1.docname}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">选择用户ID：</label>
+
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="uid" id="uid" value="{$content.uid}">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-primary adduser">选择</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述：</label>
+
+                                <div class="col-sm-10">
+                                    <textarea name="info" class="form-control" style="height:100px;">{$content.info}</textarea>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">默认照片：</label>
+                                <div class="col-sm-10">
+                                    {neq name='$content.pic' value=''}<img src="{$content.pic}" height="100" />{/neq}
+                                    <input type="file" name="pic"/>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">植发前图片：</label>
+                                <div class="col-sm-10" id="imgs">
+                                    {volist name='$casesImgs' id='vo'}
+                                    <img style="margin-bottom: 10px;" data-id="{$vo.id}" class="caseimg" src="{$vo.pic}" width="100">
+                                    {/volist}
+                                    <button class="btn btn-primary" style="margin-top: 5px;" type="button" id="addimg">添加</button>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">浏览量：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="请输入帖子浏览量" name="click" value="{$content.click}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">点赞数：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="请输入帖子点赞数" name="praise" value="{$content.praise}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="sort" value="{$content.sort}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="status">
+                                        <option value="1" {eq name="$content.status" value="1"}selected{/eq}>显示</option>
+                                        <option value="0" {eq name="$content.status" value="0"}selected{/eq}>隐藏</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="jq22 form-group">
+                                <label class="col-sm-2 control-label">发布时间：</label>
+                                <div id="calendar"  class="col-sm-10">
+                                    <input placeholder="请输入日期" class="laydate-icon date form-control" name="data_time" value="{$content.data_time}" onClick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{$content.id}">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{$Think.HTML_STATIC}/js/laydate.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/moment.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/moment.zh-cn.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/ion.calendar.min.js"></script>
+    <script type="text/javascript">
+
+        !function(){
+
+            laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
+
+            laydate({elem: '#demo'});//绑定元素
+
+        }();
+
+
+
+        //日期范围限制
+
+        var start = {
+
+            elem: '#start',
+
+            format: 'YYYY-MM-DD',
+
+            min: laydate.now(), //设定最小日期为当前日期
+
+            max: '2099-06-16', //最大日期
+
+            istime: true,
+
+            istoday: false,
+
+            choose: function(datas){
+
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+
+                end.start = datas //将结束日的初始值设定为开始日
+
+            }
+
+        };
+
+
+
+        var end = {
+
+            elem: '#end',
+
+            format: 'YYYY-MM-DD',
+
+            min: laydate.now(),
+
+            max: '2099-06-16',
+
+            istime: true,
+
+            istoday: false,
+
+            choose: function(datas){
+
+                start.max = datas; //结束日选好后，充值开始日的最大日期
+
+            }
+
+        };
+
+        laydate(start);
+
+        laydate(end);
+
+
+
+        //自定义日期格式
+
+        laydate({
+
+            elem: '#test1',
+
+            format: 'YYYY年MM月DD日',
+
+            festival: true, //显示节日
+
+            choose: function(datas){ //选择日期完毕的回调
+
+                alert('得到：'+datas);
+
+            }
+
+        });
+
+
+
+        //日期范围限定在昨天到明天
+
+        laydate({
+
+            elem: '#hello3',
+
+            min: laydate.now(-1), //-1代表昨天，-2代表前天，以此类推
+
+            max: laydate.now(+1) //+1代表明天，+2代表后天，以此类推
+
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function(){
+
+            $('.adduser').click(function()
+            {
+                layer.open({
+                    type: 2,
+                    area: ['70%', '90%'],
+                    fixed: false, //不固定
+                    maxmin: true,
+                    content: '{:url("UserInfo/selectUid")}'
+                });
+            });
+
+            $('#addimg').click(function(){
+                $('#imgs').append('<div class="input-group m-b"><input type="file" name="pic2[]" class="form-control"/> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            });
+            $("#imgs").on("click",".del",function(){
+                $(this).parent().parent().remove();
+            });
+
+            //删除图片
+            //删除
+            $('.caseimg').click(function(){
+
+                imgurl=$(this).attr('src');
+                id=$(this).attr('data-id');
+                layer.confirm('您确定要删除吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function()
+                {
+                    //var index = layer.load();  //加载等待层
+                    $.ajax({
+                        type: "post",
+                        url: '{:url("delImg")}',
+                        data: {id:id,imgurl:imgurl},
+                        dataType: "json",
+                        success: function(data){
+                            if(data.code==1)
+                            {
+                                window.location.reload();
+                            }
+                            else
+                            {
+                                layer.msg('删除失败');
+                            }
+                        }
+                    });
+                });
+            })
+        });
+    </script>
+    <script type="text/javascript">
+        jQuery(function() {
+            $list = $('#thelist'),
+                $btn = $('#ctlBtn'),
+                state = 'pending',
+                uploader;
+            uploader = WebUploader.create({
+                // 不压缩image
+                resize: false,
+                // swf文件路径
+                swf: 'uploader.swf',
+                // 文件接收服务端。
+                server: "{:url('articlevideo')}",
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#picker',
+                chunked: true,
+                chunkSize:2*1024*1024,
+                auto: true,
+                accept: {
+                    title: 'Images',
+                    // extensions: 'gif,jpg,jpeg,bmp,png',
+                    // mimeTypes: 'image/*'
+                }
+            });
+            uploader.on('uploadSuccess', function (file,response) {
+                $('#a_video').val(response._raw);
+                $('.progress').remove();
+                $('#picker').parent().html('上传成功');
+            });
+            uploader.on( 'uploadProgress', function( file, percentage ) {
+                var $li = $( '#fileList' ),
+                    $percent = $li.find('.progress');
+                // 避免重复创建
+                if ( !$percent.length ) {
+                    $percent = $('<p class="progress" style="background:#48b7ee;width: 0%"></p>')
+                        .appendTo( $li )
+                        .find('span');
+                }
+                $('.progress').css( 'width', percentage * 100 + '%' );
+            });
+        })
+    </script>
+</body>
+</html>

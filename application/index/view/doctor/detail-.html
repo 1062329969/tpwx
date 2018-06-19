@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/doctor.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">专家团队</div>
+    <div class="st3"><i class="iconfont" id="collection" data-id="0">&#xe6eb;</i><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+<div class="detaitldocinfo">
+      <img src="{$doctor.pic}">
+      <div class="dddcname">{$doctor.docname}</div>
+      <div class="ddochp">好评率:{$doctor.praise}% 关注度:{$doctor.follow}</div>
+      <div class="ddoczc">{$doctor.positional_titles} | {$doctor.position}</div>
+</div>
+<div class="docgzzx"><div class="gz" id="gzdoc" data-id="0" style="cursor: pointer;">我要关注</div><div class="dwx"><a href="{$Think.config.zoosnet}">我要问询</a></div></div>
+<div class="doccont">
+     <div class="doctitle">医生介绍</div>
+     <div class="doccontent">
+         {$doctor.text}
+     </div>
+</div>
+
+<div class="doccont">
+    <div class="doctitle">医生履历</div>
+    <div class="doccontent">
+        {$doctor.text2}
+    </div>
+</div>
+
+<div class="doccont">
+    <div class="doctitle">资质证书</div>
+    <div class="doccontent doccontentzs">
+         {$doctor.text3}
+    </div>
+</div>
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+
+    $(function()
+    {
+        getCollection({$doctor.id},{$fansInfo.id},8);
+        //收藏
+        $("#collection").click(function(){
+            collection({$doctor.id},8,'{$Request.token}');
+        });
+
+        $('#gzdoc').click(function(){
+           is=$('#gzdoc').attr('data-id');
+           $.ajax({
+               type: "post",
+               url: '{:url("follow")}',
+               data: {docid:{$doctor.id},is:is,__token__:'{$Request.token}'},
+               dataType: "json",
+               success: function(data)
+               {
+                   if(data.code==1)
+                   {
+                       follow(1);
+                   }
+                   else if(data.code==2)
+                   {
+                       follow(0);
+                   }
+                   else
+                   {
+                       alert(data.msg);
+                   }
+               }
+           });
+        });
+
+        follow({$isFollow});
+        function follow(is)
+        {
+            if(is==1)
+            {
+                $('#gzdoc').attr('data-id',1);
+                $('#gzdoc').html('取消关注');
+            }
+            else if(is==0)
+            {
+                $('#gzdoc').attr('data-id',0);
+                $('#gzdoc').html('我要关注');
+            }
+        }
+    });
+</script>
+</body>
+</html>

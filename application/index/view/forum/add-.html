@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我要发帖</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+
+</head>
+<body class="bodyb">
+
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我要发帖</h1>
+</header>
+
+<div class="addmain" style="margin-top:55px;">
+
+    <div class="addcont">
+        <input placeholder="请输入帖子标题" name="" value="" />
+    </div>
+
+    <div class="addcont">
+         <textarea rows="8" name="text" id="text" placeholder="请输入内容"></textarea>
+    </div>
+</div>
+
+<div class="addmain" style="margin-top:1rem;">
+    <div class="addimg" id="uploadimg">
+        <div id="imgPicker"><p style="font-size: 50px; color: #fff">+</p>添加图片最多9张</div>
+        <div id="fileList" class="uploader-list" style="margin-top: 15px;"></div>
+    </div>
+</div>
+
+<div class="butt">
+    <input class="subbutt" type="button" style="padding: 0px;" id="subbutt" value="提交我的帖子"/>
+</div>
+
+{include file="public/fx" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+
+    mui.previewImage();
+    $('#subbutt').click(function()
+    {
+
+        var mycars=new Array();
+        $('#fileList img').each(function(index){
+            mycars[index]=$(this).attr('data-preview-src');
+        });
+
+        text=$('#text').val();
+        if(text=='')
+        {
+            alert('请输入内容');
+            return false;
+        }
+        $('body').append("<div class='mb' id='loading'></div>");
+        $.ajax({
+                type: "post",
+                url: '{:url("add")}',
+                data: {images:mycars,text:text,__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1)
+                    {
+                        window.location.href="{:url('index')}";
+                    }
+                    else
+                    {
+                        $('#loading').remove();
+                        alert(data.msg);
+                    }
+                }
+         });
+
+
+
+    });
+
+    //上传图片
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: false,
+        //允许上传的图片个数
+        fileNumLimit: 9,
+        // swf文件路径
+        swf: 'js/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#imgPicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $list = $("#fileList"),
+            $li = $(
+                    '<div id="' + file.id + '" class="file-item thumbnail">' +
+                    '<img>' +
+                    '</div>'
+            ),
+            $img = $li.find('img');
+            
+            // $list为容器jQuery实例
+            $list.append( $li );
+
+            // 创建缩略图
+            // 如果为非图片文件，可以不用调用此方法。
+            // thumbnailWidth x thumbnailHeight 为 200 x 200
+            uploader.makeThumb( file, function( error, src )
+            {
+                if ( error )
+                {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr( 'src', src );
+            }, 200, 200);
+
+            uploader.makeThumb( file, function( error, src )
+            {
+                if ( error )
+                {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+
+                $img.attr( 'data-preview-src', src );
+            }, 0.5, 0.5);
+    });
+</script>
+</body>
+</html>

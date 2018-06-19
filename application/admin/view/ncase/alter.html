@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回内部案例列表</a></li>
+                                <li><a href="{:url('add')}">添加内部案例</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data"  action="{:url('alter')}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>标题：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入标题" name="title" value="{$content.title}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属项目：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="tid">
+                                        <option value="0">请选择分类</option>
+                                        {volist name='$project' id='vo'}
+                                        <option value="{$vo.id}" {eq name="$content.tid" value="$vo.id"}selected{/eq}>{$vo.proname}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手术患者：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入手术患者" name="ssz" value="{$content.ssz}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手术医院：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入手术医院" name="hospital" value="{$content.hospital}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手术医生：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入手术医生" name="docname" value="{$content.docname}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手术时间：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入手术时间" name="ss_time" value="{$content.ss_time}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">发布者：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入发布者" name="author" value="{$content.author}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="sort" oninput="this.value=this.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'')" min="0" value="{$content.sort}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="status">
+                                        <option value="1" {eq name="$content.status" value="1"}selected{/eq}>正常</option>
+                                        <option value="0" {eq name="$content.status" value="0"}selected{/eq}>停止</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{$content.id}">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script>
+        $(document).ready(function(){
+
+            $('#addimg').click(function(){
+                $('#imgs').append('<div class="input-group m-b"><input type="file" name="pic2[]" class="form-control" style="width:10%;"/><input type="text" placeholder="请输入图片描述" name="text[]" value="" class="form-control" style="width:90%;"> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            });
+            $("#imgs").on("click",".del",function(){
+                $(this).parent().parent().remove();
+            });
+
+            //删除图片
+            //删除
+            $('.caseimg').click(function(){
+
+                imgurl=$(this).attr('src');
+                id=$(this).attr('data-id');
+                layer.confirm('您确定要删除吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function()
+                {
+                    //var index = layer.load();  //加载等待层
+                    $.ajax({
+                        type: "post",
+                        url: '{:url("delImg")}',
+                        data: {id:id,imgurl:imgurl},
+                        dataType: "json",
+                        success: function(data){
+                            if(data.code==1)
+                            {
+                                window.location.reload();
+                            }
+                            else
+                            {
+                                layer.msg('删除失败');
+                            }
+                        }
+                    });
+                });
+            })
+        });
+    </script>
+</body>
+</html>

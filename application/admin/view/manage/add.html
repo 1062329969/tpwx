@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回管理员列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('add')}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>登录名：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入登录名" name="username" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>真实姓名：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入登录名" name="realname" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属角色：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="rid">
+                                        <option value="0">请选择角色</option>
+                                        {volist name='$role' id='vo'}
+                                        <option value="{$vo.id}">{$vo.rname}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>密码：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" required placeholder="请输入登录密码" name="password" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>确认密码：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" required placeholder="请输入确认密码" name="password2" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">部门：</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="did">
+                                        {volist name="list" id='vo'}
+                                            <option value="{$vo.d_id}">{$vo.d_name}</option>
+                                            {if $vo.clist}
+                                                {volist name='$vo.clist' id='voo'}
+                                                    <option value="{$voo.d_id}"> 𠃊 {$voo.d_name}</option>
+                                                {/volist}
+                                            {/if}
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态：</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="status">
+                                        <option value="1" selected>正常</option>
+                                        <option value="0">停止</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+</body>
+</html>

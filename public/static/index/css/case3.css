@@ -1,0 +1,15 @@
+.bodyb{background:#fff;}
+header{width: 100%;background: white;font-size: 1.7rem;text-align: center;border-bottom: 1px solid #f9f9f9;position:fixed;top:0;left:0;z-index:99;}
+header span{width: 50%;display:inline-block;padding: 0.9rem 0;}
+.cjtie{border-right: 1px solid #f9f9f9;}
+header span.on1{color: #1acdea;}
+.cjNav{height: 2.95rem;background: white;padding-top: 1.05rem;padding-left: 1rem;border-bottom: 1px solid #f9f9f9;}
+.cjNav span{padding-right: 2.85rem;}
+.cjNav span a{color: black;padding-bottom:0.45rem;}
+.cjNav span a.on2{color: #1acdea;border-bottom: 0.15rem solid #1acdea;}
+.csmian{padding-top: 2rem;}
+#friend_change{margin-top:10.9%;}
+#friend_change >div{display:none;}
+.plate{display:none;background:#fff;width:100%;}
+.go{width:72.53886%;display:block;}
+.gz{width:29.16822%;float:left;text-align:center;border:1px solid #15bbdc;color:#15bbdc;font-size:1.2rem;border-radius:20px;padding:0.2rem 0;margin-top:6%;}

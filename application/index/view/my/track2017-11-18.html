@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        .lctitle{ clear: both; padding:1.5rem 0px; border-top:1px solid #000000}
+    </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">疗程跟踪</h1>
+</header>
+
+<div class="lcgz">
+    <div class="gzdoc">
+        <div class="docimg">
+            <img src="{$Think.HTML_STATIC}/images/jz.png">
+            <p class="docname">{$visit.doctor}</p>
+            <p class="zctitle">主治医师</p>
+        </div>
+        <div class="anniu">
+            <font onclick="location.href='{:url('track_add',['id'=>$vid])}'">反馈</font>
+        </div>
+        <div class="lctitle">您的手术日期：<font>{$visit.op_time}</font></div>
+    </div>
+    <div class="lctitle">亲，手术日期：<font>{$visit.op_time}</font></div>
+    {volist name='$track' id='vo'}
+    <div class="lcjl">
+        <div class="lcctitle" style="color:#0078d7; margin-bottom: 1rem;">{$vo.title}:</div>
+        <div class="lccont">{$vo.text|mysubstr=###,0,100}...<a href="{:url('trackdetail',['id'=>$vo.id,'vid'=>$vid])}"><font>详情>></font></a></div>
+        <div class="lcjtime">术后第<?php echo  floor(($vo['create_time']-strtotime($visit['op_time']))/(24*3600))?>天</div>
+    </div>
+    {/volist}
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+</body>
+</html>

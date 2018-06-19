@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+    	body{}
+    		/*清除浮动*/
+			 .clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		    }
+		    .clearfix{
+		    	zoom:1;
+		    }
+    	/*顶部标题*/
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.mui-bar-nav~.mui-content{padding-top: 0;}
+        .mui-content{ margin:0 1.5rem; background:white;}
+        .gspicpf{ margin:0 0 2rem; overflow: hidden;padding-top: 2rem}
+        .gspicc{ float: left; width: 25%;}
+        .gspicc img{ width: 90%; float: left;}
+        .gspl{ float: right; width: 75%; font-size: 1.6rem;}
+        .pjtitle{ margin:0.5rem 0 0.5rem 0;}
+        /*.pjxx{ font-size:2rem;}
+        .pjxx font{ padding: 0 1rem 0 0;color: red;}
+        .pjxx font.on{ }*/
+        .cjcont{width: 100%;background: white;}
+        .pjcontent textarea{ padding:1.5rem;background: #f0f0f0;width: 100%;height: 14.15rem;border: none;border-radius: 0.5rem;}
+        #imgPicker{overflow: hidden;width: 25%;}
+        #imgPicker p{ color: #fff}
+        #imgPicker input{position: absolute;width: 100%;height: 100%;left: 0;top: 0;}
+        #loading{ height: 100%; margin-top: 0px;}
+        #js-star img{width: 1.65rem;}
+        /*提交*/
+       	.addimg{width: 100%;height: 100%;overflow: hidden;}
+       	.addimg input{opacity: 0;width:25%; height: 100%;position: absolute;left: 0; top: 0; z-index: 99;}
+		#imgPicker img{width: 100%;}
+        #loading{ height: 100%; margin-top: 0px;}
+        .form2{border: none;padding: 0 0 1.5rem;margin-top: 1.5rem;}
+        .uploader-list div{float:left;width: 25%;}
+        .webuploader-pick{padding: 0;background: white;display: block;text-align: start;}
+        #fileList div{width: 25%;float: left;}
+        /*提交按钮*/
+       .upsub{width: 100%;text-align: center;background: none;position: static;margin-top: 2.5rem;}
+       .upsub img{width: 36%;}
+    </style>
+</head>
+
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">订单详情</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+
+<div class="cjcont"> 
+<div class="mui-content">
+    <div class="gspicpf">
+         <div class="gspicc">
+               <img src="{$goods.pic}">
+         </div>
+         <div class="gspl">
+              <div class="pjtitle">商品评分（<span>5</span>分）</div>
+             	<div id="js-star">
+					<img src="{$Think.HTML_STATIC}/images/46.png"/>
+					<img src="{$Think.HTML_STATIC}/images/46.png"/>
+					<img src="{$Think.HTML_STATIC}/images/46.png"/>
+					<img src="{$Think.HTML_STATIC}/images/46.png"/>
+					<img src="{$Think.HTML_STATIC}/images/46.png"/>
+				</div>
+         </div>
+     </div>
+    <div class="pjcontent">
+         <textarea id="textarea" placeholder="请输入您的评价"></textarea>
+    </div>
+    <div class="form2">
+	    <div class="addimg" id="uploadimg">
+	        <div id="imgPicker"><img src="{$Think.HTML_STATIC}/images/34.jpg"/></div>
+	        <div id="fileList" class="uploader-list clearfix"></div>
+	    </div>
+	</div>
+</div>
+</div>
+
+
+<div class="upsub" id="subbutt"><img src="{$Think.HTML_STATIC}/images/48.jpg"/></div>
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+
+//  var xx=5;  //默认五星好评
+//
+//  $(".pjxx font").click(function()
+//  {
+//      id=$(this).attr('data-id')-1;
+//      xx=$(this).attr('data-id');
+//      $(".pjxx font").each(function(e)
+//      {
+//          if(e>id)
+//          {
+//              $(this).html('☆');
+//          }
+//          else
+//          {
+//              $(this).html('★');
+//          }
+//      });
+//  });
+$(function() {	
+	$("#rt_rt_1cbbl5vcocks11l91b62d1te11").css("width",'100%')
+	$("#js-star img").each(function(index, evl) {
+		$(this).click(function() {	
+			reset();
+			setStar();
+			$(".pjtitle span").html(index+1)
+		})
+		function reset(){
+			for(var i = 0; i <$("#js-star img").length; i++) {
+				$("#js-star img")[i].setAttribute("src", "/static/index/images/47.png")
+			}
+		}
+		function setStar(){
+			for(var i = 0; i <=index; i++) {
+				$("#js-star img")[i].setAttribute("src", "/static/index/images/46.png")
+			}
+		}
+		
+		
+	})
+	$("#rt_rt_1c5sinjlb1rvk1rr91342heu5to1").remove()
+})
+
+    $("#subbutt img").click(function ()
+    {
+        var mycars=new Array();
+        $('#fileList img').each(function(index){
+            mycars[index]=$(this).attr('data-preview-src');
+        });
+        content=$('#textarea').val();
+        if(content=="")
+        {
+            alert('请输入评价的内容');
+            return false;
+        }
+        $('body').append("<div class='mb' id='loading'></div>");
+        var starNum=$(".pjtitle span").text()
+     
+        $.ajax({
+            type: "post",
+            url: '{:url("evaluate")}',
+            data: {images:mycars,content:content,goods_id:{$goods.id},oid:{$oid},__token__:'{$Request.token}',xx:starNum},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    window.location.href="{:url('goods/comment')}?id="+data.id;
+                }
+                else
+                {
+                    $('#loading').remove();
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+
+    //上传图片
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: false,
+        //允许上传的图片个数
+        fileNumLimit: 9,
+        // swf文件路径
+        swf: 'js/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#imgPicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $list = $("#fileList"),
+                $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '</div>'
+                ),
+                $img = $li.find('img');
+
+        // $list为容器jQuery实例
+        $list.append( $li );
+
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 200 x 200
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'src', src );
+        }, 200, 200);
+
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'data-preview-src', src );
+        }, 0.5, 0.5);
+    });
+	
+
+</script>
+</body>
+</html>

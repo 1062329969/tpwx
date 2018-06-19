@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品管理</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>订单管理</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">订单ID</th>
+                                        <th width="10%">总价</th>
+                                        <th width="20%">购买用户</th>
+                                        <th width="10%">添加时间</th>
+                                        <th width="10%">状态</th>
+                                        <th width="10%">更新时间</th>
+                                        <th width="20%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name='$ordersArr' id='vo'}
+                                    <tr>
+                                        <td>{$vo.order_id}</td>
+                                        <td>{$vo.price}</td>
+                                        <td>{$vo.userInfo.wechaname}</td>
+                                        <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                                        <td>{$vo.status}</td>
+                                        <td>{$vo.update_time|date='Y-m-d H:i:s',###}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline btn-info alter" data-id='{$vo.id}'>订单详情</button>
+                                            {eq name='$vo.status' value='已发货'}
+                                            <button type="button" class="btn btn-outline btn-info express" data-id='{$vo.id}'>查看物流</button>
+                                            {/eq}
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                            {$ordersArr->render()}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+         $(document).ready(function()
+         {           
+             
+             //修改
+             $('.alter').click(function()
+             {
+                id=$(this).attr('data-id');
+                window.location.href='{:url("alter",array("id"=>"'+id+'"))}';
+             });
+
+             $('.express').click(function()
+             {
+                 var id=$(this).attr("data-id");
+
+                 layer.open({
+                     type: 2,
+                     area: ['50%', '60%'],
+                     fixed: false, //不固定
+                     maxmin: true,
+                     content: '{:url("express",array("id"=>"'+id+'"))}',
+                     end: function(){
+
+                     }
+                 });
+
+             });
+
+
+         });
+    </script>
+</body>
+</html>

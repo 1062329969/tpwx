@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="window.history.go(-1);"></a>
+    <h1 class="mui-title">我的积分</h1>
+</header>
+
+<div class="myjxmain">
+    <div class="jftop">
+        <img class="jfbg" src="{$Think.HTML_STATIC}/images/jfbg.jpg">
+        <div class="dqzjf">当前总积分</div>
+        <div class="jifeinum">
+            <div class="tishi">
+                <span class="jfs">{$fansInfo['integral']}</span>
+                <img src="{$Think.HTML_STATIC}/images/jfnum.png">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jfjllist">
+    <div class="jfjltitle">积分记录</div>
+    {volist name='integral' id='vo'}
+    <div class="jfjll">
+        <div class="jfjlmc">{$vo.event}</div>
+        <div class="jfjlnum">{eq name='$vo.type' value='0'}+{else/}-{/eq}{$vo.nums}</div>
+        <div class="jfjltime">{$vo.create_time|date='Y-m-d ',###}</div>
+    </div>
+    {/volist}
+    <div id="loadinguser"></div>
+</div>
+
+<!--下拉加载-->
+<?php if($count>=10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">暂无积分记录</div>
+<?php } ?>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+
+<script>
+
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 0;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('integralNextPage')}",{
+                        offsize:offsize
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

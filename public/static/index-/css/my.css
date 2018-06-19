@@ -1,0 +1,26 @@
+@import url(style.css);
+
+/*我的*/
+.my{ overflow:hidden;}
+.mytx{ padding: 20px 0px; width:100%; background:url(../images/cbd.jpg) center center no-repeat; background-size:100% auto; overflow:hidden; text-align:center;}
+.mytx img{ width:20%; margin:20px auto 5px; border-radius: 50px; border: 1px solid #fff}
+.myname{ margin:5px 0px; text-align:center; color:#FFF;}
+.myyue{ margin-bottom:30px; text-align:center; color:#FFF;}
+.mui-table-view-chevron{ margin-bottom:10px;}
+.mui-table-view .mui-media-object{ height:15px; margin-top: -3px;}
+.mui-navigate-right{ line-height:30px; font-size:14px;}
+
+
+/*我的个人信息*/
+.fankui{ padding:10px;}
+.fankui textarea,.fankui input{ width:100%;}
+.tsinfo{ margin-bottom: 10px; padding: 5px 0px; text-align:center; line-height:30px; background:#f7eec7; color:#63552e; font-size: 13px;}
+.fankui .butt{ padding: 15px 0px; border:none; color:#fff; background:#008000;}
+.permain{ padding:0 10px 10px; }
+.permain ul{ margin:0px 0px 20px; padding:0px; overflow:hidden; list-style:none;}
+.permain ul li{ padding: 5px 0px; line-height:33px; border-bottom:1px solid #EBEBEB; overflow:hidden;}
+.mctitle font{ padding-left:10px;}
+.mctitle{ float:left; width:30%;}
+.mcvalue{ float:right; width:70%; text-align: right}
+.mcvalue input{ border:none; height: 30px; margin:0px; text-align:right; background: #f8f8f8}
+.permain .butt{ margin:0px auto; width:100%; padding:10px 0px; border:none; color:#fff; background:#008000;}

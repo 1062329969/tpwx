@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/goods.css" rel="stylesheet" type="text/css">
+    <style>
+        .tjdoctitle{ font-size: 1.4rem;}
+        .gtabs{ float: left; text-align: center; width: 33.33%;}
+        .tjdoctitle .on{ color: #0875cc}
+        .mui-title span.on{border:none;color:#15bbdc;}
+        .mui-icon-back:before, .mui-icon-left-nav:before{color:#15bbdc;}
+        .tjdoctitle .on{color:#15bbdc;}
+        .goodscontent{padding:0;}
+        p{margin:0;padding:0;}
+         /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.35rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        .mui-title a{font-size: 1.7rem;font-weight: normal;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class=" mui-pull-left" onclick="window.location.href='{:url("goods/index")}'"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title" style="font-weight: normal;width:80%;margin:0 auto;font-weight:normal;"><span><a href="{:url('detail',['id'=>$goods.id])}">商品</a></span><span class="on"><a href="{:url('detail2',['id'=>$goods.id])}">详情</a></span><span><a href="{:url('comment',['id'=>$goods.id])}">评价</a></span></h1>
+</header>
+<div class="gdinfos brd" style="margin-top: 44px">
+    <div class="tjdoctitle"><div class="gtabs on" data-id="1">商品介绍</div><div class="gtabs" data-id="2">规格参数</div><div class="gtabs" data-id="3">包装售后</div></div>
+    <div class="gdccm">
+        <div class="goodscontent" id="cc1">
+            {$goods.text}
+        </div>
+        <div class="goodscontent" style="display: none" id="cc2">
+            {$goods.text3}
+        </div>
+        <div class="goodscontent" style="display: none" id="cc3">
+            {$goods.text4}
+        </div>
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".gtabs").click(function()
+        {
+            mainId=$(this).attr('data-id');
+            $(".gtabs").removeClass('on');
+            $(this).addClass('on');
+            $('.goodscontent').hide();
+            $('#cc'+mainId).show();
+        });
+    });
+</script>
+</body>
+</html>

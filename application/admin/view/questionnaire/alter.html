@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/main.css">
+<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/highlight.css">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>您当前所在位置：问券调查>活动管理>编辑活动</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('add')}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>活动名称：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control q_name" required  placeholder="请输入活动名称" name="gdname" value="{$info.q_name}">
+                                </div>
+                            </div>
+                            <div class="form-group appliance">
+                                <label class="col-sm-2 control-label">活动礼品图：</label>
+                                <div class="col-sm-10 upload">
+                                    <img src="{$info.q_gift}">
+                                    <input required type="file" accept="image/*" id="file"/>
+                                    <span class="imgg"></span>
+                                    <span class="help-block m-b-none">建议上传透明背景png图片，大小：600*600</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">活动规则：</label>
+                                <div class="col-sm-10">
+                                    <textarea id="text" name="info" required class="form-control q_rule" style="height:100px;">{$info.q_rule}</textarea>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+							<div class="form-group">
+                                <label class="col-sm-2 control-label">提交提示信息：</label>
+                                <div class="col-sm-10">
+                                    <textarea id="text" name="info" class="form-control q_prompt" required style="height:100px;">{$info.q_prompt}</textarea>
+                                    <p>调研提交成功以后提示的信息. 例如: 您的信息我们已经收到, 很快会有专人联系你。（45个字以内）</p>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">活动时间：</label>
+                                <div class="col-sm-10">
+                                    <label><input type="date" value="{$info.q_start|date='Y-m-d',###}" class="q_start" required/></label>至
+                                    <label><input type="date" value="{$info.q_end|date='Y-m-d',###}" class="q_end" required/></label>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">提交建议：</label>
+                                <div class="col-sm-10">
+                                    <label><input type="radio" name="a2" {if $info.q_suggest==1} checked="checked" {/if} checked="checked" class="q_suggest" value='1' />开启</label>
+                                    <label><input type="radio" name="a2" {if $info.q_suggest==2} checked="checked" {/if} class="q_suggest" value='2' />关闭</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary submit"type="button" style="width: 150px;">提交</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $('#addimg').click(function(){
+            $('#imgs').append('<div class="input-group m-b"><span class="input-group-addon"><input type="radio" name="default_img" value="0">默认</span> <input type="file" name="pic2[]" class="form-control"/> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            again();
+        });
+        $("#imgs").on("click",".del",function(){
+            $(this).parent().parent().remove();
+            again();
+        });
+        //对上传图片的默认单选按钮 重新赋值
+        function again()
+        {
+            i=0;
+            $("#imgs input[type='radio']").each(function(){
+                $(this).val(i);
+                i=i+1;
+            })
+        }
+        //通过2步做到输入的为非负数
+        //1.去掉多余的小数点
+        //2.保证只能输入小数点或数字
+        function onlyNonNegative(obj) {
+            var inputChar = event.keyCode;
+            //alert(event.keyCode);
+            //1.判断是否有多于一个小数点
+            if(inputChar == 190) { //输入的是否为.
+                var index1 = obj.value.indexOf(".") + 1; //取第一次出现.的后一个位置
+                var index2 = obj.value.indexOf(".", index1);
+                while(index2 != -1) {
+                    //alert("有多个.");
+                    obj.value = obj.value.substring(0, index2);
+                    index2 = obj.value.indexOf(".", index1);
+                }
+            }
+            //2.如果输入的不是.或者不是数字，替换 g:全局替换
+            obj.value = obj.value.replace(/[^(\d|.)]/g, "");
+        }
+         //上传照片
+		 $("#file").change(function(){
+		  drawTempPhoto();
+		 });
+		 //绘制照片
+		 function drawTempPhoto() {
+		   //检验是否为图像文件
+		   var file = document.getElementById("file").files[0];
+		   if(!/image\/\w+/.test(file.type)){
+		    alert("请选择图片文件。")
+		    return false;
+		   }
+		   var reader = new FileReader();
+		   // 将文件的格式以Data URL形式读入页面
+		    reader.readAsDataURL(file)
+		    //等待图片加载完成
+		    reader.onload = function (e) {
+		        //预览效果
+		        //加载图片，此处的this.result为base64格式     
+		        $(".imgg").html("<img class='q_gift' src='"+this.result+"'/>")        
+		        console.log(this.result)
+		}
+		   }
+        //通过ajax提交数据
+		$(".submit").click(function(){
+			var subjectinfo = {};
+			subjectinfo.q_name=$('.q_name').val();
+	        subjectinfo.q_gift=$('.q_gift').attr('src');
+	        subjectinfo.q_rule=$('.q_rule').val();
+	        subjectinfo.q_prompt=$('.q_prompt').val();
+	        subjectinfo.q_state=$('.q_state:checked').val();
+	        subjectinfo.q_start=$('.q_start').val();
+	        subjectinfo.q_end=$('.q_end').val();
+	        subjectinfo.q_suggest=$('.q_suggest:checked').val();
+	        
+			$.ajax({
+				type:"post",
+				url:"{:url('questionnaire/alter',['q_id'=>$q_id])}",
+				async:true,
+				dataType: "json",
+				data:subjectinfo,
+				success:function(data){
+                    if(data.code == 1) {
+                        layer.msg('修改成功');
+                    } else {
+                        layer.msg('修改失败');
+                    }
+                    setTimeout(function () {
+                        window.location.href = "{:url('questionnaire/index')}";
+                    },1500)
+				}
+			});
+		})
+    </script>
+</body>
+</html>

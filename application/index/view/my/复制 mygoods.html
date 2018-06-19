@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/icons-extra.css" />
+    <link href="{$Think.HTML_STATIC}/css/goods.css?v=1.1.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/iconfont.css" rel="stylesheet">
+    <style>
+        .gordermain{ margin-top:10px; overflow: hidden;}
+        .gorderid{ padding-left: 10px; line-height:25px; padding-bottom: 5px; font-size: 14px; border-bottom: 1px solid #f7f7f7;}
+        .gorinfo{ background: #fff; overflow: hidden; padding: 10px 0px; margin-bottom: 10px;}
+        .ggoods{ padding: 10px; overflow: hidden;}
+        .ggoods img{ width: 25%; float: left;}
+        .bgdstp{ width: 74%; float: right;}
+        .addgnum{ float: right; font-size: 12px;}
+        .gstatus{ padding:0 10px; overflow: hidden;}
+        .total{ float: left; color: #ea5e5f;}
+        .gstatusinfo{ float: right; font-size: 14px;height: 30px; line-height: 30px;}
+        .gstatusinfo span{ float: right; margin-right: 5px;}
+        .butt,.zfbutt{  padding: 0 10px; text-align: center; background: #56bb37; color: #fff; border-radius:5px;}
+        .gorderid span{ float: right; padding-right: 5px; font-size: 12px; color: #b7b7b7}
+        .wrapper02 {position:relative;height:4.5rem;width:100%;overflow:hidden;margin:0 auto;background:#fff}
+        .wrapper02 .scroller {position:absolute}
+        .wrapper02 .scroller li { padding:0 1rem; height:4.5rem;color:#333;float:left;line-height:4.5rem;font-size: 1.6rem;text-align: center}
+        .wrapper02 .scroller li a{color:#868686;display:block;margin:0 .3rem}
+        .wrapper02 .scroller li.cur{ background: url("{$Think.HTML_STATIC}/images/askt.png") center bottom no-repeat;}
+    </style>
+</head>
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">我的订单</h1>
+</header>
+
+<div class="asktop">
+    <div class="wrapper02" id="demo05">
+        <div class="scroller">
+            <ul class="clearfix">
+                <li {if $tid==0}class="cur"{/if}><a href="{:url('mygoods',['tid'=>0])}">全部</a></li>
+                <li {if $tid==1}class="cur"{/if}><a href="{:url('mygoods',['tid'=>1])}">待付款</a></li>
+                <li {if $tid==3}class="cur"{/if}><a href="{:url('mygoods',['tid'=>3])}">待收货</a></li>
+                <!-- <li {if $tid==4}class="cur"{/if}><a href="{:url('getreturngoods',['tid'=>4])}">退换货</a></li> -->
+                <li {if $tid==5}class="cur"{/if}><a href="{:url('mygoods',['tid'=>5])}">已完成</a></li>
+                <li {if $tid==6}class="cur"{/if}><a href="{:url('myevaluate',['tid'=>6])}">待评价</a></li>
+                <li {if $tid==7}class="cur"{/if}><a href="{:url('mycancelorder',['tid'=>7])}">已取消</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="gordermain" style="margin-top:105px;">
+    {volist name='$orders' id='vo' empty="<p style='text-align: center; font-size: 1.8rem; padding: 2rem;'>暂时没有相关信息~~</p>"}
+    <div class="gorinfo">
+        {eq name='$vo.status' value='0'}<form method="post" id="f{$vo.id}" action="{:url('goods/buy')}">{/eq}
+        <div class="gorderid"><span>{$vo.update_time|date='Y-m-d H:i:s',###}</span>单号:{$vo.order_id}</div>
+        {volist name='$vo.orderGoods' id='vo2'}
+        <div class="ggoods">
+            <img src="{$vo2.goods.pic}">
+            <div class="bgdstp">
+                <div class="bgdtitle">{$vo2.goods.gdname}</div>
+                <div class="bgdprice">￥{$vo2.price} {$vo2.ggName}</div>
+                <div class="addgnum">
+                    ×{$vo2.nums}
+                </div>
+            </div>
+        </div>
+        <input type="hidden" name="nums[]" value="{$vo2.nums}">
+        <input type="hidden" name="id[]" value="{$vo2.goods.id}">
+        <input type="hidden" name="gg[]" value="{$vo2.gg}">
+        <input type="hidden" name="pic[]" value="{$vo2.goods.pic}">
+        {if condition="$vo.status==2 || $vo.status==3"}
+        <div class="gstatusinfo">
+            {if condition="$vo2.status==2"}
+            退款中
+            {elseif condition="$vo2.status==3"/}
+            退款完成
+            {elseif condition="$vo2.status==4"}
+            退货中
+            {elseif condition="$vo2.status==5"/}
+            退货完成
+            {else /}
+            <!-- <span class="butt" onClick="window.location.href='{:url('goods/refund',array('order_id'=>$vo.order_id,'goods_order_goods'=>$vo2.id,'gid'=>$vo2.gid,'returntype'=>2))}'">申请退货</span> -->
+            {/if}
+        </div>
+        {/if}
+        {/volist}
+        <div class="gstatus" style="clear: both;padding: 10px 10px;"><div class="total">合计:￥{$vo.price}</div>
+            {eq name='$vo.status' value='0'}
+            <div class="gstatusinfo">
+                <input type="hidden" name="order_data_id" value="{$vo.id}">
+                <span class="cancel" data-id="{$vo.id}">取消订单</span>
+                <span class="zfbutt" data-id="{$vo.id}">我要支付</span>
+                <span>待支付</span>
+            </div>
+            {/eq}
+
+            {if $vo.status==1||$vo.status==2}
+            <div class="gstatusinfo">
+                <span class="butt" id="shhuo" data-id="{$vo.order_id}">确认收货</span>
+                <span class="butt" onClick="window.location.href='{:url('goods/express',array('oid'=>$vo.order_id))}'">查看物流</span>
+                <span>已发货</span>
+            </div>
+            {/if}
+            {eq name='$vo.status' value='3'}
+            <div class="gstatusinfo">
+                <span>完成</span>
+            </div>
+            {/eq}
+        </div>
+        {eq name='$vo.status' value='0'}
+        {:token()}
+    </form>
+        {/eq}
+    </div>
+    {/volist}
+</div>
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/scroll.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/navbarscroll.js"></script>
+<script>
+    $(function(){
+        // $('#demo05').navbarscroll({
+        //     defaultSelect:{$tid}
+        // });
+        //购买
+        $('.zfbutt').click(function(){
+            who=$(this).attr('data-id');
+            $("#f"+who).submit();
+
+        });
+        $('.cancel').click(function(){
+            var order_id = $(this).attr('data-id');
+            $.ajax({
+                type: "post",
+                url: '{:url("docancel")}',
+                data: {order_id:order_id,__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1)
+                    {
+                        alert('已取消');
+                        window.location.href="{:url('my/mycancelorder',['tid'=>7])}";
+                    }
+                    else
+                    {
+                        $('#loading').remove();
+                        alert('取消失败');
+                    }
+                }
+            });
+        })
+        //确认收货
+        $('#shhuo').click(function(){
+            order_id=$(this).attr('data-id');
+            $.ajax({
+                type: "post",
+                url: '{:url("accept")}',
+                data: {order_id:''+order_id+'',__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1)
+                    {
+                        alert('恭喜您获得购买的商品！');
+                        window.location.href="{:url('mygoods',['tid'=>5])}";
+                    }
+                    else
+                    {
+                        $('#loading').remove();
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/mine.css" rel="stylesheet" type="text/css">
+    <script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/demo.css">
+
+
+
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+
+    <style>
+        html,body{font-size:62.5%;}
+        body.my{background:#f5f5f5;}
+        .my{width:100%;margin-top:11%;}
+        .my li{width:94.5333%;margin:0 auto;}
+        .my li a{width:100%;color:#333333;font-size:1.7rem;}
+        .my li a img{width:13.4%;border-radius:50%;margin-right:3%;}
+        .my li a span{color:#999999;font-size:1.7rem;margin-right:3%;}
+        .my .mui-table-view-cell > a:not(.mui-btn){position:static;}
+        .my .mui-icon-back:before, .mui-icon-left-nav:before{color:#4a4a4a;}
+        .my .mui-bar .mui-title{color:#333333;font-size:1.7rem;}
+        .pi{margin-top:2%;}
+        .tel{margin-top:2%;}
+        .tel:before,.pi:before,.my:before{background:none;}
+        .tel:after,.pi:after,.my:after{background:none;}
+        .exit{width:86.667%;margin:10% auto 0;padding:2.6rem 0;background:url({$Think.HTML_STATIC}/images/exit.png) no-repeat;background-size:100% auto;display:block;}
+        .my .mui-table-view-cell:after{left:0;}
+        .my .mui-navigate-right:after, .mui-push-right:after{right:0px;}
+        .my .mui-table-view-cell{padding:11px 3px;}
+        .my .mui-table-view-cell > a:not(.mui-btn){margin:-1rem 0;}
+        .my .tw{position:relative;top:3rem;color:#333333;font-size:1.7rem;}
+        .my .tc{color:#15bbdc;}
+        .pi input{border:none;width:16%;font-size:0.9rem;color:#999999;}
+        .tn{position:relative;top:0.15rem;}
+
+        .ui-body-c, .ui-overlay-c{border:none;}
+        /*性别*/
+        .sex{width:86.6667%;height:8rem;margin:0 auto;position:absolute;top:30%;left:7%;bakground:#fff;}
+        .sex ul li{width:100%;}
+        /*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight:normal;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.my{margin-top: 0;}
+		/*.my .mui-table-view-cell{padding-bottom: 0;padding-top: 0;}*/
+		
+		#header{border-bottom: 1px solid #F0F0F0;}
+		/*线*/
+		.mui-table-view-cell:after{background-color: #E6E6E6;}
+		.num3,.num2,.num1{padding: 0 1rem;background: white;}
+		.my li.mui-table-view-cell{width: 100%;padding: 1.3rem 3px 1.3rem 0;}
+		.num1{margin-bottom: 1rem;}
+		.num2{margin-bottom: 1rem;}
+		.my li.head{padding-bottom: 0;padding-top: 0;}
+		.mui-table-view-radio .mui-table-view-cell .mui-navigate-right:after{color: #15BBDC;font-size: 4rem;}
+		.mui-popover .mui-table-view{padding-left: 20px;padding-right: 20px;}
+		.mui-table-view-cell a.cj_sex{color: #666;}
+		.mui-popover.mui-active{border-radius: 15px;}
+		.mui-popover .mui-table-view{border-radius: 15px;}
+		/*.cj_head:after{content: "";}*/
+		.addimg{margin-right:0.5rem;}
+		input[type='date']{
+			 width:100%;position:relative;top:-1.2rem;left: 69%; color:##999999;font-size:1.4rem;
+		}
+		@media only screen and (min-width: 320px) and (max-width: 340px) {
+			input[type='date']{
+				left: 59%;
+			}
+		}
+		@media only screen and (min-width: 340px) and (max-width: 360px) {
+			input[type='date']{
+				left: 71%;
+			}
+		}
+		#header h1#title{line-height: 4.4rem;}
+		.mui-table-view-cell>a:not(.mui-btn){color: #333;}
+    </style>
+</head>
+
+<body class="my">
+<header id='header' class='mui-bar mui-bar-nav header bg'>
+    <section id='index-h1'>
+        <a onclick="window.location.href='{:url('my/index')}'" class="mui-pull-left" id="_setting"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+        <h1 id="title" class="mui-title mui-h1">设置</h1>
+    </section>
+</header>
+<div style="height: 4.4rem;"></div>
+<style>
+    .webuploader-pick{padding:0;width:5rem;height:5rem;background:#fff;}
+    .form2{border:none;margin-top:0;padding-top:0;padding-bottom:0;padding:0;padding-right:1rem;}
+</style>
+<div class="num1">
+	<ul class="mui-table-view my">
+    <li class="mui-table-view-cell head">
+        <!--<a class="mui-navigate-right mui-pull-left"><span class="tw">头像</span> <img src="{$userinfo.portrait}" class="mui-pull-right"/></a>-->
+        <div class="form2">
+            <a class="mui-navigate-right mui-pull-left cj_head"><span class="tw">更换头像</span></a>
+            <div class="addimg mui-pull-right" id="uploadimg" style="width:5rem;height:5rem;position:relative;top:-1rem;">
+                <div id="imgPicker"><img src="{$userinfo.portrait}" class="" style="width:100%;display:block;border-radius:50%;"/></div>
+                <div id="fileList" class="uploader-list" style="margin-top:15px;"></div>
+            </div>
+        </div>
+    </li>
+    <li class="mui-table-view-cell">
+        <a class="mui-navigate-right mui-pull-left" id="pn" href="{:url('setoption/name',['name'=>$userinfo.wechaname])}">更改昵称<span class="mui-pull-right tc" style="font-size: 1.4rem;margin-top: 0.2rem;">{$userinfo.wechaname}</span></a>
+    </li>
+    <!--<li class="mui-table-view-cell">
+        <a class="mui-navigate-right mui-pull-left" id="ps">个性签名<span class="mui-pull-right" id="pw">花花世界，何必...</span></a>
+    </li>-->
+	</ul>
+</div>
+
+<div class="num2">
+	<ul class="mui-table-view my pi">
+    <li class="mui-table-view-cell">
+        <a class="mui-navigate-right mui-pull-left " onclick="show();">性别<span class="mui-pull-right" id="info" style="font-size: 1.4rem;margin-top: 0.2REM;">{$userinfo.sex}</span></a>
+    </li>
+    <li class="mui-table-view-cell" id="birthday">
+        <a class="mui-navigate-right mui-pull-left" style="height:4.5rem;" id='pickDateBtn'>
+            <span style="display:inline-block;width:10%;color:#333333;margin-top: -0.4rem;">生日</span>
+            <span class="mui-pull-right" id="bir" style="display:inline-block;width:90%;position:relative;top:-19px;">
+        		<input type="date" id="birt" onchange="editbir(this)" value="{$userinfo.birthday|date='Y-m-d',###}" style=""/>
+        	</span>
+        </a>
+        <!--<div data-role="fieldcontain">
+            <label style="float:left;width:10%;">生日</label>
+            <input type="text" data-role="datebox"   id="txtBirthday" name="txtBirthday" style="display:block;float:left;width:90%;text-align:right;"/>
+        </div>-->
+    </li>
+</ul>
+</div>
+
+<!--性别-->
+<div id="popover" class="mui-popover mui-popover-bottom sex">
+    <ul class="mui-table-view mui-table-view-radio mui-selected">
+        <li class="mui-table-view-cell">
+            <a class="cj_sex">性别</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right">男</a>
+        </li>
+        <li class="mui-table-view-cell">
+            <a class="mui-navigate-right">女</a>
+        </li>
+    </ul>
+</div>
+<div class="num3">
+	<ul class="mui-table-view my tel">
+    <li class="mui-table-view-cell">
+        <a class="mui-navigate-right mui-pull-left"  id="release" href="{:url('setoption/telphone',['telphone'=>$userinfo.phonenum])}">修改手机号<span class="mui-pull-right tc" id="release"></span><span class="mui-pull-right tn ttc"  style="font-size: 1.4rem;">{$userinfo.phonenum}</span></a>
+    </li>
+	</ul>
+</div>
+<div class="exit"></div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+    $(function(){
+        $('.exit').click(function(){
+            window.location.href='{:url('my/out')}'
+        })
+     
+        //缓存存储绑定的手机号
+        $("#release").click(function(){
+        	var cjBind=$(".ttc").text();
+        	window.localStorage.setItem("Bphone",cjBind)
+        	window.localStorage.href="telphone.html"
+        })
+    })
+    //昵称
+    var opn=document.getElementById("pn");
+    opn.addEventListener("tap",function(){
+        mui.openWindow({
+            url:'name.html', //需要打开页面的url地址
+            id:'name',  //需要打开页面的url页面id
+            styles:{
+                top:'0px',//新页面顶部位置
+                bottom:'0px',//新页面底部位置
+                //					width:newpage-width,//新页面宽度，默认为100%
+                //					height:newpage-height,//新页面高度，默认为100% ......
+            },
+            show:{ //控制打开页面的类型
+                autoShow:true,
+                //					//页面loaded事件发生后自动显示，默认为true
+                aniShow:'zoom-fade-out',//页面显示动画，默认为”slide-in-right“；  页面出现的方式 左右上下
+                duration:'1000'//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+            }
+        });
+    })
+
+    var mask = mui.createMask();
+    mask.show();//显示遮罩
+    mask.close();//关闭遮罩
+
+    function show(){
+        mui('.mui-popover').popover('toggle');
+    }
+
+    //性别
+    mui.init({
+        swipeBack:true //启用右滑关闭功能
+    });
+    var info = document.getElementById("info");
+    document.querySelector('.mui-table-view.mui-table-view-radio').addEventListener('selected',function(e){
+
+        if(e.detail.el.innerText.replace(/(^\s*)|(\s*$)/g, "")=='男'){
+            var sex = 1;
+        }else{
+            var sex = 2;
+        }
+
+        $.ajax({
+            type: 'post',
+            url: "{:url('editsex')}",
+            data:{sex:sex},
+            dataType: "json",
+            success: function(data){
+                if(data.code==1){
+                    info.innerHTML = e.detail.el.innerText;
+                }
+//              else{
+//                  alert('修改失败');
+//              }
+            }
+        });
+
+
+    });
+
+    //换绑
+    var or=document.getElementById("release");
+    or.addEventListener("tap",function(){
+        mui.openWindow({
+            url:'telphone.html', //需要打开页面的url地址
+            id:'telphone',  //需要打开页面的url页面id
+            styles:{
+                top:'0px',//新页面顶部位置
+                bottom:'0px',//新页面底部位置
+                //					width:newpage-width,//新页面宽度，默认为100%
+                //					height:newpage-height,//新页面高度，默认为100% ......
+            },
+            show:{ //控制打开页面的类型
+                autoShow:true,
+                //					//页面loaded事件发生后自动显示，默认为true
+                aniShow:'zoom-fade-out',//页面显示动画，默认为”slide-in-right“；  页面出现的方式 左右上下
+                duration:'1000'//页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+            }
+        });
+    })
+    //生日
+    document.getElementById("pickDateBtn").addEventListener('tap', function() {
+        var dDate = new Date();
+        //设置当前日期（不设置默认当前日期）
+        dDate.setFullYear(2018, 1, 1);
+        var minDate = new Date();
+        //最小时间
+        minDate.setFullYear(2010, 0, 1);
+        var maxDate = new Date();
+        //最大时间
+        maxDate.setFullYear(2090, 1, 1);
+        plus.nativeUI.pickDate(function(e) {
+            var d = e.date;
+            var txt1=document.getElementById("bir");
+            var txt2=d.getFullYear() + "年" + (d.getMonth() + 1) + "月" + d.getDate()+"日";
+            txt1.innerHTML = txt2;
+        }, function(e) {
+            mui.toast("您没有选择日期");
+        }, {
+            title: '请选择日期',
+            date: dDate,
+            minDate: minDate,
+            maxDate: maxDate
+        });
+    });
+</script>
+
+<script>
+
+    mui.previewImage();
+
+    $('#btnn').click(function()
+    {
+        var mycars=new Array();
+        $('#fileList img').each(function(index){
+            mycars[index]=$(this).attr('data-preview-src');
+        });
+
+        ty=$("#type option:selected").val();
+        //qtitle=$('#qtitle').val();
+        //tid=$('#tid').val();
+        text=$('#text').val();
+
+        /*$('body').append("<div class='mb' id='loading'></div>");*/
+        $.ajax({
+            type: "post",
+            url: '{:url("add")}',
+            data: {images:mycars,f_content:text,f_type:ty,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    $("#tc").show();
+                    $("#fkc").show();
+                }
+                else
+                {
+                    alert("反馈不成功！！！");
+                }
+            }
+        });
+    });
+
+    //上传图片
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: false,
+        //允许上传的图片个数
+        fileNumLimit:1,
+        // swf文件路径
+        swf: 'js/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#imgPicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $list = $("#fileList"),
+                $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '</div>'
+                ),
+                $img = $li.find('img');
+
+        // $list为容器jQuery实例
+        $list.append( $li );
+
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 200 x 200
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: "{:url('editheadimg')}",
+                data:{images:src},
+                dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                        $('.webuploader-pick').find('img').attr('src',src);
+                    }else{
+                        alert('上传失败请稍后再试');
+                    }
+                }
+            });
+
+            // $img.attr( 'src', src );
+        }, 200, 200);
+
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'data-preview-src', src );
+        }, 0.5, 0.5);
+    });
+    function editbir(_self){
+        var bir = $(_self).val()
+        $.ajax({
+            type: 'post',
+            url: "{:url('editbir')}",
+            data:{bir:bir},
+            dataType: "json",
+            success: function(data){
+                if(data.code==1){
+                }else{
+                    alert('修改失败');
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

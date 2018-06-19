@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/circle.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/dl.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/normalize3.0.2.min.css" />
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/styleo.css" />
+    <link href="{$Think.HTML_STATIC}/css/mobiscroll.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mobiscroll_date.css" rel="stylesheet" />
+    <style>
+        .bodyb{background:#f5f5f5;overflow:hidden;}
+        .bodyb .mui-pull-left{color:#515151;}
+        .bodyb .mui-bar .mui-title{font-family: "Arial";font-size:1.7rem;color:#333333;}
+        .bodyb .mui-bar-nav{box-shadow:0 0 0;}
+        #header{border-bottom:1px solid #f0f0f0;position:relative;}
+        #appo{margin-top:1rem;width:100%;background:#ffffff;border-top:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;}
+        #appo li{height:5.5rem;line-height:5.5rem;width:94.667%;margin:0 auto;border-bottom:1px solid #f0f0f0;}
+        #appo >li >label{display:block;float:left;width:10.704225%;font-size:1.6rem;padding-left:0.4rem;color:#333333;}
+        #appo li div.se{float:left;width:87.746479%;}
+        .opt{float:left;padding-left:3rem;width:10.5939%;}
+        .opt >label{width:10.5939%;position:relative;top:1.5rem;font-size:1.6rem;color:#999999;}
+        .opt >label span{position:relative;top:-1.6rem;padding-left:1.4rem;}
+        #appo li div.se >div:nth-of-type(2){padding-left:7.5rem;}
+        .magic-radio + label:after{
+            top:6px;
+            left:6px;
+            width:10px;
+            height:10px;
+            border-radius: 100%;
+            background: #15bbdc;
+        }
+        .magic-radio:checked + label:before{border:1px solid #15bbdc;}
+        .magic-radio + label:before, .magic-checkbox + label:before{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            content: '';
+            border: 1px solid #c0c0c0;
+        }
+        .magic-radio:checked + label span{color:#333333;}
+        .se2 input{border:none;line-height:4.8rem;}
+        input[type=text]{margin-bottom:0;padding:0 0;padding-left:3rem;font-size:1.6rem;height:4.8rem;
+            font-family: "Arial";}
+        input::-webkit-input-placeholder{font-size:1.4rem;color:#999;font-size:1.6rem;color:#CCCCCC;}
+        input::-moz-placeholder{font-size:1.4rem;color:#999;font-size:1.6rem;color:#CCCCCC;}
+        input:-moz-placeholder{font-size:1.4rem;color:#999;font-size:1.6rem;color:#CCCCCC;}
+        input:-ms-input-placeholder{font-size:1.4rem;color:#999;font-size:1.6rem;color:#CCCCCC;}
+        #tips{width:41%;line-height:4rem;background:#b8b8b8;color:#fffefe;font-size:1.5rem;border-radius:5px;text-align:center;margin:15% auto 0;}
+        .dwb-s{background:url({$Think.HTML_STATIC}/images/sure.png) no-repeat;width: 7.5rem;background-size:100% auto;margin-right:5%;border:none;height:3rem;}
+        .dwb-c{background:url({$Think.HTML_STATIC}/images/cancel.png) no-repeat;width: 7.5rem;background-size:100% auto;margin-right:5%;border:none;height:3rem;}
+        .dw-sel .dw-i{color:#15bbdc;}
+        #appo #li2{border-bottom:1px solid transparent;}
+        #header img{line-height: 4.4rem;width: 1rem;height: 1.75rem;margin-top: 0.15rem;}
+        .mui-bar {-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);box-shadow: 0 0 1px rgba(0,0,0,0);}
+        .mui-icon-back:before, .mui-icon-left-nav:before{content:'';}
+        .lsub{width:86.667%;margin:35% auto 0;background:url({$Think.HTML_STATIC}/images/login.png) no-repeat;background-size:100% 100%;color: white;font-size:1.8rem;}
+        .lsub img{width:100%;display:block;}
+        .lsub .butt{margin-top:0;background:none;}
+        .mui-bar{z-index:100;}
+        .magic-radio + label:before {border-radius: 100%;}
+        .magic-radio + label:after {border-radius: 50%;}
+
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="window.location.href='{:url(\'member/alllogin\')}'"><img src="/static/index/images/3.png"></a>
+    <h1 class="mui-title" id="title">用户注册</h1>
+</header>
+<form action="{:url('regsub')}" method="get">
+    <ul id="appo">
+        <li>
+            <label>性别</label>
+            <div class="se se1">
+                <div class="opt">
+                    <input class="magic-radio" type="radio" name="sex" id="r1" value="男">
+                    <label for="r1"><span>男</span></label>
+                </div>
+                <div class="opt">
+                    <input class="magic-radio" type="radio" name="sex" id="r2" value="女">
+                    <label for="r2"><span>女</span></label>
+                </div>
+            </div>
+        </li>
+
+        <li id="li2">
+            <label>生日</label>
+            <div class="se se2">
+                <input type="text" readonlyunselectable="on" onfocus="this.blur()" name="birthday" id="USER_AGE" readonly class="input" placeholder="设置您的生日">
+                <div class="clear h10"></div>
+            </div>
+        </li>
+    </ul>
+    {if isset($rd_id)}
+        <input type="hidden" name="rd_id" value="{$rd_id}">
+    {/if}
+    <div class="lsub" id="next"><span>下一步</span></div>
+</form>
+<div id="tips"></div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mobiscroll_date.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mobiscroll.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var currYear = (new Date()).getFullYear();
+        var opt={};
+        opt.date = {preset : 'date'};
+        opt.datetime = {preset : 'datetime'};
+        opt.time = {preset : 'time'};
+        opt.default = {
+            theme: 'android-ics light', //皮肤样式
+            display: 'modal', //显示方式
+            mode: 'scroller', //日期选择模式
+            dateFormat: 'yyyy-mm-dd',
+            lang: 'zh',
+            showNow: false,
+            nowText: "今天",
+            startYear: currYear - 50, //开始年份
+            endYear: currYear + 10 //结束年份
+        };
+        $("#USER_AGE").mobiscroll($.extend(opt['date'], opt['default']));
+
+    });
+
+    $(function(){
+        $("#tips").hide();
+        $("#next").click(function(){
+            var sv=$(".opt input[name='sex']:checked").val();
+            if(!sv){
+                $("#tips").text("请设置性别");
+                $("#tips").show();
+                setTimeout("a()",2000);
+                return false;
+            }
+            var av=$(".se input[type='text']").val();
+            if(!av){
+                $("#tips").text("请设置您的年龄");
+                $("#tips").show();
+                setTimeout("a()",2000);
+                return false;
+            }
+            $('form').submit();
+            // window.location.href='{:url("member/regsub")}'
+        });
+    });
+    function a(){
+        $("#tips").hide();
+    }
+
+
+</script>
+</body>
+</html>

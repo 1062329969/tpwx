@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <style type="text/css">
+        .swiper-button-next, .swiper-button-prev{ width: 18px; height: 29px; background-size:18px 29px; margin-top: -13px;}
+        .swiper-pagination-bullet{background:#b9b9b9;opacity:1;}
+        .swiper-pagination-bullet-active{background:#ffffff;}
+        .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{margin:0 5px 8px 5px;}
+        ul.line{
+            height:45px;
+            line-height:45px;
+            overflow: hidden;
+            width: 90%;
+            display: inline-block;
+        }
+        .notice{ float: none; overflow: hidden; padding:0rem 1.5rem 0rem 1.5rem; height:5rem;background: #fff;}
+        .notice img{ float: left; margin-top: 12px;}
+        ul.line li{height:45px;line-height:40px;}
+        .stagelabel{
+            background: #fff;
+        }
+        .stagelabel img{ display: block;margin: 0 auto; width: 88%;border-radius: 10px; }
+        .stagelabel span{ display: block;padding: 20px; font-size: 14px;}
+
+        .memmenu{width:100%;position:fixed;top:0;left:0;}
+        #healthy div{width:49%;float:left;}
+        #healthy div:nth-of-type(1) a{color:#15bdde;}
+        .memmenu{border-top:none;height:2rem;line-height:2rem;}
+
+        .notice{color:#333333;}
+        .notice1{width:91.6%;margin:1% auto 0;padding:0; font-size:1.6rem;color:#333333;line-height:4.5rem;font-weight:600;}
+        .stagelabel{width:91.6%;margin:0 auto;padding-bottom:4%;margin-top:-2%;}
+        .stagelabel a{display:block;width:100%;margin:0 auto;}
+        .stagelabel a img{display:block;width:100%;}
+        .stagelabel p{color:#999999;margin-top:3%;}
+        .gap{width:100%;background:#f5f5f5;height:1rem;}
+        .notice2{border-top:none;margin-top:2%;line-height:4.5rem;}
+
+        #healthy div a{font-size:1.7rem;padding:0 0;display:block;color:#333333;}
+        #healthy div:nth-of-type(1) a{color:#15bdde;}
+        #healthy div:nth-of-type(2){width: 1px;height: 2.3rem;float: left;margin-top: 1.05rem;}
+        #healthy div:nth-of-type(2) img{display:block;width:100%;height:100%;}
+        .memmenu{border-top:none;height:4.4rem;line-height:4.4rem;z-index: 999;}
+        .indexmain{margin-top:12.5%;border-top:1px solid #e6e6e6;background:#ffffff;padding-top:2rem;}
+        .indexmenu{display:-webkit-box;width:97%;margin:0 auto;position:relative;z-index:99;}
+        .indexmenu .immain{width:26.809524%;float:none;}
+        .indexmenu img{display:block;width:83%;margin:0 auto;}
+        .indexmenu p{color:#666666;padding-bottom:10%;padding-top:0.5rem;}
+        .indexmain1{margin-top:5%;}
+        #healthy div:nth-of-type(1) a{color:#15bdde;font-weight:600;}
+        .stagelabe2{margin-top:-0.2%;}
+        /*#bi{width:100%;border-top:1px solid #e6e6e6;}
+        #bi img{display:block;width:100%;}*/
+        .mmmain{position: relative;}
+        #healthy a.mui-pull-left{position: absolute;left:1rem;top: 1.2rem;}
+        #healthy a img{width: 1rem;height: 1.75rem;z-index: 99999;}
+        .cj_notop{position: static;border-bottom: 1px solid #f0f0f0;}
+        .stagelabel a{position: relative;}
+        .stagelabel a p{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background:#000;margin-top: 0;opacity: .3;border-radius: 10px;z-index: 10;}
+        .stagelabel a div{position: absolute;top: 50%;left:0;color: white;font-size: 1.7rem;margin: -1rem 0 0 0;width: 100%;text-align: center;z-index: 11;}
+        .stagelabel a span.cj_white{position: absolute; bottom: 0.5rem;right: 0.5rem;color: white;font-size: 1.3rem;padding: 0;z-index: 12;}
+        .stagelabel a span.cj_blue{position: absolute;bottom: 0.5rem;right: 0.5rem;color: #15BBDC;font-size: 1.3rem;padding: 0;z-index: 12;}
+        .swiper-container {
+            width: 100%;
+            height: 100%;
+        }
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+        .cj_shuhou{position: relative;}
+        .cj_shuhou span{position: absolute;width: 8.9rem;text-align: center;bottom: 0;left: 50%;margin-left: -4.45rem;height: 3px;background: #15BBDC;text-align: center;}
+        .cj_shuhou span img{position: absolute;width: 1.05rem;bottom: -0.5rem;margin-left: -0.525rem;}
+        #healthy div a:before{width: 0;height: 0;border-bottom: 50px solid #15bdda;}
+    </style>
+</head>
+<body style="background: #ffffff;">
+{if $Think.session.from=='index'}
+<!--有返回按钮的div-->
+<div style="height: 4.4rem;"></div>
+<div class="memmenu" id="healthy">
+    <div class="mmmain" style="width:100%;"><a class="mui-pull-left" href="{:url('index/home')}"><img src="{$Think.HTML_STATIC}/images/3.png"></a><a style="width:100%;color:#4a4a4a;font-size:1.7rem;font-weight:normal;">直击术后</a></div>
+    <!-- <div><img src="{$Think.HTML_STATIC}/images/69.png"/></div>-->
+    <!--<div class="mmmain"><a href="{:url('haircare/article')}">术后养护</a></div>-->
+</div>
+<div id="bi" onclick="return false;"><img src="{$Think.HTML_STATIC}/images/zj.jpg" class="qimg"/></div>
+{else /}
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" ><a><img src="{$Think.HTML_STATIC}/images/zj.jpg" class="qimg"/></a></div>
+        <div class="swiper-slide" ><a><img src="{$Think.HTML_STATIC}/images/yh1.jpg" class="qimg"/></a></div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+<div class="memmenu cj_notop" id="healthy">
+    <div class="mmmain cj_shuhou"><a href="{:url('track/stage')}">直击术后</a><span><img src="{$Think.HTML_STATIC}/images/98.png"/></span></div>
+    <div><img src="{$Think.HTML_STATIC}/images/69.png"/></div>
+    <div class="mmmain"><a href="{:url('haircare/article')}">术后养护</a></div>
+</div>
+{/if}
+<div style="width:100%;">
+    <!--一阶段-->
+    <div class="notice notice1">
+        <!--[{$stage1.s_day}天]-->
+        <span style="font-weight: normal;">{$stage1.s_name}</span>
+    </div>
+    <div class="stagelabel">
+        <a href="<?php if(isset($period) && $period>=1 ){ ?>{:url('stagearticle',['sid'=>$stage1.s_id])}<?php }else{ ?>javascript:;<?php } ?>">
+            <img src="{$stage1.s_img}">
+            <?php if(isset($period) && $period>=1 ){ ?>
+            <span class="cj_white">全{$stage1_count}节&nbsp;已解锁 </span>
+            <?php }else{ ?>
+            <p></p>
+            <div>术后可观看</div>
+            <span class="cj_blue">全{$stage1_count}节&nbsp;锁定中 </span>
+            <?php } ?>
+        </a>
+        <p>浏览{$stage1.s_browse}次</p>
+    </div>
+    <div class="gap"></div>
+
+    <!--二阶段-->
+    <div class="notice notice1">
+        <!--[{$stage2.s_day}天]-->
+        <span style="font-weight: normal;">{$stage2.s_name}</span>
+    </div>
+    <div class="stagelabel">
+        <!--<a href="{:url('stagearticle',['sid'=>$stage2.s_id])}"><img src="{$stage2.s_img}"></a>-->
+        <a href="<?php if(isset($period) && $period>=2 ){ ?>{:url('stagearticle',['sid'=>$stage2.s_id])}<?php }else{ ?>javascript:;<?php } ?>">
+            <img src="{$stage2.s_img}">
+            <?php if(isset($period) && $period>=2 ){ ?>
+            <span class="cj_white">全{$stage2_count}节&nbsp;已解锁 </span>
+            <?php }else{ ?>
+            <p></p>
+            <div>术后八天可观看</div>
+            <span class="cj_blue">全{$stage2_count}节&nbsp;锁定中 </span>
+            <?php } ?>
+        </a>
+        <p>浏览{$stage2.s_browse}次</p>
+    </div>
+    <div class="gap"></div>
+
+    <!--三阶段-->
+    <div class="notice notice1">
+        <!--[{$stage3.s_day}天]-->
+        <span style="font-weight: normal;">{$stage3.s_name}</span>
+    </div>
+    <div class="stagelabel">
+        <!--<a href="{:url('stagearticle',['sid'=>$stage3.s_id])}"><img src="{$stage3.s_img}"></a>-->
+        <a href="<?php if(isset($period) && $period>=3 ){ ?>{:url('stagearticle',['sid'=>$stage3.s_id])}<?php }else{ ?>javascript:;<?php } ?>">
+            <img src="{$stage3.s_img}">
+            <?php if(isset($period) && $period>=3 ){ ?>
+            <span class="cj_white">全{$stage3_count}节&nbsp;已解锁 </span>
+            <?php }else{ ?>
+            <p></p>
+            <div>术后一百二十天可观看</div>
+            <span class="cj_blue">全{$stage3_count}节&nbsp;锁定中 </span>
+            <?php } ?>
+        </a>
+        <p>浏览{$stage3.s_browse}次</p>
+    </div>
+    <div class="gap"></div>
+
+
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{if $Think.session.from!='index'}
+{include file="public/footer" /}
+{/if}
+<div id="allmap"></div>
+<script src="{$Think.HTML_STATIC}/js/myslideup.js"></script>
+{if !$stage_type}
+<script type="text/javascript">
+
+    setTimeout(function(){
+        alert('您还没有植发记录哦，快去完善您的电子病例吧！');
+        {if $Think.session.from=='index'}
+        window.location.href="{:url('index/home')}";
+        {else /}
+        window.location.href="{:url('haircare/article')}";
+        {/if}
+
+    },1000);
+    {if $Think.session.from=='index'}
+    $(function () {
+        backH();
+        window.addEventListener('popstate',function(e){
+            window.location.href="{:url('index/home')}"
+        },false);
+        function backH(){
+            var state = {
+                        title:'title',
+                        url:'{:url('index/home')}'
+        };
+            window.history.pushState(state,'title','#');
+        }
+    })
+    {/if}
+</script>
+{/if}
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript">
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        loop:'true',
+        autoplay:3000
+    });
+</script>
+</body>
+</html>

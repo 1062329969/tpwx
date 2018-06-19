@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/hospital.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ubHD91cZDNhWQuZVsBl0OY5ReHo8Dr9f"></script>
+</head>
+<body class="bodyb">
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">全国分院</div>
+    <div class="st3"><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+<div class="fytop">
+    <img src="{$hospital.pic}" />
+    <ul>
+        {volist name='hospitalRegion' id='vo'}
+        <li{eq name='$vo.id' value='$id'} class="on"{/eq}><a href="{:url('index',['id'=>$vo.id])}">{$vo.region}</a></li>
+        {/volist}
+    </ul>
+</div>
+<div class="fyinfo">
+      <h1>{$hospital.hosname}</h1>
+      <p>{$hospital.address}</p>
+      <p>{$hospital.office_hours}</p>
+      <p>{$hospital.tel}</p>
+      <div class="zxzx"><a href="{$Think.config.zoosnet}"><span>在线咨询</span></a></div>
+      <div class="adlx">
+            <div class="adlxfs">
+                {if condition='mb_strlen($hospital.coordinate) gt 0'}<div class="adlxtab on" data-id="1"><div class="adicon"><img src="{$Think.HTML_STATIC}/image/lxicon1-1.png"></div><p>自驾</p></div>{/if}
+                {if condition='mb_strlen($hospital.metro) gt 20'}<div class="adlxtab" data-id="2"><div class="adicon"><img src="{$Think.HTML_STATIC}/image/lxicon2.png"></div><p>地铁</p></div>{/if}
+                {if condition='mb_strlen($hospital.bus) gt 20'}<div class="adlxtab" data-id="3"><div class="adicon"><img src="{$Think.HTML_STATIC}/image/lxicon3.png"></div><p>公交</p></div>{/if}
+                {if condition='mb_strlen($hospital.plane) gt 20'}<div class="adlxtab" data-id="4"><div class="adicon"><img src="{$Think.HTML_STATIC}/image/lxicon4.png"></div><p>飞机</p></div>{/if}
+                {if condition='mb_strlen($hospital.train) gt 20'}<div class="adlxtab" data-id="5"><div class="adicon"><img src="{$Think.HTML_STATIC}/image/lxicon5.png"></div><p>火车</p></div>{/if}
+            </div>
+            <div class="tabmain">
+              {if condition='mb_strlen($hospital.coordinate) gt 0'}<div class="lxinfo" id="tab1"></div>{/if}
+              {if condition='mb_strlen($hospital.metro) gt 20'}<div class="lxcont" id="tab2">{$hospital.metro}</div>{/if}
+              {if condition='mb_strlen($hospital.bus) gt 20'}<div class="lxcont" id="tab3">{$hospital.bus}</div>{/if}
+              {if condition='mb_strlen($hospital.plane) gt 20'}<div class="lxcont" id="tab4">{$hospital.plane}</div>{/if}
+              {if condition='mb_strlen($hospital.train) gt 20'}<div class="lxcont" id="tab5">{$hospital.train}</div>{/if}
+            </div>
+      </div>
+</div>
+<div class="tjdocs">
+    <div class="tjdoctitle">推荐专家</div>
+    {volist name='$doctor' id='vo'}
+    <div class="doclist">
+        <img src="{$vo.pic}">
+        <div class="docinfo">
+            <div class="docname">{$vo.docname}</div>
+            <div class="doczc">{$vo.positional_titles} | {$vo.position}</div>
+            <div class="docsc">擅长项目：{$vo.good_at}</div>
+            <div class="docpj"><span class="fl">好评率：{$vo.praise}%</span><span class="fr">关注度：{$vo.follow}</span></div>
+            <div class="dwyzx"><a href="{$Think.config.zoosnet}">我要咨询</a></div>
+        </div>
+    </div>
+    {/volist}
+</div>
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script type="text/javascript">
+
+    $('.adlxtab').click(function()
+    {
+        id=$(this).attr('data-id');
+        $('.tabmain > div').hide();
+        $('#tab'+id).show();
+        $('.adlxfs > div').removeClass('on');
+        $('.adlxfs > div').each(function(){
+            id2=$(this).attr('data-id');
+            $(this).find('.adicon > img').attr('src','{$Think.HTML_STATIC}/image/lxicon'+id2+'.png');
+        });
+        $(this).addClass('on');
+        $(this).find('.adicon > img').attr('src','{$Think.HTML_STATIC}/image/lxicon'+id+'-'+id+'.png');
+
+    });
+
+    {if condition='mb_strlen($hospital.coordinate) gt 0'}
+    // 百度地图API功能
+    var map = new BMap.Map("tab1");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r)
+    {
+        if(this.getStatus() == BMAP_STATUS_SUCCESS)
+        {
+            var p1 = new BMap.Point(r.point.lng,r.point.lat);
+            var p2 = new BMap.Point({$hospital.coordinate});
+            var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+            driving.search(p1, p2);
+        }
+        else
+        {
+            alert('failed'+this.getStatus());
+        }
+    },{enableHighAccuracy: true})
+    {/if}
+
+</script>
+
+</body>
+</html>

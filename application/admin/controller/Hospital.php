@@ -1,0 +1,179 @@
+<?php
+/**
+ * Created by yongxianghui.net.
+ * User: wafu7969
+ * Date: 2018/1/11
+ * 医院管理控制器
+ */
+
+namespace app\admin\controller;
+use app\admin\model\HospitalModel;
+use app\admin\model\ContTypeModel;
+use app\admin\model\HospitalRegionModel;
+
+class Hospital extends Admin
+{
+	protected $modelName='';
+
+	public function _initialize()
+	{
+		parent::_initialize();
+		$this->modelName=new HospitalModel;
+	}
+
+	public function index()
+	{
+		$content=$this->modelName->getAll(15);
+		$this->assign('content',$content);
+		return $this->fetch();
+	}
+
+	public function add()
+	{
+		$request=request();
+		if($request->method()=='POST')
+		{
+			$data=input('post.');
+
+			$result=$this->validate($data,'ValidateClass.CK5');
+			if(true !== $result)
+			{
+				// 验证失败 输出错误信息
+				$this->error($result);
+			}
+
+			//上传图片
+			$pic=$this->upload($request,'pic');
+			if(!empty($pic))
+			{
+				$data['pic']=$pic;
+			}
+
+			if($this->modelName->allowField(true)->save($data))
+			{
+				$this->success('添加成功',url('index'));
+			}
+			else
+			{
+				$this->error('添加失败',url('index'));
+			}
+		}
+		else
+		{
+			//读取医院的所属地区
+			$hospitalRegion=HospitalRegionModel::getAll();
+			$this->assign('hospitalRegion',$hospitalRegion);
+			return $this->fetch();
+		}
+	}
+
+	public function alter()
+	{
+
+		$request=request();
+		if($request->method()=='POST')
+		{
+			$data=input('post.');
+
+			$result=$this->validate($data,'ValidateClass.CK5');
+			if(true !== $result)
+			{
+				// 验证失败 输出错误信息
+				$this->error($result);
+			}
+
+			//上传图片
+			$pic=$this->upload($request,'pic');
+			if(!empty($pic))
+			{
+				$data['pic']=$pic;
+			}
+			else
+			{
+				unset($data['pic']);
+			}
+
+			if($this->modelName->allowField(true)->save($data,['id'=>$data['id']]))
+			{
+				$this->success('修改成功',url('index'));
+			}
+			else
+			{
+				$this->error('修改失败',url('index'));
+			}
+		}
+		else
+		{
+			$id=input('param.id');
+
+			$hospitalRegion=HospitalRegionModel::getAll();
+			$this->assign('hospitalRegion',$hospitalRegion);
+
+			$content=$this->modelName->get($id);
+			$this->assign('content',$content);
+			return $this->fetch();
+		}
+
+	}
+
+
+	public function del()
+	{
+
+		$id=input('param.id');
+		if($this->modelName->save(['del'=>1],['id'=>$id]))
+		{
+			echo '{"code":"1"}';
+		}
+		else
+		{
+			echo '{"code":"0"}';
+		}
+	}
+
+	//添加所属地区
+	public function addRegion()
+	{
+		$request=request();
+		if($request->method()=='POST')
+		{
+			$data=input('post.');
+			$result=$this->validate($data,'ValidateClass.CK6');
+			if(true !== $result)
+			{
+				// 验证失败 输出错误信息
+				$this->error($result);
+			}
+
+			$HospitalRegionModel=new HospitalRegionModel();
+
+			if($HospitalRegionModel->where('region',$data['region'])->find())
+			{
+				$this->error('该地区已经存在');
+			}
+
+			if($HospitalRegionModel->allowField(true)->save($data))
+			{
+				$this->success('添加成功');
+			}
+			else
+			{
+				$this->error('添加失败');
+			}
+
+		}
+		else
+		{
+			return $this->fetch();
+		}
+	}
+
+	//选择坐标
+	public function map()
+	{
+
+		return $this->fetch();
+
+	}
+
+}

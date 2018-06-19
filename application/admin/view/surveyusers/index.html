@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问券调查</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        ul li{list-style:none;}
+        .float-e-margins a{color:#999;}
+        .pna{border-top:0;}
+        .ibox-content{padding-bottom:3%;}
+        .na{padding-top:1%;padding-left:5%;width:38%;}
+        .ti{padding-top:1%;padding-left:5%;width:60%;}
+        .rows{width:60%;margin:0 auto;}
+        div label{margin-right:5%;}
+        .tjb{width:18.5%;margin:3% auto 0;padding-top:5%;}
+        .tjb button{padding:5px 20px;}
+        .tjb button:nth-of-type(2){margin-left:15%;}
+        .ti input{margin-right:5%;}
+        .ti input:nth-of-type(2){margin-left:5%;}
+        .page{padding:0;width:110%;}
+        .page li{float:left;}
+        .page li{padding:1rem 1rem;border:1px solid #dedede;margin-right:0.5%;}
+        .page li:nth-of-type(1){border:none;margin-right:0.8%;}
+        .page li:nth-of-type(2){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(8){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(11){border:none;}
+        .page li:nth-of-type(12){border:none;}
+        .page li input{display:inline-block;width:5rem;}
+        .rf{margin-top:3%;}
+        .rf >button{margin-left:2%;}
+        .table-striped img{width:40%;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <form action="{:url('index',['q_id'=>$id])}" method="get" id="fm">
+                        <div class="rows">
+                            <div class="pull-left na">
+                                <label>用户昵称/姓名/电话</label>
+                                <input type="text" id="txt" name="name" value="{$name}" />
+                            </div>
+                            <div class="pull-left ti">
+                                <label>提交时间</label>
+                                <!--<input type="date" id="sid" name="time_start"/>至<input type="date" id="nid" name="time_over"/>-->
+                                <input type="text" class="lx-sid" id="sid" readonly name="time_start" value="{$start}"/>至<input type="text" class="lx-nid" id="nid" readonly name="time_over" value="{$over}"/>
+                            </div>
+                        </div>
+                        <div class="row tjb">
+                            <button type="submit" onclick="javascript:window.location.href='{:url("user_export",array('q_id'=>$id,'name'=>$name,'time_start'=>$start,'time_over'=>$over))}'" class="btn btn-success" id="ser" style="width: 23%; ">查询</button>
+                            <button type="button" id="lxid" style="width: 23%"  class="btn btn-success" id="res">导出</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="ibox-title">
+                    <h5>用户列表</h5>
+                    <div class="ibox-tools">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="">添加问答</a></li>
+                        </ul>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th width="10%"><input type="checkbox" id="all"/>全选</th>
+                                <th width="15%">用户头像/昵称</th>
+                                <th width="10%">活动名称</th>
+                                <th width="10%">项目</th>
+                                <th width="10%">手术时间</th>
+                                <th width="5%">姓名</th>
+                                <th width="10%">手机</th>
+                                <th width="20%">收货地址</th>
+                                <th width="15%">提交时间</th>
+                                <th width="15%">调研详情</th>
+                                <th width="15%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {volist name="$user" id="vo"}
+                            <tr>
+                                <td><input type="checkbox" name="e_id[]" class="checks" ids="{$vo.s_id}" value="{$vo.s_id}"></td>
+                                <td>
+                                    <img src="{$vo.user.portrait}">{$vo.user.wechaname}
+                                </td>
+                                <td>{$vo.activity.q_name}</td>
+
+                                <td>
+                                    <?php
+                                    echo $searchType[$vo['s_project']];
+                               ?>
+                                </td>
+                                <td>{$vo.s_time|date='Y-m-d',###}</td>
+                                <td>{$vo.s_name}</td>
+                                <td>{$vo.s_phone}</td>
+                                <td>
+                                    {$vo.s_province}
+                                    {$vo.s_city}
+                                    {$vo.s_county}
+                                    {$vo.s_receipt}
+                                </td>
+                                <td>{$vo.s_addtime|date='Y-m-d,H:i:s',###}</td>
+                                <td><button type="button" class="btn btn-success" onclick='window.location.href="{:url(\'surveyinfo\',array('id'=>$vo.s_id))}"'>查看</button></td>
+                                <td>
+                                    <a class="btn cdel" data-id="{$vo.s_id}" >删除</a>
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row rf">
+                    <button type="button" class="btn btn-success pull-left" id="chd">删除选中项</button>
+                    <!--分页-->
+                    <div class="pagesc">共计：{$user->total()}条 共：{$user->lastPage()}页</div>{$user->render()}
+                    <form class="pagesc" method="get" action="{:url('index')}" style="margin: 20px;">
+                        转向第
+                        <input type="hidden" name="name" value="{if(isset($name))}{$name}{/if}" style="width: 15%;" min="1"/>
+                        <input type="hidden" name="time_start" value="{if(isset($time_start))}{$time_start}{/if}" style="width: 15%;" min="1"/>
+                        <input type="hidden" name="time_over" value="{if(isset($time_start))}{$time_over}{/if}" style="width: 15%;" min="1"/>
+                        <input type="number" name="page" style="width: 15%;" min="1"/>页
+                        <button type="submit">确定</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script>
+    laydate.render({
+        elem: '#sid'
+    });
+    laydate.render({
+        elem: '#nid'
+    });
+    $("#all").click(function() {
+        if (this.checked){
+            $("tbody input:checkbox").each(function(){
+                $(this).prop("checked", true);
+            });
+        }else {
+            $("tbody input:checkbox").each(function() {
+                $(this).prop("checked", false);
+            });
+        }
+    });
+    $("#chd").click(function(){
+        var idss = '';
+        $("tbody input[type=checkbox]").each(function(){
+            if(this.checked){
+                n = $(this).parents("tr").index();
+                // var ppd=$('table.table td input.checks').attr('ids');
+
+                var ppd=$(this).attr('ids');
+                if(ppd!='undefined'){
+                    if(idss==''){
+                        idss += ppd;
+                    }else{
+                        idss = idss + ','+ppd;
+                    }
+                }
+
+            }
+        });
+        layer.confirm('您确定要删除吗？', {btn: ['确定','取消']}, function(){
+            //var index = layer.load();  //加载等待层
+            $.ajax({
+                type: "post",
+                url: '{:url('del')}',
+                data:{id:idss},
+                // dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                        $("table tbody").find("tr:eq("+n+")").remove();
+                        window.location.reload();
+                    }else{
+                        layer.msg('删除失败');
+                    }
+                }
+            });
+        });
+
+    });
+   $(".cdel").click(function(){
+        id=$(this).attr('data-id');
+        layer.confirm('您确定要删除吗？', {btn: ['确定','取消']}, function(){
+            //var index = layer.load();  //加载等待层
+            $.ajax({
+                type: "post",
+
+                url: '{:url('del')}',
+                data:{id:id},
+                dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                        window.location.reload();
+                    }else{
+                        layer.msg('删除失败');
+                    }
+                }
+            });
+        });
+    });
+
+    $('#lxid').click(function () {
+        var urls = '{:url("surveyusers/export")}';
+        txt = $('#txt').val();
+        console.log(txt);
+        if(txt){
+            urls = urls+"?name="+txt;
+        }
+        sid = $('#sid').val();
+        nid = $('#nid').val();
+        if(sid && nid){
+            urls = urls+"?time_start=" +sid +"&time_over="+nid;
+        }
+        window.location.href=urls;
+    })
+
+
+</script>
+</body>
+</html>

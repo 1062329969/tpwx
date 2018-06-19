@@ -1,0 +1,64 @@
+{
+    "name": "topthink/think",
+    "description": "the new thinkphp framework",
+    "type": "project",
+    "keywords": [
+        "framework",
+        "thinkphp",
+        "ORM"
+    ],
+    "homepage": "http://thinkphp.cn/",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "liu21st",
+            "email": "liu21st@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "topthink/framework": "~5.0.0",
+        "topthink/think-captcha": "1.*",
+        "topthink/think-migration": "1.*",
+        "topthink/think-testing": "1.*",
+        "topthink/think-mongo": "1.*",
+        "topthink/think-queue": "1.*",
+        "topthink/think-image": "1.*",
+        "topthink/think-angular":"1.0.8",
+        "topthink/think-worker":"1.0.1",
+        "workerman/workerman":"3.3.4",
+        "topthink/think-installer":"1.0.10",
+        "topthink/framework":"5.0.3",
+        "topthink/think-migration":"1.0.6",
+        "topthink/think-mongo":"1.0.2",
+        "topthink/think-helper":"1.0.3",
+        "topthink/think-queue":"1.0.1",
+        "symfony/yaml":"3.1.6",
+        "sebastian/recursion-context":"1.0.2",
+        "sebastian/diff":"1.4.1",
+        "sebastian/comparator":"1.2.0",
+        "phpunit/php-timer":"1.0.8",
+        "phpunit/php-file-iterator":"1.4.1",
+        "phpunit/php-token-stream":"1.4.8",
+        "webmozart/assert":"1.1.0",
+        "phpdocumentor/reflection-common":"1.0",
+        "phpdocumentor/type-resolver":"0.2",
+        "phpdocumentor/reflection-docblock":"3.1.1",
+        "phpspec/prophecy":"1.6.1",
+        "phpunit/phpunit":"4.8.27",
+        "symfony/polyfill-mbstring":"1.2.0",
+        "symfony/dom-crawler":"2.8.13"
+
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "application"
+        }
+    },
+    "extra": {
+        "think-path": "thinkphp"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}

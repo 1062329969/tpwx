@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.sitename}</title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+	<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+	<link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+	<style>
+		.clearfix:after{
+			content: "";
+			display: block;
+			clear:both;
+			height: 0;
+			overflow: hidden;
+		}
+		.clearfix{
+			zoom:1;
+		}
+		body{width: 100%;height: 100%;}
+		/*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight: normal;color: #333;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #cecece;z-index: 100;position: fixed;left: 0;top: 0;line-height: 4.4rem;}
+		#header a.mui-pull-left img{width: 1rem;height: 1.75rem;margin-left: 0.55rem;}
+		#header a.mui-pull-right img{width: 1.8rem;height: 1.65rem;margin-right: 0.7rem;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		/*banner图*/
+		.cj_banner{background:#fff;padding-top:2rem;}
+		.cj_banner img{width: 100%;padding:0 2rem;}
+		.cj_title{background: white;width: 100%;padding-bottom: 1.2rem;padding-top: 3rem;}
+		.cj_title li{text-align: center;font-size: 1.3rem;color: #666;}
+		.cj_title img{width: 11.75rem;margin-bottom: 0.7rem;}
+		/*分院*/
+		.cj_yard{width: 100%;}
+		.cj_yard li{background: white;padding: 1.5rem 2rem 4rem;margin-bottom: 1rem;}
+		.cj_yard_banner img{width: 100%;border-radius:6px;}
+		.cj_position{font-size: 1.4rem;color: #666;}
+		.cj_position img{width: 1.4rem;margin-right: 0.6rem;position:relative;float:left;}
+		.cj_position p{width:92.75%;float:left;font-size: 1.4rem;color: #666;line-height:1.8rem;}
+		.cj_yard_name{font-size: 1.8rem;color: #2B2B2B;font-weight: bold;margin-top: 1.5rem;margin-bottom: 0.8rem;}
+		/*底部*/
+		.cj_bottom{text-align: center;width: 100%;padding: 2rem 0;}
+		.cj_bottom img{width: 76%;}
+	</style>
+</head>
+<body class="bodyb login">
+<header id="header" class="mui-bar clearfix">
+	<a class="mui-action-back  mui-pull-left" href="{:url('index/home')}"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+	<h1 class="mui-title">全国分院</h1>
+	<a class="mui-pull-right" href="{:url('search')}"><img src="{$Think.HTML_STATIC}/images/79.png"/></a>
+</header>
+<div style="height: 4.4rem;"></div>
+<!--banner-->
+<div class="cj_banner">
+	<img src="{$Think.HTML_STATIC}/images/71.jpg"/>
+</div>
+<!--title-->
+<!--<ul class="cj_title">
+	<li>
+		<img src="{$Think.HTML_STATIC}/images/72.png"/>
+	</li>
+	<li>雍禾植发全国直营分院</li>
+</ul>-->
+<!--<a href="{:url('yard/xy')}">看这里</a>-->
+
+<ul class="cj_title" style="padding-top:2rem;padding-bottom:0rem;">
+	<li style="text-align:left;padding-left:2rem;font-size:2rem;color:#333;font-weight:bold;">附近院部</li>
+	<li style="text-align:left;padding-left:2rem;font-size:1.4rem;color:#666;padding-top:0.5rem;">为您精选附近院部</li>
+</ul>
+
+<!--分院-->
+<ul class="cj_yard">
+	{foreach name="hospital" item="vo"}
+	<a href="{:url('detail',['id'=>$vo.id])}">
+		<li>
+			<div class="cj_yard_banner">
+				<img src="{$vo.pic}"/>
+			</div>
+			<div class="cj_yard_name">
+				{$vo.hosname}
+			</div>
+			<div class="cj_position">
+				<img src="{$Think.HTML_STATIC}/images/74.png"/>
+				<p>{$vo.address}</p>
+			</div>
+		</li>
+	</a>
+	{/foreach}
+</ul>
+<!--footer-->
+<!--<div class="cj_bottom">-->
+<!--<img src="{$Think.HTML_STATIC}/images/bo.jpg"/>-->
+<!--</div>-->
+<!--下拉加载-->
+<ul id="loadinguser" class="cj_yard"></ul>
+<?php if($count>=10){ ?>
+<!--<div id="loading" class="lmore">下拉加载更多...</div>-->
+<?php } if($count<10){ ?>
+<!--<div id="wushuju" class="lmore">没有找到任何数据，试试其他选项</div>-->
+<?php } ?>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+</body>
+<script>
+
+    //	//下拉加载
+    //	var a = 0;
+    //	var offsize = 10;//起始位置(查询数据表时的起始位置)
+    //	$(document).ready(function(){
+    //		var range = 50;//距下边界长度/单位px
+    //		var totalheight = 0;
+    //		var main = $("#loadinguser");//主体元素
+    //		$(window).scroll(function(){
+    //			var srollPos = $(window).scrollTop();
+    //			totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+    //			if(($(document).height()-range) <= totalheight) {
+    //				if(a==0)
+    //				{
+    //					a = 1;
+    //					$('#loading').html("正在努力为您加载...");
+    //					$.post("{:url('getDrop')}",{
+    //						offsize:offsize
+    //					},function(data){
+    //
+    //						if(data==0)
+    //						{
+    //							$('#loading').html("已为您加载全部");
+    //							a = 0;
+    //						}
+    //						else
+    //						{
+    //							main.append(data);
+    //							offsize = offsize+10;
+    //							a = 0;
+    //						}
+    //					});
+    //				}
+    //			}
+    //		});
+    //	});
+</script>
+</html>

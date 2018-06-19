@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.sitename}</title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+	<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+	<link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+	<style>
+		/*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #333;line-height: 4.4rem;font-weight: normal;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		/*档案列表*/
+		.cjfile-list{padding: 0 1rem;}
+		.cjfile-list>li{border: 1px solid #e6e6e6;border-radius: 0.5rem;margin-top: 1rem;width: 100%;background: white;}
+		.cjfile-list-title{padding: 1.5rem/* 1.5rem 0*/;border-bottom: 0.05rem solid #F0F0F0;font-size: 1.7rem;}
+		.cjfile-list-title img{width: 2rem;height: 1.55rem;margin-right: 0.7rem;}
+		.cjfile-list-content{padding: 1.5rem;}
+		.cjfile-list-content .cjfile-list-project{font-size: 1.4rem;}
+		.cjfile-list-content span{color: #333333;font-size: 1.5rem;}
+		.cjfile-list-content li{height: 3.9rem;}
+		.cjfile-list-content li span:last-of-type{color: #999999;}
+		.cjfile-list-content .cjfile-list-project img{width: 1.1rem;height: 1.2rem;margin-right: 0.45rem;}
+		.cjfile-list-content .cjfile-list-project .mui-pull-right{color: #ff2942;}
+		.cjfile-list-content button{border: 1px solid #15BBDC;color: #15BBDC;padding: 0.65rem 1.25rem;border-radius: 2.6rem;}
+	</style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+	<h1 class="mui-title">我的档案</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<ul class="cjfile-list">
+	{volist name="list" id="vo"}
+	<li>
+		<div class="cjfile-list-title"><img src="{$Think.HTML_STATIC}/images/36.png"/>植发档案</div>
+		<ul class="cjfile-list-content">
+			<li class="clearfix cjfile-list-project">
+				<span class="mui-pull-left">服务项目</span>
+				<span class="mui-pull-right">
+					<img src="{$Think.HTML_STATIC}/images/35.png"/>{$vo.jz_type}
+				</span>
+			</li>
+			<li class="clearfix">
+				<span class="mui-pull-left">就诊人</span>
+				<span class="mui-pull-right">{$vo.name}</span>
+			</li>
+			<li class="clearfix">
+				<span class="mui-pull-left">预留手机</span>
+				<span class="mui-pull-right">{$vo.tel}</span>
+			</li>
+			<li class="clearfix">
+				<span class="mui-pull-left">手术日期</span>
+				<span class="mui-pull-right">{$vo.op_time|date='Y-m-d',###}</span>
+			</li>
+			<li class="clearfix">
+				<a href="{:url('myvisit/info')}">
+					<button class="mui-pull-right">查看详情</button>
+				</a>
+			</li>
+		</ul>
+	</li>
+	{/volist}
+</ul>
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+
+</script>
+</body>
+</html>

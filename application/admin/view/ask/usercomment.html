@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+    <style type="text/css">
+        input[type=text] {
+            height: 30px;
+        }
+
+        .col-md-12 {
+            margin-top: 20px;
+        }
+
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+
+        .cj-pl {
+            border: 1px solid #666;
+        }
+
+        .cj-title {
+            background: #F0F0F0;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            text-indent: 2em;
+            font-size: 16px;
+        }
+
+        .cj-title h3 {
+            line-height: 50px;
+        }
+
+        .cj-title span {
+            margin-right: 20px;
+        }
+
+        .cj-input {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .cj-pl textarea {
+            width: 100%;
+            height: 300px;
+        }
+
+        .cj-btn {
+            text-align: center;
+            width: 100%;
+        }
+
+        .cj-btn input {
+            margin: 20px;
+        }
+
+        .cj_user {
+            float: left;
+        }
+
+        .cj_user img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .cj-name div:first-of-type {
+            color: #15BBDC;
+            margin-bottom: 8px;
+        }
+
+        .cj-name div:last-of-type {
+            color: #666;
+        }
+
+        .article-top {
+            padding: 30px;
+        }
+
+        .cj-header {
+            float: left;
+        }
+
+        .cj-name {
+            float: left;
+        }
+
+        .operate {
+            float: right;
+            color: #15BBDC;
+        }
+
+        .operate span {
+            margin: 0 20px;
+            cursor: pointer;
+        }
+
+        .article-content {
+            background: #f0f0f0;
+            padding: 10px;
+            border-bottom: 1px dashed #999;
+        }
+
+        .article-content-username {
+            color: #15BBDC;
+        }
+
+        .article-content-date {
+            width: 100%;
+        }
+
+        .article-content-date div:first-of-type {
+            float: left;
+        }
+
+        .pl-neirong {
+            line-height: 30px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>管理头条</h5>
+
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="{:url('add_comment')}">添加头条</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="ibox-content">
+                    <form onsubmit="return check_form(this);" method="post" action="{:url('ask/serch')}">
+                        <div class="table-responsive">
+                            <div class="col-md-12" style="width: 100%;">
+                                <label class='col-md-1'>评论内容</label><input name="com_tent" class="input-sm"
+                                                                           class='col-md-11'
+                                                                           style="width:80%;" type="text"/>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="col-md-3">会员昵称<input name="nickname" class="input-sm"
+                                                                   type="text"/></label>
+                                <label class="col-md-3">会员ID<input name="memberid" class="input-sm"
+                                                                   type="text"/></label>
+                                <label class="col-md-6">创建时间<input name="start_time" class="input-sm" type="text"
+                                                                   id="sid"/>至<input
+                                        name="end_time" class="input-sm" type="text" id="eid"/></label>
+                            </div>
+                            <div style="text-align: center;margin: 30px 0 50px">
+                                <input type="submit" class="btn btn-primary" value="搜索">
+                                <input type="button" class="btn btn-primary" value="导出评论">
+                            </div>
+                        </div>
+                    </form>
+                    <form onsubmit="return check_form(this);" method="post" action="{:url('ask/add_comment')}">
+                        <div class="clearfix">
+                            <input type="button" class="btn btn-primary addnew" value="添加新评论"
+                                   style="float: right;"/>
+                        </div>
+
+                        <div class="cj-pl" style="display: none;">
+                            <div class="cj-title">
+                                写评论
+                            </div>
+                            <div class="cj-input">
+                                <textarea name="com_content" placeholder="此处限定500字符"></textarea>
+
+                                <input name="scame" type="hidden" value="main_comment">
+                                <input name="article_id" type="hidden" value="{$article.id}">
+
+                                <div>
+                                    <span>选择虚拟用户</span>
+                                    <button type="button" class="btn btn-primary adduser">选择</button>
+                                    <input name="uid" class="uid button" type="text" value="">
+                                </div>
+                                <div class="cj-btn">
+                                    <input type="submit" class="btn btn-primary" value="提交"><input type="button"
+                                                                                                   class="btn btn-primary cancel"
+                                                                                                   value="取消">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="cj-article">
+                        <div class="cj-title">
+                            <h3>{$article.qtitle}</h3>
+                        </div>
+                        <div class="cj-title">
+                            <span>全部评论</span><span>共{$comment_count}条评论</span><span>{$dialogue_count}条对话</span>
+                        </div>
+                        {volist name='$comment' id="vo"}
+                        <div class="clearfix article-top id{$vo.id}">
+                            <div class="pl-content">
+                                <div class="clearfix">
+                                    <div class="cj_user clearfix">
+                                        <div class="cj-header">
+                                            <img src="{$vo.portrait}"/>
+                                        </div>
+                                        <div class="cj-name">
+                                            <div>{$vo.wechaname}</div>
+                                            <div>{$vo.create_time|date="Y-m-d H:i",###}</div>
+                                        </div>
+                                    </div>
+                                    <div class="operate">
+                                        <span class="operate-hf">回复</span><input type="hidden"
+                                                                                 value="{$vo.uid}"><input
+                                            type="hidden" value="{$vo.id}">
+                                        <span delid="id{$vo.id}" class="operate-del all">删除评论</span>
+                                    </div>
+                                </div>
+                                <div class="pl-neirong">
+                                    {$vo.text}
+                                </div>
+                                <form onsubmit="return check_form(this);" method="post" action="{:url('ask/add_comment')}">
+                                    <div class="cj-pl cj-pu" style="display: none;">
+                                        <div class="cj-title">
+                                            写评论
+                                        </div>
+                                        <div class="cj-input">
+                                            <textarea name="com_content" placeholder="此处限定500字符"></textarea>
+
+                                            <input type="hidden" name="article_id" value="{$article.id}">
+                                            <input type="hidden" name="comment_id" value="{$vo.id}">
+                                            <input type="hidden" name="comment_uid"
+                                                   value="{$vo.uid}">
+
+                                            <div>
+                                                <span>选择虚拟用户</span>
+                                                <button type="button" class="btn btn-primary adduser">选择</button>
+                                                <input name="uid" class="uid" type="text">
+                                            </div>
+                                            <div class="cj-btn">
+                                                <input type="submit"
+                                                       class="btn btn-primary commit_btn" value="提交"><input
+                                                    type="button" class="btn btn-primary cancel" value="取消">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            {if !empty($vo)}
+                            <div class="article-content">
+
+                                <div class="article-content-date clearfix">
+
+                                </div>
+                                <form onsubmit="return check_form(this);" method="post" action="{:url('ask/add_comment')}">
+                                    <div class="cj-pl cj-pu" style="display: none;">
+                                        <div class="cj-title">
+                                            写评论
+                                        </div>
+                                        <div class="cj-input">
+                                            <textarea name="com_content" placeholder="此处限定500字符"></textarea>
+
+                                            <input type="hidden" name="article_id" value="{$article.id}">
+                                            <input type="hidden" name="comment_id" value="{$vo.id}">
+                                            <input type="hidden" name="comment_uid"
+                                                   value="{$vo.uid}">
+
+                                            <div>
+                                                <span>选择虚拟用户</span>
+                                                <button type="button" class="btn btn-primary adduser">选择</button>
+                                                <input name="uid" class="uid" type="text">
+                                            </div>
+                                            <div class="cj-btn">
+                                                <input type="submit"
+                                                       class="btn btn-primary commit_btn" value="提交"><input
+                                                    type="button" class="btn btn-primary cancel" value="取消">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            {if !empty($vo['son'])}
+                            {volist name='$vo["son"]' id="vo1"}
+                            <div class="article-content-date clearfix id{$vo1.id}"
+                                 STYLE="background:#f0f0f0;width:100%;">
+                                <table style="width:100%;height:35px;">
+                                    <tr>
+                                        <td style="width:100px;"><img src="{$vo1.portrait}"
+                                                                      style="border-radius:50%;width:25px;height:25px;margin-top:5px;margin-left:30px;margin:0;padding:0;margin-left:50px;"
+                                                                      alt=""></td>
+                                        <td align="left"><?php echo $comment_names[$vo1['uid']];?>
+                                            回复   <?php echo $comment_names[$vo1['reuid']];?> :{$vo1.text}
+                                        </td>
+                                        <td style="width:200px;padding-bottom:5px;font-size:12px;">
+                                            {$vo1.create_time|date='Y-m-d',###} 回复
+                                        </td>
+                                        <td style="width:200px;">
+                                            <div class="operate">
+                                                <div class="pl-content" style="">
+                                                    <div class="clearfix">
+                                                        <div class="operate">
+                                                            <span class="operate-hf">回复</span><input type="hidden"
+                                                                                                     value="{$vo1.uid}"><input
+                                                                type="hidden" value="{$vo1.id}">
+                                                            <span delid="id{$vo1.id}"
+                                                                  class="operate-del all">删除评论</span>
+                                                        </div>
+                                                    </div>
+                                                    <form onsubmit="return check_form(this);" method="post" action="{:url('ask/add_comment')}">
+                                                        <div class="cj-pl cj-pu" style="display: none;position: absolute;width:50%;left:25%;margin-top:-250px">
+                                                            <div class="cj-title">
+                                                                写评论
+                                                            </div>
+                                                            <div class="cj-input">
+                                                                    <textarea name="com_content"
+                                                                              placeholder="此处限定500字符"></textarea>
+
+                                                                <input type="hidden" name="article_id"
+                                                                       value="{$article.id}">
+                                                                <input type="hidden" name="comment_id"
+                                                                       value="{$vo1.id}">
+                                                                <input type="hidden" name="comment_uid"
+                                                                       value="{$vo1.uid}">
+
+                                                                <div>
+                                                                    <span>选择虚拟用户</span>
+                                                                    <button type="button"
+                                                                            class="btn btn-primary adduser">选择
+                                                                    </button>
+                                                                    <input name="uid" class="uid" type="text">
+                                                                </div>
+                                                                <div class="cj-btn">
+                                                                    <input type="submit"
+                                                                           class="btn btn-primary commit_btn"
+                                                                           value="提交"><input
+                                                                        type="button" class="btn btn-primary cancel"
+                                                                        value="取消">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            {/volist}
+                            {/if}
+                            {/if}
+
+                        </div>
+                        {/volist}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.adduser').click(function () {
+            layer.open({
+                type: 2,
+                area: ['70%', '90%'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '{:url("Ask/selectUid")}'
+            });
+        });
+        $('.addnew').click(function () {
+            $(this).parent().next().show()
+        })
+        $('.cancel').click(function () {
+            $(this).parents('.cj-pl').hide()
+        })
+        $('.operate-hf').click(function () {
+            $(this).parents('.pl-content').find('.cj-pl').show()
+        })
+        $('.operate-hf').click(function () {
+            $(this).parents('.article-content-date').next().show()
+        })
+        //删除整个评论
+        $(".all").click(function () {
+            var id = $(this).attr('delid').match(/^id(\d*)$/);
+
+            $.ajax({
+                type: 'POST',
+                url: '{:url("/comment/del/type/ajax")}',
+                data: {id: id[1],type:'ajax'},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.code == 1) {
+                        $("." + ($(this).attr('delid'))).remove();
+                        alert('删除成功');
+                        window.location.reload();
+                    } else {
+                        alert('删除失败');
+                    }
+                },
+                error: function () {
+                    laydate.error('异常');
+                }
+
+            });
+        })
+        //删除回复
+        $(".single").click(function () {
+            $(this).parents('.article-content').remove()
+        })
+        laydate.render({
+            elem: '#sid'
+        });
+        laydate.render({
+            elem: '#eid'
+        });
+    });
+</script>
+<!--<script>-->
+<!--var serch_comment=document.querySelector('.serch_comment');-->
+<!--serch_comment.addEventListener('click',function(){-->
+<!--window.location.href='/admin.php/ask/serch';-->
+<!--})-->
+<!--</script>-->
+<script>
+    function check_form(p){
+        if($(p).find('textarea').val()==''){
+            alert("必須添加评论內容");
+            $(p).find('textarea').focus();
+            return false;
+        }
+        if(!$(p).find('input[name=uid]').val().match(/^\d{1,8}$/)){
+            alert("用戶必須为字");
+            $(p).find('textarea').focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+</body>
+
+</html>

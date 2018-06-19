@@ -1,0 +1,40 @@
+@import url(style.css);
+
+body{ background: #fff}
+.bodyb{ background: #f4f4f4}
+.doctop{ position: relative; overflow: hidden;}
+.doctop img{ width: 100%;}
+.doctop ul{ position: absolute; width: 100%; bottom: 0px; overflow: hidden; background: url("../image/zjtbg.png") top left repeat;}
+.doctop ul li{ float: left; height:29px; line-height:29px; text-align: center; width:16.66%; border-bottom: 1px solid #474341; background: url("../image/zjtrbg.png") right repeat-y;}
+.doctop ul li.on{ background:#3598db}
+.doctop ul li a{ color: #fff}
+
+.doclist{ padding: 15px 0px; width:95%; margin: 0 auto; overflow: hidden; border-bottom:1px solid #f2f0f0;}
+.doclist img{ float: left; width: 25%;}
+.docinfo { position: relative; float: right; width: 72%; line-height:28px;}
+.docname{ font-size: 20px; color: #3598db;}
+.doczc{ color: #9b9b9b;overflow: hidden; text-overflow:ellipsis;  white-space: nowrap;}
+.docsc{ color: #3d3d3d; line-height:18px;display: -webkit-box;  -webkit-box-orient: vertical;  -webkit-line-clamp:2; overflow: hidden;}
+.docpj{ color: #a6a6a6;}
+.dwyzx{ display: inline; position: absolute; top:0px; right:0px; padding: 2px 7px; line-height:22px; background: #0083ce; color: #fff; font-size: 14px; border-radius: 5px;}
+.dwyzx a{ color: #fff}
+
+.detaitldocinfo{margin-top:1px; padding:15px 0;  text-align: center; line-height:28px; background: #fff}
+.detaitldocinfo img{ border-radius:100px}
+.dddcname{ font-size: 20px; color: #3598db;}
+.ddochp{ color: #a6a6a6;}
+.ddoczc{ font-size: 16px; color: #666666;}
+.docgzzx{ margin-top: 15px; height:50px; line-height:50px; text-align: center; background: #fff; font-size: 16px; border-top:1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb}
+.docgzzx .gz{ float: left; width: 50%; color: #3598db}
+.docgzzx .dwx{ float: left; width: 50%; background: #3598db; color: #fff}
+.docgzzx .dwx a{ color: #fff}
+.doccont{ margin-top: 10px; border-top:1px solid #eaeaea;border-bottom:1px solid #eaeaea; background: #fff;}
+.doctitle{ background: url("../image/icon2.jpg") 10px center no-repeat; font-weight: 500; background-size:auto 35%;  padding:15px 20px; border-bottom:1px solid #dbdbdb; font-size: 16px;}
+.doccontent{ padding: 15px; font-size: 16px;}
+.doccontent p{ margin-bottom: 10px;}
+.doccontentzs{ overflow: hidden;}
+.doccontentzs img{ float: left; width: 30%; margin-right:3.3%;}
+
+
+
+

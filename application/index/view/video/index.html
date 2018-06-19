@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        .wrapper02 {position:relative;height:4.5rem;width:100%;overflow:hidden;margin:0 auto;background:#fff}
+        .wrapper02 .scroller {position:absolute}
+        .wrapper02 .scroller li { padding:0 1rem; height:4.5rem;color:#333;float:left;line-height:4.5rem;font-size: 1.6rem;text-align: center}
+        .wrapper02 .scroller li a{color:#868686;display:block;margin:0 .3rem}
+        .wrapper02 .scroller li.cur{ background: url("{$Think.HTML_STATIC}/images/askt.png") center bottom no-repeat;}
+        .asktop{ position: fixed; top: 44px; background: #fff; z-index: 10000;border-top:1px solid #fbfafa;}
+    </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">视频</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>6])}'"></a>
+</header>
+
+<div class="asktop">
+    <div class="wrapper02" id="demo05">
+        <div class="scroller">
+            <ul class="clearfix">
+                <li><a href="{:url('index',['tid'=>0])}">全部</a></li>
+                {volist name='contType' id='vo'}
+                <li{eq name="$tid" value="$vo.id"} class="cur"{/eq}><a href="{:url('index',['tid'=>$vo.id,'postion'=>$i])}">{$vo.proname}</a></li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="height: 90px;"></div>
+
+
+    {volist name='$video' id='vo'}
+<div class="voidlist">
+    <a href="{:url('detail',array('id'=>$vo.id))}">
+    <div class="vimg">
+        <img src="{$vo.pic}">
+        <div class="vvititle">{$vo.title}</div>
+        <div class="vvpfnums">{$vo.click}次播放</div>
+        <div class="vvpfbut"><img src="{$Think.HTML_STATIC}/images/vvpf.png"></div>
+        <div class="vvpftime">{$vo.play_time}</div>
+    </div>
+    <div class="vvinfos">
+        <div class="vfbu"><img src="{$vo.userInfo.portrait}">{$vo.userInfo.wechaname}</div>
+        <div class="vshare"><img src="{$Think.HTML_STATIC}/images/hxing.png">关注 <img src="{$Think.HTML_STATIC}/images/hl.png">{$vo.comment} <img src="{$Think.HTML_STATIC}/images/hshare.png"></div>
+    </div>
+    </a>
+</div>
+    {/volist}
+
+
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">暂无内容</div>
+<?php } ?>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/scroll.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/navbarscroll.js"></script>
+<script>
+
+
+    $(function(){
+        $('#demo05').navbarscroll({
+            defaultSelect:{$postion},
+        });
+    });
+
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        tid:{$tid},
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

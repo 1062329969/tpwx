@@ -1,0 +1,61 @@
+		/*顶部标题*/
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.35rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		/*nav导航*/
+		.cjapply-service{width: 100%;background: white;padding: 1.5rem 0 1.55rem;}
+		.cjapply-service span{width: 50%;display: inline-block;text-align: center;font-size: 1.7rem;border-right: 0.05rem solid #F0F0F0;}
+		.cjapply-service span:last-of-type{border: none;}
+		.cjapply-service span.on6{color: #15bdde;}
+		/*内容*/
+		.cjservice-content{margin: 0.9rem 0 0.95rem;background: white;width: 100%;}
+		.cjservice-content>div:last-of-type{padding: 1.5rem 0;}
+		.cjpt{padding-bottom: 4.4rem;}
+		.cjservice-num{border-bottom: 0.05rem solid #F0F0F0;}
+		.cjservice-num span{line-height: 5.35rem;}
+		.cjservice-num span.mui-pull-left{font-size: 1.4rem;color: #4e4e4e;margin-left: 1rem;}
+		.cjservice-num span.mui-pull-right{font-size: 1.2rem;color: #999999;margin-right: 1rem;}
+		.cjservice-list{width: 100%;padding: 1.5rem 0 1.95rem;border-bottom: 0.05rem solid #F0F0F0;}
+		.cjpt{border: none;}
+		.cjservice-list>div:nth-of-type(2){width: 62%;}
+		.cjservice-list>div:first-of-type{width:27.4666%;margin-left: 2.66%;margin-right: 2%;}
+		.cjservice-list>div:first-of-type img{width: 100%;}
+		.cjservice-list>div:nth-of-type(2)>div:first-of-type{font-size: 1.3rem;color: #333333;margin: 1rem 0 0;}
+		.cjservice-list>div:nth-of-type(2)>div:last-of-type span:first-of-type{font-size: 1.2rem;color: #999999;margin-top: 3rem;}
+		.cjservice-list>div:nth-of-type(2)>div:last-of-type span.mui-pull-right{padding: 0.5rem 1.05rem;border: 0.05rem solid #15bbdc;border-radius: 2.2rem;color: #15bbdc;margin-top: 2.25rem;}
+    	.cjservice-list>div:nth-of-type(2)>div:last-of-type span.cjdis{border-color: #333333;color: #333333;}
+    	.cjbeyond{text-align: center;position: relative;padding-bottom: 1.75rem;font-size: 1.2rem;color: #999999;}
+    	.cjbeyond img{width:100%;}
+    	.cjbeyond span{text-align: center;position: absolute;top: 1.5rem;left: 50%;margin-left:-4.3rem;}
+    	.refund img{width: 1.25rem;margin-bottom: 0.15rem;margin-right: 0.5rem;}
+    	.refund-mlr{margin: 0 1rem;}
+    	.refunding,.refundReject{color: #ff2942;}
+		
+		.cjsale-return{padding: 3rem 2rem;background: white;width: 100%;position: fixed;bottom: 0;left: 0;z-index: 1000;}
+		.cjsale-return p{font-size: 1.6rem;font-weight: bold;color: #333333;margin-bottom: 1.3rem;}
+		.cjsale-return ul{margin-bottom: 2.5rem;}
+		.cjsale-return li{color: #666666;font-size: 1.3rem;line-height: 1.65rem;}
+		.cjKnow{text-align: center;}
+		.cjKnow button{border: 1px solid #15bbdc;color: #15BBDC;width: 13rem;height: 3.3rem;border-radius: 3.3rem;}
+		/*遮罩层*/
+		.mui-backdrop {
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				z-index: 998;
+				background-color: rgba(0, 0, 0, .3);
+			}
+		.cjremark{padding: 1.5rem 1rem;background: white;width: 100%;margin-bottom: 1rem;}
+    	.cjremark p{margin-bottom: 1.3rem;font-size: 1.4rem;color: #333333;}
+    	.cjremark textarea{padding: 1.5rem;background: #F0F0F0;color: #999999;font-size: 1.3rem;height: 9.5rem;border-radius: 0.5rem;}
+    	/*退货地址*/
+    	.cjaddress{background: white;width: 100%;}
+		.cjaddress-title{padding: 1.35rem 0 0.85rem 1rem;border-bottom: 0.05rem solid #F0F0F0;font-size: 1.4rem;color: #333333;}
+		.cjaddress-personl{padding: 1rem;line-height: 2rem;1.2rem;color: #666666;}
+		.cjaddress-personl button{width: 3.95rem;height: 1.5rem;border: none;background: #cccccc;color: white;font-size: 1.2rem;}

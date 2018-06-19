@@ -1,0 +1,37 @@
+ 		.topsearch{ position: fixed; top:44px; margin: 0px; width: 100%; z-index:10001; }
+        .xldj{height:88%; overflow: scroll;}
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.12rem;}
+		/*顶部列表*/
+		.list-title{padding: 0.75rem 0 0.7rem;}
+		.list-title span{font-size: 1.3rem;}
+		.list-title img{width: 1.1rem;margin-left: 0.05rem;margin-bottom: 0.15rem;}
+		.list-title-mlr{box-sizing: border-box;}
+		.csmian1{padding: 0 1rem;}
+		.csmian{margin-top:0rem;border-top: none;box-sizing: border-box;padding:1rem 0rem 0 0;}
+		.topsearch{padding: 0.75rem 0 0.7rem;border-bottom: 0.05rem solid #f8f8f8;border-top: 0.05rem solid #f0f0f0;}
+		.xlmenus{top: 82px;}
+		.xlmenus ul{padding-bottom:0rem;padding-left: 0rem;padding-right: 0rem;}
+		.xldj li a{margin-left: 8%;}
+		.xlupdate li a{margin-left: 8%;}
+		.xlpro li a{margin-left: 8%;}
+		/*用户*/
+		.csuser p{color: #333333;font-size: 1.3rem;}
+		.csuser p.ddtime{color: #999999;}
+		/*内容*/
+		.plinfos{padding: 1.2rem 0 0 0;}
+		.plinfos .lll{width: 27%;}
+		.plinfos .pl{text-align: center;width: 27%;}
+		.plinfos .cdz{text-align: center;width:21%;}
+		.plinfos .lll img{width: 1.65rem;height: 1rem;}
+		.plinfos .pl img{width: 1.4rem;height: 1.25rem;}
+		.plinfos .cdz img{width: 1.4rem; height: 1.2rem;}
+		.ddtime{font-size: 20px;color: #999999;}
+		.dddtime{margin-left: 0.95rem;}
+		
+		

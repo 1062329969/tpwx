@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/case1.css" rel="stylesheet" type="text/css">
+    <style>
+    	body{background: white;}
+        .abtx{margin-left: 1rem;padding-top: 2rem}
+        .voide{padding-top: 1rem;padding-bottom:0}
+        .tags{padding-bottom: 1rem}
+        .list-title{padding: 0.75rem 0;}
+        .topsearch{top:4.4rem;}
+        .csmian2{border-bottom: 0.05rem solid #EAEAEA;}
+        .xlmenus li a.on5{color: #15bdde;}
+        #header h1.mui-title{font-weight: normal;}
+        .csuser p{font-size: 1.4rem;}
+        .abtx{margin-left: 0;}
+        embed{margin-bottom:1.5%;width:100%;height:200px;}
+        @media only screen and (min-width: 320px) and (max-width: 350px){
+        	.xlmenus{top: 16%;}
+        	.xldj{height: 85%;}
+
+        }
+        @media only screen and (min-width: 350px) and (max-width: 450px){
+        	.xlmenus{top: 11%;}
+        	.xldj{height: 89%;}
+        	
+        }
+        .topsearch{border-bottom:0.05rem solid #F0F0F0;border-top:none;}
+        .csmian2{border-bottom:0.05rem solid #F0F0F0;}
+        #header img{margin-top: 1.25rem;}
+        .plinfos{border-top:1px solid #f0f0f0;margin-top:0.8rem;}
+        .plinfos .lll,.plinfos .pl,.plinfos .cdz{text-align:center;width:33%;}
+        .plinfos{padding:1rem 0;}
+        .docsmleft, .docsmright{width:50%;}
+        .mui-title{line-height: 4.4rem}
+
+        .list-title span{font-size:1.5rem;}
+        .list-title{padding:1rem 0;}
+        .xlmenus ul li a{font-size:1.5rem;color:#333;}
+        .xlmenus{top:8.2rem;}
+        .xlmenus ul li{height:50px;line-height:50px;}
+
+        .xlpro ul li a{margin-left:65.8%;}
+        .xldj li a{margin-left:15.8%;}
+        .csuser p{font-size:1.5rem;}
+        .csuser p.ddtime{font-size:1.2rem;}
+        .tags{font-size:1.3rem;color:#15bdde;}
+        .plinfos .lll, .plinfos .pl, .plinfos .cdz{font-size:1.5rem;}
+        .aliimg{margin-top:1.5rem;margin-bottom:1.5rem;}
+        #pd{font-weight:400;color: #333333;font-size:1.5rem;line-height:2.4rem;}
+        .list-title-mlr{border-right:1px solid #f0f0f0;border-left:1px solid #f0f0f0;}
+        .list-title div.on{color: #15bdde;}
+        .m{width:100%;margin-left: auto;margin-right: auto;margin-top:0;}
+        .abtx img{width:4.5rem;height:4.5rem;border-radius:50%;}
+
+        .m{width:100%;margin-left: auto;margin-right: auto;margin-top:0;}
+        .video-js[tabindex="-1"]{width:100%;}
+        .video-js .vjs-big-play-button{margin:0 auto;width:60px;height:60px;border-radius: 100%;position:relative;top:36%;left:0px;}
+        .video-js .vjs-big-play-button{line-height:6rem;}
+        .video-js .vjs-control-text{width:3px;height:3px;color:red;}
+    </style>
+</head>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar">
+    <a class="mui-action-back  mui-pull-left" onclick="window.location.href='{:url('index/home')}';"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">植发日记</h1>
+</header>
+
+<div class="topsearch list-title">
+	<div class="docsmleft {neq name='$gid' value='0'}on{/neq}" id="showArea">
+	    <span>
+            <?php if(empty($gid)){ ?>
+                全部院部
+            <?php }else{ ?>
+               {$hosname.hosname}
+            <?php } ?>
+        </span>
+	    <img id="b1" src="{$Think.HTML_STATIC}/images/2.png"/>
+	</div>
+	<div class="docsmright {neq name='$pid' value='0'}on{/neq}  list-title-mlr" id="showPro">
+	    <span>
+            <?php if(empty($pid)){ ?>
+                全部项目
+            <?php }else{ ?>
+                {$Hair_project.proname}
+            <?php } ?>
+        </span>
+	    <img src="{$Think.HTML_STATIC}/images/2.png"/>
+    </div>
+</div>
+<div style="height:8rem;"></div>
+
+<!--跳到机器人那里的链接-->
+<!--onclick="location.href='{$Think.config.zoosnet}'"-->
+{volist name='$cases' id='voo'}
+
+    <div class="csmian2" style="width: 100%; background: white;">
+	<div class="csmian1">
+        <a href="{:url('detail',array('uid'=>$voo.id))}">
+             <div class="csmian" style="border:0px;">
+                   <div class="csuser abtx">
+                          <img src="{$voo.userInfo.portrait}">
+                          <p>{$voo.userInfo.wechaname}</p>
+                          <p class="ddtime">{$voo.data_time}
+                    </div>
+                   {if $voo.caser.vurl}
+                         <div class="csmian" onclick="location.href='{:url('record',['uid'=>$voo.id])}'">
+                             <div class="csmian" style="border:0px;">
+                                 <div class="csinfo">
+                                     <div class="m" style="width:100%;">
+                                         <video controls preload="auto" width="100%" poster="{$voo.caser.video_pic}" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true"
+                                                      x5-playsinline="true" style="object-fit: fill;">
+                                             <source src="{$voo.caser.vurl}" type="video/mp4">
+                                         </video>
+                                     </div>
+                                 </div>
+                             </div>
+                        </div>
+                   {else /}
+                         <div class="aliimg">
+                             <div class="albf"><img src="{$voo.pic}"><!--<span>术前</span>--></div>
+                             <div class="alaf"><img src="{$voo.caser.pic}"><!--<span>术后</span>--></div>
+                         </div>
+                   {/if}
+
+                    <p id="pd">
+                        {php}echo mb_substr(strip_tags($voo['caser']['info']),0,47);{/php}
+                        {php}if(!empty($voo['caser']['info'])){{/php} ...{php}}{/php}
+                    </p>
+                    <div class="tags"><img src="{$Think.HTML_STATIC}/images/qicon.png">{$voo.project.proname}</div>
+             </div>
+        </a>
+     <div class="plinfos">
+     	<div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{php}echo $voo['clicks']+$voo['clickss']{/php}</div>
+         <div class="pl list-title-mlr" onclick="location.href='{:url('record',['id'=>$voo.caser.id])}#b'"><img src="{$Think.HTML_STATIC}/images/7.png">
+             {$voo.caser.comment}
+         </div>
+             <div class="cdz" name="dianzan" uid="{$voo.caser.id}" res-id="{$fansInfo['id']}"  dis=0 datas={if $voo.res.i_id && $fansInfo['id']==$voo.res.i_uids}1{else /}0{/if} data-idss={$voo.id}>
+         <img src="{$Think.HTML_STATIC}/images/{if $voo.res.i_id && $fansInfo['id']==$voo.res.i_uids}66{else/}65{/if}.png">
+         <!--点赞-->
+         {php}if(!empty($voo['caser']['praise'])){{/php}
+            <span>{$voo.caser.praise}</span>
+         {php}}else{ {/php}
+            <span>{$voo.praise}</span>
+         {php}}{/php}
+             </div>
+     </div>
+</div>
+</div>
+
+{/volist}
+
+<!--下拉搜索院部-->
+<div class="xlmenus xldj" id="xldj">
+    <ul>
+        <li><a href="{:url('index')}">全部院部<span></span></a></li>
+        {volist name='$grade' id='vo'}
+        <li {eq name="$vo.id" value="$gid"} active="1"{/eq}><a href="javascript:;" onclick="goserachgid(this)" gid="{$vo.id}" data-url="{:url('index',['gid'=>$vo.id])}">{$vo.hosname}</a></li>
+        {/volist}
+    </ul>
+</div>
+
+<!--下拉搜索服务项目-->
+<div class="xlmenus xlpro">
+    <ul>
+        <li><a href="{:url('index')}">全部项目<span></span></a></li>
+        {volist name='project' id='vo'}
+            <li {eq name="$vo.id" value="$pid"} active="2"{/eq}><a href="javascript:;" onclick="goserachpid(this)" pid="{$vo.id}" data-url="{:url('index',['pid'=>$vo.id])}">{$vo.proname}</a></li>
+        {/volist}
+    </ul>
+</div>
+<!--下拉搜索最近更新-->
+<div class="xlmenus xlupdate">
+	<ul>
+		<li><a href="javascript:;" onclick="goserachtid(this)" data-id="1" {if $tid==1} class="active" active="3" {/if}>最近更新</a></li>
+		<li><a href="javascript:;" onclick="goserachtid(this)" data-id="2" {if $tid==2} class="active" active="3" {/if}>人气日记</a></li>
+		<li><a href="javascript:;" onclick="goserachtid(this)" data-id="3" {if $tid==3} class="active" active="3" {/if}>最新回复</a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+    function goserachgid(_self) {
+        var dataurl = "<?php echo think\Request::instance()->domain(); ?>/cases/index";
+
+        dataurl +='/gid/'+$(_self).attr('gid');
+        if($('li[active=2] a').attr('pid')!=undefined){
+            dataurl +='/pid/'+$('li[active=2] a').attr('pid');
+        }
+        if($('li a[active=3]').attr('data-id')!=undefined){
+            dataurl += '/tid/'+$('li a[active=3]').attr('data-id');
+        }
+        dataurl += '.html';
+        window.location.href=dataurl;
+    }
+    function goserachpid(_self) {
+        var dataurl = "<?php echo think\Request::instance()->domain(); ?>/cases/index";
+
+        if($('li[active=1] a').attr('gid')!=undefined){
+            dataurl +='/gid/'+$('li[active=1] a').attr('gid');
+        }
+        dataurl +='/pid/'+$(_self).attr('pid');
+        if($('li a[active=3]').attr('data-id')!=undefined){
+            dataurl += '/tid/'+$('li a[active=3]').attr('data-id');
+        }
+        dataurl += '.html';
+        window.location.href=dataurl;
+    }
+    function goserachtid(_self) {
+        var dataurl = "<?php echo think\Request::instance()->domain(); ?>/cases/index";
+
+        if($('li[active=1] a').attr('gid')!=undefined){
+            dataurl +='/gid/'+$('li[active=1] a').attr('gid');
+        }
+        if($('li[active=2] a').attr('pid')!=undefined){
+            dataurl +='/pid/'+$('li[active=2] a').attr('pid');
+        }
+        dataurl += '/tid/'+$(_self).attr('data-id');
+        dataurl += '.html';
+        window.location.href=dataurl;
+    }
+
+
+</script>
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">当前列表为空</div>
+<?php } ?>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/data-2.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+    $(function(){
+    	 $('div[name="dianzan"]').click(function(){
+        if($(this).attr('dis')==1){
+            return false;
+        }
+        var _self = $(this);
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+        $(this).attr('dis',1);
+        var datas = $(this).attr('datas');
+        $(this).attr('datas','1');
+        var res = _self.attr('res-id');
+        var uid = _self.attr('uid');
+        var aid = _self.attr('data-idss');
+        $.ajax({
+            type: "post",
+            url: '{:url("praise/index")}',
+            data: {aid:aid,is:datas,res:res,i_ids:uid,type:6,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1) {
+                    if (datas == 0) {
+                        _self.find('span').html(Number(_self.find('span').html())+1);
+                        _self.attr('dis', 0);
+                        _self.attr('datas', '1');
+                    }
+                } else {
+                    _self.find('span').html(Number(_self.find('span').html())-1);
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                    _self.attr('dis', 0);
+                    _self.attr('datas', '0');
+                }
+
+            }
+        });
+    })
+    })
+   
+
+
+    $(function(){
+        //评论
+        $(".pinglun").click(function(){
+            comment($(this).attr('data-id'),3,'{$Request.token}');
+        });
+
+    })
+</script>
+<script>
+	$(function(){
+		//上传文字超过两行显示...
+		 var cctxt=$(".alinfs").text();
+	     var ssstr=cctxt.substr(0,49) + '...' ;
+        $(".alinfs").text(ssstr);     
+	})
+		//判断安卓和ios文字颜色
+	if (/(iPhone)/i.test(navigator.userAgent)) {
+        $(".topsearch").css("borderColor","#cecece");
+        $("#header").css("borderColor","#cecece");
+        $(".csmian2").css("borderColor","#cecece");
+    }
+	
+	$(".list-title div").click(function(){
+		if($(this).hasClass("on")){  
+                        $(this).removeClass("on");
+
+                    }else{  
+                        $(this).addClass("on");  
+                    }
+                    if($(this).find("img").attr('src')=="/static/index/images/2.png"){
+						$(this).find("img").attr('src',"/static/index/images/a1.png")
+					}else{
+						$(this).find("img").attr('src',"/static/index/images/2.png")
+					}
+	})
+	
+	if($(".xlmenus").css("display")=="none"){
+		$(".list-title div").removeClass("on")
+	}
+	$(".xlmenus li a").mousedown(function(){
+		$(this).addClass("on5")
+	})
+	
+	//点击顶部三个下拉菜单出现列表
+    $("#showArea").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }				
+        $("#showPro").children('img').attr('src','/static/index/images/2.png');
+        $("#showUpdate").children('img').attr('src','/static/index/images/2.png');             
+		$("#showUpdate").removeClass('on');
+		$("#showPro").removeClass('on');
+        if($('.xldj').css('display')=='block')
+        {
+            $('.xldj').hide();
+            $('.xlpro').hide();
+            $(".xlupdate").hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xldj').show();
+            $('.xlpro').hide();
+            $(".xlupdate").hide();
+        }
+        /*$(this).css("color","#15bdde");*/
+    });
+   
+
+    $("#showPro").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }
+        $("#showArea").children('img').attr('src','/static/index/images/2.png');
+        $("#showUpdate").children('img').attr('src','/static/index/images/2.png');			
+		$("#showUpdate").removeClass('on');        
+        $("#showArea").removeClass('on');
+        if($('.xlpro').css('display')=='block')
+        {
+            $('.xlpro').hide();
+            $('.xldj').hide();
+            $(".xlupdate").hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xlpro').show();
+            $('.xldj').hide();
+            $(".xlupdate").hide();
+        }
+
+    });
+    $("#showUpdate").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }
+        $("#showArea").children('img').attr('src','/static/index/images/2.png');
+        $("#showPro").children('img').attr('src','/static/index/images/2.png');
+        $("#showPro").removeClass('on');
+        $("#showArea").removeClass('on');
+        if($('.xlupdate').css('display')=='block')
+        {
+            $('.xlpro').hide();
+            $('.xldj').hide();
+            $(".xlupdate").hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xlupdate').show();
+            $('.xldj').hide();
+            $(".xlpro").hide();
+        }
+
+    });
+	
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        pid:{$pid},
+                        hid:{$hid},
+                        gid:{$gid}
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            $('div[name="dianzan"]').click(function(){
+                                if($(this).attr('dis')==1){
+                                    return false;
+                                }
+                                var _self = $(this);
+                                _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+                                $(this).attr('dis',1);
+                                var datas = $(this).attr('datas');
+                                $(this).attr('datas','1');
+                                var res = _self.attr('res-id');
+                                var uid = _self.attr('uid');
+                                var aid = _self.attr('data-idss');
+                                $.ajax({
+                                    type: "post",
+                                    url: '{:url("praise/index")}',
+                                    data: {aid:aid,is:datas,res:res,i_ids:uid,type:6,__token__:'{$Request.token}'},
+                                    dataType: "json",
+                                    success: function(data)
+                                    {
+                                        if(data.code==1) {
+                                            if (datas == 0) {
+                                                _self.find('span').html(Number(_self.find('span').html())+1);
+                                                _self.attr('dis', 0);
+                                                _self.attr('datas', '1');
+                                            }
+                                        } else {
+                                            _self.find('span').html(Number(_self.find('span').html())-1);
+                                            _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                                            _self.attr('dis', 0);
+                                            _self.attr('datas', '0');
+                                        }
+
+                                    }
+                                });
+                            })
+//                          $('video').each(function(m,n){
+//								var myPlayer = videojs(n);
+//							    videojs(n).ready(function(){
+//							        var myPlayer = this;
+//							        myPlayer.play();
+//							    });
+//								
+//							})
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+</script>
+<script src="{$Think.HTML_STATIC}/js/xback.js"></script>
+<script>
+    $(function () {
+        backH();
+        window.addEventListener('popstate',function(e){
+            window.location.href="{:url('index/home')}"
+        },false);
+
+
+        function backH(){
+            var state = {
+                        title:'title',
+                        url:'{:url('index/home')}'
+        };
+            window.history.pushState(state,'title','#');
+        }
+    })
+</script>
+<!--<script src="{$Think.HTML_STATIC}/js/video.min.js"></script>
+<script src="http://vjs.zencdn.net/5.19/lang/zh-CN.js"></script>
+<script type="text/javascript">
+//	function setTime (){
+	$('video').each(function(m,n){
+		var myPlayer = videojs(n);
+	    videojs(n).ready(function(){
+	        var myPlayer = this;
+	        myPlayer.play();
+	    });
+		
+	})
+		
+//	}
+//  window.setInterval("setTime()", 1000);
+</script>
+
+<-->
+</body>
+</html>

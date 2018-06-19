@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问券调查</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style>
+        ul li{list-style:none;}
+        #new{padding:5px 8px;background:#1c84c6;font-size:1rem;color:#fff;border-radius:3px;}
+        #search .row{margin-top:1%;}
+        .ibox-title1 h5{width:100%;}
+        .ibox-title1 a{color:#666666;font-weight:600;}
+        .ibox-title1 h5 >a:nth-of-type(1){padding-right:0.5%;}
+        .ibox-title1 h5 >a:nth-of-type(2){padding-left:0.5%;}
+        .pna{border:none;width:100%;}
+        .pna label{margin-right:3%;display:inline-block;}
+        .pna input{width:80%;padding:0.5rem 0;}
+        .pna select{width:20%;padding:0.5rem 0;}
+        .btn-success-outline{border:1px solid #1c84c6;background:#fff;color:#1c84c6;}
+        .pna button{margin-left:1%;padding:5px 20px;}
+        .pna >div{width:40%;}
+        .pna button:nth-of-type(2):hover{color:#1c84c6;}
+        .page{padding:0;}
+        .page li{float:left;margin-top:5%;}
+        .page li{padding:1rem 1rem;border:1px solid #dedede;margin-right:0.5%;}
+        .page li:nth-of-type(1){border:none;margin-right:0.8%;}
+        .page li:nth-of-type(2){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(8){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(11){border:none;}
+        .page li:nth-of-type(12){border:none;}
+        .page li input{display:inline-block;width:5rem;}
+        
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title ibox-title1">
+                    <h5>您当前所在位置：<a href="#">问卷调查</a>><a href="javascritp:void(0);">活动管理</a></h5>
+                </div>
+                <form class="ibox-content" action="{:url('questionnaire/index')}" method="get">
+                    <div class="row ibox-title pna">
+                        <label>活动名称</label>
+                        <input type="text" id="txt" name="q_name"/>
+                    </div>
+                    <div class="row ibox-title pna">
+                        <label>活动状态</label>
+                        <select id="sec" name="q_state">
+                            <option value="0">全部</option>
+                            <option value="1">已开始</option>
+                            <option value="2">已暂停</option>
+                            <option value="3">已结束</option>
+                        </select>
+                        <button type="submit" class="btn btn-success" id="ser">查询</button>
+                        <button type="button" class="btn btn-success-outline" id="res">重置</button>
+                    </div>
+                </form>
+                <div class="ibox-title">
+                    <h5>活动列表</h5>
+                    <div class="ibox-tools">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <a href="{:url('add')}" id="new">+新建活动</a>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th width="5%">活动ID</th>
+                                <th width="10%">活动名称</th>
+                                <th width="10%">开始时间</th>
+                                <th width="10%">结束时间</th>
+                                <th width="5%">浏览量</th>
+                                <th width="5%">参与人数</th>
+                                <th width="20%">数据分析</th>
+                                <th width="5%">活动状态</th>
+                                <th width="30%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='list' id='vo'}
+                            <tr>
+                                <td>{$vo.q_id}</td>
+                                <td>{$vo.q_name}</td>
+                                <td>{$vo.q_start|date='Y-m-d H:i:s',###}</td>
+                                <td>{$vo.q_end|date='Y-m-d H:i:s',###}</td>
+                                <td>{$vo.q_pageviews}</td>
+                                <td>{$vo.q_participate}</td>
+                                <td>
+                                    <a href="{:url('surveyusers/detail',['q_id'=>$vo.q_id])}" class="btn btn-success" >参与用户</a>
+                                    <a href="{:url('questionnaire/proportion',['q_id'=>$vo.q_id])}" class="btn btn-success" >比例统计</a>
+                                    <a data-href="<?php echo think\Request::instance()->domain(); ?>/qu/i/q/{$vo.q_id}" class="btn btn-success copybutton" >复制链接</a>
+                                </td>
+                                <td>
+                                    {if $vo.q_state==1}
+                                    <button type="button" class="btn btn-success btn-info" >已开始</button>
+                                    {elseif $vo.q_state==2 /}
+                                    <button type="button" class="btn btn-danger btn-info" >已暂停</button>
+                                    {elseif $vo.q_state==3 || $vo.q_end<time() /}
+                                    <button type="button" class="btn" >已结束</button>
+                                    {/if}
+                                </td>
+                                <td>
+                                    <a href="{:url('questionnaire/alter',['q_id'=>$vo.q_id])}" class="btn btn-outline btn-info alter" >编辑</a>
+                                    <a href="{:url('questionnaire/tmalter',['q_id'=>$vo.q_id])}" class="btn btn-outline btn-info alter" >题目编辑</a>
+                                    <a href="javascript:;" datahref="{:url('questionnaire/del',['q_id'=>$vo.q_id])}" class="btn btn-outline btn-info del" >删除</a>
+                                    {if $vo.q_state==1 && $vo.q_end>time()}
+                                        <button type="button" data-state="2" data-href="{:url('questionnaire/stop',['q_id'=>$vo.q_id])}" class="btn btn-danger btn-info stop" >暂停</button>
+                                    {elseif $vo.q_state==2 && $vo.q_end>time() /}
+                                        <button type="button" data-state="1" data-href="{:url('questionnaire/start',['q_id'=>$vo.q_id])}" class="btn btn-success btn-info start" >开始</button>
+                                    {/if}
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--分页-->
+                <div class="pagesc">共计：{$list->total()}条 共：{$list->lastPage()}页</div>{$list->render()}
+                <form class="pagesc" method="get" action="{:url('questionnaire/index')}" style="margin: 20px;">
+                    转向第
+                    <input type="hidden" name="q_name" value="{if(isset($where.q_name))}{$where.q_name}{/if}" style="width: 15%;" min="1"/>
+                    <input type="hidden" name="q_state" value="{if(isset($where.q_state))}{$where.q_state}{/if}" style="width: 15%;" min="1"/>
+                    <input type="number" name="page" style="width: 15%;" min="1"/>页
+                    <button type="submit">确定</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/zclip/zclip.js"></script>
+<script>
+    $(document).ready(function(){
+        $(".copybutton").zclip({
+            path: "{$Think.HTML_STATIC}/js/zclip/ZeroClipboard.swf",
+            copy: function(){
+                return $(this).attr('data-href');
+            },
+            /* 复制成功后的操作 */
+            afterCopy:function(){
+                layer.msg('复制成功');
+            }
+        });
+        //删除
+        $('.del').click(function(){
+            var _self = $(this);
+            var href=$(this).attr('datahref');
+            layer.confirm('您确定要删除吗？', {btn: ['确定','取消']}, function(){
+                //var index = layer.load();  //加载等待层
+                $.ajax({
+                    type: "get",
+                    url: href,
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            _self.parents('tr').remove();
+                            layer.msg('删除成功');
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    }
+                });
+            });
+        })
+
+        $('.stop,.start').click(function(){
+            var href=$(this).attr('data-href');
+            var data_state=$(this).attr('data-state');
+            editstate(href,data_state);
+        })
+
+        //查询
+        $('#ser').click(function(){
+            var txt=$("#txt").val();
+            var opt=$("#sec").val();
+            //alert(txt+"、"+opt);
+        })
+
+        //重置
+        $('#res').click(function(){
+            $("#txt").val("");
+            $("#sec").val("0");
+        })
+    });
+    function editstate(hrefs,data_state) {
+        if(data_state==1){
+            var c = '启用';
+        }else if(data_state==2){
+            var c = '停用';
+        }
+        layer.confirm('您确定要'+c+'吗？', {btn: ['确定','取消']}, function(){
+            $.ajax({
+                type: "get",
+                url: hrefs,
+                data: {state:data_state},
+                dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                        window.location.reload();
+                    }else{
+                        layer.msg(c+'失败');
+                    }
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>

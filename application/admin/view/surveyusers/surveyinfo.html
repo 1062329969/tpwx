@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问券调查</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+    <style>
+        ul li{list-style:none;}
+        .float-e-margins a{color:#999;}
+        .pna{border-top:0;}
+        .ibox-content{padding-bottom:3%;}
+        .na{padding-top:1%;padding-left:5%;width:38%;}
+        .ti{padding-top:1%;padding-left:5%;width:60%;}
+        .rows{width:60%;margin:0 auto;}
+        div label{margin-right:5%;}
+        .tjb{width:18.5%;margin:3% auto 0;padding-top:2%;}
+        .tjb button{padding:5px 20px;}
+        .tjb button:nth-of-type(2){margin-left:15%;}
+        .ti input{margin-right:5%;}
+        .ti input:nth-of-type(2){margin-left:5%;}
+
+        .page{padding:0;width:110%;}
+        .page li{float:left;}
+        .page li{padding:1rem 1rem;border:1px solid #dedede;margin-right:0.5%;}
+        .page li:nth-of-type(1){border:none;margin-right:0.8%;}
+        .page li:nth-of-type(2){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(8){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(11){border:none;}
+        .page li:nth-of-type(12){border:none;}
+        .page li input{display:inline-block;width:5rem;}
+
+        .rf{margin-top:3%;}
+        .rf >button{margin-left:2%;}
+        .ibox-title h5{margin-left:1%;}
+        .ibox-title button:nth-of-type(1){margin-right:8%;}
+        .ibox-title button:nth-of-type(2){margin-right:1%;}
+        .row span{font-size:15px;line-height:30px;margin-right:3%;}
+        .row span:nth-of-type(1){margin-left:1%;}
+        .ibox-content h5{font-size:14px;}
+        .ibox-content ul{width:95%;margin:0 auto;}
+        .ibox-content ul li{width:100%;margin-bottom:30px;}
+        .ibox-content ul li h3{width:100%;background:#c3c3c3;color:#000;line-height:50px;font-weight:normal;margin:0;padding:0;padding-left:1%;border:1px solid #999;}
+        .ibox-content ul li table{width:100%;}
+        .ibox-content ul li thead tr td{width:49%;display:inline-block;border:none;}
+        .ibox-content ul li thead tr td:nth-child(2n+1){border:none;border-right:1px solid #999;box-sizing: border-box;}
+        .special table tr{border:1px solid #999;line-height:50px;border-top:none;}
+        table{border:none;}
+        table tr{border:1px solid #999;border-top:none;line-height:50px;width:100%;display:block;}
+        table td{padding-left:1%;font-size:14px;}
+        table tbody tr:nth-child(2n+1){background:#E3E3E3;width:100%;}
+        .special table thead tr{background:#E3E3E3;width:100%;display:block;}
+        .special table tbody tr{background:#fff;width:100%;display:block;}
+        .special table tbody tr td{display:inline-block;width:49%;border:none;}
+        .special table tbody tr td:nth-child(2n+1){border-right:1px solid #999;box-sizing: border-box;}
+        .more table tr td{width:32%;display:inline-block;}
+        table tbody tr{width:100%;}
+
+        .advise table tr td{width:100%;display:inline-block;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <div class="row">
+                        <h5 class="pull-left">基本信息</h5>
+                        <!--<button type="button" class="pull-right btn btn-success" onclick="window.location.href=''">参与用户</button>
+                        <button type="button" class="pull-right btn btn-success" onclick="window.location.href=''">活动管理</button>-->
+                    </div>
+                    <div class="row clearfix">
+                        <span>姓名:{$quest.s_name}</span>
+                        <span>手机:{$quest.s_phone}</span>
+                        <span>提交时间:{$quest.s_addtime|date='Y-m-d H:i:s',###}</span>
+                    </div>
+                    <div class="row"><span>活动名称：
+                                    <?php
+                                        echo $searchType[$quest['s_project']];
+                                     ?>
+                    </span></div>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="table-responsive">
+                    <h5>详细数据</h5>
+                </div>
+                <ul>
+                    {php}$a=1;{/php}
+                    {volist name="$topic" id="vo"}
+                    {php}if($vo['qt_type']==1){{/php}
+
+                        <li class="special">
+                            <h3>{php}echo $a++;{/php}{$vo.qt_topic}【单选题】</h3>
+
+                            <table border="1">
+                                <thead>
+                                    <tr>
+                                        <td>选中选项</td>
+                                        <td>选择原因</td>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {php}
+                                        foreach ($vo['option'] as $k=>$v){
+                                    {/php}
+                                    {php}
+                                    if(in_array($v['code'],$res[$vo['qt_id']]['code'])){
+                                    {/php}
+                                    <tr>
+
+                                            {if $v.isopen==1}
+                                                <td>
+                                                    <input type="radio" checked>
+                                                    {php}echo $v['code'];echo $v['content'];{/php}
+                                                </td>
+                                                <td>{$res[$vo['qt_id']]['feedback']}</td>
+                                            {else /}
+                                                <td colspan="2" style="width: 100%">
+                                                    <input type="radio" checked>
+                                                    {php}echo $v['code'];echo $v['content'];{/php}
+                                                </td>
+                                            {/if}
+                                    </tr>
+                                    {php}
+                                        }
+                                    }
+
+                                    {/php}
+
+                                </tbody>
+
+                            </table>
+
+                        </li>
+
+                    {php}}elseif($vo['qt_type']==2){{/php}
+                        <li class="more">
+                            <h3>{php}echo $a++;{/php}{$vo.qt_topic}【多选题】</h3>
+                            <table>
+                                <tbody>
+                                {php}
+                                    foreach ($vo['option'] as $k=>$v){
+                                    {/php}
+                                {php}if(in_array($v['code'],$res[$vo['qt_id']]['code'])){{/php}
+                                    <td><input type="checkbox" checked>  {php}echo $v['content'];{/php}</td>
+                                {php}}}{/php}
+                                <!--<tr>-->
+                                    <!--<td><input type="checkbox" checked>术前沟通</td>-->
+                                    <!--<td><input type="checkbox" checked>环境卫生</td>-->
+                                    <!--<td><input type="checkbox" checked>手术保障</td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                        <!--<td><input type="checkbox" checked>保护个人隐私</td>-->
+                                    <!--<td><input type="checkbox" checked>专业化程度</td>-->
+                                <!--</tr>-->
+                                </tbody>
+                            </table>
+                        </li>
+                    {php} }{/php}
+                    {/volist}
+
+                    <!--反馈-->
+                    {php}if(!empty($quest['s_feedback'])){{/php}
+                    <li class="more advise">
+                        <h3>优化建议</h3>
+                        <table>
+                            <tbody>
+                                <tr><td>{$quest.s_feedback}</td></tr>
+                            </tbody>
+                        </table>
+                    </li>
+                    {php} } {/php}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+@import url(style.css);
+
+.splist{ margin-top:10px; padding:10px 15px; background: #fff; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea;}
+.splist h2{ margin-bottom:10px; font-weight: normal; line-height:25px; font-size: 16px; color: #333333;}
+.spimg{ margin-bottom: 10px; position: relative; overflow: hidden;}
+.spimg .spic{ width: 100%;}
+.spbf{ width:60px; height:60px; position:absolute; top:50%; margin-top: -30px; left:50%; margin-left:-30px; background:url("../image/spbf.png") center no-repeat; background-size: 100%;}
+.spimg span{ position: absolute; bottom:10px; right: 0px; width:50px; text-align: center; color: #fff; border-radius:3px 0 0 3px; line-height: 20px; background: #0083ce;}
+.spinfo{ overflow: hidden;}
+.spi1,.spi2,.spi3{ float: left; width:33.33%; line-height:30px; color: #a6a6a6; font-size:14px;font-family: Georgia;}
+.spi1 i,.spi2 i,.spi3 i{ font-size:18px;}
+.spi1{ text-align: left;}
+.spi2{ text-align: center;}
+.spi3{ text-align: right;}
+.spi3[data-id='1']{ color: #2d7fbb}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

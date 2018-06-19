@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{$Think.config.sitename}</title>
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+<style type="text/css">
+    .swiper-button-next, .swiper-button-prev{ width: 18px; height: 29px; background-size:18px 29px; margin-top: -13px;}
+</style>
+</head>
+
+<body>
+<div class="iheader">
+      <div class="searchAddress">
+           <div class="search"><div class="searMain"><img src="{$Think.HTML_STATIC}/images/searchLeft.png"><input type="text" id="search" /></div></div>
+           <div class="address"><font id="province"></font><img src="{$Think.HTML_STATIC}/images/zb.png"/></div>
+      </div>
+      <div class="portrait">
+          <a href="{:url('my/index')}">
+              <img class="tximg" src="{:get_wxheadimg($fansInfo.portrait,132)}">
+              <p>{$fansInfo.wechaname}</p>
+              <img class="iinfo" src="{$Think.HTML_STATIC}/images/info.png">
+          </a>
+      </div>
+      <div class="memmenu">
+            <div class="mmmain"><span></span>您的积分：{$fansInfo.integral}</div>
+            <div class="mmmain"><span></span>订单：{$goodsOrdersCount}</div>
+            <div class="mmmain">购物车：{$goodsCart}</div>
+      </div>
+      
+</div>
+<div class="indexmain">
+     <div class="notice"><a href="{$cont_ad2.url}"><img src="{$Think.HTML_STATIC}/images/notice.png">{$cont_ad2.title}</a></div>
+     <div class="indexmenu">
+           <div class="immain" onclick="location.href='{:url('cases/index')}'"><img src="{$Think.HTML_STATIC}/images/iicon1.png"><p>案例</p></div>
+           <div class="immain" onclick="location.href='{:url('curing/index')}'"><img src="{$Think.HTML_STATIC}/images/iicon2.png"><p>养护</p></div>
+           <div class="immain" onclick="location.href='{:url('forum/index')}'"><img src="{$Think.HTML_STATIC}/images/iicon3.png"><p>圈子</p></div>
+           <div class="immain" onclick="location.href='{$Think.config.zoosnet}'"><img src="{$Think.HTML_STATIC}/images/iicon4.png"><p>客服</p></div>
+     </div>
+</div>
+
+<div class="facues">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {volist name='$cont_ad' id='vo'}
+            <div class="swiper-slide"><a href="{$vo.url}"><img src="{$vo.pic}"></a></div>
+            {/volist}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
+</div>
+<div style="height: 2rem;"></div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<div id="allmap"></div>
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ubHD91cZDNhWQuZVsBl0OY5ReHo8Dr9f"></script>
+<script>
+	var height = document.documentElement.clientHeight;
+	//初始化高度 
+	$(".iheader").height(height*0.38);
+	//当文档窗口发生改变时 触发 
+	$(window).resize(function(){
+		var height = document.documentElement.clientHeight;
+		$(".iheader").height(height*0.4);
+	});
+
+    var swiper = new Swiper('.swiper-container', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        pagination: '.swiper-pagination',
+    });
+    $('#search').click(function () {
+        window.location.href='{:url('search/index')}';
+    });
+
+    // 百度地图API功能
+
+
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r)
+    {
+        if(this.getStatus() == BMAP_STATUS_SUCCESS)
+        {
+            var point = new BMap.Point(r.point.lng,r.point.lat);
+            var geoc = new BMap.Geocoder();
+            geoc.getLocation(point, function(rs){
+                var addComp = rs.addressComponents;
+                //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+                $('#province').html(addComp.province);
+            });
+        }
+        else
+        {
+            alert('failed'+this.getStatus());
+        }
+    },{enableHighAccuracy: true})
+
+</script>
+</body>
+</html>

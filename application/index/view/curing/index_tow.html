@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        .topmenu div{ margin: 0px;}
+        .topmenu{top: 44px; z-index: 10000;border-top:1px solid #fbfafa; overflow: hidden;}
+         .gallerytitle {
+             text-align: left;
+             font-size: 1em;
+             padding: 0 1rem;
+             height: 42px;
+             line-height: 42px;
+             color: #fafafa;
+             position: absolute;
+             left: 0;
+             bottom: 0;
+             right: 0;
+             font-weight: normal;
+             text-shadow: 1px 1px 1px #000;
+             /* background-color: rgba(21,20,20,0.5); */
+             background-color: rgba(0,0,0,0);
+             background: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+             background: -webkit-gradient(linear,top,from(rgba(0,0,0,0)),to(rgba(0,0,0,0.7)));
+             background: -webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+             background: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+         }
+        .pagination {
+            position: absolute;
+            z-index: 20;
+            bottom: 10px;
+            width: 66px;
+            text-align: center;
+            right:0;
+        }
+        .swiper-pagination-bullet {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius:5px;
+            background: #fff;
+            margin: 0 2px;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .swiper-pagination-bullet-active {
+            background: #007aff;
+        }
+        #banner{position:relative; overflow: hidden;}
+        .swiper-container-horizontal>.swiper-pagination-bullets{ padding: 0 1rem; text-align: right;}
+    </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">养护{eq name='$tid' value='1'}术前{/eq}{eq name='$tid' value='2'}术后{/eq}</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>4])}'"></a>
+</header>
+
+{eq name='$tid' value='0'}
+<div class="topmenu">
+    <div><a href="{:url('index',array('tid'=>1))}"{eq name='$tid' value='1'} class="on"{/eq}>术前</a></div>
+    <div><a href="{:url('index',array('tid'=>2))}"{eq name='$tid' value='2'} class="on"{/eq}>术后</a></div>
+    <div><a onclick="location.href='{$Think.config.zoosnet}'">咨询</a></div>
+</div>
+{else/}
+<div class="topmenu">
+    <div><a href="{:url('cases/index')}">案例</a></div>
+    <div><a href="{:url('video/index')}">视频</a></div>
+    <div><a href="{$Think.config.zoosnet}">客服</a></div>
+</div>
+{/eq}
+<div style="height: 90px;"></div>
+{empty name='$tid'}
+<div class="topfouce">
+    <div id="banner">
+
+        <div class="swiper-wrapper">
+            {volist name='$cont_ad' id='vo'}
+            <div class="swiper-slide" onclick="location.href='{$vo.url}'"><img src="{$vo.pic}" /><h2 class="gallerytitle">{$vo.title}</h2></div>
+            {/volist}
+        </div>
+        <div class="pagination"></div>
+
+    </div>
+</div>
+{else/}
+
+<div class="topfouce">
+    <div id="banner">
+        <div class="swiper-wrapper">
+            {volist name='$newsTj' id='vo'}
+            <div class="swiper-slide" onclick="location.href='{:url('detail',['id'=>$vo.id])}'"><img src="{$vo.pic|str_replace='m_','',###}" /><h2 class="gallerytitle">{$vo.title}</h2></div>
+            {/volist}
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>
+
+{/empty}
+
+{volist name='news' id='vo'}
+<a href="{:url('detail',array('id'=>$vo.id))}">
+{eq name='$vo.is_video' value='1'}
+
+    <div class="tvideo">
+        <div class="title">{$vo.title}</div>
+        <div class="pics">
+            <img src="{$vo.pic|str_replace='m_','',###}">
+            <div class="spbf"></div>
+            <span class="pftime">{$vo.play_time}</span>
+        </div>
+        <div class="infos">
+            <span>{$vo.author}</span>
+            <span><img src="{$Think.HTML_STATIC}/images/plnum.png">{$vo.pinglun}</span>
+            <span>{$vo.create_time}</span>
+        </div>
+    </div>
+
+{else/}
+
+    {switch name="$vo.imgs_nums"}
+    {case value="1"}
+            <div class="tpic1">
+                <div class="tp1left">
+                    <div class="title">{$vo.title}</div>
+                    <div class="infos">
+                        <span>{$vo.author}</span>
+                        <span><img src="{$Think.HTML_STATIC}/images/plnum.png">{$vo.pinglun}</span>
+                        <span>{$vo.create_time}</span>
+                    </div>
+                </div>
+                <div class="pics">
+                    <img src="{$vo.pic}">
+                </div>
+            </div>
+    {/case}
+    {case value="2|3"}
+            <div class="tpic3">
+                <div class="title">{$vo.title}</div>
+                <div class="pics">
+                    {volist name='$vo.newsImgs' id='vo2'}
+                    <div class="picll"><img src="{$vo2.pic}"></div>
+                    {/volist}
+                </div>
+                <div class="infos">
+                    <span>{$vo.author}</span>
+                    <span><img src="{$Think.HTML_STATIC}/images/plnum.png">{$vo.pinglun}</span>
+                    <span>{$vo.create_time}</span>
+                </div>
+            </div>
+    {/case}
+    {default /}
+            <div class="tpic3">
+                <div class="title">{$vo.title}</div>
+                <div class="infos">
+                    <span>{$vo.author}</span>
+                    <span><img src="{$Think.HTML_STATIC}/images/plnum.png">{$vo.pinglun}</span>
+                    <span>{$vo.create_time}</span>
+                </div>
+            </div>
+    {/switch}
+
+{/eq}
+</a>
+{/volist}
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">暂无内容</div>
+<?php } ?>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        pagination: '.swiper-pagination',
+    });
+
+    var mySwiper2 = new Swiper('#banner',{
+        autoplay:5000,
+        visibilityFullFit : true,
+        loop:true,
+        pagination : '.pagination',
+    });
+
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        tid:{$tid},
+                        vid:{$vid},
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

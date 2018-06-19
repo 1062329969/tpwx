@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">我的足迹</h1>
+</header>
+
+<div class="mui-content">
+
+    <ul class="mui-table-view">
+        {volist name='$fotoplace' id='vo' empty="<p style='text-align: center; font-size: 1.8rem; padding: 2rem;'>您对我来说什么都没有留下！</p>"}
+
+        {switch name="vo.type"}
+        {case value="1"}<li class="mui-table-view-cell"><a href="{:url('curing/detail',['id'=>$vo.aid])}" class="mui-navigate-right">{$vo.curing.title}</a></li>{/case}
+        {case value="2"}<li class="mui-table-view-cell"><a href="{:url('hairCuring/detail',['id'=>$vo.aid])}" class="mui-navigate-right">{$vo.hairCuring.title}</a></li>{/case}
+        {case value="3"}<li class="mui-table-view-cell"><a href="{:url('news/detail',['id'=>$vo.aid])}" class="mui-navigate-right">{$vo.news.title}</a></li>{/case}
+        {case value="4"}<li class="mui-table-view-cell"><a href="{:url('forum/detail',['id'=>$vo.aid])}" class="mui-navigate-right">{$vo.forum.foname}</a></li>{/case}
+        {case value="5"}<li class="mui-table-view-cell"><a href="{:url('ask/detail',['id'=>$vo.aid])}" class="mui-navigate-right">{$vo.ask.qtitle}</a></li>{/case}
+        {case value="6"}<li class="mui-table-view-cell"><a href="{:url('goods/detail',['id'=>$vo.aid])}" class="mui-navigate-right">{$vo.goods.gdname}</a></li>{/case}
+        {/switch}
+
+        {/volist}
+
+    </ul>
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+</body>
+</html>

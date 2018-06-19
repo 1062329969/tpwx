@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/dl.css" rel="stylesheet">
+    <style>
+        html,body{height: 100%;width: 100%;margin:0;padding:0;}
+        body{ background:url({$Think.HTML_STATIC}/images/bb.jpg) no-repeat;width:100%;height:100%;background-size:100% 100%;position:absolute;}
+        .container{width:100%;}
+        .container >img{display:block;width:29.0667%;margin:0 auto;padding-top:22%;}
+        .container .btn a{display:block;width:86.667%;border:1px solid #ffffff;border-radius:40px;height:3rem;line-height:3rem;position:absolute;bottom:7.5rem;left:6.5%;}
+        .container .btn a:nth-of-type(2){background:#ffffff;position:absolute;bottom:3.3rem;left:6.5%;}
+        .container .btn a p{float:left;font-size:1.3rem;color:#fefeff;margin:0;padding:0;margin-left:43.4769%;}
+        .container .btn a img{width:2.9223%;display:inline-block;float:right;margin-top:5%;margin-right:5%;}
+        .container .btn a:nth-of-type(2) p{color:#15bbdc;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{$Think.HTML_STATIC}/images/logse.png"/>
+        <div class="btn" style="padding-top:63%;">
+            <a href="{:url('member/reg')}"><p>注册</p><img src="{$Think.HTML_STATIC}/images/arrow1.png"/></a>
+            <a href="{:url('member/login')}"><p>登录</p><img src="{$Think.HTML_STATIC}/images/arrow2.png"/></a>
+        </div>
+    </div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+</body>
+</html>

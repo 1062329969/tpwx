@@ -1,0 +1,46 @@
+@import url(style2.css);
+
+body{ background: #fff}
+.bodyb{ background: #f4f4f4}
+
+#header a,.mui-title{ color:#0078d7}
+
+
+.docsmenu{ margin-top:44px; height:44px; line-height:44px; background:#FFF;}
+.docsmleft,.docsmright{ float:left; width:50%; text-align:center; color:#333333}
+.docsmenu img{ width:12px;}
+.docsmenu p.on{ background:#0078d7; height:2px; width:15%; margin:0 auto;}
+.doclist{ margin-top:10px; padding:15px; background:#FFF; overflow:hidden;}
+.doclist img{ width:20%; float:left; margin-right:10px; border-radius:100%}
+.doclist p{ padding-top:13px;}
+.doclist p.name{ color:#3d3d3d}
+.doclist p.name span{ color:#0078d7; font-size:16px; font-weight:600}
+.schan{ clear:both; padding:20px 0px; color:#3d3d3d}
+.pldocinfos{ padding-top:10px; border-top:1px solid #dbdbdb}
+.infoslist{ float:left; width:33.33%; color:#a6a6a6}
+.infoslist span{ color:#0078d7}
+
+
+.detaitldocinfo{margin-top:50px; padding:15px 0;  text-align: center; line-height:28px; background: #fff}
+.detaitldocinfo img{ border-radius:100%; width:30%;}
+.dddcname{ margin:10px 0px; font-size: 20px; color: #666666;}
+.dddcname span{ margin-right:10px; color:#0078d7;}
+.ddochp{ color: #a6a6a6;}
+.ddoczc{ font-size: 16px; color: #a6a6a6;}
+.ddoczc dd{ display:inline; color:#e5e5e5}
+.ddoczc span{ margin:0px 0.6rem;}
+.ddoczc span font{ color:#ff6666}
+.docgzzx{ margin-top: 15px; height:50px; line-height:50px; text-align: center; background: #fff; font-size: 16px; border-top:1px solid #dbdbdb; border-bottom: 1px solid #dbdbdb}
+.docgzzx .gz{ float: left; width: 50%; color: #0078d7}
+.docgzzx .dwx{ float: left; width: 50%; background: #0078d7; color: #fff}
+
+.doccont{ margin-top: 10px; border-top:1px solid #eaeaea;border-bottom:1px solid #eaeaea; background: #fff;}
+.doctitle{ background: url("../images/icon2.jpg") 10px center no-repeat; font-weight: 500; background-size:auto 35%;  padding:15px 20px; border-bottom:1px solid #dbdbdb; font-size: 16px;}
+.doccontent{ padding: 15px; font-size: 16px; color:#666666}
+.doccontent p{ margin-bottom: 10px;  color:#666666;font-size: 1.6rem;}
+.doccontentzs{ overflow: hidden;}
+.doccontentzs img{ float: left; width: 30%; margin-right:3.3%;}
+
+
+
+

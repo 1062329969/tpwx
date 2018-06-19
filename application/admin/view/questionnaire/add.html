@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title></title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+		<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+		<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/main.css">
+		<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/highlight.css">
+		<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+		<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+		<style>
+			.control-label font {
+				color: #F00;
+			}
+			
+			.form-group,
+			.m-b {
+				margin-bottom: 5px;
+			}
+			
+			.hr-line-dashed {
+				margin: 5px 0px;
+			}
+		</style>
+	</head>
+
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5></h5>
+							<div class="ibox-tools">
+								<a class="collapse-link">
+									<i class="fa fa-chevron-up"></i>
+								</a>
+								<a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+									<i class="fa fa-wrench"></i>
+								</a>
+								<ul class="dropdown-menu dropdown-user">
+									<li>
+										<a href="{:url('index')}">返回商品列表</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<div class="ibox-content">
+							<form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('add')}">
+								<div class="form-group">
+									<label class="col-sm-2 control-label"><font>*</font>活动名称：</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control q_name" required placeholder="请输入活动名称" name="gdname" value="">
+									</div>
+								</div>
+								<div class="form-group appliance">
+	                                <label class="col-sm-2 control-label">活动礼品图：</label>
+	                                <div class="col-sm-10 upload">
+	                                    <input required type="file" accept="image/*" id="file"/>
+	                                    <span class="imgg"></span>
+	                                    <span class="help-block m-b-none">建议上传透明背景png图片，大小：600*600</span>
+	                                </div>
+                            	</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">活动规则：</label>
+									<div class="col-sm-10">
+										<textarea id="text" name="info" required class="form-control q_rule" style="height:100px;"></textarea>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">提交提示信息：</label>
+									<div class="col-sm-10">
+										<textarea id="text" name="info" class="form-control q_prompt" required style="height:100px;"></textarea>
+										<p>调研提交成功以后提示的信息. 例如: 您的信息我们已经收到, 很快会有专人联系你。（45个字以内）</p>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">活动状态：</label>
+									<div class="col-sm-10">
+										<label><input type="radio"  name="a1" checked="checked" class="q_state" value="1" />开始</label>
+										<label><input type="radio" name="a1" class="q_state" value="3" />停止</label>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">活动时间：</label>
+									<div class="col-sm-10">
+										<label><input type="date" class="q_start" required/></label>至
+										<label><input type="date" class="q_end" required/></label>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-2 control-label">提交建议：</label>
+									<div class="col-sm-10">
+										<label><input type="radio" name="a2" class="q_suggest" checked="checked" value='1' />开启</label>
+										<label><input type="radio" name="a2" class="q_suggest" value='2' />关闭</label>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="cj_diaoyan">
+									<div class="title col-sm-12" style="margin-top: 20px;font-size: 16px;font-weight: bold;">调研项目</div>
+									<div class="hr-line-dashed"></div>
+									<div class="addsub">
+										<div class="add" datas='1'>
+											<div class="form-group">
+												<label class="col-sm-2 control-label"><font>*</font>排序：</label>
+												<div class="col-sm-10">
+													<input type="text" required class="form-control qt_order">
+													<p onclick="window.location.href=''">降序排序</p>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">题目：</label>
+												<div class="col-sm-8">
+													<textarea required id="text" name="info" class="form-control qt_topic" style="height:100px;"></textarea>
+													<p>建议不要超过30个字</p>
+												</div>
+												<div class="col-sm-2">
+													<button type="button" class="btn btn-primary cj_delete_all">删除本题</button>
+												</div>
+											</div>
+											<div class="hr-line-dashed"></div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">题目类型：</label>
+												<div class="col-sm-10">
+													<label><input type="radio" name="a3" class="qt_type" value='1' checked="checked"/>单选题</label>
+													<label><input type="radio" name="a3" class="qt_type" value='2'/>多选题</label>
+												</div>
+											</div>
+											<div class="hr-line-dashed"></div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">选项序号：</label>
+												<div class="col-sm-10">
+													<span class="col-sm-8">
+			                                		选项内容（建议17个字以内）
+			                                		</span>
+													<span class="col-sm-4">
+			                                		选择原因
+			                                		</span>
+												</div>
+											</div>
+											<div class="add_ti">
+												<div class="subject">
+													<div class="form-group" data="1">
+														<label class="col-sm-2 control-label sorting">A：</label>
+														<div class="col-sm-10">
+															<input class="col-sm-8 options" type="text" required/>
+															<span class="col-sm-4">
+						                                		<label><input type="radio" name="a4" class="isopen" value="1" checked="checked" />开启</label>
+						                                		<label><input type="radio" name="a4" value="2" class="isopen"/>关闭</label>
+				                                			</span>
+														</div>
+													</div>
+													<div class="form-group" data='2'>
+														<label class="col-sm-2 control-label sorting">B：</label>
+														<div class="col-sm-10">
+															<input class="col-sm-8 options" required type="text" />
+															<span class="col-sm-4">
+						                                		<label><input type="radio" name="a5" value="1" class="isopen" checked="checked" />开启</label>
+						                                		<label><input type="radio" name="a5" value="2" class="isopen" />关闭</label>
+				                                			</span>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-2"></div>
+													<button type="button" class="col-sm-3 btn btn-primary cj_add">添加选项</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-sm-1"></div>
+										<div class="col-sm-10">
+											<button type="button" class="btn btn-primary add_subject">添加题目</button>
+										</div>
+									</div>
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<div class="col-sm-4 col-sm-offset-2">
+										<button class="btn btn-primary submit" type="button" style="width: 150px;">提交</button>
+										<!--<button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>-->
+									</div>
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+		<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+		<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+		<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+		<script>
+			$(function() {
+
+				var zimu = ['A:', 'B:', 'C:', 'D:', 'E:', 'F:', 'G:', 'H:', 'I:', 'J:', 'K:', 'L:', 'M：', 'N：', 'O：', 'P：']
+				//删除本题
+				$(".cj_delete_all").click(function() {
+					$(this).closest(".add").remove()
+
+				})
+
+				//添加选项
+				$(".cj_add").click(function() {
+
+					var temp = '';
+					var subNum = $(this).closest('.add_ti').find(".subject .form-group").length + 1;
+					var letter = String.fromCharCode(64 + subNum)
+					var data1 = $(this).closest('.add_ti').find(".subject>.form-group:last").attr('data');
+					var data = parseInt(data1) + 1;
+					console.log(data)
+					temp += '<div class="form-group" data=' + data + '>' +
+						'<label class="col-sm-2 control-label sorting">' + letter + '：</label>' +
+						'<div class="col-sm-10">' +
+						'<input class="col-sm-8 options" type="text"/>' +
+						'<span class="col-sm-4">' +
+						'<label><input type="radio" name="' + data + '" value="1" class="isopen" checked="checked" />开启</label>' +
+						'<label><input type="radio" name="' + data + '" value="2" class="isopen"/>关闭</label>' +
+						'<button type="button" class="btn btn-primary cj_delete">删除</button>' +
+						'</span>' +
+						'</div>' +
+						'</div>'
+					$(this).closest('.add_ti').find(".subject").append(temp);
+					$(".cj_delete").on('click', function() {
+						var subject = $(this).parents('.subject')
+						var data3 = $(this).closest(".form-group").attr('data')
+						$(this).closest(".form-group[data=" + data3 + "]").remove()
+						subject.find('.sorting').each(function(m, n) {
+							$(n).html(zimu[m]);
+						})
+						console.log(2)
+					})
+					return data;
+				})
+
+				//添加题目
+				$(".add_subject").click(function() {
+					var subdatas = addSubject()
+					$(".cj_delete_all").click(function() {
+						$(this).closest(".add").remove()
+					})
+					//删除选项
+
+					//添加选项
+					//			$(".cj_add").click(function(){
+					$(".add[datas=" + subdatas + "]").find('.cj_add').click(function() {
+						var temp2 = '';
+						var subNum = $(this).closest('.add_ti').find(".subject .form-group").length + 1;
+						var letter = String.fromCharCode(64 + subNum)
+						var data2 = $(this).closest('.add_ti').find(".subject>.form-group:last").attr('data');
+						var data = data2 + 1;
+						var datass = $(".addsub>.add:last").attr('datas')
+						var datas = parseInt(datass) + 1;
+						console.log(data2)
+						console.log(data)
+						temp2 += '<div class="form-group" data="' + datas + '-' + data + '">' +
+							'<label class="col-sm-2 control-label sorting">' + letter + '：</label>' +
+							'<div class="col-sm-10">' +
+							'<input class="col-sm-8 options" type="text" />' +
+							'<span class="col-sm-4">' +
+							'<label><input type="radio" name="' + datas + '-' + data + '" value="1" class="isopen"  checked="checked" />开启</label>' +
+							'<label><input type="radio" name="' + datas + '-' + data + '" value="2" class="isopen" />关闭</label>' +
+							'<button type="button" class="btn btn-primary cj_delete">删除</button>' +
+							'</span>' +
+							'</div>' +
+							'</div>';
+						$(this).closest('.add_ti').find(".subject").append(temp2)
+						$(".cj_delete").on('click', function() {
+							var zimu = ['A:', 'B:', 'C:', 'D:', 'E:', 'F:', 'G:', 'H:', 'I:', 'J:', 'K:', 'L:', 'M：', 'N：', 'O：', 'P：']
+							var subject = $(this).parents(".subject")
+							var data3 = $(this).closest(".form-group").attr('data')
+							$(this).closest(".form-group[data=" + data3 + "]").remove();
+							subject.find('.sorting').each(function(m, n) {
+								$(n).html(zimu[m])
+							})
+							console.log(3)
+						})
+					})
+				})
+
+				function addSubject() {
+					var temp1 = '';
+					var datass = $(".addsub>.add:last").attr('datas')
+					var datas = parseInt(datass) + 1;
+					temp1 += '<div class="add" datas="' + datas + '">' +
+						'<div class="form-group">' +
+						'<label class="col-sm-2 control-label"><font>*</font>排序：</label>' +
+						'<div class="col-sm-10">' +
+						'<input type="text" class="form-control qt_order">' +
+						'<p>降序排序</p>' +
+						'</div>' +
+						'</div>' +
+						'<div class="form-group">' +
+						'<label class="col-sm-2 control-label">题目：</label>' +
+						'<div class="col-sm-8">' +
+						'<textarea id="text" name="info" class="form-control qt_topic" style="height:100px;"></textarea>' +
+						'<p>建议不要超过30个字</p>' +
+						'</div>' +
+						'<div class="col-sm-2">' +
+						'<button type="button" class="btn btn-primary cj_delete_all">删除本题</button>' +
+						'</div>' +
+						'</div>' +
+						'<div class="hr-line-dashed"></div>' +
+						'<div class="form-group">' +
+						'<label class="col-sm-2 control-label">题目类型：</label>' +
+						'<div class="col-sm-10">' +
+						'<label><input type="radio" name="' + datas + '-a" class="qt_type" value="1" checked="checked" />单选题</label>' +
+						'<label><input type="radio" name="' + datas + '-a" class="qt_type" value="2"/>多选题</label>' +
+						'</div>' +
+						'</div>' +
+						'<div class="hr-line-dashed"></div>' +
+						'<div class="form-group">' +
+						'<label class="col-sm-2 control-label">选项序号：</label>' +
+						'<div class="col-sm-10">' +
+						'<span class="col-sm-8">' +
+						'选项内容（建议17个字以内）' +
+						'</span>' +
+						'<span class="col-sm-4">' +
+						'选择原因' +
+						'</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="add_ti">' +
+						'<div class="subject">' +
+						'<div class="form-group" data="' + datas + '-1">' +
+						'<label class="col-sm-2 control-label sorting">A：</label>' +
+						'<div class="col-sm-10">' +
+						'<input class="col-sm-8 options" type="text"/>' +
+						'<span class="col-sm-4">' +
+						'<label><input type="radio" name="' + datas + '-1" value="1" class="isopen"  checked="checked"/>开启</label>' +
+						'<label><input type="radio" name="' + datas + '-1" value="2" class="isopen"/>关闭</label>' +
+						'</span>' +
+						'</div>' +
+						'</div>' +
+						'<div class="form-group" data="' + datas + '-2">' +
+						'<label class="col-sm-2 control-label sorting">B：</label>' +
+						'<div class="col-sm-10">' +
+						'<input class="col-sm-8  options" type="text"/>' +
+						'<span class="col-sm-4">' +
+						'<label><input type="radio" name="' + datas + '-2" value="1" class="isopen" checked="checked"/>开启</label>' +
+						'<label><input type="radio" name="' + datas + '-2" value="2" class="isopen" />关闭</label>' +
+						'</span>' +
+						'</div>' +
+						'</div>' +
+						'</div>' +
+						'<div class="form-group">' +
+						'<div class="col-sm-2"></div>' +
+						'<button type="button" class="col-sm-3 btn btn-primary cj_add">添加选项</button>' +
+						'</div>' +
+						'</div>' +
+						'</div>'
+					$(".addsub").append(temp1)
+					return datas;
+				}
+				//对上传图片的默认单选按钮 重新赋值
+				function again() {
+					i = 0;
+					$("#imgs  input[type='radio']").each(function() {
+						$(this).val(i);
+						i = i + 1;
+					})
+				}
+				  //上传照片
+		 $("#file").change(function(){
+		  drawTempPhoto();
+		 });
+		 //绘制照片
+		 function drawTempPhoto() {
+		   //检验是否为图像文件
+		   var file = document.getElementById("file").files[0];
+		   if(!/image\/\w+/.test(file.type)){
+		    alert("请选择图片文件。")
+		    return false;
+		   }
+		   var reader = new FileReader();
+		   // 将文件的格式以Data URL形式读入页面
+		    reader.readAsDataURL(file)
+		    //等待图片加载完成
+		    reader.onload = function (e) {
+		        //预览效果
+		        //加载图片，此处的this.result为base64格式     
+		        $(".imgg").html("<img class='q_gift' src='"+this.result+"'/>")        
+		        console.log(this.result)
+		}
+		   }
+
+				//通过ajax提交数据
+				$(".submit").click(function() {
+					var subjectinfo = {};
+					subjectinfo.q_name = $('.q_name').val();
+					subjectinfo.q_gift=$('.q_gift').attr('src');
+					subjectinfo.q_rule = $('.q_rule').val();
+					subjectinfo.q_prompt = $('.q_prompt').val();
+					subjectinfo.q_state = $('.q_state:checked').val();
+					subjectinfo.q_start = $('.q_start').val();
+					subjectinfo.q_end = $('.q_end').val();
+					subjectinfo.q_suggest = $('.q_suggest:checked').val();
+
+					var topic = {}
+					//定义题目数组or对象   topic
+					$(".add").each(function(m, n) {
+						var qt = {};
+						qt.qt_order = $(n).find('.qt_order').val();
+						qt.qt_topic = $(n).find('.qt_topic').val();
+						qt.qt_type = $(n).find('.qt_type:checked').val();
+						var subInfo2 = {};
+						$(n).find('.subject').find('.form-group').each(function(x, y) {
+							var options = {}
+							options.options = $(y).find('input.options').val();
+							options.isopen = $(y).find('.isopen:checked').val();
+							subInfo2[x] = options
+						})        	
+						qt.qt_options = subInfo2
+						topic[m] = qt
+					})
+					
+					
+					subjectinfo.topic = topic
+					console.log(subjectinfo)
+					$.ajax({
+						type: "post",
+						url: "{:url('questionnaire/add')}",
+						async: true,
+						dataType: "json",
+						data: subjectinfo,
+						success: function(data) {
+							if(data.code == 1) {
+								layer.msg('添加成功');
+							} else {
+								layer.msg('添加失败');
+							}
+							setTimeout(function () {
+								window.location.href = "{:url('questionnaire/index')}";
+							},1500)
+						}
+					});
+				})
+				//通过2步做到输入的为非负数
+				//1.去掉多余的小数点
+				//2.保证只能输入小数点或数字
+				function onlyNonNegative(obj) {
+					var inputChar = event.keyCode;
+					//alert(event.keyCode);
+
+					//1.判断是否有多于一个小数点
+					if(inputChar == 190) { //输入的是否为.
+						var index1 = obj.value.indexOf(".") + 1; //取第一次出现.的后一个位置
+						var index2 = obj.value.indexOf(".", index1);
+						while(index2 != -1) {
+							//alert("有多个.");
+
+							obj.value = obj.value.substring(0, index2);
+							index2 = obj.value.indexOf(".", index1);
+						}
+					}
+					//2.如果输入的不是.或者不是数字，替换 g:全局替换
+					obj.value = obj.value.replace(/[^(\d|.)]/g, "");
+				}
+			})
+		</script>
+	</body>
+
+</html>

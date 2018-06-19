@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/goods.css" rel="stylesheet" type="text/css">
+    <style>
+    .searchGoodsl{ position: fixed;top:44px;height:4.4rem;z-index: 10000;background: #fff; overflow: hidden;border:1px solid #f0f0f0;}
+    .mui-action-back, .mui-title, .mui-icon-search{color:#4a4a4a;}
+    .searchGoodsl .sgli{font-size:1.5rem;border-right:1px solid #e6e6e6;}
+    .searchGoodsl .sgli{height:22px;line-height:25px;margin-top:3%;}
+    .igoodsinfo{padding:0;}
+    #star2{display:inline-block;width:7.608%;margin-right:9%;float:right;}
+    #car2{display:inline-block;width:8.152%;margin-right:4%;float:right;}
+    .goodslist{margin-top:0;}
+    .goodslist{padding-bottom:0;}
+    .igoodt{margin-left:4.864%;}
+    .igoodsinfo h3{height:auto;line-height:auto;font-weight:normal;font-size:1.4rem;color:#666666;}
+    .iprice{color:#4a4a4a;font-size:1.6rem;}
+    .gls{margin-bottom:0;margin-top:10px;}
+    .igoodsinfo{padding:0;}
+    .goodslist >a:nth-of-type(1) >div,.goodslist >a:nth-of-type(2) >div{margin-top:0;}
+    .bo{width:76%;margin:4% auto;}
+    .bo img{width:100%;display:block;}
+    .mui-bar-nav{box-shadow:none;border-bottom:1px solid #f0f0f0;}
+     #header{height:4.4rem;}
+     .igoodsinfo h3{height: 3rem;overflow: hidden;}
+     /*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight:normal;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class=" mui-pull-left" onclick="window.location.href='{:url(\"goods/index\")}'"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title" style="color:#333333;width:80%;margin:0 auto;">{$goodType.typename}</h1>
+    <!--<a id="info" class="mui-pull-right iconfont" href="{:url('cart')}">&#xe698;</a>-->
+</header>
+
+<div class="searchGoodsl">
+    <div class="sgli" onclick="location.href='{:url('goodslist',['id'=>$tid,'zh'=>$zh])}'" {neq name="$zh_icon" value="0"} style="color: #15bdde;" {/neq}>综合<!--<span class="gup"><img src="{eq name="$zh_icon" value="2"}{$Think.HTML_STATIC}/images/upjt2.png{else/}{$Think.HTML_STATIC}/images/upjt.png{/eq}" /></span>--><!--<span class="gdown"><img src="{eq name="$zh_icon" value="1"}{$Think.HTML_STATIC}/images/downjt2.png{else/}{$Think.HTML_STATIC}/images/downjt.png{/eq}" /></span>--></div>
+    <div class="sgli" onclick="location.href='{:url('goodslist',['id'=>$tid,'xl'=>$xl])}'" {neq name="$xl_icon" value="0"} style="color: #15bdde;" {/neq}>销量</div>
+    <div class="sgli" onclick="location.href='{:url('goodslist',['id'=>$tid,'jg'=>$jg])}'" {neq name="$jg_icon" value="0"} style="color: #15bdde;" {/neq}>价格<!--<span class="gup"><img src="{eq name="$jg_icon" value="2"}{$Think.HTML_STATIC}/images/upjt2.png{else/}{$Think.HTML_STATIC}/images/upjt.png{/eq}" /></span>--><!--<span class="gdown"><img src="{eq name="$jg_icon" value="1"}{$Think.HTML_STATIC}/images/downjt2.png{else/}{$Think.HTML_STATIC}/images/downjt.png{/eq}" /></span>--></div>
+    <div class="sgli" onclick="location.href='{:url('goodslist',['id'=>$tid,'pj'=>$pj])}'" {neq name="$pj_icon" value="0"} style="color: #15bdde;" {/neq}>评价</div>
+</div>
+
+
+<div class="medical" style="margin-top:8.4rem;">
+    <div class="goodslist">
+        {volist name='$goods' id='vo'}
+        <a href="{:url('detail',['id'=>$vo.id])}">
+            <div class="gls"<?php if($i%2==0){?>style="float:right"<?php }?>>
+                <div class="igoodsinfo brd">
+                    <img src="{$vo.pic}">
+                    <div class="igoodt">
+                        <h3>{$vo.gdname}</h3>
+                        <div class="iprice"><font>￥</font>{$vo.price}
+                        	{if in_array($vo.id,$clist)}
+                            <img id="star2" class="star" data-id="{$vo.id}" data=1 dis=1 src="{$Think.HTML_STATIC}/images/star.png"/>
+                            {else /}
+                            <img id="star2" class="star" data-id="{$vo.id}" data=0 dis=1 src="{$Think.HTML_STATIC}/images/star22.png"/>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {/volist}
+    </div>
+</div>
+
+<div class="bo"><img src="{$Think.HTML_STATIC}/images/bo.jpg"/></div>
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">暂无商品</div>
+<?php } ?>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 0;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        tid:{$tid},
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+    $(function(){
+        $('.star').click(function(){
+            if($(this).attr('dis')==1){
+                $(this).attr('dis',0);
+                var _self = $(this);
+                var datas = _self.attr('data');
+                var data_id = _self.attr('data-id');
+                $.ajax({
+                    type: "post",
+                    url: '{:url("goods/collectiongoods")}',
+                    data:{data:datas,id:data_id},
+                    dataType: "json",
+                    success: function(data)
+                    {
+                        if(data.code==1){
+                            if(datas==1){
+                                _self.attr('data',0);
+                                _self.attr('src',"{$Think.HTML_STATIC}/images/star22.png");
+                                _self.attr('dis',1);
+                            }else{
+                                _self.attr('data',1);
+                                _self.attr('src',"{$Think.HTML_STATIC}/images/star.png");
+                                _self.attr('dis',1);
+                            }
+                        }
+
+                    }
+                });
+
+            }else{
+                return false;
+            }
+        })
+    })
+</script>
+<script src="{$Think.HTML_STATIC}/js/xback.js"></script>
+<script>
+    $(function () {
+        backH();
+        window.addEventListener('popstate',function(e){
+            window.location.href="{:url('goods/index')}"
+        },false);
+
+
+        function backH(){
+            var state = {
+                        title:'title',
+                        url:'{:url('goods/index')}'
+        };
+            window.history.pushState(state,'title','#');
+        }
+    })
+    setTimeout(function(){
+        XBack.listen(function(){
+            window.location.href="{:url('goods/index')}";
+        });
+    })
+</script>
+<script>
+    if (/(Android)/i.test(navigator.userAgent)) {
+        $(".searchGoodsl").css("top","35px");
+        /*$("#header").css("height","4.4rem");*/
+    }
+</script>
+</body>
+</html>

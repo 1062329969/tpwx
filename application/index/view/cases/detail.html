@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+    	/*顶部标题*/
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;font-weight: normal;line-height: 4.4rem}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;}
+		/*顶部导航*/
+		.csuser {margin-top: 4rem;border-top: none;}
+		.csuser img{width: 4rem;height: 4rem;margin-right: 1rem;}
+		.csuser p{font-size: 1.5rem;color: #333333;padding-top: 0.9rem;}
+		.csuser p.graph{font-size: 1.2rem;color:#999999 ;padding-top: 0.3rem;}
+		.csuser1{background: white;border-top: 0.05rem solid #f0f0f0;height: 3.8rem;line-height: 3.8rem;font-size: 1.4rem;}
+		.csuser1 img{width: 1.4rem;height: 1.45rem; margin:0 1.7rem 0.15rem; vertical-align: middle;}
+		.csuser1 span{margin-right: 0.85rem;}
+		.csuser1 font{color: #15bdde;}
+		.hos1{padding: 0 1.05rem;height: 3.8rem;line-height: 3.8rem;font-size: 1.4rem;}
+		.hos1 img{width: 1.6rem;height: 1.55rem;margin-right: 1.5rem;margin-left:0.6rem;}
+		.doctor font,.doctor button,.hos1 font{color: #15bdde;margin-left: 0.85rem;}
+		.doctor{background: white;border-top: 0.05rem solid #f0f0f0;height: 3.8rem;line-height: 3.8rem;font-size: 1.4rem;}
+		.doctor img{width: 1.3rem;height: 1.55rem;margin:0 1.6rem 0.2rem 1.9rem;}
+		.doctor button{width: 2rem;height: 2rem;border:none;text-align: center;margin-top:0.9rem;border-radius: 0.5rem;margin-right: 2.05rem;line-height: 2rem;font-size:1.4rem;}
+        .doctor a{float:right;line-height:3.8rem;position:absolute;right:1.05rem;}
+        .doctor a img{display:block;width:1rem;height:1.3rem;float:right;margin:0;}
+        .hos1 a{float:right;line-height:3.8rem;}
+        .hos1 a span,.doctor a span{line-height:3.8rem;color:#999999;}
+        /*术前*/
+		.csmian{padding:2rem 0.5rem 1rem;margin-top: 0;border-top: none;border-bottom: 0.05rem solid #EAEAEA;}
+		.cstitle{font-size: 1.6rem;color:#4e4e4e;padding-left:0.5rem;}
+		.cstitle b{margin-left: 0.45rem;}
+		.cstitle font.on{color:#15bdde;}
+		.cstitle font{font-size: 1.5rem;color:#999999 ;margin-left: 0.9rem;margin-top: 0.3rem;}
+		.csinfo img{border-radius:1rem;width: 33.3%;margin: 0;box-sizing: border-box;padding:0 0.5rem 0;margin-bottom:1rem;}
+		.lcti{padding: 1rem 0.95rem;border-bottom: 0.05rem solid #F0F0F0;}
+		.lcti font{margin-right: 0rem;}
+		/*时间*/
+		.cjTime{background: url({$Think.HTML_STATIC}/images/13.png);width: 8.85rem;height: 1.85rem;background-size:cover ;color: white;line-height: 1.85rem;text-align: center;font-size: 1.2rem;}
+		.cjdays{font-size: 1.4rem;color: #161616;margin-top: 1.5rem;margin-left: 0.5rem;}
+		.csinfo{padding-top: 1.5rem;background: white;}
+		/*文字*/
+		.hos2{text-indent: 2em; border: none;padding:0; padding: 1.5rem 0.5rem 0;color: #666666;}
+		/*修改*/
+		.cjTime{font-size: 1.4rem;text-indent: 1rem;line-height: 1.9rem;margin-left:0.5rem;}
+		.plinfos{border-top: 0.05rem solid #EAEAEA;width:94.4%;margin:0 auto;}
+		.csuser img{margin-top: 0.5rem;}
+        .plinfos .lll{text-align:center;border-right:1px solid #eaeaea;}
+        .cscontent{font-size:1.5rem;text-align: justify;line-height:2.4rem;padding:0.2rem 0.5rem 0;}
+        .plinfos .pl{border-right:1px solid #eaeaea;}
+
+        .csuser img{width:4.5rem;height:4.5rem;}
+        .plinfos .lll, .plinfos .pl, .plinfos .cdz{font-size:1.5rem;}
+        .csuser{padding:1.25rem 1.5rem;}
+        .lcti{margin-top:0;}
+        embed{margin-bottom:1.5%;width:100%;height:200px;}
+        .m{width:100%;margin-left: auto;margin-right: auto;margin-top:0;}
+    </style>
+</head>
+<body class="bodyb" style="background:#fff;">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">植发日记</h1>
+</header>
+
+<div class="csuser">
+      <img src="{:get_wxheadimg($cases.userInfo.portrait,132)}">
+      <p>{$cases.userInfo.wechaname}</p>
+      <!--<p class="ddtime">{:get_time($cases.create_time)}</p>-->
+      <p class="graph">写句签名吧，让大家更了解你~</p>   
+</div>
+<div class="csuser1">
+	<div class="tab"><img src="{$Think.HTML_STATIC}/images/9.png"/><span>项目：</span><font>{$cases.project.proname}</font></div>
+</div>
+
+<div class="hos hos1"><img src="{$Think.HTML_STATIC}/images/10.png"><span>医院：</span><font>{$cases_hospital.hosname}</font><a class="pull-right" onclick='window.location.href="{:url('Yard/detail',array('id'=>$hospital.id))}"'><span class="mui-icon mui-icon mui-icon-arrowright"></span><p style="clear: both;"></p></a></div>
+<div class="doctor"><div><img src="{$Think.HTML_STATIC}/images/11.png"/><span>医生：</span><font>{$doctor.docname}</font><a class="pull-right" onclick='window.location.href="{:url('Doctor/detail',array('id'=>$doctor.id))}"'><span class="mui-icon mui-icon mui-icon-arrowright"></span><p style="clear: both;"></p></a></div></div>
+<!--<div class="hos">{$cases.info}</div>-->
+
+<div style="width:100%;height:1rem;background:#f3f3f3;"></div>
+
+<div class="csmian">
+     <div class="cstitle sqzp">术前照片<font>（{$cases.data_time})</font></div>
+     <div class="csinfo">
+         {volist name='$casesImgs' id='vo'}
+         <img src="{$vo.pic}" data-preview-src="{$vo.pic|str_replace='m_','',###}" data-preview-group="1">
+         {/volist}
+         <div class="cscontent">{$cases.info}</div>
+     </div>
+</div>
+
+
+<div class="cstitle lcti">植发日记{eq name='$ttime' value="0" }<font class="on" onclick="location.href='{:url('cases/detail',['uid'=>$cases['id'],'ttime'=>1])}'">时间倒叙<b>↓↑</b></font>{else/}<font class="on" onclick="location.href='{:url('cases/detail',['uid'=>$cases['id'],'ttime'=>0])}'">时间正序<b>↑↓</b></font> {/eq}  <font id="vvvpic">只看视频</font></div>
+
+{volist name='$casesRecord' id='vo'}
+{empty name='$vo.vurl'}
+<div class="csmian piclistcont" style="padding:0;" >
+    <a onclick="location.href='{:url('record',['id'=>$vo.id])}'">
+     <div class="csmian" style="border:0px;">
+     	<div class="cjTime">{$vo.dtitle}</div>
+         <div class="csinfo">
+             {volist name='$vo.images' id='vo2'}
+             <img src="{$vo2.pic}" data-preview-src="{$vo2.pic|str_replace='m_','',###}" data-preview-group="2">
+             {/volist}
+             <div class="cscontent">{$vo.info}</div>
+         </div>
+      </div>
+    </a>
+     <div class="plinfos">
+         <div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">
+             {php}echo $vo['click']+$vo['clicks']{/php}
+         </div>
+         <div class="pl list-title-mlr" onclick="location.href='{:url('record',['id'=>$vo.id])}#b'"><img src="{$Think.HTML_STATIC}/images/7.png">
+             {$vo.comment}
+         </div>
+         <div class="cdz" name="dianzan"  res-id="{$fansInfo['id']}" uid="{$vo.id}" dis=0 datas={if $vo.caser.i_id && $fansInfo['id']==$vo.caser.i_uids}1{else /}0{/if} data-idss={$vo.id}>
+             <img src="{$Think.HTML_STATIC}/images/{if $vo.caser.i_id && $fansInfo['id']==$vo.caser.i_uids}66{else/}65{/if}.png">
+             <span>{$vo.praise}</span>
+         </div>
+     </div>
+     </div>
+
+{else/}
+<div class="csmian" style="padding:0px;">
+    <div class="csmian" style="border:0px;" onclick="location.href='{:url('record',['id'=>$vo.id])}'">
+		<div class="cjTime">{$vo.dtitle}</div>
+        <div class="csinfo" >
+            <video controls preload="auto" width="100%" poster="{$vo.video_pic}" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-playsinline="true" style="object-fit: fill;">
+                <source src="{$vo.vurl}" type="video/mp4">
+            </video>
+            <div class="cscontent">{$vo.info}</div>
+        </div>
+    </div>
+    <div class="plinfos" >
+        <div class="lll">
+            <img src="{$Think.HTML_STATIC}/images/6.png">{php}echo $vo['click']+$vo['clicks']{/php}
+        </div>
+        <div class="pl">
+            <img src="{$Think.HTML_STATIC}/images/7.png">{$vo.comment}</div>
+        <div class="cdz" name="dianzan"  res-id="{$fansInfo['id']}" uid="{$vo.id}" dis=0 datas={if $vo.caser.i_id && $fansInfo['id']==$vo.caser.i_uids}1{else /}0{/if} data-idss={$vo.id}>
+        <img src="{$Think.HTML_STATIC}/images/{if $vo.caser.i_id && $fansInfo['id']==$vo.caser.i_uids}66{else/}65{/if}.png"><span>{$vo.praise}</span></div>
+        </div>
+</div>
+</div>
+{/empty}
+{/volist}
+
+
+
+{notempty name='$cont_ad'}<div class="casad"><a href="{$cont_ad.url}"><img src="{$Think.HTML_STATIC}/images/laba.png">{$cont_ad.title}</a></div>{/notempty}
+
+<?php if(count($aboutCases)>1){?>
+<div class="cstitle lcti">相关案例</div>
+{volist name='aboutCases' id='vo'}
+<div class="csmian" style="padding:0px;margin-top: 0px; margin-bottom: 1rem;" onclick="location.href='{:url('detail',array('id'=>$vo.id))}'">
+    <div class="csmian" style="border:0px; ">
+        <div class="csuser abtx">
+            <img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">
+            <p>{$vo.userInfo.wechaname}</p>
+            <p class="ddtime">{:get_time($cases.create_time)}</p>
+        </div>
+        <div class="aliimg">
+            <div class="albf"><img src="{$vo.pic}"><span>Before</span></div>
+            <div class="alaf"><img src="{$vo.pic2}"><span>After</span></div>
+        </div>
+        <p class="alinfs">{$vo.info}</p>
+        <div class="tags"><img src="{$Think.HTML_STATIC}/images/tags.png">{$vo.project.proname}</div>
+    </div>
+    <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/yan.png">{$vo.click}</div><div class="pl"><img src="{$Think.HTML_STATIC}/images/hl.png">{$vo.comment}</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/adz.png">点赞·{$vo.praise}</div></div
+    >
+</div>
+{/volist}
+<?php }?>
+
+<!--<div class="lmore">下拉加载更多</div>-->
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+
+    $('div[name="dianzan"]').click(function(){
+        if($(this).attr('dis')==1){
+            return false;
+        }
+        var _self = $(this);
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+        $(this).attr('dis',1);
+        var datas = $(this).attr('datas');
+        $(this).attr('datas','1');
+        var res = _self.attr('res-id');
+        var uid = _self.attr('uid');
+        var aid = _self.attr('data-idss');
+        $.ajax({
+            type: "post",
+            url: '{:url("praise/index")}',
+            data: {aid:aid,is:datas,res:res,i_ids:uid,type:6,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1) {
+                    if (datas == 0) {
+                        _self.find('span').html(Number(_self.find('span').html())+1);
+                        _self.attr('dis', 0);
+                        _self.attr('datas', '1');
+                    }
+                } else {
+                    _self.find('span').html(Number(_self.find('span').html())-1);
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                    _self.attr('dis', 0);
+                    _self.attr('datas', '0');
+                }
+
+            }
+        });
+    })
+
+
+    $(function(){
+        //评论
+        $(".pinglun").click(function(){
+            comment($(this).attr('data-id'),3,'{$Request.token}');
+        });
+
+    })
+</script>
+<script>
+    mui.previewImage();
+    $(function(){
+        $('#vvvpic').click(function(){
+            html=$('#vvvpic').html();
+            if(html=='只看视频')
+            {
+                $('#vvvpic').html('查看全部');
+                $('.piclistcont').hide();
+            }
+            else
+            {
+                $('#vvvpic').html('只看视频');
+                $('.piclistcont').show();
+            }
+        });
+        //评论
+        $('#subComment').click(function(){
+            comment({$cases.id},3,'{$Request.token}');
+        });
+
+        //点赞
+        $(".ds1").click(function(){
+            praise({$cases.id},3,'{$Request.token}');
+        });
+
+        //收藏
+        $("#collection").click(function(){
+            collection({$cases.id},3,'{$Request.token}');
+        });
+        //判断安卓和ios文字颜色
+	if (/(iPhone)/i.test(navigator.userAgent)) {
+        $(".plinfos").css("borderBottomColor","#cecece");
+        $(".doctor div").css("borderTop","0.05rem solid #cecece");
+        $(".csuser1 .tab").css("borderTop","0.05rem solid #cecece");
+        $("#header").css("borderBottom","0.05rem solid #cecece")
+        $(".lcti").css("borderBottom","0.05rem solid #cecece")
+    }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+@import url(style.css);
+
+.itop{ text-align: center; }
+.itop img{ text-align: center; height: 30px;}
+.ifouce{ position: relative; overflow: hidden;}
+.swiper-container {width: 100%; margin-left: auto; margin-right: auto;}
+.ifouce img{ width: 100%;}
+.ibyj{ position: absolute; width: 100%; bottom: 0px; z-index: 99}
+.imian{ margin:20px 0 60px; padding: 15px 5%; overflow: hidden;}
+.imian .iminfo{ float: left; margin-bottom: 25px; width:25%; text-align: center;}
+.imian .iminfo img{ width:70%;}
+.imian .iminfo p{ line-height: 40px; color: #666666}

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/goods.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+</head>
+<body class="bodyb">
+<!--<header id="header" class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">商城</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>5])}'"></a>
+</header>-->
+
+<div class="gsad" style="margin-top: 0px;">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {volist name='$adtop' id='vo'}
+            <div class="swiper-slide"><a href="{$vo.url}"><img src="{$vo.pic}"></a></div>
+            {/volist}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+
+<div class="gdtype">
+    {volist name='$goodsType' id='vo'}
+    <a href="{:url('goodsList',['id'=>$vo.id])}"><div class="gdtinfo"><img src="{$vo.pic}"><p>{$vo.typename}</p></div></a>
+    {/volist}
+    <a href="{:url('drug/index')}"><div class="gdtinfo"><img src="{$Think.HTML_STATIC}/images/g4.png"><p>药品券</p></div></a>
+
+</div>
+
+{notempty name='$stjGoods'}
+<div style="margin-top: 10px; overflow: hidden; width: 100%;">
+    <div><a href="{:url('detail',['id'=>$stjGoods.id])}"><img src="{$stjGoods.pic3}" style="width:100%;"></a></div>
+    <div style="padding:1rem 1rem 0; background: #fff; line-height: 22px;"><div style="float: left; font-size: 1.4rem; margin-right:7px;">{$stjGoods.gdname}</div> <div class="iprice" style=" display: inline-block; width:auto;"><font>￥</font>{$stjGoods.price} <s><font>￥</font>{$stjGoods.original_price}</s></div></div>
+</div>
+{/notempty}
+
+{notempty name='$ad4'}
+<div style="margin-top:10px; overflow: hidden; width: 100%;">
+    <div style="width: 49%; float: left;"><a href="{$ad4.url}"><img src="{$ad4.pic}" style="width:100%;"></a></div>
+    <div style="width: 49%; float: right;"><a href="{$ad5.url}"><img src="{$ad5.pic}" style="width:100%;"></a></div>
+</div>
+{/notempty}
+
+
+{notempty name='$adcenter'}
+<div style="margin-top:10px; overflow: hidden; width: 100%;">
+    <a href="{$adcenter.url}"><img src="{$adcenter.pic}" style="width:100%;"></a>
+</div>
+{/notempty}
+
+
+<div class="goodslist">
+    <div class="igoodtitle">推荐商品</div>
+    {volist name='$tjGoods' id='vo'}
+    <a href="{:url('detail',['id'=>$vo.id])}">
+        <div class="gls"<?php if($i%2==0){?>style="float:right"<?php }?>>
+        <div class="igoodsinfo brd">
+            <img src="{$vo.pic}">
+            <div class="igoodt">
+                <h3>{$vo.gdname}</h3>
+                <div class="iprice"><font>￥</font>{$vo.price} <s><font>￥</font>{$vo.original_price}</s></div>
+                <div class="ysnum">已售 {$vo.id|getSaleNum=###}</div>
+            </div>
+        </div>
+</div>
+</a>
+{/volist}
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/fx" /}
+{include file="public/footer" /}
+
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev',
+        pagination: '.swiper-pagination',
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<style type="text/css">
+.control-label font{ color: red; }
+.red{ color:red; }
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content  animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>自定义菜单</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a onclick="window.location.reload();">添加菜单</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <p class="m-b-lg">微信端最多创建3 个一级菜单，每个一级菜单下最多可以创建 5 个二级菜单，菜单最多支持两层。</p>
+
+                        <div class="dd" id="nestable2">
+                            <ol class="dd-list">
+                                
+                                {volist name="diy_menu" id="so"}
+                                <li class="dd-item">
+                                    <div class="dd-handle" data-id="{$so.id}">
+                                        <span class="pull-right red">{eq name="$so.isshow" value="0"}隐{/eq}</span>
+                                        <span class="label label-info"><i class="fa fa-users"></i></span>{$so.name}
+                                    </div>
+                                    <ol class="dd-list">
+                                        {volist name="diy_menu2" id="vo"}
+                                            {if condition="$vo['topid'] eq $so['id']"}
+                                                <li class="dd-item">
+                                                    <div class="dd-handle" data-id="{$vo.id}">
+                                                        <span class="pull-right red">{eq name="$so.isshow" value="0"}隐{/eq}</span>
+                                                        <span class="label label-info"><i class="fa fa-cog"></i></span>{$vo.name}
+                                                    </div>
+                                                </li>
+                                            {/if}
+                                        {/volist}
+                                    </ol>
+                                </li>
+                                {/volist}
+                                
+                                
+                            </ol>
+                        </div>
+                        <div style="overflow:hidden;margin-top:25px;">
+                        <button type="button" class="btn btn-w-m btn-info" onclick="location.href='{:url('sendMenu')}'">生成微信端自定义菜单</button>  <button type="button" class="btn btn-w-m btn-danger" onclick="location.href='{:url('delMenu')}'">删除微信端自定义菜单</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-sm-6">
+                 <div class="ibox ">
+                      <div class="ibox-title">
+                         <h5>添加/修改自定义菜单</h5>
+                      </div>
+                      <div class="ibox-content">
+                            <form method="post" class="form-horizontal" action="{:url('add')}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">父级菜单:</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="topid" id="topid">
+                                           <option value="0">顶级菜单</option>
+                                           {volist name="diy_menu" id="vo"}
+                                           <option value="{$vo.id}">{$vo.name}</option>
+                                           {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>菜单名称：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required name="name" id="name" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">显　　示：</label>
+                                <div class="col-sm-10">
+                                    <label class="checkbox-inline i-checks">
+                                        <input type="checkbox" name="isshow" id="isshow" value="1" checked>是</label>
+                                </div>
+
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排　　序：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="sort" id="sort" value="0">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">菜单类型:</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="type" id="type">
+                                        <option value="0">URL</option>
+                                        <option value="1">关键词</option>
+                                        <option value="2">模块</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>菜单内容：</label>
+                                <div class="col-sm-10" id="divuk">
+                                    <input type="text" class="form-control" required name="text" id="text" value="">
+                                    <span class="help-block m-b-none">URL类型请填写URL地址，关键词类型请填写关键词</span>
+                                </div>
+                                <div class="col-sm-10" style='display:none' id="divcurr">
+                                    <select class="form-control m-b" name="curr" id="curr">
+                                        <option value="0">请选择模块</option>
+                                        <option value="{$Think.config.domain}/index/home.html">雍禾官网</option>
+                                        <option value="{$Think.config.domain}/doctor/index.html">找医生</option>
+                                        <option value="{$Think.config.domain}/hospital/index.html">找医医院</option>
+                                        <option value="{$Think.config.domain}/project/index.html">找项目</option>
+                                        <option value="{$Think.config.domain}/ask/index.html">植发问答</option>
+                                        <option value="{$Think.config.domain}/forum/index.html">植发论坛</option>
+                                        <option value="{$Think.config.domain}/video/index.html">植发视频</option>
+                                        <option value="{$Think.config.domain}/goods/index.html">商城</option>
+                                        <option value="{$Think.config.domain}/panorama/index.html">360°全景展示</option>
+                                        <option value="{$Think.config.domain}/my/index.html">我的</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" value="0" id="id">
+                                    <button class="btn btn-primary" type="button" id="add">添加</button>
+                                    <button class="btn btn-primary" type="button" id="alter" style="display: none">修改</button>
+                                    <button class="btn btn-primary" type="button" id="del" style="display: none">删除</button>
+                                </div>
+                            </div>
+                        </form>
+                      </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/nestable/jquery.nestable.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $(document).ready(function(){
+              
+              $('#type').change(function(event)
+              {
+                 type=$(this).val();
+                 if(type==2)
+                 {
+                     $('#divcurr').show();
+                     $('#divuk').hide();
+                 }
+                 else if(type==3)
+				 {
+				    $('#text').val('{$Think.config.domain}/index/zb.html');
+				 }
+				 else
+                 {
+                     $('#divcurr').hide();
+                     $('#divuk').show();
+                 }
+              });
+
+              $('.dd-handle').click(function()
+              {
+                  
+                  id=$(this).attr('data-id');
+                  if(id=='')
+                  {
+                     return;
+                  }
+                  var index = layer.load();  //加载等待层
+                  $.ajax({
+                      url: "{:url('alter')}",
+                      type: 'get',
+                      dataType: 'json',
+                      data: {'id':id},
+                  })
+                  .done(function(data)
+                  {
+                      //console.log("success");
+                      $('#id').val(data.id);
+                      $('#topid').val(data.topid);
+                      $('#name').val(data.name);
+                      $('#isshow').val(data.isshow);
+                      $('#sort').val(data.sort);
+                      $('#type').val(data.type);
+                      $('#text').val(data.text);
+                      if(data.type==2)
+                      {
+                         $('#divcurr').show();
+                         $('#divuk').hide();
+                         $('#curr').val(data.text);
+                      }
+                      $('#add').hide();
+                      $('#alter').show();
+                      $('#del').show();
+                  })
+                  .fail(function() {
+                      //console.log("error");
+                  })
+                  .always(function() {
+                      //console.log("complete");
+                  });
+                  layer.close(index); 
+              })
+
+            $('#alter').click(function()
+            {
+                 
+                id=$('#id').val();
+                topid=$('#topid').val();
+                name=$('#name').val();
+                isshow=$('#isshow').val();
+                sort=$('#sort').val();
+                type=$('#type').val();
+                text=$('#text').val();
+                curr=$('#curr').val();
+                if(name=='')
+                {
+                   layer.alert('菜单名称不能为空');
+                   return;
+                }
+                if(text=='' && curr==0)
+                {
+                   layer.alert('菜单内容不能为空');
+                   return;
+                }
+                if($('#curr').is(":visible")) text=curr;
+                var index = layer.load();  //加载等待层
+                $.ajax({
+                      url: "{:url('alter')}",
+                      type: 'post',
+                      dataType: 'json',
+                      data: {'id':id,'topid':topid,'name':name,'isshow':isshow,'sort':sort,'type':type,"text":text},
+                })
+                .done(function(data)
+                {
+                      //console.log("success");
+                      if(data.code)
+                      {
+                          //layer.alert('修改成功');
+                          window.location.reload();
+                      }
+                      else
+                          {
+                              layer.alert(data.msg);
+                          }
+                })
+                .fail(function() {
+                      //console.log("error");
+                      //alert('修改失败');
+                })
+                .always(function() {
+                      //console.log("complete");
+                });
+            })
+
+            $('#add').click(function()
+            {
+                topid=$('#topid').val();
+                name=$('#name').val();
+                isshow=$('#isshow').val();
+                sort=$('#sort').val();
+                type=$('#type').val();
+                text=$('#text').val();
+                curr=$('#curr').val();
+                if(name=='')
+                {
+                   layer.alert('菜单名称不能为空');
+                   return;
+                }
+                if(text=='' && curr==0)
+                {
+                   layer.alert('菜单内容不能为空');
+                   return;
+                }
+                if($('#curr').is(":visible")) text=curr;
+                var index = layer.load();  //加载等待层
+                $.ajax({
+                      url: "{:url('add')}",
+                      type: 'post',
+                      dataType: 'json',
+                      data: {'topid':topid,'name':name,'isshow':isshow,'sort':sort,'type':type,"text":text},
+                      success:function(data)
+                      {
+                         if(data.code==1)
+                         {
+                            //layer.alert('添加成功!');
+                            window.location.reload();
+                         }
+                         else
+                         {
+                            layer.alert(data.msg);
+                            layer.close(index); 
+                         }
+                      }
+                })
+            })
+
+            $('#del').click(function()
+            {
+                
+                id=$('#id').val();
+                
+                layer.confirm('您确定要删除吗？', {
+                  btn: ['确定','取消'] //按钮
+                 }, function()
+                 {
+                    //var index = layer.load();  //加载等待层
+                    $.ajax({
+                          url: "{:url('del')}",
+                          type: 'get',
+                          dataType: 'json',
+                          data: {'id':id},
+                    })
+                    .done(function(data)
+                    {
+                          //console.log("success");
+                          if(data.code)
+                          {
+                              //layer.alert('添加成功!');
+                              window.location.reload();
+                          }
+                          else
+                          {
+                              layer.alert(data.msg);
+                          }
+                    })
+                });
+            })
+         })
+    </script>
+</body>
+</html>

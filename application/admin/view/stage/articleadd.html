@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回文章列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('articleadd',['sid'=>$sid])}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>标题：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入标题" name="a_title" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>标题：</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" required name="a_type" value="1">操作指引
+                                    <input type="radio" required name="a_type" value="2">药品指引
+                                    <input type="radio" required name="a_type" value="3">注意事项
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>标签：</label>
+                                <div class="col-sm-10" id="a_label_div">
+                                    <input type="text" class="form-control" required placeholder="请输入标签" name="a_label[]" value="" style="width:auto;display: inline">
+                                    <input class="btn btn-info" type="button" style="width:auto;" value="+">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <link href="{$Think.HTML_STATIC}/css/webuploader.css" rel="stylesheet">
+                            <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+                            <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.0/webuploader.js"></script>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">视频上传：</label>
+
+                                <div id="uploader" class="wu-example">
+                                    <!--用来存放文件信息-->
+                                    <div id="thelist" class="uploader-list"></div>
+                                    <div class="btns">
+                                        <div id="picker">选择文件</div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="a_video" value="" id="a_video">
+                                <div id="fileList"></div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">视频显示：</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" value="1" name="a_video_show" checked>显示
+                                    <input type="radio" value="2" name="a_video_show">不显示
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">封面图片：</label>
+                                <div class="col-sm-10" id="imgs">
+                                    <input type="file" name="a_img"/>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">图文详细页内容：</label>
+
+                                <div class="col-sm-10">
+                                    <script id="container" type="text/plain" style="width:100%;height:400px;" name="a_content"></script>
+                                    <script type="text/javascript">
+                                       var ue = UE.getEditor('container');
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">浏览数：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入点赞数" name="a_browse" onkeyup="onlyNonNegative(this)"  value="0">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">收藏数：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入收藏数" name="a_collection" onkeyup="onlyNonNegative(this)"  value="0">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>排序：</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" required placeholder="请输入排序" name="a_order" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script type="text/javascript">
+        jQuery(function() {
+            $list = $('#thelist'),
+            $btn = $('#ctlBtn'),
+            state = 'pending',
+            uploader;
+            uploader = WebUploader.create({
+                // 不压缩image
+                resize: false,
+                // swf文件路径
+                swf: 'uploader.swf',
+                // 文件接收服务端。
+                server: "{:url('articlevideo')}",
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#picker',
+                chunked: true,
+                chunkSize:2*1024*1024,
+                auto: true,
+                accept: {
+                    title: 'Images',
+                    // extensions: 'gif,jpg,jpeg,bmp,png',
+                    // mimeTypes: 'image/*'
+                }
+            });
+            uploader.on('uploadSuccess', function (file,response) {
+                $('#a_video').val(response._raw);
+                $('.progress').remove();
+                $('#picker').parent().html('上传成功');
+            });
+            uploader.on( 'uploadProgress', function( file, percentage ) {
+                var $li = $( '#fileList' ),
+                $percent = $li.find('.progress');
+                // 避免重复创建
+                if ( !$percent.length ) {
+                    $percent = $('<p class="progress" style="background:#48b7ee;width: 0%"></p>')
+                            .appendTo( $li )
+                            .find('span');
+                }
+                $('.progress').css( 'width', percentage * 100 + '%' );
+            });
+        })
+        $(document).ready(function(){
+            $('.btn-info').click(function () {
+                var infoval = $(this).val();
+                if(infoval=='+'){
+                    var _html = '';
+                    _html +='<input type="text" class="form-control" required placeholder="请输入标签" name="a_label[]" value="" style="width:auto;display: inline"><input class="btn btn-info" type="button" style="width:auto;" value="-">'
+                    $('#a_label_div').append(_html);
+                    btn_info_bind();
+                }else{
+                    $(this).prev().remove();
+                    $(this).remove();
+                }
+            })
+        });
+        function btn_info_bind() {
+            $('.btn-info').click(function () {
+                var infoval = $(this).val();
+                if(infoval=='-'){
+                    $(this).prev().remove();
+                    $(this).remove();
+                }
+            })
+        }
+        //通过2步做到输入的为非负数
+        //1.去掉多余的小数点
+        //2.保证只能输入小数点或数字
+        function onlyNonNegative(obj) {
+            var inputChar = event.keyCode;
+            //alert(event.keyCode);
+
+            //1.判断是否有多于一个小数点
+            if(inputChar == 190) { //输入的是否为.
+                var index1 = obj.value.indexOf(".") + 1; //取第一次出现.的后一个位置
+                var index2 = obj.value.indexOf(".", index1);
+                while(index2 != -1) {
+                    //alert("有多个.");
+
+                    obj.value = obj.value.substring(0, index2);
+                    index2 = obj.value.indexOf(".", index1);
+                }
+            }
+            //2.如果输入的不是.或者不是数字，替换 g:全局替换
+            obj.value = obj.value.replace(/[^(\d|.)]/g, "");
+        }
+    </script>
+</body>
+</html>

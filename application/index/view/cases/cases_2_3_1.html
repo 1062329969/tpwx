@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body class="lt" id="qb">
+<!--版块切换-->
+<div class="plate">
+    <!--内容切换-->
+    <nav class="change">
+        <a href="#"><span class="blue"></span>关注</a>
+        <a href="#"><span class="blue"></span>热门</a>
+        <a href="#"><span class="blue"></span>头发</a>
+        <a href="#"><span class="blue"></span>情感</a>
+    </nav>
+    <!--内容显示-->
+    <section id="content">
+        <ul class="right">
+            <li class="rlist">
+                <a href="#" class="go">
+                    <div><img src="{$Think.HTML_STATIC}/images/r1.png"/></div>
+                    <div>
+                        <h3>植发论坛</h3>
+                        <h6>主贴：3万   回帖：33万</h6>
+                    </div>
+                    <div class="gz">关注</div>
+                </a>
+            </li>
+            <li class="rlist">
+                <a href="#" class="go">
+                    <div><img src="{$Think.HTML_STATIC}/images/r2.png"/></div>
+                    <div>
+                        <h3>经验之谈</h3>
+                        <h6>主贴：3万   回帖：33万</h6>
+                    </div>
+                    <div class="gz">关注</div>
+                </a>
+            </li>
+            <li class="rlist">
+                <a href="#" class="go">
+                    <div><img src="{$Think.HTML_STATIC}/images/r3.png"/></div>
+                    <div>
+                        <h3>植发问答</h3>
+                        <h6>主贴：3万   回帖：33万</h6>
+                    </div>
+                    <div class="gz">关注</div>
+                </a>
+            </li>
+            <li class="rlist">
+                <a href="#" class="go">
+                    <div><img src="{$Think.HTML_STATIC}/images/r4.png"/></div>
+                    <div>
+                        <h3>生活那点事儿</h3>
+                        <h6>主贴：3万   回帖：33万</h6>
+                    </div>
+                    <div class="gz">关注</div>
+                </a>
+            </li>
+            <li class="rlist">
+                <a href="#" class="go">
+                    <div><img src="{$Think.HTML_STATIC}/images/r5.png"/></div>
+                    <div>
+                        <h3>心灵热线</h3>
+                        <h6>主贴：3万   回帖：33万</h6>
+                    </div>
+                    <div class="gz">关注</div>
+                </a>
+            </li>
+            <li class="rlist">
+                <a href="#" class="go">
+                    <div><img src="{$Think.HTML_STATIC}/images/r6.png"/></div>
+                    <div>
+                        <h3>四十不惑</h3>
+                        <h6>主贴：3万   回帖：33万</h6>
+                    </div>
+                    <div class="gz">关注</div>
+                </a>
+            </li>
+            <li class="rlist">
+                <a href="#" class="go">
+                    <div><img src="{$Think.HTML_STATIC}/images/r7.png"/></div>
+                    <div>
+                        <h3>趣闻乐事</h3>
+                        <h6>主贴：3万   回帖：33万</h6>
+                    </div>
+                    <div class="gz">关注</div>
+                </a>
+            </li>
+        </ul>
+    </section>
+</div>
+
+<script>
+    $('nav.change a').find(".blue").hide();
+    //$('#content').load("hot.html");
+    $('nav.change a').eq(1).css({"color":"#15bdde","background":"#ffffff"});
+    $('nav.change a').eq(1).find(".blue").show();
+    $('nav.change a').on('click', function(e) {
+        e.preventDefault();
+        //var url = this.href;
+        $(this).css({"color":"#15bdde","background":"#ffffff"}).siblings().css({"color":"#999999","background":"#f5f5f5"});
+        $(this).find(".blue").show().parent().siblings().find(".blue").hide();
+        $('#container').remove();
+        //$('#content').load(url);
+    });
+    $(".right li").click(function(){
+        var txt=$(this).find(".gz").text();
+        if(txt=="关注"){
+            $(this).find(".gz").text("取消关注");
+            $(this).find(".gz").css({"color":"#999999","border":"1px solid #999999"});
+        }
+        if(txt=="取消关注"){
+            $(this).find(".gz").text("关注");
+            $(this).find(".gz").css({"color":"#15bbdc","border":"1px solid #15bbdc"});
+        }
+    });
+</script>
+</body>
+</html>

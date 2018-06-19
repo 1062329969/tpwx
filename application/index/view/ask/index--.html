@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/ask.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+</head>
+<body class="bodyb">
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">植发问答</div>
+    <div class="st3"><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+<div class="topad">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {volist name='$askAd' id='vo'}
+            <div class="swiper-slide"><a href="{$vo.url}"><img src="{$vo.pic}"></a></div>
+            {/volist}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+</div>
+
+{volist name='$ask' id='vo'}
+    <a href="{:url('detail',['id'=>$vo.id])}">
+        <div class="askmain">
+            <div class="asklist">
+                <div class="alr">
+                    <img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">
+                    <p>{$vo.userInfo.wechaname}</p>
+                    <p>{$vo.userInfo.city}</p>
+                </div>
+                <div class="question">
+                     <div class="qmain"><span>问</span><p>{$vo.question}</p></div>
+                     {volist name='$vo.images' id='vo2'}
+                         <img src="{$vo2.pic}">
+                     {/volist}
+
+                </div>
+                <div class="anwser">
+                     <div class="amain"><span>答</span><div class="alans">{:mysubstr($vo.answer,0,90)}</div></div>
+                     <div class="adoc"><img src="{$vo.doctor.pic}"><p>{$vo.doctor.docname}</p></div>
+                </div>
+            </div>
+            <div class="ainfo">
+                <div class="spi1"><i class="iconfont">&#xe6e4;</i>{$vo.click}</div>
+                <div class="spi2"><i class="iconfont">&#xe70c;</i>{$vo.comment}</div>
+                <div class="spi3"><i class="iconfont">&#xe71a;</i>{$vo.praise}</div>
+            </div>
+        </div>
+    </a>
+{/volist}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script>
+
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        paginationClickable: true,
+        spaceBetween: 30,
+        loop: true
+    });
+</script>
+<div class="twbutt"><a href="{:url('add')}"><img src="{$Think.HTML_STATIC}/image/tibut.png"></a></div>
+</body>
+</html>

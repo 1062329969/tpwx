@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/case1.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/case3.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<header>
+	<span class="cjtie on1">帖子</span><span>板块</span>
+</header>
+<<<<<<< HEAD
+
+<div class="cjNav">
+	<span><a class="on2" href="#">热门</a></span><span><a href="#">最新发帖</a></span><span><a href="#">最新回复</a></span>
+</div>
+<!--<div style="height:83px;"></div>-->
+<!--跳到机器人那里的链接-->
+<!--onclick="location.href='{$Think.config.zoosnet}'"-->
+{volist name='$cases' id='vo'}
+<a href="{:url('detail',array('id'=>$vo.id))}">
+=======
+>>>>>>> 5e5c18b24edf59c5cee72f255e95b772b523068f
+
+
+<div class="csmian2" style="width: 100%; background: white;">
+	<div class="csmian1">
+     <div class="csmian" style="border:0px;">
+           <div class="csuser abtx">
+                  <img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">
+                  <p>{$vo.userInfo.wechaname}</p>
+                  <p class="ddtime">{:get_time($vo.create_time)}<span class="dddtime">22:47</span></p>
+            </div>
+            <div class="aliimg">
+                  <div class="albf"><img src="{$vo.pic}"><!--<span>术前</span>--></div>
+                  <div class="alaf"><img src="{$vo.pic2}"><!--<span>术后</span>--></div>
+            </div>
+            <p>{$vo.info}</p>
+            <div class="tags"><img src="{$Think.HTML_STATIC}/images/a5.png">{$vo.project.proname}</div>
+     </div>
+     <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{$vo.click}</div><div class="pl list-title-mlr"><img src="{$Think.HTML_STATIC}/images/7.png">{$vo.comment}</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/8.png">{$vo.praise}</div></div>
+</div>
+
+<div id="friend_change">
+    <div>
+        <div class="cjNav">
+            <span><a class="on2" href="#">热门</a></span><span><a href="#">最新发帖</a></span><span><a href="#">最新回复</a></span>
+        </div>
+        <!--<div style="height:83px;"></div>-->
+        <!--跳到机器人那里的链接-->
+        <!--onclick="location.href='{$Think.config.zoosnet}'"-->
+        {volist name='$cases' id='vo'}
+
+        <a href="cases_2_2_2.html">
+
+        <div class="csmian2" style="width: 100%; background: white;">
+            <div class="csmian1">
+             <div class="csmian" style="border:0px;">
+                   <div class="csuser abtx">
+                          <img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">
+                          <p>{$vo.userInfo.wechaname}</p>
+                          <p class="ddtime">{:get_time($vo.create_time)}<span class="dddtime">22:47</span></p>
+                    </div>
+                    <div class="aliimg">
+                          <div class="albf"><img src="{$vo.pic}"><!--<span>术前</span>--></div>
+                          <div class="alaf"><img src="{$vo.pic2}"><!--<span>术后</span>--></div>
+                    </div>
+                    <p >{$vo.info}</p>
+                    <div class="tags"><img src="{$Think.HTML_STATIC}/images/a5.png">{$vo.project.proname}</div>
+             </div>
+             <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{$vo.click}</div><div class="pl list-title-mlr"><img src="{$Think.HTML_STATIC}/images/7.png">{$vo.comment}</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/8.png">{$vo.praise}</div></div>
+        </div>
+        </div>
+        </a>
+        {/volist}
+    </div>
+
+
+    <!--版块切换-->
+    <div class="plate">
+        <!--内容切换-->
+        <nav class="change">
+            <a href="#"><span class="blue"></span>关注</a>
+            <a href="#"><span class="blue"></span>热门</a>
+            <a href="#"><span class="blue"></span>头发</a>
+            <a href="#"><span class="blue"></span>情感</a>
+        </nav>
+        <!--内容显示-->
+        <section id="content3">
+            <ul class="right">
+                <li class="rlist">
+                    <a href="cases_2_3_2_2" class="go">
+                        <div><img src="{$Think.HTML_STATIC}/images/r1.png"/></div>
+                        <div>
+                            <h3>植发论坛</h3>
+                            <h6>主贴：3万   回帖：33万</h6>
+                        </div>
+                    </a>
+                    <div class="gz">关注</div>
+                </li>
+                <li class="rlist">
+                    <a href="#" class="go">
+                        <div><img src="{$Think.HTML_STATIC}/images/r2.png"/></div>
+                        <div>
+                            <h3>经验之谈</h3>
+                            <h6>主贴：3万   回帖：33万</h6>
+                        </div>
+                    </a>
+                    <div class="gz">关注</div>
+                </li>
+                <li class="rlist">
+                    <a href="#" class="go">
+                        <div><img src="{$Think.HTML_STATIC}/images/r3.png"/></div>
+                        <div>
+                            <h3>植发问答</h3>
+                            <h6>主贴：3万   回帖：33万</h6>
+                        </div>
+                    </a>
+                    <div class="gz">关注</div>
+                </li>
+                <li class="rlist">
+                    <a href="#" class="go">
+                        <div><img src="{$Think.HTML_STATIC}/images/r4.png"/></div>
+                        <div>
+                            <h3>生活那点事儿</h3>
+                            <h6>主贴：3万   回帖：33万</h6>
+                        </div>
+                    </a>
+                    <div class="gz">关注</div>
+                </li>
+                <li class="rlist">
+                    <a href="#" class="go">
+                        <div><img src="{$Think.HTML_STATIC}/images/r5.png"/></div>
+                        <div>
+                            <h3>心灵热线</h3>
+                            <h6>主贴：3万   回帖：33万</h6>
+                        </div>
+                    </a>
+                    <div class="gz">关注</div>
+                </li>
+                <li class="rlist">
+                    <a href="#" class="go">
+                        <div><img src="{$Think.HTML_STATIC}/images/r6.png"/></div>
+                        <div>
+                            <h3>四十不惑</h3>
+                            <h6>主贴：3万   回帖：33万</h6>
+                        </div>
+                    </a>
+                    <div class="gz">关注</div>
+                </li>
+                <li class="rlist">
+                    <a href="#" class="go">
+                        <div><img src="{$Think.HTML_STATIC}/images/r7.png"/></div>
+                        <div>
+                            <h3>趣闻乐事</h3>
+                            <h6>主贴：3万   回帖：33万</h6>
+                        </div>
+                    </a>
+                    <div class="gz">关注</div>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+</div>
+
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">当前列表为空</div>
+<?php } ?>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/data-2.js" type="text/javascript" charset="utf-8"></script>
+<script>
+	$(function(){
+		//上传文字超过两行显示...
+		 var cctxt=$(".alinfs").text();
+	     var ssstr=cctxt.substr(0,49) + '...' ;
+        $(".alinfs").text(ssstr);     
+	})
+    $("#friend_change").find(">div").eq(0).show().siblings().hide();
+	$("header span").click(function(){
+		$(this).addClass("on1").siblings().removeClass("on1")
+        var num=$(this).index();
+		$("#friend_change").find(">div").eq(num).show().siblings().hide();
+	})
+
+	$(".cjNav a").click(function(){
+		$(this).addClass("on2").parent().siblings().find("a").removeClass("on2")
+	})
+
+
+
+    $('nav.change a').find(".blue").hide();
+    //$('#content').load("hot.html");
+    $('nav.change a').eq(1).css({"color":"#15bdde","background":"#ffffff"});
+    $('nav.change a').eq(1).find(".blue").show();
+    $('nav.change a').on('click', function(e) {
+        e.preventDefault();
+        //var url = this.href;
+        $(this).css({"color":"#15bdde","background":"#ffffff"}).siblings().css({"color":"#999999","background":"#f5f5f5"});
+        $(this).find(".blue").show().parent().siblings().find(".blue").hide();
+        $('#container').remove();
+        //$('#content').load(url);
+    });
+    $(".right li .gz").click(function(){
+        var txt=$(this).text();
+        if(txt=="关注"){
+            $(this).text("取消关注");
+            $(this).css({"color":"#999999","border":"1px solid #999999"});
+        }
+        if(txt=="取消关注"){
+            $(this).text("关注");
+            $(this).css({"color":"#15bbdc","border":"1px solid #15bbdc"});
+        }
+    });
+
+
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        pid:{$pid},
+                        hid:{$hid}
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

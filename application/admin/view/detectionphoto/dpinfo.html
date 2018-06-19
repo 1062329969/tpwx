@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>题库添加</title>
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+    <script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+    <style>
+        .control-label font{ color:#F00;}
+        .form-group,.m-b{ margin-bottom:5px;}
+        .hr-line-dashed{ margin:5px 0px;}
+        .inputstyle{
+            background-color: #FFF;
+            background-image: none;
+            border: 1px solid #e5e6e7;
+            border-radius: 1px;
+            color: inherit;
+            display: block;
+            padding: 6px 12px;
+            -webkit-transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+            transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+            width: 100%;
+            font-size: 14px;
+            display: table-cell;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="{:url('index')}">返回列表</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('add')}">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户：</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    {$info.wechaname}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">照片：</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    {php}
+                                    $imgarr = json_decode($info['dp_img']);
+                                    foreach($imgarr as $k =>$v){
+                                    {/php}
+                                    <img src="{$v}" height="350px" onclick="enlarge(this)"/>
+                                    {php}
+                                    }
+                                    {/php}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">时间：</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    {$info.dp_addtime|date='Y-m-d H:i:s',###}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">状态：</label>
+                            <div class="col-sm-10">
+                                <div class="input-group">
+                                    {if $info.dp_state==0}
+                                    未批复
+                                    {else /}
+                                    已批复
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">批复内容：</label>
+                            <div class="col-sm-10">
+                                {if $info.dp_rcontent}
+                                {$info.dp_rcontent}
+                                {else /}
+                                <textarea id="dp_rcontent" name="dp_rcontent" placeholder="请输入批复内容" class="form-control" style="height:150px"></textarea>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                {if !$info.dp_rcontent}
+                                <button class="btn btn-primary" type="button">保存内容</button>
+                                {/if}
+                                <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script>
+    $(function () {
+        $('.btn-primary').click(function(){
+            var dp_rcontent = $('#dp_rcontent').val();
+            if(dp_rcontent==''){
+                layer.alert('请填写批复内容');
+                return false;
+            }
+            var dp_id = {$info.dp_id};
+            $.ajax({
+                type:"post",
+                url:"{:url('alter')}",
+                dataType:"json",
+                data:{dp_id:dp_id,dp_rcontent:dp_rcontent},
+                success:function(data){
+                    if(data.code){
+                        layer.alert(data.msg);
+                        setTimeout("window.location.href='{:url('index')}'",2000)
+                    }else{
+                        layer.alert(data.msg);
+                        setTimeout("window.location.href='{:url('index')}'",2000)
+                    }
+                }
+            });
+        })
+    })
+    function enlarge(_self) {
+        layer.open({
+            type: 1,
+            area: '900px',
+            content: '<img src="'+$(_self).attr('src')+'" />'
+        });
+    }
+</script>
+</body>
+</html>

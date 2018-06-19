@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>社区</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <style>
+        .dqqz{ width: auto;}
+        .gallerytitle {
+            text-align: left;
+            padding:0 1rem;
+            font-size: 1.5rem;
+            height: 42px;
+            line-height: 42px;
+            color: #fafafa;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            font-weight: normal;
+            text-shadow: 1px 1px 1px #000;
+            /* background-color: rgba(21,20,20,0.5); */
+            background-color: rgba(0,0,0,0);
+            background: -moz-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+            background: -webkit-gradient(linear,top,from(rgba(0,0,0,0)),to(rgba(0,0,0,0.7)));
+            background: -webkit-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+            background: -o-linear-gradient(top,rgba(0,0,0,0),rgba(0,0,0,0.7));
+        }
+
+        .pagination {
+            position: absolute;
+            z-index: 20;
+            bottom: 10px;
+            width: 66px;
+            text-align: center;
+            right:0;
+        }
+        .swiper-pagination-bullet {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius:5px;
+            background: #fff;
+            margin: 0 2px;
+            opacity: 0.8;
+            cursor: pointer;
+        }
+        .swiper-pagination-bullet-active {
+            background: #007aff;
+        }
+        .topmenu div{ margin-top: 0px;}
+        #banner{position:relative; overflow:hidden;}
+        .swiper-container-horizontal>.swiper-pagination-bullets{ padding: 0 1rem; text-align: right;z-index: 1;}
+        .atxd{padding: 1.5rem 1.5rem 0px; background: #fff; margin: 0px;}
+        .atxd .tx img{ float: left;}
+        .atxd .tx span{ float: left; padding-top:7px; line-height: 22px;font-size: 1.2rem; color: #999}
+        .atxd .tx font{ font-size: 1.4rem; color: #111}
+
+
+        .infos span{ padding-right: 0px;}
+        .infos span.wyhd,.infos span.dianzan,.infos span.llcs{ text-align: right; display: block; float: left; width: 33.33%; text-align: center; margin: 0px; color: #999}
+        .infos span.wyhd{ text-align: right; color: #111}
+        .tpic3{padding: 1rem 1.5rem; border: none;}
+        .tpic1{ margin-bottom:0px; padding-bottom: 1.5rem; border: none;}
+        .rmhd{ padding: 1.5rem; background: #fff; border-bottom:#eaeaea solid 1px;}
+        .infos span.llcs{ text-align: left; }
+        .infos{clear: both; padding: 0 1.5rem 1rem; margin-bottom: 1rem; background: #fff; font-size: 1.4rem; overflow: hidden;}
+        .infos img{ width: 15%; margin-top: -3px; margin-right: 3px;}
+        .dianzan span{ line-height: 22px;}
+    </style>
+    <script src="../../../../public/static/index/js/web.js"></script>
+</head>
+<body>
+
+
+<div class="topmenu">
+    <div class="mrwdnum"><a href="{:url('ask/index',['type'=>1])}">问答</a></div>
+    <div><a href="{:url('forum/index')}">圈子</a></div>
+    <div><a href="{$Think.config.zoosnet}">咨询</a></div>
+</div>
+
+<div class="topfouce" style="margin-top:44px;">
+    <div id="banner" style="overflow: hidden;">
+        <div class="swiper-wrapper">
+            {volist name='$cont_ad' id='vo'}
+            <div class="swiper-slide" onclick="location.href='{$vo.url}'"><img src="{$vo.pic}" /><h2 class="gallerytitle">{$vo.title}</h2></div>
+            {/volist}
+        </div>
+        <div class="pagination"></div>
+    </div>
+</div>
+
+<div class="rmhd">热门回答</div>
+
+{volist name='$ask' id='vo'}
+
+
+    {switch name="$vo.imgs_nums"}
+    {case value="1"}
+    <a href="{:url('ask/detail',array('id'=>$vo.id))}">
+    <div class="atxd">
+        <div class="tx"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}" /><span><font>{$vo.userInfo.wechaname}</font> <br>{:get_time(strtotime($vo.create_time))}</span></div>
+
+    </div>
+    <div class="tpic1">
+        <div class="tp1left">
+            <div class="title">{$vo.qtitle}</div>
+        </div>
+        <div class="pics">
+            {volist name='$vo.images' id='vo2'}
+            <img src="{$vo2.pic}">
+            {/volist}
+        </div>
+    </div>
+    </a>
+    <div class="infos">
+        <span class="llcs">浏览{$vo.click}次</span>
+        <span class="dianzan" id="dz{$vo.id}" data-id="{$vo.id}" data2-id="0"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></span>
+        <span class="wyhd" onclick="location.href='{:url('ask/answer',['aid'=>$vo.id])}'">我要回答</span>
+    </div>
+    {/case}
+    {case value="2|3|4|5|6|7|8|9"}
+    <a href="{:url('ask/detail',array('id'=>$vo.id))}">
+    <div class="atxd">
+        <div class="tx"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}" /><span> <font>{$vo.userInfo.wechaname}</font> <br>{:get_time(strtotime($vo.create_time))}</span></div>
+    </div>
+    <div class="tpic3">
+        <div class="title">{$vo.qtitle}</div>
+        <div class="pics">
+            {volist name='$vo.images' id='vo2' offset="0" length='3'}
+            <div class="picll"><img src="{$vo2.pic}"></div>
+            {/volist}
+        </div>
+    </div>
+    </a>
+    <div class="infos">
+        <span class="llcs">浏览{$vo.click}次</span>
+        <span class="dianzan" id="dz{$vo.id}" data-id="{$vo.id}" data2-id="0"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></span>
+        <span class="wyhd" onclick="location.href='{:url('ask/answer',['aid'=>$vo.id])}'">我要回答</span>
+    </div>
+    {/case}
+    {default /}
+    <a href="{:url('ask/detail',array('id'=>$vo.id))}">
+    <div class="atxd">
+        <div class="tx"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}" /><span> <font>{$vo.userInfo.wechaname}</font> <br>{:get_time(strtotime($vo.create_time))}</span></div>
+    </div>
+    <div class="tpic3">
+        <div class="title">{$vo.qtitle}</div>
+
+    </div>
+    </a>
+    <div class="infos">
+        <span class="llcs">浏览{$vo.click}次</span>
+        <span class="dianzan" id="dz{$vo.id}" data-id="{$vo.id}" data2-id="0"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></span>
+        <span class="wyhd" onclick="location.href='{:url('ask/answer',['aid'=>$vo.id])}'">我要回答</span>
+    </div>
+    {/switch}
+{/volist}
+
+
+<div class="fdzx"><a href="{:url('ask/add')}"><img src="{$Think.HTML_STATIC}/images/asktt.png"></a></div>
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">暂无内容</div>
+<?php } ?>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/footer" /}
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/scroll.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/navbarscroll.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+
+
+    var mySwiper2 = new Swiper('#banner',{
+        autoplay:5000,
+        visibilityFullFit : true,
+        loop:true,
+        pagination : '.pagination',
+    });
+
+    //点赞
+    $(".dianzan").click(function(){
+        id=$(this).attr('data-id');
+        //console.log(id)
+        askindexpraise(id,5,'{$Request.token}',$(this).attr('id'));
+    });
+
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 0;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

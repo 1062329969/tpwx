@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/bespoke.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">免费检测</div>
+    <div class="st3"><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+
+<div class="besMain">
+    <textarea placeholder="请详细描述改善的部位，是否有做过调整等。" name="info" id="info"></textarea>
+    <div class="option">
+         <span>性 别</span><select id="sex"><option value="男">男</option><option value="女">女</option></select>
+    </div>
+    <div class="option">
+        <span>年 龄</span><input type="number" name="age" id="age" value="">
+    </div>
+    <div class="option">
+        <span>微信号/手机号</span><input type="text" name="wxtel" id="wxtel" value="">
+    </div>
+    <input type="button" value="我要检测" class="subbutt" id="subbutt" />
+</div>
+
+</body>
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script>
+    $('#subbutt').click(function(){
+        info=$('#info').val();
+        sex=$('#sex').val();
+        age=$('#age').val();
+        wxtel=$('#wxtel').val();
+
+        if(info=='')
+        {
+            alert('请你描述改善的部位！');
+            return false;
+        }
+        if(age=='')
+        {
+            alert('请输入您的年龄！');
+            return false;
+        }
+        if(wxtel=='')
+        {
+            alert('为了更好的为您服务，请填写您的微信号或手机号！');
+            return false;
+        }
+
+        $.ajax({
+            type: "post",
+            url: '{:url("add")}',
+            data: {info:info,age:age,wxtel:wxtel,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    alert('提交成功！');
+                    window.location.href="{:url('index')}";
+                }
+                else
+                {
+                    alert(data.msg);
+                }
+            }
+        });
+
+    })
+</script>
+</html>

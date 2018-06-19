@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+	<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <style type="text/css">
+        .swiper-button-next, .swiper-button-prev{ width: 18px; height: 29px; background-size:18px 29px; margin-top: -13px;}
+        ul.line{
+            height:45px;
+            line-height:45px;
+            overflow: hidden;
+            width: 90%;
+            display: inline-block;
+        }
+        .notice{ float: none; overflow: hidden; padding:0.97rem 0;border-top: 1px solid #eeeeee; border-bottom: 1px solid #eeeeee; background: #fff;color:#4a4a4a;padding-left:1.2rem;font-size:1.7rem;font-weight: 500;}
+        .notice img{ float: left; margin-top: 12px;}
+        ul.line li{height:45px;line-height:40px;}
+		.clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		    }
+		.clearfix{
+		    	zoom:1;
+		    }
+        #healthy{width:100%;top:1rem;}
+        #healthy div{width:50%;float:left;}
+        #healthy div a{display:block;border-right:1px solid #e6e6e6;color:#333333;font-size:1.7rem;padding:0.5rem 0;margin-top:0.9%;}
+        #healthy div:nth-of-type(1) a{color:#15bdde;font-weight:600;}
+        .memmenu{border-top:none;height:2rem;line-height:2rem;}
+        .indexmain{margin-top:2rem;border-top:1px solid #e6e6e6;background:#ffffff;padding-top:2rem;}
+        .indexmenu{display:-webkit-box;width:97%;margin:0 auto;position:relative;z-index:99;}
+        .indexmenu .immain{width:26.809524%;float:none;}
+        .indexmenu img{display:block;width:83%;margin:0 auto;}
+        .indexmenu p{color:#666666;padding-bottom:10%;padding-top:0.5rem;}
+        .indexmain1{margin-top:5%;}
+        .gap{width:100%;background:#f5f5f5;height:1rem;}
+
+        .qtips{width:100%;color:#333333;}
+        .qtips li{margin-left:6%;font-size:1.4rem;list-style:none;margin-top:4%;}
+        .qtips li:nth-of-type(2){}
+        .qtips h2{display:block;width:2%;position:relative;top:-1px;border-radius:50%;float:left;}
+        /* .qtips h3{font-weight:normal;padding-left:2%;display:block;float:left;}
+        */
+
+        .focus{width:100%;padding-top: 2rem;}
+        .focus .fleft{float: left;width: 22.4%;margin-right: 1.5rem;margin-left: 2.5rem;}
+        .focus .fleft2{float: left;width: 22.4%;margin-right: 1.5rem;margin-left: 2.5rem;}
+        .focus img{display:block;width:100%;position:relative;}
+        .focus .fright{float: left;width: 62%;}
+        .focus .fright div h2{color:#333333;font-size:1.4rem;font-weight:normal;margin-top:8%;text-align: center;}
+        .focus .fright div p{width:100%;color:#666;font-size:1.4rem;line-height:2.1rem;}
+        /*.focus .fright div:nth-of-type(1) p{border-bottom:1px solid #f0f0f0;}*/
+        .focus .fright div p a{color:#15bdde;}
+
+        .indexmenu{overflow:visible;width:100%;}
+        .immain p{font-size:1.4rem;}
+        .indexmenu p{padding-bottom:12%;padding-top:0.8rem;}
+        .qtips li{margin-top:0;padding:0;}
+
+        .qtips li h3{line-height:2.5rem;margin-top:0;}
+        .qtips li:nth-of-type(1){padding-top:4%;}
+        .qtips li:nth-of-type(2){padding-bottom:1rem;}
+        .qtips li:nth-of-type(2) h3{width:98%;}
+        .qtips li h2{margin-top:0;line-height:2.5rem;width:0.5rem;height:0.5rem;background:#15bdde;border-radius:50%;vertical-align: middle;position:relative;top:1rem;margin-right:1rem;}
+
+
+        /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+        #header a.mui-pull-right{font-size:1.4rem;color: #666666;line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        /*banner轮播*/
+        
+        .swiper-pagination-bullet-active{background:#15bbdc;}
+        .swiper-pagination-bullet{width:1.5rem;height:0.3rem;border-radius:0%;}
+        /*菜单导航*/
+        #menu{width:100%;background:#ffffff;margin-top: 1.85rem;padding-bottom: 2rem;}
+        #menu ul{width:100%;margin:0 auto;display:-webkit-box;-webkit-box-pack:justify;}
+        #menu ul li{width: 25%;text-align: center;}
+        #menu img{width: 69.5%;margin-bottom: 1.5rem;}
+        #menu ul li p{font-size: 1.4rem;color: #333;}
+       .cj_selfie{width:80%;background: rgba(255,255,255,0.85);border-radius: 2rem; position: fixed;top: 45%;left: 50%; margin-top: -6.8rem; margin-left: -40%;z-index: 9999;}
+       .cj_selfie div{text-align: center;width: 100%;}
+       .cj_selfie_img{position: relative;text-align: center;height: 11rem;margin-bottom: 3rem;}
+       .cj_selfie .cj_selfie_img img{width: 60%;position: absolute;top:-5rem;left: 20%;}
+       .cj_chance{font-size: 1.7rem;color: #333;}
+       .cj_chance span{font-weight: 600;}
+       .cj_confirm button{background: #15BBDC;color: #fff;width: 7.9rem;height: 2.7rem;border-radius: 2.7rem;font-size: 1.5rem;border: none;margin-top: 1.5rem;margin-bottom: 1.5rem;}
+       .upload{position: relative;}
+       .upload input{
+       		    opacity: 0;
+			    width: 100%;
+			    height: 100%;
+			    position: absolute;
+			    left: 0;
+			    top: 0;
+			    z-index: 99;
+			    }
+		.cj_plan{padding: 0 1.8rem;}
+		.cj_plan_content{width: 100%;border: 1px dashed #899fbe;padding: 1.5rem 1rem;}
+		.cj_plan_content h3{text-align: center;font-size: 1.6rem;color: #333;font-weight: normal;margin-bottom: 0.85rem;}
+		.cj_plan_content p{text-indent: 2em;font-size: 1.4rem;color: #666;line-height: 2rem;}
+		.hair_title{text-align: center;font-size: 3rem;color: #333;margin-top: 3rem;margin-bottom: 3rem;}
+		.mui-backdrop {
+		    position: fixed;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    left: 0;
+		    z-index: 998;
+		    background-color: rgba(0,0,0,.5);
+		    display: none;
+		}
+		/*成功 弹窗*/
+		.cj_success{width: 80%;background: rgba(255,255,255,0.85);text-align: center;border-radius: 2rem;position: fixed;left: 10%;top: 30%;z-index: 999;}
+		.cj_success_img{text-align: center;margin:1.9rem auto 1.6rem;}
+		.cj_success_img img{width: 4.3rem;}
+		.cj_success p:first-of-type{font-size: 1.5rem;color: #666;}
+		.cj_success p:nth-of-type(2){font-size: 1.7rem;color: #15BBDC;margin-top: 1rem;margin-bottom: 0.5rem;}
+		.cj_success p:nth-of-type(3){font-size: 1.4rem;color: #999;}
+		/*失败弹窗*/
+		.cj_fail{width: 80%;background: rgba(255,255,255,0.85);text-align: center;border-radius: 2rem;position: fixed;left: 10%;top: 30%;z-index: 999;}
+		.cj_fail_img{text-align: center;margin:1.9rem auto 1.6rem;}
+		.cj_fail_img img{width: 4.55rem;}
+		.cj_fail p:first-of-type{font-size: 1.7rem;color: #333;}
+		.cj_fail p:last-of-type button{width:42%;height: 3.15rem;text-align: center;border:1px solid #15BBDC;border-radius: 3.15rem;background: none;margin-bottom: 2rem;margin-top: 3rem;color: #15BBDC;font-size: 1.4rem;}
+		/*上传中*/
+		.cj_ing{width: 80%;position: fixed;left: 10%;top: 30%;z-index: 999;text-align: center;color: #F0F0F0;}
+		.cj_ing img{width: 5.25rem;margin-bottom: 1.6rem;transform: rotate(0deg);animation: rot 2.5s linear infinite;}
+		.cj_ing p{color: white;}
+		@keyframes rot{
+                form{transform: rotate(0deg)}
+                to{transform: rotate(360deg)}
+            }
+      /*修改标题2.0*/
+       .cj_results{}
+       .cj_result_title{background: #b8e1ff;width: 100%;height: 4rem;border-radius: 4rem;position: relative;}
+       .cj_result_title span{width: 50%;line-height: 4rem;text-align: center;float: left;font-size: 1.5rem;z-index: 9;text-indent: 2em;}
+       .cj_result_title span.black a{color: #333;}
+       .cj_result_title img{width: 50%;height: 5rem;position: absolute;top: -0.53rem;left: -0.5rem;}
+       .cj_result_title span a{position: relative;z-index: 99;color:#fff;} 
+      /*拍照测试结果回复中*/
+       .cj_resulting{margin-top: 3rem;}
+       .fleft2 img{width: 90%;}
+       .fright{margin-top: 1rem;}
+    </style>
+</head>
+<body style="background: #ffffff;">
+<!--顶部标题-->
+<header id="header" class="mui-bar mui-bar-nav clearfix">
+    <a class="mui-pull-left" href="{:url('index/home')}"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title" style="color:#333333;font-weight:normal;">头发检测</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<!--banner轮播-->
+<div class="swiper-container" id="si">
+    <div class="swiper-wrapper qcon">
+        <div class="swiper-slide fir"><img src="{$Think.HTML_STATIC}/images/ss1.jpg" class="qimg"/></div>
+        <div class="swiper-slide fir"><img src="{$Think.HTML_STATIC}/images/ss3.jpg" class="qimg"/></div>
+        <div class="swiper-slide fir"><img src="{$Think.HTML_STATIC}/images/ss2.jpg" class="qimg"/></div>
+    </div>
+    <div class="swiper-pagination" id="qcir"></div>
+</div>
+<!--菜单导航-->
+<div id="menu">
+    <ul class="clearfix">
+        <li>
+            <a href="{:url('track/detection')}">
+                <img src="{$Think.HTML_STATIC}/images/82.png"/>
+                <p>在线测试</p>
+            </a>
+        </li>
+        <li class="upload1">
+            <a >
+                <img src="{$Think.HTML_STATIC}/images/83.png"/>
+                <p>自拍测试</p>
+            </a>
+        </li>
+        <li>
+            <a href='{:url('track/reservation')}'>
+                <img src="{$Think.HTML_STATIC}/images/84.png"/>
+                <p>预约毛囊检测</p>
+            </a>
+        </li>
+        <li>
+            <a>
+                <img src="{$Think.HTML_STATIC}/images/85.png"/>
+                <p>敬请期待</p>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="gap"></div>
+<!--<ul class="qtips">-->
+    <!--<li>-->	
+    	<!--<h2><img src="{$Think.HTML_STATIC}/images/c2.png" style="width:100%;display:block;"/></h2>-->
+    	<!--<h3 style="font-weight:normal;">在线预约免费检测，轻松获取精准毛发分析报告！</h3>-->
+    <!--</li>-->
+    <!--<li style="clear:both;">-->   	
+    <!--<h2><img src="{$Think.HTML_STATIC}/images/c2.png" style="width:100%;display:block;"/></h2>-->
+    <!--<h3 style="font-weight:normal;">在线自助检测，全方位了解脱发、掉发、头发健康状况！</h3>-->
+    <!--</li>-->
+<!--</ul>-->
+<!--<div class="gap"></div>-->
+<!--标题升级2.0-->
+<div class="cj_results" style="padding: 3rem 1.2rem 0;width: 100%;">
+	<div class="cj_result_title clearfix">
+		<span class="cj_inline black"><a>在线测试结果</a></span>
+		<span class="cj_photo"><a>拍照测试结果</a></span>
+		<img src="{$Think.HTML_STATIC}/images/95.png"/>
+	</div>
+</div>
+{if !$tipsinfo}
+<!--在线测试前-->
+<div class="focus clearfix" id="focus1">
+    <div class="fleft">
+        <img src="{$Think.HTML_STATIC}/images/docw.png"/>
+    </div>   
+    <div class="fright">        
+        <div>
+            <!--<h2>测试结果</h2>-->
+            <div>
+            	<p>亲～您还没有测试结果，<a onclick="location.href='{:url('track/detection')}'">快去测试吧！</a></p>
+            	<p>提交测试，get头发问题解决方案！</p>
+            	<p>全方位了解脱发、掉发、头发健康状况！</p>
+            </div>
+        </div>
+        <!--<div>
+            <h2>专业的养发方案</h2>
+            <p>经过检测，您的头发油性发质，出油的头发一般都有脱发的现象。</p>
+        </div>-->        
+    </div>   
+</div>
+{else /}
+<!--<div class="notice not2">
+  您的测试结果
+</div>-->		
+        
+        <!--在线测试结果-->
+        <div class="cj_inline_content">
+        	<div class="hair_title">头发现状</div>
+	         <div id="main" style="width:100%;height:35rem;margin: 0 auto;"></div>
+	         <!--<div>
+	            <h2></h2>
+	        </div>-->
+	        <div class="cj_plan">
+		    	<div class="cj_plan_content">
+		    	  	<h3>{$tipsinfo.t_title}</h3>
+		    	  	<p>{$tipsinfo.t_content}</p>
+		    	</div>   	  
+	    	</div>
+	    </div>
+        {/if}       
+
+<!--拍照测试前-->
+{if $info}
+<!--//拍照了-->
+{if isset($info.dp_rcontent)&&!empty($info.dp_rcontent)}
+ <!--拍照测试结果-->	
+ <!--拍照了并且回复了-->
+        <div class="cj_photo_content" style="display: none;">
+        	<div class="hair_title">头发现状</div>
+	        <div class="cj_plan">
+		    	<div class="cj_plan_content">
+		    	  	<p>{$info.dp_rcontent}</p>
+		    	</div>   	  
+	    	</div>
+	    </div>
+  {else /}
+  <!--拍照后台没有回复-->
+  <div class="focus clearfix" id="focus2" style="display: none;">
+    <div class="fleft2">
+        <img src="{$Think.HTML_STATIC}/images/94.png"/>
+    </div>   
+    <div class="fright">         
+        <p class="cj_resulting">您的测试结果医生将在1~3天内给您回复</p>      
+    </div>   
+</div>
+  {/if}
+{else /}
+<!--没有拍照-->
+<div class="focus clearfix" id="focus2" style="display: none;">
+    <div class="fleft2">
+        <img src="{$Think.HTML_STATIC}/images/94.png"/>
+    </div>   
+    <div class="fright">        
+        <div>
+            <div>
+            	<p>亲～您还没有测试结果，<a class="upload">快去测试吧！</a></p>
+            	<p>提交测试，get头发问题解决方案！</p>
+            	<p>全方位了解脱发、掉发、头发健康状况！</p>
+            </div>
+        </div>
+
+    </div>   
+</div>
+{/if}
+<!--点击按钮判断还有几次机会-->
+<div class="cj_selfie" style="display: none;">
+	<div class="cj_selfie_img">
+		<img src="{$Think.HTML_STATIC}/images/87.png"/>
+	</div>
+	<div class="cj_chance">您还有<span>&nbsp;”&nbsp;&nbsp;<span class="cj_num">0</span>&nbsp;&nbsp;”</span> 次机会哟~</div>
+	<div class="cj_chance cj_no_chance" style="display: none;">您已经没有机会了哟~</div>
+	<div class="cj_confirm upload"><button>确定</button><input type="file" accept="image/*" id="file" name="file" /></div>
+	<div class="cj_confirm cj_con" style="display: none;"><button>确定</button></div>	
+</div>
+<!--上传成功-->
+<div class="cj_success" style="display:none;">
+	<div class="cj_success_img">
+		<img src="{$Think.HTML_STATIC}/images/88.png"/>
+	</div>
+	<p>照片上传成功</p>
+	<p>测试次数有限哦~</p>
+	<p>您的测试结果医生将在1~3天内给您回复</p>
+	<div class="cj_confirm cj_success_confirm"><button>确定</button></div>
+</div>
+<!--上传失败-->
+<div class="cj_fail" style="display: none;">
+	<div class="cj_fail_img">
+		<img src="{$Think.HTML_STATIC}/images/89.png"/>
+	</div>
+	<p>照片上传失败...</p>
+	<p class="upload"><button>重新上传</button><input type="file" accept="image/*" id="file" name="file" /></p>
+</div>
+<!--上传中-->
+<div class="cj_ing" style="display: none;">
+	<p><img src="{$Think.HTML_STATIC}/images/90.png"/></p>
+	<p>照片上传中...</p>
+</div>
+<div style="height: 4rem;"></div>
+<div class="mui-backdrop"></div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/myslideup.js"></script>
+<script src="{$Think.HTML_STATIC}/js/echarts-all.js"></script>
+	<script type="text/javascript">
+ 	//自拍检测
+ 	 $("#file").change(function(){
+ 	 	$(".cj_ing").show();
+ 	 	$(".mui-backdrop").show();
+		drawTempPhoto();		 	 	
+	 });
+		  //绘制照片
+    function drawTempPhoto() {
+        //检验是否为图像文件
+        var file = document.getElementById("file").files[0];
+        if(!/image\/\w+/.test(file.type)){
+            alert("请选择图片文件。")
+            return false;
+        }
+        var reader = new FileReader();
+        // 将文件的格式以Data URL形式读入页面
+        reader.readAsDataURL(file)
+        //等待图片加载完成
+        reader.onload = function (e) {
+            //预览效果
+            //加载图片，此处的this.result为base64格式
+            //图片放在哪里
+            //拍照上传
+        var src=this.result; 
+	    $.ajax({
+	    	type:"post",
+	    	url: '{:url("uploadimg")}',
+	    	async:true,
+	    	data:{pic2:src},
+	    	dataType: "json",
+	    	success:function(data){
+	    		if(data.code==1){
+	    			$(".cj_success").show();
+	    			$(".mui-backdrop").show();
+	    			$(".cj_ing").hide();
+	    			return 'ok';
+	    		}else if(data.code==0){	 
+	    			$(".cj_fail").show();
+	    			$(".mui-backdrop").show();
+	    			$(".cj_ing").hide()
+	    			return 'no';
+	    		}
+	    	}
+	    }); 
+        }
+    }	 
+</script>
+<script>
+            var myChart = echarts.init(document.getElementById('main'));
+            var fenshu  = {$fenshu};
+            
+            var newfenshu = new Array();
+            newfenshu[0] = fenshu[4];
+            newfenshu[2] = fenshu[0];
+            newfenshu[1] = fenshu[1];
+            newfenshu[4] = fenshu[2];
+            newfenshu[3] = fenshu[3];
+            
+            
+            
+            var option = {
+                polar : [
+                    {
+                        splitNumber: 4, // 网格线的个数
+                        center:['50%','50%'], // 图的位置
+                        indicator : [
+                    		{ text: '脱发', max:10+2},
+                            { text: '头痒', max:10+2},
+                            { text: '头屑', max:10+2},
+                            { text: '发质差', max:10+2},
+                            { text: '头油', max:10+2},
+                        ],
+                         name:{
+                   		textStyle: {
+	                        color:'#333',
+	                        fontSize:'18'
+                   		 	}
+                		}
+                    }
+                ],
+                series : [
+                    {
+                        type: 'radar',
+                        data : [
+                            {
+                                value : newfenshu,
+                                name : '预算分配（Allocated Budget）'
+                            }
+                        ],
+                        //改变线的颜色
+		                itemStyle: {
+			                normal:{
+			                    color: '#01a0c5',
+			                },
+			                emphasis: {
+				                // 高亮时点的颜色。
+				                color: 'blue'
+				            }
+		            	}
+                    }
+                ]
+            };
+            myChart.setOption(option);
+	</script>
+<script>
+    var height = document.documentElement.clientHeight;
+    //初始化高度
+    $(".iheader").height(height*0.35);
+    //当文档窗口发生改变时 触发
+    $(window).resize(function(){
+        var height = document.documentElement.clientHeight;
+        $(".iheader").height(height*0.35);
+    });
+       var mySwiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+      	loop: true,
+     	autoplay:3000,
+        autoplayDisableOnInteraction : false,
+    });
+    (function($){
+        $.fn.extend({
+            "slideUp":function(value){
+                var docthis = this;
+                //默认参数
+                value=$.extend({
+                    "li_h":"45",
+                    "time":4000,
+                    "movetime":1000
+                },value)
+                //向上滑动动画
+                function autoani(){
+                    $("li:first",docthis).animate({"margin-top":-value.li_h},value.movetime,function(){
+                        $(this).css("margin-top",0).appendTo(".line");
+                    })
+                }
+                //自动间隔时间向上滑动
+                var anifun = setInterval(autoani,value.time);
+                //悬停时停止滑动，离开时继续执行
+                $(docthis).children("li").hover(function(){
+                    clearInterval(anifun);          //清除自动滑动动画
+                },function(){
+                    anifun = setInterval(autoani,value.time);   //继续执行动画
+                })
+            }
+        })
+    })(jQuery)
+    $(function(){
+        $(".line").slideUp();
+    });
+    $(function(){
+    	$(".upload1").click(function(){
+    		$.ajax({
+			  	type:"get",
+			  	url:'{:url("checknum")}',
+			  	async:false,
+			  	success:function(data){		
+			  		if(data.code==1){
+			  			if(data.msg>=0){
+			  				$(".cj_num").html(3-data.msg)
+			  			}
+			  			return 'ok'
+			  		}else if(data.code==0){	
+			  					$(".cj_selfie").show()
+				  				$(".cj_chance").hide();
+					  			$(".cj_confirm").hide();
+					  			$(".cj_con").show();
+					  			$(".cj_no_chance").show();
+			    			return 'no';
+			    		}
+			  	}
+			});
+			$(".cj_selfie").show();
+			$(".mui-backdrop").show()
+		})
+	$(".cj_confirm").click(function(){
+		$(".cj_selfie").hide();
+		$(".mui-backdrop").hide()		
+	})
+	$(".cj_success_confirm").click(function(){
+		$(".cj_success").hide()
+	})
+	$(".cj_inline").click(function(){
+		$(".cj_inline_content").show()
+//		$(this).find('img').show();
+//		$(".cj_photo img").hide();
+		$(".cj_photo_content").hide()
+		$("#focus1").show();
+		$("#focus2").hide();
+		$(".cj_result_title img").animate({left:"-0.5rem"},function(){
+			$(".cj_inline").addClass("black")
+			$(".cj_photo").removeClass("black")
+		})
+		
+	})
+	$(".cj_photo").click(function(){
+//		$(this).find('img').show();
+//		$(".cj_inline img").hide();
+		$(".cj_photo_content").show();
+		$(".cj_inline_content").hide();
+		$("#focus2").show();
+		$("#focus1").hide();	
+		$(".cj_result_title img").animate({left:'51%'},function(){
+			$(".cj_photo").addClass("black")
+			$(".cj_inline").removeClass("black")
+		})
+		
+		})	
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">请填写收货地址</h1>
+</header>
+<div class="regmain">
+    <div class="shinfos">
+        <p>请输入真实姓名</p>
+        <input type="text" value="" name="truename" id="truename"/>
+    </div>
+
+    <div class="shinfos">
+        <p>所在地区<font>*</font></p>
+        <input type="text" value="" name="area" id="area" />
+    </div>
+
+    <div class="shinfos">
+        <p>详细地址<font>*</font></p>
+        <input type="text" value="" name="address" id="address"/>
+    </div>
+
+    <div class="shinfos">
+        <p>联系方式</p>
+        <input type="text" value="" name="tel2" id="tel2"/>
+    </div>
+
+    <div class="shinfos">
+        <p>电子邮箱</p>
+        <input type="text" value="" name="email" id="email"/>
+    </div>
+
+    <div class="regnext">
+        <input type="button" value="提交" id="subbutt">
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/data-1.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    (function($, doc) {
+        $.init();
+        $.ready(function() {
+
+            var cityPicker3 = new $.PopPicker({
+                layer: 3
+            });
+            cityPicker3.setData(cityData3);
+            var showCityPickerButton = doc.getElementById('area');
+            showCityPickerButton.addEventListener('tap', function(event) {
+                cityPicker3.show(function(items) {
+                    showCityPickerButton.value=((items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text);
+                });
+            }, false);
+        });
+    })(mui, document);
+
+
+    $('#subbutt').click(function()
+    {
+        var truename = $("#truename").val();
+        var area = $("#area").val();
+        var address = $("#address").val();
+        var tel2 = $("#tel2").val();
+        var email = $("#email").val();
+
+        //加载ajax 获取验证码的方法
+        $.ajax( {
+            url:'{:url("address")}',// 跳转到 action
+            data:{
+                truename : truename,
+                area : area,
+                address : address,
+                tel2 : tel2,
+                email : email
+            },
+            type:'post',
+            cache:false,
+            dataType:'json',
+            success:function(data)
+            {
+                if(data.code!=1)
+                {
+                    alert(data.msg);
+                    return false;
+                }
+                else
+                {
+                    window.location.href='{:url("jump")}';
+                }
+            },
+            error : function() {
+                // view("异常！");
+                alert("异常！");
+            }
+        });
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>站点配置</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>站点配置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" action="{:url('index')}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">站点名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="sitename" value="{$Think.config.sitename}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">站点域名</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="domain" value="{$Think.config.domain}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Appid：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="Appid" value="{$Think.config.Appid}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Appsecret：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="Appsecret" value="{$Think.config.Appsecret}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Token：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="Token" value="{$Think.config.Token}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">EncodingAESKey：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="EncodingAESKey" value="{$Think.config.EncodingAESKey}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">微支付商户号：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="mchid" value="{$Think.config.mchid}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商户API密钥：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="apikey" value="{$Think.config.apikey}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">验证码短信：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="codeCont" value="{$Think.config.codeCont}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">分享获得积分：</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="sharejf" value="{$Think.config.sharejf}">
+
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">回复评论点赞获得积分：</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="hpdjf" value="{$Think.config.hpdjf}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">签到基础积分：</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="signjf" value="{$Think.config.signjf}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">连续签到获得积分：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="conSignjf" value="{$Think.config.conSignjf}">
+                                    <i class="fa fa-info-circle">连续签到第七天额外获得35积分，依次类推</i>
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">咨询电话：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="tel" value="{$Think.config.tel}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">咨询商务通：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="zoosnet" value="{$Think.config.zoosnet}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group" style="display: none">
+                                <label class="col-sm-2 control-label">图片上传的类型：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="picType" value="{$Think.config.picType}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"  style="display: none"></div>
+                            <div class="form-group"  style="display: none">
+                                <label class="col-sm-2 control-label">图片上传的大小：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="picSize" value="{$Think.config.picSize}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">多少积分抵1元：</label>
+                                <div class="col-sm-10">
+                                    <input type="number" step="0.01" class="form-control" name="getIntegral" value="{$Think.config.getIntegral}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">快递鸟EBusinessID：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="EBusinessID" value="{$Think.config.EBusinessID}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">快递鸟AppKey：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="AppKey" value="{$Think.config.AppKey}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">短信账号：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="account" value="{$Think.config.account}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">短信密码：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="password" value="{$Think.config.password}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">短信验证码：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="extno" value="{$Think.config.extno}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">互动：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="hudong" value="{$Think.config.hudong}">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/main.css">
+<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/highlight.css">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>查看订单详细</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form id="editform" method="post" class="form-horizontal" enctype="multipart/form-data"  action="{:url('alter')}">
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">类型：</label>
+                                <div class="col-sm-10">
+                                    {switch name="$orders.return_reasontype"}
+                                    {case value="0"}请选择退款原因{/case}
+                                    {case value="1"}订单不能按预计时间送达{/case}
+                                    {case value="2"}操作有误（商品、地址等选错）{/case}
+                                    {case value="3"}重复下单/误下单{/case}
+                                    {case value="4"}其他渠道价格更低{/case}
+                                    {case value="5"}不想买了{/case}
+                                    {case value="6"}其他原因{/case}
+                                    {/switch}
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">服务类型：</label>
+                                <div class="col-sm-10">
+                                    {switch name="$orders.return_stype"}
+                                    {case value="1"}退货{/case}
+                                    {case value="2"}换货{/case}
+                                    {case value="3"}补发商品{/case}
+                                    {/switch}
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">图片：</label>
+                                <div class="col-sm-10">
+                                <?php
+                               $imgarr = json_decode($orders['return_img']);
+                               if($imgarr){
+                               foreach($imgarr as $k=>$v){
+                                ?>
+                                    <img src="<?php echo $v; ?>" style="width:200px;" />
+                                <?php
+                                }}
+                            ?>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">详情：</label>
+                                <div class="col-sm-10">
+                                    {$orders.return_content}
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">同意：</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" value="1" name="return_auditstate" checked {if $orders.return_auditstate==1}checked{/if}>同意
+                                    <input type="radio" value="2" name="return_auditstate" {if $orders.return_auditstate==2}checked{/if}>不同意
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">审批信息：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="审批信息" name="return_auditcontent" value="{$orders.return_auditcontent}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="return_id" value="{$orders.return_id}">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="button">保存内容</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $(function () {
+            $('.btn-primary').click(function () {
+                var return_auditcontent = $('input[name=return_auditcontent]').val();
+                if(!return_auditcontent){
+                    layer.open({
+                        title: '提示'
+                        ,content: '请填写审批信息'
+                    });
+                    return false;
+                }
+                if($('input[name=return_auditstate]').val()==1){
+                    var t = '确定同意吗?'
+                }else{
+                    var t = '确定不同意吗?'
+                }
+                layer.confirm(t, {icon: 3, title:'提示'}, function(index){
+                    layer.close(index);
+                    var x = $('#editform').serializeArray();
+                    var m = [], idata;
+                    // 按 AJAX数据格式归入数组，方便后面的数据打包
+                    $.each(x, function(i, field){
+                        // 由于会出现"双引号字符会导致接下来的数据打包失败，故此对元素内容进行encodeURI编码
+                        // 后台PHP采用urldecode()函数还原数据
+                        m.push('"' + field.name + '":"' + encodeURI(field.value) + '"');
+                    });
+                    m.push('"__token__":"{$Request.token}"');
+                    idata ='{' +  m.join(',') + '}';
+                    // 按字符 idata 转换成 JSON 格式
+                    idata = eval('(' +idata+ ')');
+                    $.ajax({
+                        type: "post",
+                        url: "{:url('alter')}",
+                        data: idata,
+                        dataType: "json",
+                        success: function(data)
+                        {
+                            layer.msg('审批成功', {
+                                icon: 1,
+                                time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                            }, function(){
+                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                parent.layer.close(index); //再执行关闭
+                            });
+                        }
+                    });
+                });
+            })
+        })
+    </script>
+</body>
+</html>

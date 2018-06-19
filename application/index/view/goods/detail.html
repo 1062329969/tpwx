@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/address.css?rev=@@hash">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/address2.css">
+    <script src="{$Think.HTML_STATIC}/js/a.flexible.js"></script>
+    <link href="{$Think.HTML_STATIC}/css/goods.css" rel="stylesheet" type="text/css">
+    <style>
+        /*清除浮动*/
+        .clearfix:after{
+            content: "";
+            display: block;
+            clear:both;
+            height: 0;
+            overflow: hidden;
+        }
+        .clearfix{
+            zoom:1;
+        }
+        /*顶部标题*/
+        .mui-title{color: #4a4a4a;line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.35rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        .gdimg{ overflow: hidden;}
+        .swiper-container-horizontal>.swiper-paginationTop{
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            bottom: 10px;
+            margin-top: -10px;}
+        .swiper-pagination-bullet-active{ margin: 0px 5px;}
+        .tbsminfos{text-align: center;width: 100%}
+        .tcsm img{width: 100%;}
+
+        .tbsm{float: none}
+        .mui-title span.on{border: none;color: #15BBDC;}
+        .gdimg{margin-top: 0;}
+        /*商品 介绍 价格*/
+        .dprice{width: 100%;padding:1rem 1rem 1rem 1rem ;border-top: 0.05rem solid #f0f0f0;color: #666666;margin-bottom:0.4rem;margin-top:-1%;}
+        .dgtitle{padding: 0;margin-bottom: 1rem;font-size:1.5rem;padding-top:0.5rem;}
+        .dgtitle span{margin-right: 0.55rem;}
+        .dgprice{padding: 0;}
+        .dgprice font.yjg{font-size: 2rem;color: #ff2942;font-weight: bold;}
+        .cjalready{background: white;width: 100%;padding: 1.5rem 1rem;color: #999999;font-size: 1.3rem;}
+        .cjalready span{color: #666666;margin-left: 0.5rem ;}
+        .cjalready img{width: 2.2rem;height: 0.5rem;position: relative;top:6px;}
+        /*footer*/
+        .addWishList{width: 38.666%;background: none;background: url({$Think.HTML_STATIC}/images/51.png) no-repeat;background-size: cover;float: right;}
+        .gsdfoot img{margin-bottom: 0.5rem;margin-top: 0.4rem;}
+        .gsdfoot a div{width: 20%;text-align: center;}
+        .gsdfoot a div p{color: #999999;}
+        .backhome{border-left: 0rem solid #F0F0F0;border-right:0rem solid #F0F0F0 ;}
+        .shoppingCart i{width: 1.1rem;height: 1.1rem;background: #ff2942;font-size: 0.6rem;color: white;font-style: normal;text-align: center;line-height: 1.1rem;}
+        /*弹窗*/
+        .nextbutt{width: 100%;background: none; background: url({$Think.HTML_STATIC}/images/51.png) no-repeat;background-size: cover;}
+        .bgdsi{position: relative;overflow: inherit;}
+        .cjcom{position: relative;z-index: 9999;width: 8.9rem;height: 5.9rem;float: left;}
+        .cjcom img{position: absolute;top: -3.5rem;left: 1rem;border: 0.05rem solid #F3F3F3;border-radius: 0.5rem;width: 8.9rem;height: 8.9rem;}
+        .addapec-content span{padding:0 1.7rem;line-height: 3rem border: 0.05rem solid #F0F0F0;border-radius: 0.5rem;margin-right: 2rem;display: inline-block;margin-top: 1rem;}
+        .addapec-content span.on11{border-color: #15BBDC;color: #15BBDC;}
+        .bgdsi{padding: 0;margin-bottom: 0;margin-bottom: 1.5rem;}
+        .addgnum{border-bottom: none;margin-top: 2.5rem;margin-bottom:3rem;padding-left: 15px;}
+        .addgnum div.mui-pull-left{color: #333333;}
+        .bgdstp {margin-left: 2rem;margin-top: 3rem;}
+        .bgdstp .bgdprice{font-size: 2rem;color: #15BBDC;}
+      
+        .yjg a{color:#ff2942;}
+        .swiper-pagination-bullet-active{background:#15bbdc;}
+         /*顶部标题*/
+        .mui-title{color: #4a4a4a;line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.35rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        body{font-size: 1rem;}
+   	.mui-title span{font-size: 1.5rem;}
+    .numst{font-size: 1.5rem;}
+    /*弹窗*/
+    .mui-toast-container{left:50%;margin-left: -135px;bottom: 80px;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-pull-left" onclick="window.location.href='{:url("goods/index")}'"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title" style="font-weight: normal;width:80%;margin:0 auto;"><span id="detai" class="on"><a href="#detail3">商品</a></span><span id="detail"><a href="#detail2">详情</a></span><span><a href="{:url('comment',['id'=>$goods.id])}">评价</a></span></h1>
+</header>
+<div style="height: 4.4rem;" id="detail3"></div>
+<div class="gdimg">
+    <div class="swiper-containerTop" style="overflow: hidden;">
+        <div class="swiper-wrapper">
+            {volist name='goodsImgs' id='vo'}
+            <div class="swiper-slide"><img src="{$vo.pic}"></div>
+            {/volist}
+        </div>
+        <div class="swiper-paginationTop"></div>
+    </div>
+</div>
+
+<div class="dprice brd">
+    <div class="dgtitle"><span>{$goods.gdname}</span><span class="dginfos">{$goods.info}</span></div>
+    <div class="dgprice"><font class="yjg"><a>￥</a>{$goods.price}</font> </div>
+</div>
+
+{notempty name='$goods.text2'}
+<div class="tcsm">
+    <div ><span class="tbsm">特此说明</span></div>
+    <div class="tbsminfos">
+        {$goods.text2}
+    </div>
+</div>
+{/notempty}
+
+<!--{eq name='$goods.is_yhq' value='1'}
+<div class="guige">
+    <div class="ddd">领券：</div>
+    <div class="adr" onclick="location.href='{:url('coupon/index')}'">
+        <div style="float: right;">共2张 <img width="12" style="margin-top: -2px;" src="{$Think.HTML_STATIC}/images/jtyyy.png"></div>
+        {volist name='$coupon' id='vo'}
+              <span class="mjjj">满{$vo.use_price}减{$vo.cprice}</span>
+        {/volist}
+    </div>
+</div>
+{/eq}-->
+<div class="cjalready clearfix" id="cjsan">
+    已选<span class="drug" style="display: none;"><span class="cjname"></span><span class="cjnum"></span>件</span><img class="mui-pull-right"  src="{$Think.HTML_STATIC}/images/53.png"/>
+</div>
+
+<style>
+.plcont{margin-top:0;background:#fff;padding-bottom:2%;margin-bottom: 0.5rem;}
+.mui-bar-nav{box-shadow:none;}
+.upluser span{display:inline-block;}
+.upluser span{float:left;color:#15bdde;font-size:1.5rem;}
+.upxj{width:auto;}
+.upinfos{width:100%;margin:0 auto;padding-bottom:3%;}
+.upluser .usrimg{width:3.5rem;height:3.5rem;border-radius:50%;overflow:hidden;}
+.upluser .usrimg img{width:100%;}
+.upxj img{width:6%;}
+.upxj img:nth-of-type(1){margin-left:5%;}
+.upinfos{color:#666666;font-size:1.4rem;}
+.demo-list{width:100%;display:-webkit-box;margin-top:4%;}
+.demo-list a{display:block;width:23.943%;margin-right:2%;}
+.demo-list a img{width:100%;display:block;}
+.ubo{width:100%;padding:0.7rem 0;}
+.ubo span:nth-of-type(1){float:left;color:#999999;font-size:1.2rem;}
+.ubo span:nth-of-type(2){float:right;margin-right:-1.5%;}
+.ubo span:nth-of-type(2) img{width:55%;}
+.gplline{ float:right; width:100%; margin-bottom: 1rem; border-bottom: 10px solid #eaeaea;}
+#header{box-shadow:none;}
+.upxj{width:100%;}
+.upxj img{display:block;float:left;}
+.demo-list{overflow-x: hidden;}
+.js-smartPhoto img{width:100%;height:auto;}
+.mui-icon-back:before, .mui-icon-left-nav:before{content:"";}
+.addapec-title{font-size: 1.3rem;}
+/*详情页*/
+.tjdoctitle{ font-size: 1.4rem;}
+        .gtabs{ float: left; text-align: center; width: 33.33%;}
+        .tjdoctitle .on{ color: #0875cc}
+        .mui-title span.on{border:none;color:#15bbdc;}
+        .mui-icon-back:before, .mui-icon-left-nav:before{color:#15bbdc;}
+        .tjdoctitle .on{color:#15bbdc;}
+        .goodscontent{padding:0;}
+        p{margin:0;padding:0;}
+        #loadinguser{height: 1.5rem;}
+</style>
+
+
+<div class="gdinfos brd">
+    <div class="plcont">
+        <div class="pltit"><b style="float:right;font-weight:normal;"><span style="color:#666666;padding-left:0.5rem;font-size:1.3rem;">&gt;</span><span style="padding-left:0.5rem;font-size:1.3rem;">{neq name='$count' value='0'}{:floor(($hp/$count)*100)}%{else/}0%{/neq}</span><span style="color:#666666;padding-left:0.5rem;font-size:1.3rem;">好评度</span></b>评价({$count})</div>
+        {volist name='evaluate' id='vo'}
+        <div class="uplmain">
+            <div class="upluser">
+                <div class="usrimg">
+                    <img src="{$vo.userInfo.portrait}">
+                </div>
+                <div class="unamet">
+                <span class="upxj">
+                <b style="float:left;font-weight:normal;">{$vo.userInfo.wechaname}</b>
+                <?php
+                    $i=1;
+                    while($i<=5){
+                       if($i<=$vo['xx']){
+                           echo "<img src='".HTML_STATIC."/images/star11.png'>";
+                            }else{
+                                echo "<img src='".HTML_STATIC."/images/star22.png'>";
+                            }
+                            $i=$i+1;
+                        }
+                ?>
+                </span>
+                </div>
+            </div>
+            <div class="upinfos">
+                {$vo.content}
+            </div>
+            <div class="demo-list">
+                {volist name='vo.pics' id='vo2'}
+                <a href="{$vo2}" class="js-smartPhoto" data-caption="bear" data-id="bear" data-group="animal">
+                    <img src="{$vo2}" />
+                </a>
+                {/volist}
+            </div>
+            <div class="unamet ubo">
+                <span>{$vo.create_time|date='Y-m-d H:i:s',###}</span>
+                <span><img src='{$Think.HTML_STATIC}/images/icon6.png'></span>
+            </div>
+        </div>
+        {/volist}
+        <a href="{:url('goods/comment',['id'=>$id])}" style="width:30%;padding:0.5rem 0;border:1px solid #15bdde;color:#15bdde;border-radius:65px;display:block;margin:0 auto;text-align:center;margin-top:4%;">查看全部评论</a>
+    </div>
+
+    <div class="buy" id="buynext">
+        <form method="post" action="{:url('buy')}">
+            <div class="buymain" id="buymain">
+                <div class="bgdsi clearfix">
+                    <div class="cjcom">
+                        <img src="{$goods.pic}">
+                    </div>
+                    <div class="bgdstp mui-pull-left">
+                        <div class="bgdprice" id="goodPrice">￥{$goods.price}</div>
+                    </div>
+                </div>
+                <!--规格-->
+                <!--<div class="addapec">
+                    <div class="addapec-title">规格</div>
+                    <div class="addapec-content"><span class="on11">1mg*28片/盒</span><span>1mg*28片/盒</span></div>
+                </div>-->
+                
+                {notempty name='$gg'}
+                <div class="guige addapec">
+                    <div class="addapec-title">规格：</div>
+                    <div class="adr buygg addapec-content">
+                        {volist name='$gg' id='vo'}
+                        <span data-id="{$key}" data-price="{$vo.ggprice}">{$vo.gg}</span>
+                        {/volist}
+                    </div>
+                </div>
+                <input type="hidden" name="gg" id="gg" value="-1">
+                {else/}
+                <input type="hidden" name="gg" id="gg" value="">
+                {/notempty}
+                <div class="addgnum clearfix">
+                    <div class="numst mui-pull-left">数量</div>
+                    <div class="nums mui-pull-right"><div class="nreduce">-</div><input id="goodsNum" readonly="readonly" class="numsinput goodsNum" name="nums[]" type="number" value="1" /><div class="nadd">+</div></div>
+                </div>
+            </div>
+            <input type="hidden" name="id[]" value="{$goods.id}" />
+            <input type="hidden" id="basePrice" value="{$goods.price}">
+            {:token()}
+            <div class="nextbutt" data-id="0"></div>
+            <div style="height: 50px;"></div>
+        </form>
+    </div>
+    <div class="gsdfoot">
+        <a href="https://www.sobot.com/chat/h5/index.html?sysNum=4bd44e32f01b4e50b69273c9626193c4&source=1"><div class="backhome"><img src="{$Think.HTML_STATIC}/images/54.png" style="width: 2.05rem;"/><p>联系客服</p></div></a>
+        <a href="javascript:;"><div class="backhome">
+            {if $collect}
+            <img data=1 data-id="{$id}" dis=1 class="star" src="{$Think.HTML_STATIC}/images/star.png" style="width: 2.1rem;"/>
+            {else /}
+            <img data=0 data-id="{$id}" dis=1 class="star" src="{$Think.HTML_STATIC}/images/55.png" style="width: 2.1rem;"/>
+            {/if}
+            <p>收藏</p></div></a>
+        <a href="{:url('cart')}"><div class="shoppingCart"><img src="{$Think.HTML_STATIC}/images/56.png" style="width: 2.1rem;"/><p>购物车</p><i id="gdcartcount" {neq name='$goodsCartCount' value='0'} style="display: block"{/neq}>{$goodsCartCount}</i></div></a>
+        <div class="addWishList" id="addWishList">加入购物车</div>
+    </div>
+    </div>
+    <div class="addDetail">
+    	<div class="addDetails" id="detail2" style="display: none;" >
+    		<div class="tjdoctitle">
+    			<div class="gtabs on" data-id="1">商品介绍</div><div class="gtabs" data-id="2">规格参数</div><div class="gtabs" data-id="3">包装售后</div>
+    		</div>
+			<div class="gdccm">
+				<div class="goodscontent" id="cc1">{$goods.text}</div>
+				<div class="goodscontent" style="display: none" id="cc2">{$goods.text3}</div>
+				<div class="goodscontent" style="display: none" id="cc3">{$goods.text4}</div>
+			</div>
+    	</div>
+    	<div style="height: 50px;"></div>
+    </div>    
+    <script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+    {include file="public/fx" /}
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/web.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+    <script type="text/javascript" src="{$Think.HTML_STATIC}/js/a.citys.js"></script>
+    <script type="text/javascript" src="{$Think.HTML_STATIC}/js/address.js"></script>
+    <script type="text/javascript">
+    	//选择的数量   	
+    	$(".nextbutt").click(function(){
+    		$(".drug").show()
+    		var num=$(".goodsNum").val()
+    		$(".cjnum").html(num)
+    		var name=$(".dgtitle span:first-child").text()
+    		$(".cjname").html(name)   		
+    	})
+    	
+        $('.star').click(function(){
+            if($(this).attr('dis')==1){
+                $(this).attr('dis',0);
+                var _self = $(this);
+                var datas = _self.attr('data');
+                var data_id = {$id};
+                $.ajax({
+                    type: "post",
+                    url: '{:url("goods/collectiongoods")}',
+                    data:{data:datas,id:data_id},
+                    dataType: "json",
+                    success: function(data)
+                    {
+                        if(data.code==1){
+                            if(datas==1){
+                                _self.attr('data',0);
+                                _self.attr('src',"{$Think.HTML_STATIC}/images/55.png");
+                                _self.attr('dis',1);
+                            }else{
+                                _self.attr('data',1);
+                                _self.attr('src',"{$Think.HTML_STATIC}/images/star.png");
+                                _self.attr('dis',1);
+                            }
+                        }
+                       
+                    }
+                });
+            }else{
+                return false;
+            }
+        })  
+        
+   		//评论下拉加载   
+ 
+      $(document).ready(function(){  
+          var range = 80;//距下边界长度/单位px  
+          var totalheight = 0;  
+          var main = $("#loadinguser");//主体元素  
+       	$(document).scroll(function(){
+              var srollPos = $(window).scrollTop();  
+              totalheight = parseFloat($(window).height()) + parseFloat(srollPos);  
+              if($(document).scrollTop()>=$(document).height()-$(window).height()){            	
+			   				$(".addDetails").show()			   										    
+			   			}
+          	}); 
+          	$(".gtabs").click(function(){
+						            mainId=$(this).attr('data-id');
+						            $(".gtabs").removeClass('on');
+						            $(this).addClass('on');
+						            $('.goodscontent').hide();
+						            $('#cc'+mainId).show();
+						    });
+      	}); 
+      	$("#detail").click(function(){
+      		$(".addDetails").show()		
+      	})
+      $(document).ready(function(){       
+        $(window).stop().scroll(function(){
+        var top1 = $('.addWishList').offset().top;
+        var gun = $(window).height();
+        var top = top1-gun;
+        if (top>=0) {
+          $('#detail').addClass('on');
+          $('#detai').removeClass('on');
+        }else{
+          $('#detail').removeClass('on');
+           $('#detai').addClass('on');
+        }
+        })
+    });
+    </script>
+    <script type="text/javascript" charset="utf-8">
+        !function ()
+        {
+            var $target = $('#J_Address');
+            $target.citySelect();
+            $target.on('click', function (event) {
+                event.stopPropagation();
+                $target.citySelect('open');
+            });
+            $target.on('done.ydui.cityselect', function (ret)
+            {
+                $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+                var address=ret.provance + ' ' + ret.city + ' ' + ret.area;
+                $.ajax({
+                    url:"{:url('addAddress')}",
+                    data:{address:address},
+                    type:'post'
+                });
+            });
+        }();
+        var swiper = new Swiper('.swiper-containerTop', {
+            pagination: '.swiper-paginationTop',
+        });
+
+        $(".buygg span").click(function()
+        {
+            $(".buygg span").removeClass('on11');
+            $(this).addClass('on11');
+            $("#basePrice").val($(this).attr('data-price'));
+            basePrice=$("#basePrice").val();
+            goodsNum=$('.goodsNum').val();
+            $('#price').html((basePrice*goodsNum).toFixed(2));
+            $('#goodPrice').html((basePrice*1).toFixed(2));
+            $("#gg").val($(this).attr('data-id'));
+        });
+        getCollection({$goods.id},{$fansInfo.id},5);
+        //收藏
+        $("#collection").click(function(){
+            collection({$goods.id},5,'{$Request.token}');
+        });
+        var subopen=true;
+        var mask = mui.createMask(function(){ $('#buynext').hide(400)});
+
+        $('#fastBuy').click(function(){
+            $('#buynext').show(400);
+            $('.nextbutt').text('下一步');
+            $('.nextbutt').attr('data-id',1);
+            mask.show();//显示遮罩
+        });
+        $("#cjsan").click(function(){
+              $('#buynext').show(400);
+            $('.nextbutt').text('加入购物车');
+            $('.nextbutt').attr('data-id',2);
+              mask.show();//显示遮罩
+        })
+        $('#addWishList').click(function(){
+            // $('#buynext').show(400);
+            $('.nextbutt').text('加入购物车');
+            $('.nextbutt').attr('data-id',2);
+            {notempty name='$gg'}
+            $("#cjsan").click();
+            return false;
+            {else/}
+            {/notempty}
+            $('.nextbutt').click();
+//              mui.toast("加入购物车成功",{duration:'long'});
+            // mask.show();//显示遮罩
+        });
+//        $('#addWishList').click(function(){
+//            $('#buynext').show(400);
+//            $('.nextbutt').text('加入购物车');
+//            $('.nextbutt').attr('data-id',2);
+//            mask.show();//显示遮罩
+//        });
+
+        $('.nreduce').click(function(){
+            goodsNum=parseInt($('.goodsNum').val());
+            if(!$.isNumeric(goodsNum)){
+                alert('商品数量必须是数字');
+                return false;
+            }
+            goodsNum=goodsNum-1;
+            $('.goodsNum').val(goodsNum);
+            if(goodsNum<1)
+            {
+                alert('购买的商品数量必须大于等于1');
+                $('.goodsNum').val(1);
+                return false;
+            }
+            basePrice=$('#basePrice').val();
+            $('#price').html((basePrice*goodsNum).toFixed(2))
+        });
+        $('.nadd').click(function(){
+            goodsNum=parseInt($('.goodsNum').val());
+
+            if(!$.isNumeric(goodsNum)){
+                alert('商品数量必须是数字');
+                return false;
+            }
+            goodsNum=goodsNum+1;
+            $('.goodsNum').val(goodsNum);
+            if(goodsNum>{$goods.number})
+            {
+                alert('购买的商品数量超过库存');
+                $('.goodsNum').val({$goods.number});
+                return false;
+            }
+            basePrice=$('#basePrice').val();
+            $('#price').html((basePrice*goodsNum).toFixed(2))
+        });
+
+        $('.nextbutt').click(function()
+        {
+            gg=$("#gg").val();
+            if(gg==-1)
+            {
+                alert('选择商品的规格');
+                return false;
+            }
+
+            num=$(this).attr('data-id');
+            if(num==2)
+            {
+                $('#buynext').hide(400);
+                mask.close();
+                goodsNum=parseInt($('.goodsNum').val());
+                if(!$.isNumeric(goodsNum)){
+                    alert('商品数量必须是数字');
+                    return false;
+                }
+                if(subopen)
+                {
+                    subopen=false;
+                    $.ajax({
+                                url:"{:url('addCart')}",
+                                    data:{goods_id:{$goods.id},nums:goodsNum,gg:gg,__token__:'{$Request.token}'},
+                            type:'post',
+                        dataType:'json',
+                        success:function(data)
+                {
+                    if(data.code==1)
+                    {
+//                        alert(data);
+                        mui.toast('加入购物车成功');
+                        $('#gdcartcount').show();
+                       var listNum = parseInt($('#gdcartcount').text());
+//                        alert(listNum);
+                        $('#gdcartcount').text(listNum+goodsNum);
+                        subopen=true;
+                    }
+                    else
+                    {
+                        mui.toast(data.msg,{duration:'long'});
+                        subopen=true;
+                    }
+                }
+                });
+                }
+
+            }
+            else
+            {
+                $("form").submit();
+            }
+        })
+        $(function(){
+            $(".addapec-content span").click(function(){
+                $(this).addClass("on11").siblings().removeClass("on11")
+            })
+            
+        })
+    </script>
+
+</body>
+</html>

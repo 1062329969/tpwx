@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">养护</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>4])}'"></a>
+</header>
+<div class="contmain">
+    <h1>{$news.title}</h1>
+    <div class="infos"><span>浏览：{$news.click}</span><span>作者：{$news.author}</span><span>{$news.create_time}</span></div>
+    <div class="line"></div>
+    <div class="content">
+        {notempty name='$news.vurl'}
+        <iframe height="200" width='100%' src="{$news.vurl}" frameborder=0 allowfullscreen></iframe>
+        {else /}
+        {volist name='$images' id='vo2'}
+        <img src="{$vo2.pic|str_replace='m_','',###}">
+        {/volist}
+        {/notempty}
+
+        {$news.text}
+    </div>
+    <div class="hudong">
+         <div class="hdtitle"><strong>互动</strong></div>
+         <p>{$Think.config.hudong}</p>
+         <div class="tabs">
+             {volist name='$news.keyword' id='vo'}
+             <a>{$vo}</a>
+             {/volist}
+         </div>
+    </div>
+    <div class="dshare">
+        <div class="ds1 dianzan"  data-id="0"><img src="{$Think.HTML_STATIC}/images/dz.png"><span>{$news.dianzan}</span></div>
+        <div class="ds2 collection" id="collection" data-id="0"><img src="{$Think.HTML_STATIC}/images/xxsc.png"><span>{$news.shoucang}</span></div>
+        <div class="ds3" onclick="fenxiang()"><img style=" margin-top:0px;" src="{$Think.HTML_STATIC}/images/share.png"></div>
+    </div>
+    <div class="ad"><img src="{$Think.HTML_STATIC}/images/cad1.jpg"></div>
+</div>
+
+<div class="upl">
+    <div class="pltitle">评论</div>
+
+    {volist name='$comment' id='vo' empty="<p class='empty'>沙发空缺中~~</p>"}
+        {eq name='$vo.plid' value='0'}
+        <div class="tx">
+            <div class="tximg"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">{$vo.userInfo.wechaname}</div>
+            <div class="txdz" data-id="{$vo.id}" id="txdz{$vo.id}"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></div>
+        </div>
+        <p>{$vo.text}</p>
+        <div class="plinfo"><span class="backText" data-plid="{$vo.id}" data-uid="{$vo.userInfo.id}" data-align="{$vo.userInfo.wechaname}">回复</span>{$vo.create_time}</div>
+
+        {volist name='$comment2' id='vo2'}
+        {eq name='$vo2.plid' value='$vo.id'}
+        <div class="reCont"><p><font>{$vo2.userInfo.wechaname}:</font> {$vo2.text} <span>{$vo2.create_time|date='m-d H:i',strtotime(###)}</span></p></div>
+        {/eq}
+        {/volist}
+        <div class="fonline"></div>
+        {/eq}
+    {/volist}
+
+</div>
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<div id="loading" class="lmore">下拉加载更多...</div>
+
+
+<div class="plmtop"></div>
+<div class="plmaint">
+    <div class="plform">
+        <div class="pinput"><input id="commentText" type="text" value="" placeholder="输入评论内容..."><div class="fbpl" id="subComment">发表</div></div>
+        <div class="picon"><img src="{$Think.HTML_STATIC}/images/sc.png" id="fbsc" class="collection"><img src="{$Think.HTML_STATIC}/images/plkf.png" onclick="location.href='{$Think.config.zoosnet}'"></div>
+    </div>
+</div>
+
+
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/fx" /}
+{include file="public/wxShare" /}
+<script>
+    
+    $(function(){
+        getCollection({$news.id},{$fansInfo.id},1);
+        getPraise({$news.id},{$fansInfo.id},1);
+        //评论
+        $('#subComment').click(function(){
+            comment({$news.id},1,'{$Request.token}');
+        });
+        //点赞
+        $(".ds1").click(function(){
+            praise({$news.id},1,'{$Request.token}');
+        });
+        //评论点赞
+        $(".txdz").click(function(){
+            plid=$(this).attr('data-id');
+            plpraise(plid,1,'{$Request.token}',$(this).attr('id'));
+
+        });
+
+        //收藏
+        $(".collection").click(function(){
+            collection({$news.id},1,'{$Request.token}');
+        });
+
+        var width = $(window).width(); //浏览器当前窗口可视区域宽度
+        height = width/16*9;
+        $('iframe').height(height);
+
+        //回复评论
+        $('.backText').click(function()
+        {
+            userName=$(this).attr('data-align');
+            plid=$(this).attr('data-plid');  //评论的id
+            uid=$(this).attr('data-uid');  //回复的评论用户id
+            var btnArray = ['确定', '取消'];
+            mui.prompt('请输入回复内容', '', '', btnArray, function(e)
+            {
+                if (e.index == 0)
+                {
+                    //提交回复
+                    text=e.value;
+                    if(text=='')
+                    {
+                        mui.alert('回复内容不能为空哦');
+                        return false;
+                    }
+                    $('#commentText').val(text);
+                    recComment({$news.id},1,'{$Request.token}',plid,uid,text);
+                }
+            })
+        });
+
+        //评论下拉加载
+        var a = 0;
+        var offsize = 10;//起始位置(查询数据表时的起始位置)
+        $(document).ready(function(){
+            var range = 80;//距下边界长度/单位px
+            var totalheight = 0;
+            var main = $("#loadinguser");//主体元素
+            $(window).scroll(function(){
+                var srollPos = $(window).scrollTop();
+                totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+                if(($(document).height()+range) <= totalheight) {
+                    if(a==0)
+                    {
+                        a = 1;
+                        $('#loading').html("正在努力为您加载...");
+                        $.post("{:url('comment/nextPageComment')}",{
+                            type:1,
+                            offsize:offsize,
+                            aid:{$news.id}
+                    },function(data){
+
+                        if(data=='')
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>

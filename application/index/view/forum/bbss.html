@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/details1.css" rel="stylesheet" type="text/css">
+    <style>
+
+
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">选择版块</h1>
+    <style type="text/css">
+        .cjfollow{background: #f0f0f0;padding: 1rem;font-size: 1.3rem;margin-top: 0.05rem;}
+        .cjbk li{background: white;border-bottom: 0.05rem solid #f3f3f3;font-size: 1.3rem;padding: 1rem;}
+        .cjbk li.on3{color: #25c1e0;}
+    </style>
+</header>
+<div style="height: 4.6rem"></div>
+<div class="cjfollow">关注版块</div>
+<ul class="cjbk">
+    {volist name="$bbss" id="vo"}
+        <li class="on3 typename">{$vo.typename}</li>
+    {/volist}
+</ul>
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script type="text/javascript">
+    $(function(){
+        $(".cjbk li").click(function(){
+            $(this).addClass("on3").siblings().removeClass("on3")
+        })
+    })
+</script>
+<script type="text/javascript">
+    $("document").ready(function(){
+        $(".typename").click(function(){
+            var typename =$(this).text();
+            $.ajax({
+                type:"post",
+                url:"{:url('postss')}",
+                dataType:"json",
+                data:{typenamee:typename},
+                success:function(data){
+                    alert(data);
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>

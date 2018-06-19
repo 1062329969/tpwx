@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>习题管理</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>习题管理</h5>
+                        <div class="ibox-tools">
+
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('add')}">添加问答</a></li>
+                            </ul>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="20%">
+                                            <button type="button" class="btn btn-info check" data="1">选择为正式习题</button>
+                                            <!--<button type="button" class="btn btn-info checkall" data="1">选择为正式习题</button>-->
+                                        </th>
+                                        <th width="20%">习题编号</th>
+                                        <th width="10%">习题内容</th>
+                                        <th width="10%">习题类型</th>
+                                        <th width="10%">习题性别</th>
+                                        <th width="10%">添加时间</th>
+                                        <!--<th width="10%">答案分数</th>-->
+                                        <th width="20%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name='$exerciselist' id='vo'}
+                                    <tr>
+                                        <td><input type="checkbox" value="{$vo.e_id}" name="e_id[]" class="checks" {if $vo.e_state==1} checked="checked" {/if}></td>
+                                        <td>{$vo.e_id}</td>
+                                        <td>{$vo.e_content}</td>
+                                        <td>{$vo.e_content}</td>
+                                        <td>{$vo.e_content}</td>
+                                        <!--<td>-->
+                                            {php}
+                                                //$code = json_decode($vo['e_answerscore'],true);
+                                                //foreach($code as $k=>$v){
+                                                //    echo $v['code'].'：'.$v['answer'].'&nbsp&nbsp&nbsp分数：'.$v['score'].'<br />';
+                                                //}
+                                            {/php}
+                                        <!--</td>-->
+                                        <td>{$vo.e_addtime|date='Y-m-d H:i:s',###}</td>
+                                        <td>
+                                            <a class="btn btn-outline btn-info express" href="{:url('alter',['e_id'=>$vo.e_id])}">修改</a>
+                                            <a class="btn btn-outline btn-info express" href="{:url('del',['e_id'=>$vo.e_id])}">删除</a>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $(".checkall").click(function(){
+            if($(this).attr('data')==1){
+                $("input.check").prop("checked", true);
+                $(this).attr('data',0);
+            }else{
+                $("input.check").prop("checked", false);
+                $(this).attr('data',1);
+            }
+        });
+        $(".check").click(function () {
+            var clength = $("input.checks:checked").length;
+            if(clength!=6){
+                layer.msg('必须选择六道题，四道题普通题目，两道男女性别题目');
+                return false;
+            }else{
+                var arr = new Array();
+                $("input.checks:checked").each(function(m,n){
+                    arr[m] = Number($(n).val());
+                })
+
+                $.ajax({
+                    type: "post",
+                    url: '{:url("check")}',
+                    data: {id:arr,__token__:"{$Request.token}"},
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+</html>

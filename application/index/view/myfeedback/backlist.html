@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+        .bodyb .mui-action-back,.bodyb .mui-title,.bodyb .mui-icon-search{color:#333333;}
+        #imgPicker p{ color: #fff}
+        #loading{ height: 100%; margin-top: 0px;}
+        #table{width:100%;display:-webkit-box;-webkit-box-pack:justify;background: #fff;border-bottom: 0.05rem solid #F0F0F0;}
+        #table li{width:50%;}
+        #table li:nth-of-type(1) p{display:block;}
+        #table li p{width:100%;margin:0 auto;text-align:center;padding:1rem 0;font-size: 1.6rem;}
+        #table li p a{color:#333333;display:block;width:100%;margin:0 auto;border-right:1px solid #e6e6e6;}
+        #table li:nth-of-type(2) p a{border:none;color:#15bbdc;}
+        #table li p.active a span{padding: 1rem 0;color:#15bbdc;border-bottom: 0.2rem solid #15BBDC;width: 60%;display: inline-block;}
+        /*#table li p.active a{display:block;width:100%;color:#15bbdc;}*/
+        .bodyb .mui-content{background:none;}
+          /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+    </style>
+</head>
+<body class="bodyb" style="background:#f5f5f5;">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class=" mui-pull-left" onclick="window.location.href={:url('my/index')};"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">反馈</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<ul id="table">
+    <li><p style="padding: 1rem 0;"><a href="{:url('index')}">意见反馈</a></p></li>
+    <li><p class="active"><a href="{:url('backlist')}" onclick="window.location.href='backlist'"><span>反馈记录</span> </a></p></li>
+</ul>
+<style>
+.mui-bar-nav~.mui-content{padding-top:0;}
+.result ul{padding:0;margin:0;}
+.result ul li.rc{background:#ffffff;}
+#time{width:94.667%;margin:0 auto;}
+#time p:nth-of-type(1){float:left;}
+#time p:nth-of-type(2){float:right;}
+#des2{clear:both;width:100%;height:5rem;background:#f0f0f0;border-radius:5px;margin-top:8%;}
+#des2 span{padding-left:1em;}
+.rc h2{clear:both;font-weight:normal;color:#999999;margin-top:3%;}
+.mui-table-view-cell:after{background:none;}
+.gap{width:100%;height:1rem;background:#f5f5f5:}
+#table li p{padding: 0;}
+</style>
+<div class="mui-content result">
+    <ul>
+        {volist name='$list' id='vo'}
+        <li class="mui-table-view-cell rc">
+            <div id="time">
+                <p class="pull-left">{$vo.f_addtime|date='Y-m-d H:i:s',###}</p>
+                <p class="pull-right">{if $vo.f_backuid}已收到{else /}正在处理{/if}</p>
+            </div>
+            <div id="des2">
+                <span>
+                    {$vo.f_content}
+                    {if $vo.f_backuid}
+                    {$vo.f_back}
+                    {/if}
+                </span>
+            </div>
+            <h2>感谢您的反馈，您提交的问题我们已经在安排处理，尽情期待！</h2>
+        </li>
+        <div class="gap"></div>
+        {/volist}
+    </ul>
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+</body>
+</html>

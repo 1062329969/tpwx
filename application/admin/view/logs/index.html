@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>问券调查</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style>
+        ul li{list-style:none;}
+        #new{padding:5px 8px;background:#1c84c6;font-size:1rem;color:#fff;border-radius:3px;}
+        #search .row{margin-top:1%;}
+        .ibox-title1 h5{width:100%;}
+        .ibox-title1 a{color:#666666;font-weight:600;}
+        .ibox-title1 h5 >a:nth-of-type(1){padding-right:0.5%;}
+        .ibox-title1 h5 >a:nth-of-type(2){padding-left:0.5%;}
+        .pna{border:none;width:100%;}
+        .pna label{margin-right:3%;display:inline-block;}
+        .pna input{width:80%;padding:0.5rem 0;}
+        .pna select{width:20%;padding:0.5rem 0;}
+        .btn-success-outline{border:1px solid #1c84c6;background:#fff;color:#1c84c6;}
+        .pna button{margin-left:1%;padding:5px 20px;}
+        .pna >div{width:40%;}
+        .pna button:nth-of-type(2):hover{color:#1c84c6;}
+        .page{padding:0;}
+        .page li{float:left;margin-top:5%;}
+        .page li{padding:1rem 1rem;border:1px solid #dedede;margin-right:0.5%;}
+        .page li:nth-of-type(1){border:none;margin-right:0.8%;}
+        .page li:nth-of-type(2){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(8){border:none;margin-right:0.5%;}
+        .page li:nth-of-type(11){border:none;}
+        .page li:nth-of-type(12){border:none;}
+        .page li input{display:inline-block;width:5rem;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <form class="ibox-content" action="{:url('logs/index')}" method="get">
+                    <div class="row ibox-title pna">
+                        <label>活动状态</label>
+                        <select id="l_modules" name="l_modules">
+                            <option value="0">---请选择---</option>
+                            {foreach name="modules" item="vo" }
+                            <option value="{$key}">{$vo}</option>
+                            {/foreach}
+                        </select>
+                        <label>操作类型</label>
+                        <select id="l_operationtype" name="l_operationtype">
+                            <option value="0">---请选择---</option>
+                            <option value="1">查询</option>
+                            <option value="2">新增</option>
+                            <option value="3">修改</option>
+                            <option value="4">删除</option>
+                        </select>
+                        <button type="submit" class="btn btn-success" id="ser">查询</button>
+                        <button type="button" class="btn btn-success-outline" id="res">重置</button>
+                    </div>
+                </form>
+                <div class="ibox-title">
+                    <h5>活动列表</h5>
+                    <div class="ibox-tools">
+                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <a href="{:url('add')}" id="new">+新建活动</a>
+                        </a>-->
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th width="5%">日志ID</th>
+                                <th width="10%">模块名称</th>
+                                <th width="10%">操作类型</th>
+                                <th width="10%">接收到的数据</th>
+                                <th width="10%">操作内容</th>
+                                <th width="10%">时间</th>
+                                <th width="10%">操作人</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='list' id='vo'}
+                            <tr>
+                                <td>{$vo.l_id}</td>
+                                <td>{$modules[$vo.l_modules]}</td>
+                                <td>
+                                <?php
+                                switch ($vo['l_operationtype']){
+                                    case 1:
+                                      echo "查询";
+                                      break;
+                                    case 2:
+                                      echo "新增";
+                                      break;
+                                    case 3:
+                                      echo "修改";
+                                      break;
+                                    case 4:
+                                      echo "删除";
+                                      break;
+                                }
+                            ?>
+                                </td>
+                                <td>{:passport_decrypt($vo.l_param,'yxh_log')}</td>
+                                <td>{:passport_decrypt($vo.l_content,'yxh_log')}</td>
+                                <td>{$vo.l_time|date='Y-m-d H:i:s',###}</td>
+                                <td><?php echo getadminname($vo['l_uid']); ?></td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--分页-->
+                <div class="pagesc">共计：{$list->total()}条 共：{$list->lastPage()}页</div>{$list->render()}
+                <form class="pagesc" method="get" action="{:url('logs/index')}" style="margin: 20px;">
+                    转向第
+                    <input type="hidden" name="q_name" value="{if(isset($where.q_name))}{$where.q_name}{/if}" style="width: 15%;" />
+                    <input type="hidden" name="q_state" value="{if(isset($where.q_state))}{$where.q_state}{/if}" style="width: 15%;" />
+                    <input type="number" name="page" style="width: 15%;" min="1"/>页
+                    <button type="submit">确定</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/zclip/zclip.js"></script>
+<script>
+    $(document).ready(function() {
+        //重置
+        $('#res').click(function(){
+            $("#l_modules").val("0");
+            $("#l_operationtype").val("0");
+        })
+        /*$(".copybutton").zclip({
+            path: "{$Think.HTML_STATIC}/js/zclip/ZeroClipboard.swf",
+            copy: function(){
+                return $(this).attr('data-href');
+            },
+            /!* 复制成功后的操作 *!/
+            afterCopy:function(){
+                layer.msg('复制成功');
+            }
+        });*/
+    })
+</script>
+</body>
+</html>

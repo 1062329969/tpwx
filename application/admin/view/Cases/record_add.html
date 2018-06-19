@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加案例记录</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('record',array('cid'=>$cid))}">返回记录列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('record_add')}">
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>手术第几天：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入手术第几天" name="dtitle">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">植发情况照片：</label>
+
+                                <div class="col-sm-10" id="imgs">
+                                    <button class="btn btn-primary" style="margin-top: 5px;" type="button" id="addimg">添加</button>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="0" checked>默认</span>
+                                        <input type="file" name="pic[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="1">默认</span>
+                                        <input type="file" name="pic[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="2">默认</span>
+                                        <input type="file" name="pic[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述：</label>
+
+                                <div class="col-sm-10">
+                                    <textarea id="text" name="info" class="form-control" style="height:100px;"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-sm-2 control-label">视频地址：</label>-->
+
+                                <!--<div class="col-sm-10">-->
+                                    <!--<input type="text" class="form-control" placeholder="请输入视频地址" name="vurl" value="">-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+
+                            <div class="hr-line-dashed"></div>
+                            <link href="{$Think.HTML_STATIC}/css/webuploader.css" rel="stylesheet">
+                            <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+                            <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.0/webuploader.js"></script>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">视频上传：</label>
+
+                                <div id="uploader" class="wu-example">
+                                    <!--用来存放文件信息-->
+                                    <div id="thelist" class="uploader-list"></div>
+                                    <div class="btns">
+                                        <div id="picker">选择文件</div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="vurl" value="" id="a_video">
+                                <div id="fileList"></div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">视频封面：</label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="video_pic"/>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!--虚拟浏览量-->
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">虚拟浏览量：</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="请输入虚拟浏览量" name="clicks" value="0">
+                                </div>
+                            </div>
+
+                            <!--浏览量-->
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">浏览量：</label>
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="请输入浏览量" name="click" value="0">
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">点赞数：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" placeholder="请输入帖子点赞数" name="praise" value="0">
+                                </div>
+                            </div>
+
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="sort" value="0">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="status">
+                                        <option value="1">正常</option>
+                                        <option value="0">停止</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {:token()}
+                                    <input type="hidden" name="cid" value="{$cid}">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script>
+    $(document).ready(function(){
+        $('#addimg').click(function(){
+            $('#imgs').append('<div class="input-group m-b"><span class="input-group-addon"><input type="radio" name="default_img" value="0">默认</span> <input type="file" name="pic[]" class="form-control"/> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            again();
+        });
+        $("#imgs").on("click",".del",function(){
+            $(this).parent().parent().remove();
+            again();
+        });
+
+        //对上传图片的默认单选按钮 重新赋值
+        function again()
+        {
+            i=0;
+            $("#imgs  input[type='radio']").each(function(){
+                $(this).val(i);
+                i=i+1;
+            })
+        }
+    });
+</script>
+    <script type="text/javascript">
+        jQuery(function() {
+            $list = $('#thelist'),
+                $btn = $('#ctlBtn'),
+                state = 'pending',
+                uploader;
+            uploader = WebUploader.create({
+                // 不压缩image
+                resize: false,
+                // swf文件路径
+                swf: 'uploader.swf',
+                // 文件接收服务端。
+                server: "{:url('articlevideo')}",
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#picker',
+                chunked: true,
+                chunkSize:2*1024*1024,
+                auto: true,
+                accept: {
+                    title: 'Images',
+                    // extensions: 'gif,jpg,jpeg,bmp,png',
+                    // mimeTypes: 'image/*'
+                }
+            });
+            uploader.on('uploadSuccess', function (file,response) {
+                $('#a_video').val(response._raw);
+                $('.progress').remove();
+                $('#picker').parent().html('上传成功');
+            });
+            uploader.on( 'uploadProgress', function( file, percentage ) {
+                var $li = $( '#fileList' ),
+                    $percent = $li.find('.progress');
+                // 避免重复创建
+                if ( !$percent.length ) {
+                    $percent = $('<p class="progress" style="background:#48b7ee;width: 0%"></p>')
+                        .appendTo( $li )
+                        .find('span');
+                }
+                $('.progress').css( 'width', percentage * 100 + '%' );
+            });
+        })
+    </script>
+</body>
+</html>

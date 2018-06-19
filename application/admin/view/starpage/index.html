@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>管理项目</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('add')}">添加</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>名称</th>
+                                        <th>备注</th>
+                                        <th>启动页</th>
+                                        <th>是否开启广告位</th>
+                                        <th>是否开启启动页</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name='starpagelist' id='vo'}
+                                    <tr>
+                                        <td>{$vo.sp_id}</td>
+                                        <td>{$vo.sp_name}</td>
+                                        <td>{$vo.sp_content}</td>
+                                        <td>
+                                            <img src="{$vo.sp_img}" width="50px" />
+                                        </td>
+                                        <td>{if $vo.sp_isopen==1}开启{else /}关闭{/if}</td>
+                                        <td>
+                                            {if $vo.sp_openstate==1}
+                                                <button type="button" name="sp_openstate" data-result="关闭" data-value="2" data-id="{$vo.sp_id}" class="btn btn-success">开启中</button>
+                                            {else /}
+                                                <button type="button" name="sp_openstate" data-result="开启" data-value="1" data-id="{$vo.sp_id}" class="btn btn-warning">关闭中</button>
+                                            {/if}</td>
+                                        <td>
+                                            <a href="{:url('alter',['sp_id'=>$vo.sp_id])}" class="btn btn-outline btn-info" data-id='{$vo.sp_id}'>编辑</a>
+                                            <a href="{:url('del',['sp_id'=>$vo.sp_id])}" class="btn btn-outline btn-info"  data-id='{$vo.sp_id}'>删除</a>
+                                            <a href="{:url('starpageimglist',['sp_id'=>$vo.sp_id])}" class="btn btn-outline btn-info"  data-id='{$vo.sp_id}'>广告</a>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+         function del(_self,fid) {
+             layer.confirm('确定删除吗?', function(index){
+                 $.ajax({
+                     type: 'get',
+                     url: "{:url('del')}",
+                     data:{fid:fid},
+                     dataType: "json",
+                     success: function(data){
+                         if(data.code==1){
+                             layer.msg('修改成功');
+                             $(_self).parents('tr').remove();
+                         }else{
+                             layer.msg(data.msg);
+                         }
+                     }
+                 });
+                 layer.close(index);
+             });
+         }
+         $(function () {
+             $('button[name=sp_openstate]').click(function () {
+                 var result = $(this).attr('data-result');
+                 var values = $(this).attr('data-value');
+                 var id = $(this).attr('data-id');
+                 var _self = $(this);
+                 layer.confirm('确定要'+result+'吗?', function(index){
+                     $.ajax({
+                         type: 'get',
+                         url: "{:url('editopenstate')}",
+                         data:{sp_openstate:values,sp_id:id},
+                         dataType: "json",
+                         success: function(data){
+                             if(data.code==1){
+                                 layer.msg('修改成功');
+                                 if(values==2){
+                                     _self.removeClass('btn-success').addClass('btn-warning').html('关闭中').attr('data-result','开启').attr('data-value',1);
+                                 }else{
+                                     _self.removeClass('btn-warning').addClass('btn-success').html('开启中').attr('data-result','关闭').attr('data-value',2);
+                                 }
+                             }else{
+                                 layer.msg(data.msg);
+                             }
+                         }
+                     });
+                     layer.close(index);
+                 });
+             })
+         })
+    </script>
+</body>
+</html>

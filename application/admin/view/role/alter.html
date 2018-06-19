@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+    .control-label font{ color:#F00;}
+    .form-group,.m-b{ margin-bottom:5px;}
+    .hr-line-dashed{ margin:5px 0px;}
+    .navs{ padding: 5px;}
+    .navx{ padding: 5px 5px 5px 25px;}
+    .span_active{
+        border: 1px #e80010 solid;
+        display: inline-block;
+        width: 45px;
+        text-align: center;
+        height: 25px;
+        line-height: 25px;
+        color: #e80010;
+        cursor:pointer;
+        user-select:none;
+    }
+    .span_noactive{
+        border: 1px #ccc solid;
+        display: inline-block;
+        width: 45px;
+        text-align: center;
+        height: 25px;
+        line-height: 25px;
+        color: #ccc;
+        cursor:pointer;
+        user-select:none;
+    }
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回角色列表</a></li>
+                                <li><a href="{:url('add')}">添加管理角色</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" onsubmit="return getmid()" action="{:url('alter')}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>角色名称：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入角色名称" name="rname" value="{$content.rname}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>模块权限：</label>
+
+                                <div class="col-sm-10" id="module_div">
+                                    <input type="hidden" name="mid" id="mid">
+                                    {foreach name="module_id" item="vo" key="k" }
+                                    <span class="{if in_array($k,$midarr)}span_active{else /}span_noactive{/if}" data-id="{$k}" style="width: 90px" id="module_{$k}">{$vo}</span>
+                                    {/foreach}
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属分类：</label>
+                                <div class="col-sm-10">
+                                    {volist name="navs" id="so"}
+                                    <div class="navs" {if $Think.session.adminid==1 && $so.id==34 && $id==1 }style="display:none"{/if} >
+                                        <input type="checkbox" name="modular[{$so.id}]" data-id="{$so.id}" data-module-id="{$so.module_id}" class="call" value="1"{if condition="stristr($content.modular,$so.id.',') eq true"} checked{/if}>
+                                    {$so.title}
+                                    </div>
+                                    {volist name="navx" id="vo"}
+                                    {if condition="$vo['pid'] eq $so['id']"}
+                                    {php} if( \think\Session::get('adminid')!=1 && !in_array($vo['name'],$newrolesarr)){ continue; } {/php}
+                                    <div class="navx navx_{$so.id}">
+                                    <span data-id="{$vo.id}" class="call_s span_noactive">选中</span>
+                                    {:$vo['title']}:
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|index',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="index"{if condition="stristr($content.roles,$vo['name'].'|index,') eq true"} checked{/if}>查看{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|add',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="add"{if condition="stristr($content.roles,$vo['name'].'|add,') eq true"} checked{/if}>添加{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|alter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="alter"{if condition="stristr($content.roles,$vo['name'].'|alter,') eq true"} checked{/if}>修改{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|del',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="del"{if condition="stristr($content.roles,$vo['name'].'|del,') eq true"} checked{/if}>删除{/if}
+                                    <!--术后-->
+                                    {if condition="$vo['name'] eq 'stage'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|article',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="article" {if condition="stristr($content.roles,$vo['name'].'|article,') eq true"} checked{/if}>文章列表{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articleadd',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articleadd" {if condition="stristr($content.roles,$vo['name'].'|articleadd,') eq true"} checked{/if}>文章添加{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlealter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlealter" {if condition="stristr($content.roles,$vo['name'].'|articlealter,') eq true"} checked{/if}>文章修改{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articledel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articledel" {if condition="stristr($content.roles,$vo['name'].'|articledel,') eq true"} checked{/if}>文章删除{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlevideo',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlevideo" {if condition="stristr($content.roles,$vo['name'].'|articlevideo,') eq true"} checked{/if}>视频上传{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlecomment',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlecomment" {if condition="stristr($content.roles,$vo['name'].'|articlecomment,') eq true"} checked{/if}>评论列表{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlecommentdel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlecommentdel" {if condition="stristr($content.roles,$vo['name'].'|articlecommentdel,') eq true"} checked{/if}>评论删除{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlecommentchild',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlecommentchild" {if condition="stristr($content.roles,$vo['name'].'|articlecommentchild,') eq true"} checked{/if}>评论子评论{/if}
+                                    {/if}
+                                    <!-- 头发养护 -->
+                                    {if condition="$vo['name'] eq 'haircare'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlecomment',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlecomment" {if condition="stristr($content.roles,$vo['name'].'|articlecomment,') eq true"} checked{/if}>评论列表{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlecommentdel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlecommentdel" {if condition="stristr($content.roles,$vo['name'].'|articlecommentdel,') eq true"} checked{/if}>评论删除{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlecommentchild',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlecommentchild" {if condition="stristr($content.roles,$vo['name'].'|articlecommentchild,') eq true"} checked{/if}>评论子评论{/if}
+                                    {/if}
+
+                                    <!-- 术后贴士 -->
+                                    {if condition="$vo['name'] eq 'indextips'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|stage_day',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="stage_day" {if condition="stristr($content.roles,$vo['name'].'|stage_day,') eq true"} checked{/if}>ajax{/if}
+                                    {/if}
+                                    <!--题库选中-->
+                                    {if condition="$vo['name'] eq 'exercise'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|check',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="check" {if condition="stristr($content.roles,$vo['name'].'|check,') eq true"} checked{/if}>题库选中{/if}
+                                    {/if}
+                                    <!--拍照检测-->
+                                    {if condition="$vo['name'] eq 'detectionphoto'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|dpinfo',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="dpinfo" {if condition="stristr($content.roles,$vo['name'].'|dpinfo,') eq true"} checked{/if}>批复查看{/if}
+                                    {/if}
+                                    <!--新闻删除图片-->
+                                    {if condition="$vo['name'] eq 'cont_news'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>图片删除{/if}
+                                    {/if}
+                                    <!--问答-->
+                                    {if condition="$vo['name'] eq 'ask'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除问答图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|answer',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="answer"{if condition="stristr($content.roles,$vo['name'].'|answer,') eq true"} checked{/if}>回答内容{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|answeralter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="answeralter"{if condition="stristr($content.roles,$vo['name'].'|answeralter,') eq true"} checked{/if}>修改回答内容{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|answerdelimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="answerdelimg"{if condition="stristr($content.roles,$vo['name'].'|answerdelimg,') eq true"} checked{/if}>删除回答图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|usercomment',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="usercomment" {if condition="stristr($content.roles,$vo['name'].'|usercomment,') eq true"} checked{/if}>查看评论{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|selectuid',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="selectuid" {if condition="stristr($content.roles,$vo['name'].'|selectuid,') eq true"} checked{/if}>选择用户{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|addsort',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="addsort" {if condition="stristr($content.roles,$vo['name'].'|addsort,') eq true"} checked{/if}>修改排序{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|editstatus',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="editstatus" {if condition="stristr($content.roles,$vo['name'].'|editstatus,') eq true"} checked{/if}>修改状态titlesave{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|titlesave',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="titlesave" {if condition="stristr($content.roles,$vo['name'].'|titlesave,') eq true"} checked{/if}>ajax自动保存{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|titleedit',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="titleedit" {if condition="stristr($content.roles,$vo['name'].'|titleedit,') eq true"} checked{/if}>ajax修改{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|drafts',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="drafts" {if condition="stristr($content.roles,$vo['name'].'|drafts,') eq true"} checked{/if}>草稿箱{/if}
+                                    {/if}
+                                    <!--案例日记-->
+                                    {if condition="$vo['name'] eq 'cases'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除日记图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|record',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="record"{if condition="stristr($content.roles,$vo['name'].'|record,') eq true"} checked{/if}>查看日记记录{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|record_add',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="record_add"{if condition="stristr($content.roles,$vo['name'].'|record_add,') eq true"} checked{/if}>添加日记记录{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|record_alter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="record_alter"{if condition="stristr($content.roles,$vo['name'].'|record_alter,') eq true"} checked{/if}>日记记录修改{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|record_delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="record_delimg"{if condition="stristr($content.roles,$vo['name'].'|record_delimg,') eq true"} checked{/if}>删除日记记录图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|articlevideo',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlevideo" {if condition="stristr($content.roles,$vo['name'].'|articlevideo,') eq true"} checked{/if}>视频上传{/if}
+                                    {/if}
+                                    <!--评论-->
+                                    {if condition="$vo['name'] eq 'comment'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|isstatus',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="isstatus"{if condition="stristr($content.roles,$vo['name'].'|isstatus,') eq true"} checked{/if}>是否审核{/if}
+                                    {/if}
+                                    <!--养护-->
+                                    {if condition="$vo['name'] eq 'curing'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除图片{/if}
+                                    {/if}
+                                    <!--论坛-->
+                                    {if condition="$vo['name'] eq 'forum'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|forumvideo',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="forumvideo" {if condition="stristr($content.roles,$vo['name'].'|forumvideo,') eq true"} checked{/if}>视频上传{/if}
+
+                                    {/if}
+                                    <!--商品-->
+                                    {if condition="$vo['name'] eq 'goods'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除图片{/if}
+                                    {/if}
+                                    <!--商品订单-->
+                                    {if condition="$vo['name'] eq 'goods_orders'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|express',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="express"{if condition="stristr($content.roles,$vo['name'].'|express,') eq true"} checked{/if}>物流查询{/if}
+                                    {/if}
+                                    <!--头发养护知识-->
+                                    {if condition="$vo['name'] eq 'hair_curing'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除图片{/if}
+                                    {/if}
+                                    <!--医院管理-->
+                                    {if condition="$vo['name'] eq 'hospital'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|addregion',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="addregion"{if condition="stristr($content.roles,$vo['name'].'|addregion,') eq true"} checked{/if}>删除图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|map',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="map"{if condition="stristr($content.roles,$vo['name'].'|map,') eq true"} checked{/if}>选择坐标{/if}
+                                    {/if}
+                                    <!--问卷调查-->
+                                    {if condition="$vo['name'] eq 'investigation'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|result2',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="result2"{if condition="stristr($content.roles,$vo['name'].'|result2,') eq true"} checked{/if}>调查结果{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|option',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="option"{if condition="stristr($content.roles,$vo['name'].'|option,') eq true"} checked{/if}>查看调查选项{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|optionadd',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="optionadd"{if condition="stristr($content.roles,$vo['name'].'|optionadd,') eq true"} checked{/if}>添加调查选项{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|optionalter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="optionalter"{if condition="stristr($content.roles,$vo['name'].'|optionalter,') eq true"} checked{/if}>修改调查选项{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|optiondel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="optiondel"{if condition="stristr($content.roles,$vo['name'].'|optiondel,') eq true"} checked{/if}>删除调查选项{/if}
+                                    {/if}
+                                    <!--邮费模板-->
+                                    {if condition="$vo['name'] eq 'mail_temp'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|add_area',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="add_area"{if condition="stristr($content.roles,$vo['name'].'|add_area,') eq true"} checked{/if}>添加地区{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|del_area',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="del_area"{if condition="stristr($content.roles,$vo['name'].'|del_area,') eq true"} checked{/if}>删除地域{/if}
+                                    {/if}
+
+                                    <!--内部案例-->
+                                    {if condition="$vo['name'] eq 'ncase'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|uploadindex',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="uploadindex"{if condition="stristr($content.roles,$vo['name'].'|uploadindex,') eq true"} checked{/if}>查看上传图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|uploadadd',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="uploadadd"{if condition="stristr($content.roles,$vo['name'].'|uploadadd,') eq true"} checked{/if}>添加图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|uploadalter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="uploadalter"{if condition="stristr($content.roles,$vo['name'].'|uploadalter,') eq true"} checked{/if}>修改图片{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|uploaddel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="uploaddel"{if condition="stristr($content.roles,$vo['name'].'|uploaddel,') eq true"} checked{/if}>删除图片{/if}
+                                    {/if}
+                                    <!--删除项目图片-->
+                                    {if condition="$vo['name'] eq 'project'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delImg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delImg,') eq true"} checked{/if}>删除图片{/if}
+                                    {/if}
+                                    <!--内部员工管理-->
+                                    {if condition="$vo['name'] eq 'staff'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|insert',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="insert"{if condition="stristr($content.roles,$vo['name'].'|insert,') eq true"} checked{/if}>导入员工{/if}
+                                    {/if}
+                                    <!--会员管理-->
+                                    {if condition="$vo['name'] eq 'user_info'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|selectuid',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="selectuid"{if condition="stristr($content.roles,$vo['name'].'|selectuid,') eq true"} checked{/if}>导入员工{/if}
+                                    {/if}
+                                    <!--病历管理-->
+                                    {if condition="$vo['name'] eq 'visit'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|show',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="show"{if condition="stristr($content.roles,$vo['name'].'|show,') eq true"} checked{/if}>显示疗程跟踪{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|show_alter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="show_alter"{if condition="stristr($content.roles,$vo['name'].'|show_alter,') eq true"} checked{/if}>修改疗程跟踪{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|show_del',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="show_del"{if condition="stristr($content.roles,$vo['name'].'|show_del,') eq true"} checked{/if}>删除疗程跟踪{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|show',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="show"{if condition="stristr($content.roles,$vo['name'].'|show,') eq true"} checked{/if}>显示疗程跟踪{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|insert',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="insert"{if condition="stristr($content.roles,$vo['name'].'|insert,') eq true"} checked{/if}>从excel表格导入{/if}
+                                    {/if}
+                                    <!--自定义菜单-->
+                                    {if condition="$vo['name'] eq 'WxDiyMenu'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|sendmenu',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="sendmenu"{if condition="stristr($content.roles,$vo['name'].'|sendmenu,') eq true"} checked{/if}>生成菜单{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|delmenu',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delmenu"{if condition="stristr($content.roles,$vo['name'].'|delmenu,') eq true"} checked{/if}>删除菜单{/if}
+                                    {/if}
+
+                                    {if condition="$vo['name'] eq 'recommenddoctor'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|exportexcel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="exportexcel"{if condition="stristr($content.roles,$vo['name'].'|exportexcel,') eq true"} checked{/if}>导出{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|rlist',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="rlist"{if condition="stristr($content.roles,$vo['name'].'|rlist,') eq true"} checked{/if}>推荐列表{/if}
+                                    {/if}
+
+                                    <!--管理员管理-->
+                                    {if condition="$vo['name'] eq 'manage'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|stop',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="stop" {if condition="stristr($content.roles,$vo['name'].'|stop,') eq true"} checked{/if}>停用{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|start',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="start" {if condition="stristr($content.roles,$vo['name'].'|start,') eq true"} checked{/if}>启用{/if}
+                                    {/if}
+                                    <!--启动页管理-->
+                                    {if condition="$vo['name'] eq 'starpage'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|editopenstate',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="editopenstate" {if condition="stristr($content.roles,$vo['name'].'|editopenstate,') eq true"} checked{/if}>是否启动{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|starpageimglist',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="starpageimglist" {if condition="stristr($content.roles,$vo['name'].'|starpageimglist,') eq true"} checked{/if}>启动广告列表{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|imgadd',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="imgadd" {if condition="stristr($content.roles,$vo['name'].'|imgadd,') eq true"} checked{/if}>启动广告添加{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|imgalter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="imgalter" {if condition="stristr($content.roles,$vo['name'].'|imgalter,') eq true"} checked{/if}>启动广告修改{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|imgdel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="imgdel" {if condition="stristr($content.roles,$vo['name'].'|imgdel,') eq true"} checked{/if}>启动广告删除{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|editorder',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="editorder" {if condition="stristr($content.roles,$vo['name'].'|editorder,') eq true"} checked{/if}>启动广告排序{/if}
+                                    {/if}
+
+                                    {if condition="$vo['name'] eq 'questionnaire'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|tmalter',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="tmalter" {if condition="stristr($content.roles,$vo['name'].'|tmalter,') eq true"} checked{/if}>题目编辑{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|proportion',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="proportion" {if condition="stristr($content.roles,$vo['name'].'|proportion,') eq true"} checked{/if}>比例{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|start',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="start" {if condition="stristr($content.roles,$vo['name'].'|start,') eq true"} checked{/if}>开始{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|stop',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="stop" {if condition="stristr($content.roles,$vo['name'].'|stop,') eq true"} checked{/if}>暂停{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|tmadd',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="tmadd" {if condition="stristr($content.roles,$vo['name'].'|tmadd,') eq true"} checked{/if}>题目添加{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|topicdel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="topicdel" {if condition="stristr($content.roles,$vo['name'].'|topicdel,') eq true"} checked{/if}>题目删除{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|optionsdel',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="optionsdel" {if condition="stristr($content.roles,$vo['name'].'|optionsdel,') eq true"} checked{/if}>选项删除{/if}
+                                    {/if}
+
+                                    {if condition="$vo['name'] eq 'surveyusers'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|surveyinfo',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="surveyinfo" {if condition="stristr($content.roles,$vo['name'].'|surveyinfo,') eq true"} checked{/if}>用户调查信息{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|export',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="export" {if condition="stristr($content.roles,$vo['name'].'|export,') eq true"} checked{/if}>导出{/if}
+                                    {/if}
+
+                                    <!--就诊管理-->
+                                    {if condition="$vo['name'] eq 'visitmanagement'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|views',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="views" {if condition="stristr($content.roles,$vo['name'].'|views,') eq true"} checked{/if}>用户详情{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|visit_export',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="visit_export" {if condition="stristr($content.roles,$vo['name'].'|visit_export,') eq true"} checked{/if}>导出{/if}
+                                    {/if}
+                                </div>
+                                    {/if}
+                                    {/volist}
+                                    {/volist}
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="id" value="{$content.id}">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script>
+        $('.call_s').click(function()
+        {
+            var data_id = $(this).attr('data-id');
+            if($(this).hasClass('span_noactive'))
+            {
+                $('.'+data_id).prop('checked','checked');
+                $(this).removeClass('span_noactive');
+                $(this).addClass('span_active');
+            }
+            else
+            {
+                $('.'+data_id).removeAttr("checked");
+                $(this).removeClass('span_active');
+                $(this).addClass('span_noactive');
+            }
+        })
+        $('.call').click(function () {
+
+            var mid = $(this).attr('data-module-id');
+            if($(this).is(':checked')){
+                $('#module_'+mid).removeClass('span_noactive').addClass('span_active');
+            }else{
+                var data_id = $(this).attr('data-id');
+                $('.navx_'+data_id).find('input:checkbox').removeAttr('checked');
+                $('.navx_'+data_id).find('span').removeClass('span_active').addClass('span_noactive');
+                var l = $('input[data-module-id='+mid+']:checked').length;
+                if(l==0){
+                    $('#module_'+mid).removeClass('span_active').addClass('span_noactive');
+                }
+            }
+        })
+        function getmid() {
+            var midarr = new Array();
+            $('#module_div span.span_active').each(function (m,n) {
+                midarr.push($(n).attr('data-id'));
+            })
+            var midstr = midarr.join(',')
+            $('#mid').val(midstr);
+            return true;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.sitename}</title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+	<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+	<link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+	<link href="{$Think.HTML_STATIC}/css/after-sale.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		header h1.mui-title{font-weight: normal;}
+		.cjapply-service{padding: 0.5rem 0;}
+		.cjapply-service a:hover,.cjapply-service a:link,.cjapply-service a:active,.cjapply-service a:visited{color:#000;}
+	</style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+	<a class="mui-pull-left" href="{:url('my/index')}"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+	<h1 class="mui-title">养护健康</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="cjapply-service">
+	<a href="{:url('my/myreturn')}"><span>售后申请</span></a><a href="{:url('my/myreturnlist')}"><span class="on6">申请记录</span></a>
+</div>
+{volist name='$orders' id='vo' empty="<p style='text-align: center; font-size: 1.8rem; padding: 2rem;'>暂时没有相关信息~~</p>"}
+<div class="cjservice-content clearfix" onclick="window.location.href='{:url('my/myreturninfo',['return_id'=>$vo.return_id])}'">
+	<div class="cjservice-num clearfix">
+        <span class="mui-pull-left">
+            服务单号 : {$vo.return_code}
+        </span>
+		<span class="mui-pull-right">
+            下单时间：{$vo.return_addtime|date='Y-m-d H:i:s',###}
+        </span>
+	</div>
+	<div class="cjservice-list clearfix">
+		<div class="mui-pull-left">
+			<img src="{$vo.gog.pic}"/>
+
+		</div>
+		<div class="mui-pull-left">
+			<div class="cjintro">
+				{$vo.gog.gdname}
+			</div>
+			<div class="cjservice-list-drug-num">
+				<span class="mui-pull-left">￥{$vo.gog.price} {$vo.gog.ggName}</span>
+			</div>
+		</div>
+	</div>
+	<div class="mui-pull-right ">
+		<span class="refund"><img src="{$Think.HTML_STATIC}/images/30.png"/>
+			{switch name="$vo.return_stype"}
+			    {case value="1"}退货{/case}
+			    {case value="2"}换货{/case}
+			    {case value="3"}补发商品{/case}
+			{/switch}
+		</span>
+		<span class="refundComplete refund-mlr">
+			{if $vo.return_auditstate==1 && $vo.gog.status==5}
+				审核完成
+			{elseif $vo.return_auditstate==1/}
+				审核通过
+			{elseif $vo.return_auditstate==2 /}
+				审核驳回
+			{else /}
+				审核中
+			{/if}
+		</span>
+	</div>
+</div>
+{/volist}
+
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+	$(function(){
+		var pTxt=$(".cjintro").text();
+		str=pTxt.substr("0,30")+"..."
+		$(".cjintro").text(str)
+	})
+	$(function(){
+		//判断安卓和ios文字颜色
+		if (/(iPhone)/i.test(navigator.userAgent)) {
+			$("header").css("borderColor","#cecece");
+		}
+	})
+	backH();
+	window.addEventListener('popstate',function(e){
+		window.location.href="{:url('my/index')}"
+	},false);
+
+
+	function backH(){
+		var state = {
+					title:'title',
+					url:'{:url('my/index')}'
+	};
+		window.history.pushState(state,'title','#');
+	}
+</script>
+</body>
+</html>

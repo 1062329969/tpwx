@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>父亲节专题</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+    <style type="text/css">
+        html,body{height: 100%}
+        input{border:none;}
+        input:checked{background:none;}
+        .auto .mui-action-back, .auto .mui-title{color:#4a4a4a;}
+        #fm{width:100%;height:100%;background:url({$Think.HTML_STATIC}/images/csi.gif) no-repeat;background-size:100% 100%;position:absolute;z-index:100;}
+        .pro{width:100%;height:100%;background:url({$Think.HTML_STATIC}/images/csb.jpg) no-repeat;background-size:100% 100%;border:none;position:absolute;top:0;left:0;overflow:hidden;}
+        .pro #tit{display:block;text-align:left;margin:0 auto;padding-top:6rem;font-size:2.2rem;width:84%;font-weight:bold;color:#ffffff;line-height:3rem;}
+        .pro ul li{text-align: left;color: #ffffff;font-size: 1.6rem;width: 65.6%;margin:1% 0 0 14.667%;line-height:2rem;position:relative;}
+       .pro ul li:nth-of-type(1){margin-top:8%;}
+       /* .pro ul li:nth-of-type(3){margin-top:1rem;}
+        .pro ul li:nth-of-type(2){margin-top:1rem;}*/
+
+        .pro h2{text-align:center;width:100%;font-size:1.8rem;color:#5c4d48;margin-top:30%;}
+        .pro h3{text-align:left;width:71.2%;font-size:3rem;color:#ffd145;margin:32.5% auto 0;line-height:3.4rem;padding:0.8rem 0;}
+        #footer{bottom:0;box-shadow:none;}
+        #footer span{display:inline-block;width:40%;margin:0 auto;}
+        #footer img{display:block;width:100%;}
+        #footer{background:none;border:none;padding:0;position:absolute;bottom:3%;z-index: 999;width:40%;left:30%;}
+        #reading{width:100%;height:100%;background:#fff;border:none;display:none;}
+        #reading img{display: block;width: 30%;margin:0 auto;position:relative;}
+        /*弹窗*/
+        #tc{width:100%;height:100%;background:#000;opacity:0.6;position:fixed;top:0;left:0;z-index:99;display:none;}
+        #result{width:87.2%;background:#ffffff;position:absolute;top:0;left:0;z-index:999;display:none;}
+        #result h2{text-align:center;color:#666666;}
+        #result p{color:#999999;width:95%;margin:0 auto;}
+        #result .butt{width:38.685015%;margin:10% auto 0;padding:2.6rem 0;background:url({$Think.HTML_STATIC}/images/fin.jpg) no-repeat;background-size:100% auto;display:block;}
+        #result img{width:20.315385%;margin:3.2% auto 0;display:block;}
+        #result h2{font-weight:normal;color:#ffffff;font-size:1.6rem;padding-top:4%;}
+        #result p{font-weight:normal;color:#ffffff;font-size:1.5rem;padding-top:3%;line-height:1.8rem;}
+        #tw{width:72%;position:absolute;left:14%;top:23%;z-index:300;}
+        #fm p img{display:block;width:100%;}
+        #co{width:66%;position:absolute;left:17%;top:13%;z-index:200;animation: co 10s linear  infinite;}
+        #ci{width:58%;position:absolute;left:21%;top:15.5%;z-index:200;animation: ci 10s linear  infinite;transform:rotate(240deg);}
+
+        @keyframes co{
+            0%{transform:rotate(0deg);}
+            100%{transform:rotate(360deg);}
+        }
+        @keyframes ci{
+            0%{transform:rotate(360deg);}
+            100%{transform:rotate(0deg);}
+        }
+        .conl{width:14.285714%;height:100%;border-radius:6px 0 0 6px;text-align:center;color:#5c4d48;font-size:1.7rem;float:left;}
+        .conr{width:84.126984%;height:100%;border-radius:0  6px 6px 0;text-align:left;color:#ffffff;font-size:1.8rem;float:left;padding-left:13%;line-height:2.5rem;position:relative;top:1rem;}
+        input{-webkit-appearance: none;}
+        input[type="radio"]{width:100%;}
+        input[type="radio"]:checked  +div{background: url({$Think.HTML_STATIC}/images/dg1.png) no-repeat;background-size: cover;width:6rem;height:6rem;margin-left:88%;position:absolute;top:0;}
+        .sq{width:100%;margin:2rem auto 0;background:#fff;opacity:0.1;height:33rem;position:relative;}
+        #si{width:94.667%;margin:-94% auto 0;}
+        .fir label{display:block;padding:0 2rem;}
+        .fir .tw{margin:0 auto;padding:0 2rem;}
+        .fir .tw img{width:50%;display:block;float:left;padding:0 0.5rem;}
+        .fir label.firLable{display: block;padding:8rem 0 5rem;}
+        .swiper-pagination-bullet{background:#fff;}
+        .swiper-pagination-bullet-active{background:#fff;width: 1.6rem;height: 0.85rem;border-radius: 0.85rem;}
+        #qcir{bottom:45%;}
+        .clearfix:after{content: "";display: block;clear:both;height: 0;overflow: hidden;}
+        .clearfix{zoom:1;}
+        #fm h2{width:100%;text-align:center;font-size:2.4rem;color:#fff;position:absolute;bottom:37%;font-weight:900;}
+        #fm h3{width:100%;text-align:center;font-size:1.9rem;color:#fff;font-weight:normal;position:absolute;bottom:31%;}
+        #fm h3 span{padding-right:2.2rem;}
+        #fm h3 span:nth-of-type(3){padding-right:0;}
+        #fm h3 span img{width:2rem;}
+        #fm h6{width:100%;text-align:center;font-size:1.4rem;color:#fff;font-weight:normal;position:absolute;bottom:25%;}
+        #fm >div{width:63.333%;margin:0 auto;position:absolute;left:18.5%;bottom:8%;}
+        #fm >div img{display:block;width:100%;}
+        /*canvas*/
+        .can{position:absolute;top:0;z-index:999;}
+        #desc{position:absolute;top:0;left:0;width:60%;display:block;}
+        #zz{position:fixed;top:0;left:0;background:#000;opacity:0.6;z-index:999;width:100%;height:100%;display:none;}
+        #stips{width:80%;background:#fff;margin:0 auto;position:absolute;top:0;left:10%;padding-bottom:2rem;border-radius:15px;z-index:10000;display:none;}
+        #stips h2{text-align:center;color:#333333;font-size:1.7rem;padding-top:3rem;}
+        #stips ul{width:81.667%;margin:0 auto;display:-webkit-box;-webkit-box-pack:justify;padding-top:3rem;}
+        #stips ul li{width:45.306122%;}
+        #stips ul li img{width:100%;display:block;}
+        #result{width:100%;height:100%;}
+        #result img{width:100%;height:100%;}
+        .cj_plan{padding: 0 1.8rem;}
+        .cj_plan_content{width: 100%;border: 1px dashed #899fbe;padding: 1.5rem 1rem}
+        .cj_plan_content h3{text-align: center;font-size: 1.6rem;color: #fff;font-weight: normal;margin-bottom: 0.85rem;}
+        .cj_plan_content p{text-indent: 2em;font-size: 1.4rem;color: #333;line-height: 2rem;}
+        .hair_title{text-align: center;font-size: 3rem;color: #fff;margin-top:5rem;}
+        #fin{width:8%;position:absolute;left:1rem;top:1rem;padding-top:0;display:block;}
+        .cj_inline_content{width: 100%}
+        #fin img{display:block;width:100%;}
+        #myQrcontainer,#canvas_box,#imgShow{width:100%;height:100%;z-index:99;}
+        #myQrcontainer >img:nth-of-type(1){position:absolute;top:0;left:0;width:100%;background:green;height:100%;}
+        .hide{display:none;}
+        .cir{display:-webkit-box;-webkit-box-pack:justify;width:28%;position:absolute;bottom:5%;left:36%;}
+        .cir >div{width:0.8rem;height:0.8rem;background:#8b9770;border-radius:100%;margin-right:1rem;}
+        .cir >div.spe{background:#ffd145;}
+        .cir >div:nth-of-type(6){margin-right:0;}
+        #result >div{width:100%;}
+        #result  div.sa{width:100%;height:100%;opacity:0;position:absolute;top:0;left:0;z-index:99999;}
+        .wb{width:89.2%;background:#154e01;margin:0 auto;border-radius:0.5rem;}
+        .ro{width:100%;height:100%;background:url({$Think.HTML_STATIC}/images/rb.jpg) no-repeat;background-size:100% 100%;border:none;position:absolute;top:0;left:0;overflow:hidden;}
+        .rt{width:100%;height:100%;background:url({$Think.HTML_STATIC}/images/rb.jpg) no-repeat;background-size:100% 100%;border:none;position:absolute;top:0;left:0;overflow:hidden;}
+        .rr{width:100%;height:100%;background:url({$Think.HTML_STATIC}/images/rb.jpg) no-repeat;background-size:100% 100%;border:none;position:absolute;top:0;left:0;overflow:hidden;}
+    </style>
+</head>
+
+<body style="background: #fff;overflow:hidden;">
+<!--封面-->
+<div id="fm"></div>
+
+<!--题目-->
+<div id="wrap">
+    <div class='pro'>
+        <ul>
+            <!--<h2>新增题</h2>-->
+            <p style="position: absolute;top:4%;left:69.667%;color:#fff;font-size: 1.4rem;">第一题&nbsp;&nbsp;|&nbsp;&nbsp;共六题</p>
+            <div class="wb"><h3>老爸对哪种运动项目感兴趣？</h3></div>
+            <li>
+                <label for="pro_6_0">
+                    <p class="conr">A、足球</p>
+                </label>
+                <input type="radio" value="A" data-id="10029" id="pro_6_0" name="pro5[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_6_1">
+                    <p class="conr">B、篮球</p>
+                </label>
+                <input type="radio" value="B" data-id="10029" id="pro_6_1" name="pro5[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_6_2">
+                    <p class="conr">C、下棋、打扑克、广场舞</p>
+                </label>
+                <input type="radio" value="C" data-id="10029" id="pro_6_2" name="pro5[]" onclick="return checka(this);" style=";margin-left:0%;">
+                <div></div>
+            </li>
+        </ul>
+        <div class="cir">
+            <div class="spe"></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <!--<div id="footer" onclick="gosubmit()" id='submit'><img src="{$Think.HTML_STATIC}/images/gs.png"/></div>-->
+    </div>
+    <!--第一题-->
+    <div class='pro'>
+        <ul>
+            <!--<h2>第一题</h2>-->
+            <p style="position: absolute;top:4%;left:69.667%;color:#fff;font-size: 1.4rem;">第二题&nbsp;&nbsp;|&nbsp;&nbsp;共六题</p>
+            <div class="wb"><h3>老爸照镜子的频率？</h3></div>
+            <li>
+                <label for="pro_1_0">
+                    <p class="conr">A、看到玻璃就想照镜子;</p>
+                </label>
+                <input type="radio" value="A" data-id="10029" id="pro_1_0" name="pro1[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_1_1">
+                    <p class="conr">B、出门前必照镜子,看看发型、穿戴;</p>
+                </label>
+                <input type="radio" value="B" data-id="10029" id="pro_1_1" name="pro1[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_1_2">
+                    <p class="conr">C、不喜欢照镜子.</p>
+                </label>
+                <input type="radio" value="C" data-id="10029" id="pro_1_2" name="pro1[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+        </ul>
+        <div class="cir">
+            <div></div>
+            <div class="spe"></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!--第二题-->
+    <div class='pro'>
+        <ul>
+            <!--<h2>第二题</h2>-->
+            <p style="position: absolute;top:4%;left:69.667%;color:#fff;font-size: 1.4rem;">第三题&nbsp;&nbsp;|&nbsp;&nbsp;共六题</p>
+            <div class="wb"><h3>老爸舍得在养发、护肤上花钱吗？</h3></div>
+            <li>
+                <label for="pro_2_0">
+                    <p class="conr">A、花钱多少不是事，什么高级用什么!</p>
+                </label>
+                <input type="radio" value="A" data-id="10029" id="pro_2_0" name="pro2[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_2_1">
+                    <p class="conr">B、大宝天天见</p>
+                </label>
+                <input type="radio" value="B" data-id="10029" id="pro_2_1" name="pro2[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_2_2">
+                    <p class="conr">C、不涂不擦，男人本色</p>
+                </label>
+                <input type="radio" value="C" data-id="10029" id="pro_2_2" name="pro2[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+        </ul>
+        <div class="cir">
+            <div></div>
+            <div></div>
+            <div class="spe"></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!--第三题-->
+    <div class='pro'>
+        <ul>
+            <!--<h2>第三题</h2>-->
+            <p style="position: absolute;top:4%;left:69.667%;color:#fff;font-size: 1.4rem;">第四题&nbsp;&nbsp;|&nbsp;&nbsp;共六题</p>
+            <div class="wb"><h3>老爸对发型有要求吗？</h3></div>
+            <li>
+                <label for="pro_3_0">
+                    <p class="conr">A、百变造型</p>
+                </label>
+                <input type="radio" value="A" data-id="10029" id="pro_3_0" name="pro3[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_3_1">
+                    <p class="conr">B、10年如一日的发型，每月剪一次</p>
+                </label>
+                <input type="radio" value="B" data-id="10029" id="pro_3_1" name="pro3[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_3_2">
+                    <p class="conr">C、路边10元剪发</p>
+                </label>
+                <input type="radio" value="C" data-id="10029" id="pro_3_2" name="pro3[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+        </ul>
+        <div class="cir">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="spe"></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!--第四题-->
+    <div class='pro'>
+        <ul>
+            <!--<h2>第四题</h2>-->
+            <p style="position: absolute;top:4%;left:69.667%;color:#fff;font-size: 1.4rem;">第五题&nbsp;&nbsp;|&nbsp;&nbsp;共六题</p>
+            <div class="wb"><h3>老爸对脱发的反应会是哪种？</h3></div>
+            <li>
+                <label for="pro_4_0">
+                    <p class="conr">A、明天就去植发，就是这么有范儿</p>
+                </label>
+                <input type="radio" value="A" data-id="10029" id="pro_4_0" name="pro4[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_4_1">
+                    <p class="conr">B、抹药调理、戴假发，各种尝试</p>
+                </label>
+                <input type="radio" value="B" data-id="10029" id="pro_4_1" name="pro4[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_4_2">
+                    <p class="conr">C、无惧脱发，大不了剃光头</p>
+                </label>
+                <input type="radio" value="C" data-id="10029" id="pro_4_2" name="pro4[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+        </ul>
+        <div class="cir">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="spe"></div>
+            <div></div>
+        </div>
+    </div>
+    <!--第五题-->
+    <div class='pro prv'>
+        <ul>
+            <!--<h2>第五题</h2>-->
+            <p style="position: absolute;top:4%;left:69.667%;color:#fff;font-size: 1.4rem;">第六题&nbsp;&nbsp;|&nbsp;&nbsp;共六题</p>
+            <div class="wb"><h3>老爸的着装态度是什么？</h3></div>
+            <li>
+                <label for="pro_5_0">
+                    <p class="conr">A、引领时尚，穿搭潮人</p>
+                </label>
+                <input type="radio" value="A" data-id="10029" id="pro_5_0" name="pro5[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_5_1">
+                    <p class="conr">B、老妈买啥他穿啥</p>
+                </label>
+                <input type="radio" value="B" data-id="10029" id="pro_5_1" name="pro5[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+            <li>
+                <label for="pro_5_2">
+                    <p class="conr">C、穿儿子的旧衣服</p>
+                </label>
+                <input type="radio" value="C" data-id="10029" id="pro_5_2" name="pro5[]" onclick="return checka(this);" style="margin-left:0%;">
+                <div></div>
+            </li>
+        </ul>
+        <div class="cir">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div class="spe"></div>
+        </div>
+        <!--<div id="footer" onclick="gosubmit()" id='submit'><img src="{$Think.HTML_STATIC}/images/gs.png"/></div>-->
+    </div>
+</div>
+
+<div id="result">
+    <div class="ro" style="display:none;">
+        <div style="width:100%;"><img src="{$Think.HTML_STATIC}/images/fxp11.png" style="display:block;width:100%;" onclick="return false;"/></div>
+        <div style="width:100%;height:100%;" class="sa" onclick="return false;"><img src="{$Think.HTML_STATIC}/images/fxp1.jpg" style="display:block;width:100%;opacity:0;margin-top:2%;" onclick="return false;"/></div>
+    </div>
+
+    <div class="rt" style="display:none;">
+        <div style="width:100%;height:100%;"><img src="{$Think.HTML_STATIC}/images/fxp22.png" style="display:block;width:100%;height:100%;" onclick="return false;"/></div>
+        <div style="width:100%;height:100%;" class="sa" onclick="return false;"><img src="{$Think.HTML_STATIC}/images/fxp2.jpg" style="display:block;width:100%;opacity:0;margin-top:2%;" onclick="return false;"/></div>
+    </div>
+
+    <div class="rr" style="display:none;">
+        <div style="width:100%;height:100%;"><img src="{$Think.HTML_STATIC}/images/fxp33.png" style="display:block;width:100%;height:100%;" onclick="return false;"/></div>
+        <div style="width:100%;height:100%;" class="sa" onclick="return false;"><img src="{$Think.HTML_STATIC}/images/fxpp3.jpg" style="display:block;width:100%;opacity:0;margin-top:2%;" /></div>
+    </div>
+</div>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+    $(function(){
+        $("#wrap >div").hide();
+        $('#fm').click(function(){
+            $("#wrap >div").eq(0).show();
+            $('#footer').show();
+            $("#fm").hide();
+            var proIndex=$('.pro:visible').index()+1;
+            var proNum=$(".pro").length;
+            $(".question").html(proIndex);
+            $(".questionLen").html(proNum);
+        });
+    });
+</script>
+<script type="text/javascript">
+    function checka(_self){
+        $(_self).attr('checked','checked');
+        //$(_self).parent().find(".conr").css("color","#ec7501");
+        setTimeout("gonext()",500);
+    }
+
+    function gonext(){
+        //alert("1");
+        var proIndex=$('.pro:visible').index()+2;
+
+        //alert(proIndex);
+
+        var v2=$(".pro:visible").find('input:radio[name^=pro]:checked').length;
+        var m=proIndex-1;
+        if(v2>0) {
+            $("#wrap").find(".pro").eq(m).show().siblings().hide();
+        }
+
+        //var nm=$('input:radio[name^=pro]:checked').length;
+        //alert(nm);
+
+        if(m==6){
+            //alert("a");
+            $("#wrap").hide();
+            gosubmit();
+        }
+    }
+
+    function gosubmit(){
+        var m=$(".pro").length;
+        var attr=[];
+        for(var i=0;i<m;i++){
+            var n=$(".pro").eq(i).find("input:radio[name^=pro]:checked").val();
+            attr[i]=n;
+        }
+        $.ajax({
+            type: "post",
+            url: '{:url("/f/a")}',
+            data: {attr:attr},
+            dataType: "json",
+            success: function(data){
+                if(data.code==1){
+                    $("#reading").hide();
+                    $("#cv").show();
+                    $("#result").show();
+                    if(data.msg=="时尚达人"){
+                        $("#result .ro").show();
+                    }else if(data.msg=="典雅绅士"){
+                        $("#result .rt").show();
+                    }else {
+                        $("#result .rr").show();
+                    }
+                }else{
+                    alert('测试失败');
+                }
+            },
+            error:function(){
+                $("#reading").hide();
+                alert("提交失败");
+            }
+        });
+    }
+
+
+    wx.config({
+        debug: false,
+        appId:    'wxcfe75992652aa90d',
+        timestamp: {$timeStamp},
+        nonceStr: '{$nonceStr}',
+        signature: '{$signature}',
+        jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage']
+    });
+    wx.ready(function() {
+        wx.onMenuShareTimeline({
+            title: '有胆来测|父亲节碰上世界杯，老爸和足球健将谁更有型？', // 分享标题
+            link: 'http://ihair.yongxianghui.net/f', // 分享链接
+            imgUrl:'http://ihair.yongxianghui.net/uploads/20180507/bcf8c416b15f5fe4988e313e9d614ec5.jpg', // 分享图标
+            success: function () {
+                recordshare(2,1)
+            },
+            cancel: function () {
+                recordshare(2,2)
+            }
+        });
+        wx.onMenuShareAppMessage({
+            title: '有胆来测|父亲节碰上世界杯，老爸和足球健将谁更有型？', // 分享标题
+            desc: '理想型的父亲，是点燃球场的运动健将，是西装革履的优雅绅士，是…… ', // 分享描述
+            link: 'http://ihair.yongxianghui.net/f', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl: 'http://ihair.yongxianghui.net/uploads/20180507/bcf8c416b15f5fe4988e313e9d614ec5.jpg', // 分享图标
+            success: function () {
+                recordshare(1,1)
+            },
+            cancel: function () {
+                recordshare(1,2)
+            }
+        });
+        function recordshare(go,code) {
+            $.ajax({
+                type: 'get',
+                url: "{:url('recordshare')}",
+                async:true,
+                data:{go:go,code:code},
+                dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                    }else{
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+</html>

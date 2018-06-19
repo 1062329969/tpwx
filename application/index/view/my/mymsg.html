@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">我的消息</h1>
+</header>
+
+<div class="myxxmain">
+    <div class="xxlist" onclick="location.href='{:url('my/msginfo',['tid'=>1])}'">
+        <img src="{$Think.HTML_STATIC}/images/x1.png">
+        <p class="ltitle">账号信息</p>
+        <p class="lxinfos">获取优惠券、返利等信息</p>
+        {neq name='$zhmsg' value='0'}<span>{$zhmsg}</span>{/neq}
+    </div>
+
+    <div class="xxlist" onclick="location.href='{:url('my/msginfo',['tid'=>2])}'">
+        <img src="{$Think.HTML_STATIC}/images/x2.png">
+        <p class="ltitle">服药提醒</p>
+        <p class="lxinfos">药品服务闹钟提醒信息</p>
+        {neq name='$fytxmsg' value='0'}<span>{$fytxmsg}</span>{/neq}
+    </div>
+
+    <div class="xxlist" onclick="location.href='{:url('my/msginfo',['tid'=>3])}'">
+        <img src="{$Think.HTML_STATIC}/images/x3.png">
+        <p class="ltitle">优惠推荐</p>
+        <p class="lxinfos">买的多，优惠多</p>
+        {neq name='$yhtjmsg' value='0'}<span>{$yhtjmsg}</span>{/neq}
+    </div>
+
+    <div class="xxlist" onclick="location.href='{:url('my/msginfo',['tid'=>4])}'">
+        <img src="{$Think.HTML_STATIC}/images/x4.png">
+        <p class="ltitle">订单信息</p>
+        <p class="lxinfos">获取商品配送信息</p>
+        {neq name='$ddxxmsg' value='0'}<span>{$ddxxmsg}</span>{/neq}
+    </div>
+
+    <!--<div class="xxlist" onclick="location.href='{:url('my/msginfo')}'">
+        <img src="{$Think.HTML_STATIC}/images/x5.png">
+        <p class="ltitle">名医咨询</p>
+        <p class="lxinfos">连线名医回复信息</p>
+    </div>-->
+
+    <div class="xxlist" onclick="location.href='{$Think.config.zoosnet}'">
+        <img src="{$Think.HTML_STATIC}/images/x6.png">
+        <p class="ltitle">医师问答</p>
+        <p class="lxinfos">一对一为你在线解答</p>
+        {neq name='$yswdmsg' value='0'}<span>{$yswdmsg}</span>{/neq}
+    </div>
+
+    <div class="xxlist" onclick="location.href='{:url('my/msginfo',['tid'=>6])}'">
+        <img src="{$Think.HTML_STATIC}/images/x7.png">
+        <p class="ltitle">我的社区</p>
+        <p class="lxinfos">全国各地发友免费分享</p>
+        {neq name='$wdsqmsg' value='0'}<span>{$wdsqmsg}</span>{/neq}
+    </div>
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+
+</body>
+</html>

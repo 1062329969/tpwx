@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        #imgPicker p{ color: #fff}
+        .asktopss{margin-top:51px; padding: 1.5rem; background: #fff;border-bottom:1px solid #f0f0f0;}
+        .asktopss ul{ width:100%; height: 20px;margin: 0 auto;}
+        .asktopss ul li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 16px; width: 33%;}
+        .asktopss .left{ border-left: 1px #f0f0f0 solid; }
+        .askcontent{ padding: 0px;}
+        .askcontent{ margin-top: 0px; border: none;}
+        .askconttitle{ font-weight: 600}
+        .stagelabel{background: #fff;margin-bottom: 10px;padding-top:5%;padding-bottom:1%;}
+        .stagelabel a img{ display: block;margin: 0 auto; width: 92%;border-radius:10px;margin-bottom: 10px; }
+        .stagelabel span{ display: inline-block;font-size:1.4rem;color:#999999;}
+        .stagelabel ul{ width: 92%; height:38px;margin:0.3rem auto;padding-top: 2%; border-top: 1px solid #F0F0F0;}
+        .stagelabel ul li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 14px; width: 33%;border-right:1px solid #f0f0f0;text-align:center;}
+        .active a{ color:#15bdde;font-weight:600; }
+        .mui-action-back, .mui-title, .mui-icon-search{color:#333333;}
+        .mui-pull-left{color:#333333;}
+        .mui-bar-nav{box-shadow:none;}
+        header{border:1px solid #f0f0f0;}
+        .mui-bar{height:5rem;}
+        .mui-bar .mui-icon{padding:14px 0;}
+        .mui-bar .mui-title{padding:4px 0;}
+        li a{color:#666666;}
+        ul li img.qimg{display:inline-block;width:15%;margin-right:4%;}
+        .stagelabel ul li:nth-of-type(3){border-right:none;}
+        .mui-icon-back:before, .mui-icon-left-nav:before{content:'';}
+        #header img{width: 1rem;height: 1.75rem;}
+		a:active{color: #666;} 
+		.tags{width:100%;padding:0 1.5rem;margin:1.3rem auto 0;}
+        .tags >span{margin-bottom:1rem;display:block;float:left;font-size:1.4rem;color:#4c4c4c;border:1px solid #16badb;border-radius: 8px;text-align:center;padding:0.3rem 1rem;margin-right:0.75rem;}
+        .clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		}
+		.clearfix{
+			zoom:1;
+		}        
+        </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="window.history.go(-1);"><img src="/static/index/images/3.png"></a>
+    <h1 class="mui-title" style="font-weight:normal;">{$stage.s_name}</h1>
+</header>
+
+<div class="asktopss">
+    <ul>
+        <li class="{if $a_type==3}active{/if}">
+            <a href="{:url('track/stagearticle',['sid'=>$sid,'a_type'=>3])}">操作指引</a>
+        </li>
+        <li class="left {if $a_type==2}active{/if}">
+            <a href="{:url('track/stagearticle',['sid'=>$sid,'a_type'=>2])}">药品指引</a>
+        </li>
+        <li class="left {if $a_type==1}active{/if}">
+            <a href="{:url('track/stagearticle',['sid'=>$sid,'a_type'=>1])}">注意事项</a>
+        </li>
+    </ul>
+</div>
+
+{if $sid==2||$sid==3}
+
+<div style="height: 50px;line-height: 50px;text-align: center;">
+    精彩内容正在路上，不久即将上线，敬请期待哟
+</div>
+
+{else /}
+
+{volist name="list" id='vo' }
+
+<div class="stagelabel">
+    <a href="{:url('stagearticleinfo',['aid'=>$vo.a_id,'sid'=>$stage.s_id])}"><img src="{$vo.a_img}"></a>
+    <?php if($vo['a_label']){ ?>
+    <div class="tags clearfix">
+        <?php
+            $arr = explode(',',$vo['a_label']);
+            foreach($arr as $k=>$v){
+        ?>
+        <span>{$v}</span>
+        <?php } ?>
+    </div>
+    <?php } ?>
+    <ul>
+        <li style="text-align:center"><img src="{$Think.HTML_STATIC}/images/icon2.png" class="qimg" id="eye" style="width:20%;position:relative;top:5px;margin-right:6%;"/><span style="position:relative;top:3px;">{$vo.a_browse}</span></li>
+        <li style="text-align:center"><img src="{$Think.HTML_STATIC}/images/icon3.png" class="qimg pinglun" style="position:relative;top:5px;"/><span style="position:relative;top:3px;">{$vo.a_reply}</span></li>
+        <li style="text-align:center" name="dianzan" dis=1 data={if $vo.p_uidarr && in_array($fansInfo['id'],$vo.p_uidarr)}1{else /}0{/if} data-id={$vo.a_id}>
+        <img style="position:relative;top:1px;margin-right:3%;" src="{$Think.HTML_STATIC}/images/6{if $vo.p_uidarr && in_array($fansInfo['id'],$vo.p_uidarr)}6{else /}5{/if}.png" class="qimg">
+        <span style="position:relative;top:3px;">{$vo.a_collection}</span>
+        </li>
+    </ul>
+</div>
+
+{/volist}
+
+{/if}
+
+
+
+
+{include file="public/fx" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('li[name="dianzan"]').click(function(){
+            if($(this).attr('dis')==0){
+                return false;
+            }
+            var _self = $(this);
+            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+            $(this).attr('dis',0);
+            var datas = $(this).attr('data');
+            $(this).attr('data','1');
+            var aid = _self.attr('data-id');
+            $.ajax({
+                type: "get",
+                url: '{:url("stagearticlepraise")}',
+                data: {aid:aid,data:datas,__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1){
+                        if(datas==0){
+                            _self.find('span').html(Number(_self.find('span').html())+1);
+                            _self.attr('dis',1);
+                            _self.attr('data','1');
+                        }else{
+                            _self.find('span').html(Number(_self.find('span').html())-1);
+                            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/65.png');
+                            _self.attr('dis',1);
+                            _self.attr('data','0');
+                        }
+                    }else{
+                        alert('操作失败');
+                    }
+                }
+            });
+        })
+    })
+</script>
+<script src="{$Think.HTML_STATIC}/js/xback.js"></script>
+<script>
+    $(function () {
+        backH();
+        window.addEventListener('popstate',function(e){
+            window.location.href="{:url('track/stage')}"
+        },false);
+
+
+        function backH(){
+            var state = {
+                        title:'title',
+                        url:'{:url('track/stage')}'
+        };
+            window.history.pushState(state,'title','#');
+        }
+    })
+</script>
+</body>
+</html>

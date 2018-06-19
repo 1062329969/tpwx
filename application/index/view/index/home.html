@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <style type="text/css">
+        ::-webkit-scrollbar {display: none;width:0;height:0;}
+        /*滚动条的显示 可以滚动图片*/
+        .bigBox{width:100%;overflow:scroll;margin-top:4%;overflow-y: hidden;}
+        .bigBox2{width:100%;overflow:scroll;margin-top:4%;height:16rem;overflow-y: hidden;}
+        #bx2 >li{float:left;width:25.8rem;}
+        #bx2 >li a{display:block;width:100%;float:left;}
+        #bx2 >li a img{padding-left:1rem;display:block;width:100%;}
+        .scroller {position:absolute;}
+        .scroller li {color:#333;float:left;}
+        .scroller li a{color:#333;display:block;}
+        #bx2 a{display:block;width:28.8rem;float:left;}
+        #bx2 a h2{width:1000%;color:#333333;font-size:1.4rem;font-weight:normal;line-height:1.5rem;margin-top:2%;}
+        #bx2 a >img{display:block;width:100%;padding-left:1rem;}
+        #qsay{width:100%;display:-webkit-box;margin-top:-42%;}
+        #qsay >div:nth-of-type(1){width:30.38333%;margin:-1.8% 0 0 8%;}
+        #qsay >div:nth-of-type(1) >img{border-radius:50%;border:4px solid #e4f2fe;}
+        #qsay >div:nth-of-type(2){width:45%;margin:2.3% 0 0 6.08333%;}
+        #qsay >div:nth-of-type(2) h3{width:100%;font-weight:normal;font-size:1.4rem;color:#333333;line-height:1.7rem;
+            text-overflow: -o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+        #qsay >div:nth-of-type(2) h5{width:100%;font-weight:normal;font-size:1.2rem;color:#666666;line-height:1.7rem;margin-top:8%;
+            text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+        /*滚动条的显示 可以滚动图片*/
+        #bx >p{float:left;width:39rem;}
+        #bx >p img{padding-left:1rem;display:block;width:100%;}
+        /*滚动条的显示 可以滚动图片*/
+        .bigBox6{overflow:hidden;height:16.5rem;}
+        .bigBox7{overflow:hidden;height:18rem;margin-top:1rem;}
+        .bigBox8{overflow:hidden;height:18.5rem;margin-top:1rem;}
+
+        .box33{height: 20.5rem;padding-bottom: 0.5rem;margin-left:1rem;padding-right: 1rem;}
+        .bigBox3{width:100%;overflow:scroll;margin-top:0;height:20rem;overflow-y:hidden;}
+
+        #bx3 a{display:block;width:20rem;float:left;padding-left:2rem;}
+        #bx3 a h2{width:100%;color:#333333;font-size:1.5rem;font-weight:normal;line-height:2.4rem;margin-top:1.5rem;
+            text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+        #bx3 a img{display:block;width:100%;border-radius:6px;margin-top:0.5rem;}
+        #bx3 a:nth-of-type(1){padding-left:0;width:18rem;}
+
+
+        #bx4 a{display:block;width:20rem;float:left;padding-left:2rem;}
+        #bx4 a h2{width:100%;color:#333333;font-size:1.5rem;font-weight:normal;line-height:2.4rem;margin-top:1.5rem;
+            text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+        #bx4 a img{display:block;width:100%;border-radius:6px;margin-top:0.5rem;}
+        #bx4 a:nth-of-type(1){padding-left:0;width:18rem;}
+
+        #bx5 a{display:block;width:20rem;float:left;padding-left:2rem;}
+        #bx5 a h2{width:100%;color:#333333;font-size:1.5rem;font-weight:normal;line-height:2.4rem;margin-top:1.5rem;
+            text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+        #bx5 a img{display:block;width:100%;border-radius:6px;margin-top:0.5rem;}
+        #bx5 a:nth-of-type(1){padding-left:0;width:18rem;}
+        #bx6 a{display:block;width:20rem;float:left;padding-left:2rem;}
+        #bx6 a h2{width:100%;color:#333333;font-size:1.5rem;font-weight:normal;line-height:2.4rem;margin-top:1.5rem;
+            text-overflow:-o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+        #bx6 a img{display:block;width:100%;border-radius:6px;margin-top:0.5rem;}
+        #bx6 a:nth-of-type(1){padding-left:0;width:18rem;}
+        .csmian{padding-bottom:1.2rem;}
+        /*商城*/
+        .qshop{width:100%;margin-top:1.5rem;background:#ffffff;padding-bottom:4%;overflow-x:hidden;}
+        .qshop .qtit{width:94.4%;background:#ffffff;padding:1.5rem 0;margin:0 auto;padding-bottom:7%;}
+        .qshop .qtit h3{font-size:1.7rem;color:#4a4a4a;float:left;font-weight:500;}
+        .qshop .qtit a{display:block;float:right;font-size:1.3rem;color:#666666;}
+        .qshop >ul{width:94.4%;margin:0 auto;display:-webkit-box;position:relative;border:1px solid #ebebeb;border-radius:8px;}
+        .qshop >ul li:nth-of-type(1){width:41.667%;border-right:1px solid #f0f0f0;box-sizing:border-box;}
+        .qshop >ul li:nth-of-type(2){width:58.327%;margin-left:0%;height:7.9rem;}
+        .qshop >ul li:nth-of-type(3){width:58.327%;margin-left:0%;position: absolute;z-index: 999;left: 41.667%;top: 49.4%;border-top:1px solid #f0f0f0;border-radius-left:0;border-radius-right:0;box-sizing:border-box;}
+        .qshop >ul li:nth-of-type(3) a{display:block;width:100%;position:relative;z-index: 999;left:0;top:0;border-radius:8px;}
+        #bx2 a{display:block;}
+        .bigBox::-webkit-scrollbar{width:0;height:0;display:none;background:#fff;}
+        .bigBox5{overflow: hidden;height: 10.5rem;}
+        .box11{height: 11rem;padding-bottom: 0.5rem;padding-right: 1rem;}
+        #di{font-weight:400;color: #333333;font-size:1.5rem;line-height:2.4rem;}
+        nav#qn ul li a p{font-size: 1.4rem;}
+        .qshop >ul li a img{border-radius:8px;}
+        embed{margin-bottom:1.5%;width:100%;height:200px;}
+        .qlog >div:last-child{border-bottom:none;}
+        #qh .fir .hcon >div div#qdia div.line{position:relative;display:block;width:100%;overflow:hidden;color:#fff;font-size:1.2rem;white-space:nowrap;text-overflow:ellipsis;text-align:center;margin-top:-12%;z-index:999999;}
+        #qh .fir .hcon >div div#qdia ul.line{z-index: 999999;}
+        #qh .fir .hcon div h4{z-index: 999999;position: relative}
+        .boxf{ height:36px;width:100%;margin-top:1rem;}
+        .t_news{color:#fff;position:relative;height:36px;overflow-y:hidden;}
+        .news_li,.swap{ line-height:19px; display:inline-block; position:absolute; top:0; left:0;}
+        .news_li a,.swap a{ display:block;height:36px;color:#fff;overflow:hidden;
+            text-overflow:ellipsis;
+            display:-webkit-box;
+            -webkit-box-orient:vertical;
+            -webkit-line-clamp:2; }
+        .swap{top:38px;}
+        #qh .fir .hcon >div div#qdia{z-index: 99999}
+        ul.line{width:90%;height: 40px;overflow: hidden;margin:2.4rem auto 0;}
+        ul.line li{height:40px;line-height:18px;list-style:none;}
+        ul.line li a{color:#fff;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2; font-size:1.4rem;height:40px;padding:0.2rem 0;}
+        #qh .fir .hcon div h3{text-shadow: 0 1px 1px #008da7;}
+        #qh .fir .hcon div h4{text-shadow: 0 1px 1px #008da7;}
+        ul.line li a{text-shadow: 0 1px 1px #008da7;}
+        .cj_play{width: 25%;height: 2.5rem;float: right;position: relative;z-index: 99999;}
+        .cj_play span{display: inline-block;text-align: center;line-height: 2.5rem; width: 100%;height: 2.5rem;border: 1px solid #F0F0F0;background: rgba(255,255,255,0);color: white;border-radius: 0.5rem;font-size:1.3rem;}
+        .cj_play span b{margin-left: 0.3rem;background: url({$Think.HTML_STATIC}/images/86.png) no-repeat;background-size: cover; display: inline-block;width: 0.85rem;height: 1.15rem;vertical-align: middle;margin-bottom: 0.2rem;}
+        .cj_play a{width: 0.6rem;height: 0.6rem;background: #FF0000;position: absolute;top: -0.1rem;right: 0;border-radius: 100%;}
+        .clearfix:after{
+            content: "";
+            display: block;
+            clear:both;
+            height: 0;
+            overflow: hidden;
+        }
+        .clearfix{
+            zoom:1;
+        }
+        @media only screen and (min-width: 320px) and (max-width: 375px) {
+            .t_news{bottom: 0.5rem;}
+        }
+        .t_news{bottom: 0.4rem;}
+        .qp li img{width:5.5rem;height:5.5rem;border-radius:50%;}
+        .qlog .qlogc .qp li:nth-of-type(1){width:5.5rem;height:5.5rem;}
+        .m{width:100%;margin-left: auto;margin-right: auto;margin-top:0;}
+    </style>
+</head>
+
+<body>
+{if isset($rd_id)}
+<!--弹窗-->
+<style>
+    #back{width:100%;height:100%;background:#000;opacity:0.7;position:fixed;z-index:888888;top:0;left:0;}
+    #tc{width:100%;position:fixed;top:0;left:0;z-index:999999;height:200px;}
+    #tc img{width:74%;display:block;margin:0 auto;}
+    #tc img:nth-of-type(2){width:10.9333%;}
+</style>
+<div id="back"></div>
+<div id="tc">
+    <img src="{$Think.HTML_STATIC}/images/tt1.png"/>
+    <img src="{$Think.HTML_STATIC}/images/tt2.png"/>
+</div>
+{/if}
+<!--banner-->
+<header id="qh">
+    <div class="swiper-container">
+        <div class="swiper-wrapper qcon">
+            <div class="swiper-slide fir">
+                <img src="{$Think.HTML_STATIC}/images/2.jpg" class="qimg"/>
+                <div class="hcon">
+                    <div>
+                        <?php if(!empty($user_type)){ ?>
+                        <h3 style="font-size:2.2rem;margin-top:19%;">植发后{$dur}</h3>
+                        <?php }else{ ?>
+                        <h3 style="font-size:2.2rem;margin-top:19%;">{$portraits}您好</h3>
+                        <?php }?>
+                        <?php if(!empty($user_type)){ ?>
+
+                            <div class="boxf clearfix">
+                                <!--阶段副名称-->
+                                <div style="line-height:2.5rem;text-shadow:0 1px 1px #008da7;text-align:left;color:#fff;font-size: 1.6rem; float: left;width:75%;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;" onclick="window.location.href='{:url('track/stagearticleinfo',array('aid'=>$users_type_sss.a_id))}'">{$users_type_sss.s_indextitle}</div>
+                                <!--消息是否已读-->
+                                <?php if(empty($read)){ ?>
+                                    <div class="cj_play"><span onclick="window.location.href='{:url('track/stagearticle',array('sid'=>$users_type_sss.s_id))}'">观看<b></b></span><a></a></div>
+                                <?php }else{ ?>
+                                    <div class="cj_play"><span onclick="window.location.href='{:url('track/stagearticle',array('sid'=>$users_type_sss.s_id))}'">观看<b></b></span></div>
+                                <?php } ?>
+                            </div>
+                        <?php }else{?>
+                            <h4 style="font-size:1.6rem;margin-top:4%;" onclick="window.location.href='{:url("indexnews/index",['id'=>$newss.n_id])}'">{$newss.n_title}</h4>
+                        <?php } ?>
+                            <div id="qdia" style="width:55%;position:absolute;bottom:-2rem;display:table;vertical-align: middle;height:70px;background:url({$Think.HTML_STATIC}/images/qdia.png) no-repeat;background-size:100% 100%;">
+                                <!--<img src="{$Think.HTML_STATIC}/images/qdia.png" class="qimg"  style="position:absolute;bottom:-0.7rem;z-index:8888;height:70px;"/>-->
+                                <?php if(!empty($user_type)){ ?>
+
+                                <!--<ul class="news_li">
+                                    {volist name="$tpis" id="vo"}
+                                    <li style="width:90%;margin:0 auto;"><a style="padding:0.5rem 0;font-size:1.2rem;text-align:left;z-index:9999999;text-overflow: -o-ellipsis-lastline;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:#fff;" >{$vo.i_title}</a></li>
+                                    {/volist}
+                                </ul>-->
+                                <ul class="line" style="height:40px;">
+                                    {volist name="$tpis" id="vo"}
+                                    <li style="list-style:block;display:table;vertical-align: middle;"><a style="position:relative;text-align:left;padding-left:0.5em;z-index:9999999;">{$vo.i_title}</a></li>
+                                    {/volist}
+                                </ul>
+                                <ul class="swap"></ul>
+                                <?php }else{ ?>
+                                <ul class="line">
+                                    {volist name="$ask" id="vo"}
+                                    <li><a style="text-align:left;padding-left:0.5em;z-index:9999999;" href="{:url("forum/detail",['uid'=>$vo.id])}">{$vo.qtitle}</a></li>
+                                    {/volist}
+                                </ul>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <p><img src="{$Think.HTML_STATIC}/images/ptxb.png" class="qimg"></p>
+                        <p><img src="{$portrait}" class="qimg" style="border-radius: 100%;"></p>
+                    </a>
+                </div>
+                <div class="waveWrapper waveAnimation">
+                    <div class="waveWrapperInner bgTop">
+                        <div class="wave waveTop" style="background-image:url('{$Think.HTML_STATIC}/images/wave-top.png')"></div>
+                    </div>
+                    <div class="waveWrapperInner bgMiddle">
+                        <div class="wave waveMiddle" style="background-image: url('{$Think.HTML_STATIC}/images/wave-mid.png')"></div>
+                    </div>
+                    <div class="waveWrapperInner bgBottom">
+                        <div class="wave waveBottom" style="background-image: url('{$Think.HTML_STATIC}/images/wave-bot.png')"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="swiper-pagination" id="qcir"></div>
+    </div>
+</header>
+
+<style>
+    nav#qn ul li{width: 18.869%;}
+    nav#qn ul li a img{width:95%;margin:0 auto;}
+</style>
+<!--导航-->
+<nav id="qn">
+    <ul>
+        <li>
+            <a href="{:url('cases/index')}">
+                <img src="{$Think.HTML_STATIC}/images/qn11.png" class="qimg"/>
+                <p class="ic">植发日记</p>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('track/stage',['from'=>'index'])}">
+                <img src="{$Think.HTML_STATIC}/images/qn22.png" class="qimg"/>
+                <p class="ic">直击术后</p>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('haircare/article',['from'=>'index'])}">
+                <img src="{$Think.HTML_STATIC}/images/qn33.png" class="qimg"/>
+                <p class="ic">术后养护</p>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('track/index')}">
+                <img src="{$Think.HTML_STATIC}/images/qn44.png" class="qimg"/>
+                <p class="ic">自我检测</p>
+            </a>
+        </li>
+    </ul>
+    <ul>
+        <li>
+            <a href="{:url('forum/index',['ppid'=>1])}">
+                <img src="{$Think.HTML_STATIC}/images/qn66.png" class="qimg"/>
+                <p class="ic">独家热点</p>
+            </a>
+        </li>
+        <li onclick="alert('敬请期待')">
+            <a href="">
+                <img src="{$Think.HTML_STATIC}/images/qn55.png" class="qimg"/>
+                <p class="ic">视频直播</p>
+            </a>
+        </li>
+        <li>
+            <a href="{:url('yard/xy')}">
+                <img src="{$Think.HTML_STATIC}/images/qn77.png" class="qimg"/>
+                <p class="ic">各地分院</p>
+            </a>
+        </li>
+        <li>
+            <a href="https://www.sobot.com/chat/h5/index.html?sysNum=4bd44e32f01b4e50b69273c9626193c4&source=1">
+                <img src="{$Think.HTML_STATIC}/images/qn88.png" class="qimg"/>
+                <p class="ic">联系客服</p>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!--商城-->
+<div class="qshop">
+    <div class="qtit">
+        <h3 id="tt">商城</h3>
+        <a href="{:url('goods/index')}">更多商品<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+    </div>
+
+    <ul id="sc">
+        {volist name = "$tjGoods" id = "vo"}
+        <li>
+            <a href="{$vo.url}">
+                <img src="{$vo.pic}" class="qimg"/>
+            </a>
+        </li>
+        {/volist}
+        <!--<li>-->
+        <!--<a href="url">-->
+        <!--<img src="{$Think.HTML_STATIC}/images/qs2.png" class="qimg"/>-->
+        <!--</a>-->
+        <!--<a href="#">-->
+        <!--<img src="{$Think.HTML_STATIC}/images/qs3.png" class="qimg"/>-->
+        <!--</a>-->
+        <!--</li>-->
+
+    </ul>
+
+
+    <!--<div class="wrapper wrapper03" id="wrapper03">
+        <div class="scroller" id="qli">
+            <ul>
+                {volist name="$tj" id="vo2"}
+                <li>
+                    <a href="#">
+                        <img src="{$vo2.pic}" class="qimg"/>
+                    </a>
+                </li>
+                {/volist}
+                <li>-->
+    <!--<a href="#">-->
+    <!--<img src="{$Think.HTML_STATIC}/images/w2.png" class="qimg"/>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#">-->
+    <!--<img src="{$Think.HTML_STATIC}/images/w1.png" class="qimg"/>-->
+    <!--</a>-->
+    <!--</li>
+</ul>
+</div>
+</div>-->
+    <div class="bigBox5">
+        <div class="bigBox">
+            <div class="box box11" id="bx">
+                {volist name="$tj" id="vo2"}
+                    <p><a href="{$vo2.url}" style="display:block;width:100%;"><img src="{$vo2.pic}"/></a></p>
+                {/volist}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!--植发日记-->
+<div class="qshop qlog" style="padding-bottom:0;">
+    <div class="cl">
+        <div class="qtit">
+            <h3>植发日记</h3>
+            <a href="{:url('cases/index')}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+        </div>
+    </div>
+    {volist name='$cases' id='vo'}
+    <a href="{:url('cases/detail',array('uid'=>$vo.id))}">
+        <div class="qlogc">
+            <ul class="qp">
+                <li><img src="{$vo.userInfo.portrait}" class="qimg" id="ty"/></li>
+                <li>
+                    <h5>{$vo.userInfo.wechaname}</h5>
+                    <h6>{$vo.data_time}</h6>
+                </li>
+            </ul>
+
+            <div class="qdes">
+                <?php if(!empty($vo['vurl'])){ ?>
+                <div class="csmian" style="padding:0px;" onclick="location.href='{:url('record',['uid'=>$vo.id])}'">
+                    <div class="csmian" style="border:0px;">
+                        <div class="csinfo">
+                            <video controls preload="auto" width="100%" poster="{$vo.caser.video_pic}" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" 
+										      x5-playsinline="true" style="object-fit: fill;">
+                                    <source src="{$vo.vurl}" type="video/mp4">
+                                </video>
+                        </div>
+                    </div>
+                </div>
+                <?php }else{ ?>
+                <div id="qa">
+                    <div><img src="{$vo.pic}" class="qimg"/><img src="{$Think.HTML_STATIC}/images/be.png" id="tag"/></div>
+                    <div><img src="{$vo.pic2}" class="qimg"/><img src="{$Think.HTML_STATIC}/images/af.png" id="tag"/></div>
+
+                </div>
+                <?php }?>
+                <p id="di">{$vo.info}</p>
+                <p id="plant"><img src="{$Think.HTML_STATIC}/images/qicon.png"/>{$vo.project.proname}</p>
+
+                <div class="qlist">
+                    <ul>
+                        <li>
+                            <a href="javascript:void(0);"><img src="{$Think.HTML_STATIC}/images/icon2.png" class="qimg" id="eye"/>{php}echo $vo['clicks']+$vo['clickss']{/php}</a>
+                        </li>
+                        <li>
+                            <a href="{:url('cases/detail',array('uid'=>$vo.id))};"><img src="{$Think.HTML_STATIC}/images/icon3.png"  data_id="{$vo.id}"/>{$vo.caser.comment}</a>
+                        </li>
+                        <li class="dianzan" name="dianzan"  res-id="{$fansInfo['id']}" uid="{$vo.caser.id}" dis=0 datas={if $vo.res.i_id && $fansInfo['id']==$vo.res.i_uids}1{else /}0{/if} data-idss={$vo.id}>
+                        <!--首页点赞-->
+                        <a href="javascript:void(0);">
+                            <img src="{$Think.HTML_STATIC}/images/{if $vo.res.i_id && $fansInfo['id']==$vo.res.i_uids}66{else /}65{/if}.png" /><span style="position:relative;top:0.2rem;">{$vo.caser.praise}</span>
+                        </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </a>
+    {/volist}
+    <!--<div class="qlogc">-->
+    <!--<ul class="qp">-->
+    <!--<li><img src="{$Think.HTML_STATIC}/images/qp1.png" class="qimg"/></li>-->
+    <!--<li>-->
+    <!--<h5>白日梦晚期患者</h5>-->
+    <!--<h6>2018/1/11  22:47</h6>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--<div class="qdes">-->
+    <!--<div>-->
+    <!--<div><img src="{$Think.HTML_STATIC}/images/before2.png" class="qimg"/></div>-->
+    <!--<div><img src="{$Think.HTML_STATIC}/images/after2.png" class="qimg"/></div>-->
+    <!--</div>-->
+    <!--<p class="qdi">当新种植毛囊适应了新环境以后，就能够长出真实的头发,成功长出新头发后，头发不会再发生脱落的情况当新种植毛囊适应了新环境以后当新种植毛囊适应了新环境以后当新种植毛囊适应了新环境以后</p>-->
+    <!--<h2><img src="{$Think.HTML_STATIC}/images/qicon.png"/>美人尖种植</h2>-->
+    <!--<div class="qlist">-->
+    <!--<ul>-->
+    <!--<li>-->
+    <!--<a href="#"><img src="{$Think.HTML_STATIC}/images/icon2.png" class="qimg"/>34556</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#"><img src="{$Think.HTML_STATIC}/images/icon3.png" class="qimg"/>36</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="#"><img src="{$Think.HTML_STATIC}/images/icon4.png" class="qimg"/>311</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+</div>
+
+<!--头条-->
+<!--<div class="qshop qlog qfys">
+    <div class="cl">
+        <div class="qtit">
+            <h3>头条</h3>
+            <a href="{:url('forum/index')}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+        </div>
+    </div>-->
+
+<style>
+    /*.bigBox2::-webkit-scrollbar{width:0;height:0;display:none;background:#fff;}
+    .bigBox3::-webkit-scrollbar{width:0;height:0;display:none;background:#fff;}
+    .bigBox4{overflow: hidden;height: 16rem;}
+    .box2{height:16.5rem;padding-bottom: 5rem;}*/
+</style>
+<!--<div class="bigBox4">
+    <div class="bigBox2">
+        <div class="box box2" id="bx2">
+            {volist name='$hair' id='vo'}
+            <a href="{:url('forum/detail',array('uid'=>$vo.id))}">
+                <img src="{$Think.HTML_STATIC}/images/qfysb.png" class="qimg"/>
+                <div id="qsay">
+                    <div>
+                        <img src="<?php $userinfo = getuserinfo($vo['uid']); ?><?php echo $userinfo['portrait'] ?>" class="qimg"/>
+                    </div>
+                    <div>
+                        <h3>{$vo.qtitle}</h3>
+                        <h5><?php echo strip_tags($vo['question']); ?></h5>
+                    </div>
+                </div>
+            </a>
+            {/volist}
+        </div>
+    </div>
+</div>
+</div>-->
+
+<!--养护知识-->
+<!--
+<div class="qshop qlog">
+    <div class="cl">
+        <div class="qtit">
+            <h3>养护健康</h3>
+            <a href="{:url('curing/index')}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+        </div>
+    </div>
+-->
+
+<!--<div class="bigBox3">
+    <div class="box" id="bx3">
+        {volist name="$news" id="vo2"}
+            <a href="{:url('Curing/detail',array('id'=>$vo2.id))}">
+                <img src="{$vo2.pic}" class="qimg"/>
+                <h2 >{$vo2.title}</h2>
+            </a>
+        {/volist}
+    </div>
+</div>-->
+<!--<div class="bigBox6">
+    <div class="bigBox bigBox3" style="overflow-y:hidden;">
+        <div class="box box33" id="bx3">
+            {volist name="$news" id="vo2"}
+            <a href="{:url('Curing/detail',array('id'=>$vo2.id))}">
+                <img src="{$vo2.pic}" class="qimg"/>
+                <h2 >{$vo2.title}</h2>
+            </a>
+            {/volist}
+
+        </div>
+    </div>
+</div>
+</div>-->
+
+<!--医生说-->
+<div class="qshop qlog">
+    <div class="cl" style="border-bottom:none;">
+        <div class="qtit" style="padding:2rem 0;">
+            <h3>植发大讲堂</h3>
+            <a href="{:url('forum/homepage',array('aid'=>36))}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+        </div>
+    </div>
+    <div class="bigBox7">
+        <div class="bigBox bigBox3" style="overflow-y:hidden;">
+            <div class="box box33" id="bx3">
+                {volist name="$doctor" id="vo2"}
+                <a href="{:url('forum/detail',array('uid'=>$vo2.id))}">
+                    <img src="{$vo2.pic_s}" class="qimg"/>
+                    <h2 >{$vo2.qtitle}</h2>
+                </a>
+                {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--植发问答-->
+<div class="qshop qlog">
+    <div class="cl" style="border-bottom:none;">
+        <div class="qtit" style="padding:2rem 0;">
+            <h3>头发那些事</h3>
+            <a href="{:url('forum/homepage',array('aid'=>37))}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+        </div>
+    </div>
+    <div class="bigBox7">
+        <div class="bigBox bigBox3" style="overflow-y:hidden;">
+            <div class="box box33" id="bx4">
+                {volist name="$hair_askr" id="vo2"}
+                <a href="{:url('forum/detail',array('uid'=>$vo2.id))}">
+                    <img src="{$vo2.pic_s}" class="qimg"/>
+                    <h2 >{$vo2.qtitle}</h2>
+                </a>
+                {/volist}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--经验之谈-->
+<div class="qshop qlog">
+    <div class="cl" style="border-bottom:none;">
+        <div class="qtit" style="padding:2rem 0;">
+            <h3>植发星播客</h3>
+            <a href="{:url('forum/homepage',array('aid'=>38))}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+        </div>
+    </div>
+    <div class="bigBox7">
+        <div class="bigBox bigBox3" style="overflow-y:hidden;">
+            <div class="box box33" id="bx5">
+                {volist name="$experience" id="vo2"}
+                <a href="{:url('forum/detail',array('uid'=>$vo2.id))}">
+                    <img src="{$vo2.pic_s}" class="qimg"/>
+                    <h2 >{$vo2.qtitle}</h2>
+                </a>
+                {/volist}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--头发急救室-->
+<div class="qshop qlog">
+    <div class="cl" style="border-bottom:none;">
+        <div class="qtit" style="padding:2rem 0;">
+            <h3>毛发情报局</h3>
+            <a href="{:url('forum/homepage',array('aid'=>39))}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
+        </div>
+    </div>
+    <div class="bigBox8">
+        <div class="bigBox bigBox3" style="overflow-y:hidden;">
+            <div class="box box33" id="bx6">
+                {volist name="$first_aide" id="vo2"}
+                <a href="{:url('forum/detail',array('uid'=>$vo2.id))}">
+                    <img src="{$vo2.pic_s}" class="qimg"/>
+                    <h2 >{$vo2.qtitle}</h2>
+                </a>
+                {/volist}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file="public/footer" /}
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/myslideup.js"></script>
+<script>
+    $(function(){
+        $(".line").slideUp();
+        var imgNum=$("#bx p img").length;
+        var imgLen=$("#bx p").width();
+        var boxWid=imgLen*imgNum+13;
+        $("#bx").css("width",boxWid+"px");
+
+        var imgNum=$("#bx3 a").length;
+        var imgLen=20;
+        var boxWid=imgLen*(imgNum-1)+18*1+1;
+        $("#bx3").css("width",boxWid+"rem");
+
+        var imgNum=$("#bx4 a").length;
+        var imgLen=20;
+        var boxWid=imgLen*(imgNum-1)+18*1+1;
+        $("#bx4").css("width",boxWid+"rem");
+
+        var imgNum=$("#bx5 a").length;
+        var imgLen=20;
+        var boxWid=imgLen*(imgNum-1)+18*1+1;
+        $("#bx5").css("width",boxWid+"rem");
+
+        var imgNum=$("#bx6 a").length;
+        var imgLen=20;
+        var boxWid=imgLen*(imgNum-1)+18*1+1;
+        $("#bx6").css("width",boxWid+"rem");
+
+        var imgNum=$("#bx2 a").length;
+        var imgLen=28.8;
+        var boxWid=imgLen*imgNum;
+        $("#bx2").css("width",boxWid+"rem");
+
+        var qtxt=$(".qdi").text();
+        var str1=qtxt.substr(0,51) + '...' ;
+        $(".qdi").text(str1);
+
+        var qknow=$(".qknow").text();
+        var str2=qknow.substr(0,27) + '...' ;
+        $(".qknow").text(str2);
+
+        var qpro=$(".qpro").text();
+        var str3=qpro.substr(0,17) + '...' ;
+        $(".qpro").text(str3);
+
+        var qprt=$(".qprt").text();
+        var str4=qprt.substr(0,20) + '...' ;
+        $(".qprt").text(str4);
+
+    })
+</script>
+<script>
+
+
+    $(function(){
+        var num_index=$("#qh .qcon >div").length;
+        if(num_index<=1){
+            $("#qcir").hide();
+        }
+
+    })
+</script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+
+    $('li[name="dianzan"]').click(function(){
+        if($(this).attr('dis')==1){
+            return false;
+        }
+        var _self = $(this);
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+        $(this).attr('dis',1);
+        var datas = $(this).attr('datas');
+        $(this).attr('datas','1');
+        var res = _self.attr('res-id');
+        var uid = _self.attr('uid');
+        var aid = _self.attr('data-idss');
+        $.ajax({
+            type: "post",
+            url: '{:url("praise/index")}',
+            data: {aid:aid,is:datas,res:res,i_ids:uid,type:6,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1) {
+                    if (datas == 0) {
+                        _self.find('span').html(Number(_self.find('span').html())+1);
+                        _self.attr('dis', 0);
+                        _self.attr('datas', '1');
+                    }
+                } else {
+                    _self.find('span').html(Number(_self.find('span').html())-1);
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                    _self.attr('dis', 0);
+                    _self.attr('datas', '0');
+                }
+
+            }
+        });
+    })
+
+
+    $(function(){
+        //评论
+        $(".pinglun").click(function(){
+            comment($(this).attr('data-id'),3,'{$Request.token}');
+        });
+
+    })
+</script>
+<!--<script type="text/javascript" src="{$Think.HTML_STATIC}/js/iscroll2.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/navbarscroll.js"></script>-->
+<script type="text/javascript">
+    /*$(function(){
+     $('.wrapper').navbarscroll();
+     });*/
+</script>
+<script>
+    if (/(Android)/i.test(navigator.userAgent)) {
+        $("#qn .ic").css("fontSize","1.3rem");
+        $("ul.line li a").css("padding","0.4rem 0");
+        $("#qdia >img").css("bottom","-0.8rem");
+    }
+
+    $(function(){
+        var wd=$("embed").width( );
+        var ht=wd*9/16;
+        $("embed").height(ht+'px');
+    })
+
+    function b(){
+        t = parseInt(x.css('top'));
+        y.css('top','36px');
+        x.animate({top: t - 36 + 'px'},'slow');
+        if(Math.abs(t) == h-36){
+            y.animate({top:'0px'},'slow');
+            z=x;
+            x=y;
+            y=z;
+        }
+        setTimeout(b,5000);
+    }
+    $(document).ready(function(){
+        $('.swap').html($('.news_li').html());
+        x = $('.news_li');
+        y = $('.swap');
+        h = $('.news_li li').length * 40;
+        setTimeout(b,12000);
+
+    })
+</script>
+</body>
+</html>

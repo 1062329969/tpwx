@@ -1,0 +1,32 @@
+	body.bodyb{font-family: arial;background: white;}
+    	#header{border: 1px solid #F0F0F0;}
+    	#header .mui-pull-left img{width: 1rem;height: 1.75rem;margin-top: 0.9rem;}
+    	#header .mui-title{font-size: 1.7rem;color: #4a4a4a;}
+    	.mui-bar-nav{box-shadow:0 0px 0px #ccc}
+        .ddochp{ padding:5px 0;}
+        .ddochp,.ddochp p{color: rgb(51, 51, 51);}
+        .ddoczc{ background: #fff; color: rgb(51, 51, 51); padding: 10px 0; width: 100%; font-size: 13px; overflow: hidden; margin-bottom: 10px; border-bottom: 1px solid #dbdbdb;border-top: 1px solid #dbdbdb}
+        .ddoczc span{ float: left; width: 32%; text-align: center; margin: 0px;}
+        .ddoczc dd{ float: left;}
+        .cjdoctor-img img{width: 8.9rem;height: 8.9rem;}
+        .dddcname{margin: 0.5rem 0;}
+        .dddcname span:first-of-type{font-size: 1.8rem;color: #333333;}
+        .dddcname span:last-of-type{font-size: 1.4rem;color: #999999;}
+        .cjhos{color: #15bdde;border-bottom: 1px solid #F0F0F0;padding-bottom: 1rem;}
+    	.cjhos img{margin-right: 0.85rem;width: 1.4rem;height: 1.35rem;border-radius:0;margin-bottom: 0.5rem;}
+    	.cjhos span{margin-right: 0.85rem;}
+    	/*专业技能*/
+    	.cjskill{background: white;width: 100%;padding:1rem 1rem 0;border-bottom: 1px solid #F0F0F0;}
+    	.cjskill-title{width: 29%;color: #565656}
+    	.cjskill-title img{width: 1.4rem;margin-right: 0.65rem;border-radius: 0;}
+    	.cjskill-content{width: 68%;}
+    	.cjskill-content span{padding: 0.1rem 0.5rem;margin: 0 1% 0.5rem;box-sizing: border-box; display: inline-block; border: 0.05rem solid #999999;border-radius: 1.4rem;color: #a0a0a0;}
+   		.detaitldocinfo{padding: 0;padding-top: 1rem;margin-top: 0;}
+   		/*专业资质,专家简介*/
+   		.cjexpert,.cjaptitude{width: 100%;padding: 1rem;background: white;padding-top: 1.55rem;border-bottom: 1px solid #F0F0F0;}
+   		.cjexpert{border: none;}
+   		.cjexpert p,.cjaptitude p{color: #565656}
+   		.cjaptitude img{width:1.4rem;margin-right: 0.6rem;}
+   		.cjexpert img{width: 1.65rem;margin-right: 0.6rem;}
+   		.cjexpert ul,.cjaptitude ul{padding-left: 2.2rem;line-height: 2.35rem;color: #999999;}
+   		/*内页修改后*/

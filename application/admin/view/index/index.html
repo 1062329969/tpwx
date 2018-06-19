@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>后台登录</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<!--[if lt IE 9]>
+<meta http-equiv="refresh" content="0;ie.html" />
+<![endif]-->
+<script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+
+
+<style>
+    body{font-size:62.5%;}
+    .gray-bg{width:100%;height:100%;background:url({$Think.HTML_STATIC}/img/login_back.jpg) no-repeat center center;background-size:cover;position:absolute;}
+    .fa-user:before{content:'';}
+    .form-control{width:65%;height:30px;line-height:30px;border-radius:3px;}
+    .form-group label{margin-right:2%;width:30%;height:30px;line-height:30px;color:#333333;font-size:1.4rem;}
+    .form-group{height:35px;}
+    .middle-box{background:#9ecdee;padding-top:0;padding-bottom:30px;position:relative;border-radius:3px;}
+    .middle-box >div{width:80%;margin:0 auto;}
+    .sq{width:15px;height:15px;border:1px solid #000;border-radius:3px;background:none;}
+    ::-webkit-scrollbar-thumb{background:none;}
+    .fgt{width:40%;margin-top:15px;margin-left:20%;}
+    input[type=radio],input[type=checkbox]{margin-top:0;color:#4c4c4c;font-size:1.2rem;}
+
+    .mycheck {width:40%;margin-top:15px;margin-left:32%;position: relative;}
+    .mycheck input[type=checkbox] {visibility: hidden;}
+    .mycheck label {cursor: pointer;position: absolute;width: 15px;height: 15px;top: 0;left: 0;background: transparent;border:1px solid #43545d;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius:3px;}
+    .mycheck label:after {opacity: 0;content: '';position: absolute;width: 9px;height: 5px;background: transparent;top: 3px;left: 2px;border: 2px solid #333;border-top: none;border-right: none;-webkit-transform: rotate(-45deg);-moz-transform: rotate(-45deg);-o-transform: rotate(-45deg);
+-ms-transform: rotate(-45deg);transform: rotate(-45deg);}
+    .mycheck label:hover::after {opacity: 0;}
+    .mycheck input[type=checkbox]:checked + label:after {opacity: 1;}
+    .m-b{margin-top:15px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div>
+                <h1 class="logo-name fa fa-user"></h1>
+            </div>
+            <form class="m-t" role="form" action="{:url('login')}" method="post" id="loginForm">
+                <div class="form-group">
+                    <label class="pull-left">用户名</label>
+                    <input type="text" class="pull-left form-control" placeholder="" value="{if isset($admin)}{$admin.username}{/if}" required name="userName" id="user">
+                </div>
+                <div class="form-group fgo">
+                    <label class="pull-left">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+                    <input type="password" class="pull-left form-control" placeholder="" value="{if isset($admin)}{$admin.password}{/if}" required name="passWord" id="pswd">
+                </div>
+                <div class="mycheck fgt">
+                    <input type="checkbox" value="1" {if isset($admin)}checked="checked"{/if} id="checkbox1" name="logined" id="remember"/>
+                    <label for="checkbox1"></label>
+                    记住登录密码
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+            </form>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script>
+        $(function(){
+            var h1=$(window).height();
+            var h2=$(".middle-box").height();
+            var h=(h1-h2)/2-100;
+            $(".middle-box").css("top",h+"px");
+        })
+        //记住用户名密码
+        /*function Save() {
+            if ($("#remember").attr("checked")) {
+                var str_username = $("#user").val();
+                var str_password = $("#pswd").val();
+                //存储一个带7天期限的cookie
+                $.cookie("username", str_username, { expires: 7 });
+                $.cookie("password", str_password, { expires: 7 });
+            }
+            else {
+                $.cookie("username", "", { expires: -1 });
+                $.cookie("password", "", { expires: -1 });
+            }
+        };*/
+    </script>
+</body>
+</html>

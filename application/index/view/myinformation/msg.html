@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}-社区</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        .bodyb .mui-action-back,.bodyb .mui-title,.bodyb .mui-icon-search{color:#333333;}
+        #imgPicker p{ color: #fff}
+        #loading{ height: 100%; margin-top: 0px;}
+        #table{width:100%;display:-webkit-box;-webkit-box-pack:justify;background: #fff;border-bottom: 1px solid #f0f0f0;position: fixed;top: 4.4rem;left: 0;}
+        #table li{width:33.333%;}
+        #table li:nth-of-type(1) p{display:block;}
+        #table li p{width:100%;margin:0 auto;text-align:center;padding:1rem 0;
+        font-size: 1.6rem;}
+        #table li p a{color:#333333;display:block;width:100%;margin:0 auto;border-right:1px solid #e6e6e6;}
+        #table li:nth-of-type(3) p a{border:none;}
+        #table li p.active a{display:block;width:100%;color:#15bbdc;}
+
+        .feedback{background:#ffffff;}
+        .feedback .mui-pull-left{color:#333333;}
+        .feedback .mui-title{color:#333333;}
+        .backc{width:100%;background:#ffffff;border-top:1px solid #e6e6e6;}
+        .backc ul{padding-top:2%;width:94.667%;margin:0 auto;}
+        .tc{width:100%;background:#f0f0f0;margin-top:0;padding-left:1em;border:none;}
+        .backc form ul li{padding:0;border:none;}
+        .backc .mui-table-view-cell:after{background:none;}
+        .backc .form2{border:none;margin-top:0;}
+        .backc textarea{background:#f0f0f0;border:none;padding-left:1em;padding-top:1em;}
+        .backc .type{padding:2% 0;}
+        .backc ul li select option{color:#999999;}
+        .form2 p{margin-top:0;}
+        .form2{padding:0;}
+        .webuploader-pick{background: #f0f0f0;}
+        #btnn{width:86.667%;margin:10% auto 0;padding:2rem 0;background:url({$Think.HTML_STATIC}/images/btnn.jpg) no-repeat;background-size:100% auto;display:block;border:none;}
+        .anniu{background:#f5f5f5;width:100%;clear:both;}
+
+        section{width:100%;}
+        section h2{text-align:center;font-weight:normal;color:#999999;font-size:1.3rem;padding-top:6%;}
+        #notice ul{display:-webkit-box;margin-left:2.6667%;}
+        #notice ul li{position:relative;}
+        #notice ul li:nth-of-type(1){width:10.9333%;}
+        #notice ul li:nth-of-type(2){width:73.7333%;}
+        #notice ul li img{display:block;width:100%;}
+        #notice ul li h2{text-align:left;color:#373737;font-size:1.6rem;position:absolute;top:6%;left:9.0415%;}
+        #notice ul li h4{text-align:left;color:#666666;font-size:1.4rem;position:absolute;top:36%;width:84.6293%;left:9.0415%;line-height:1.8rem;font-weight:normal;}        
+        #notice ul li h4 a{color:#15bbdc;}
+          /*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight: normal;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		/*#table li p{padding-top: 0.8rem;}*/
+    </style>
+</head>
+
+<body class="bodyb" style="background:#f5f5f5;">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    
+    <h1 class="mui-title">我的消息</h1>
+</header>
+<div style="height: 7.6rem;"></div>
+<ul id="table">
+    <li><p><a href="{:url('index')}">评论</a></p></li>
+    <li><p><a href="{:url('praise')}" onclick="window.location.href='backlist'">点赞</a></p></li>
+    <li><p class="active"><a href="{:url('msg')}" onclick="window.location.href='backlist'">通知</a></p></li>
+</ul>
+{volist name='list' id='vo'}
+<section id="notice">
+    <h2>{$vo.i_addtime|date='Y-m-d H:i:s',###}</h2>
+    <ul>
+        <li><img src="{$Think.HTML_STATIC}/images/news.jpg"/></li>
+        <li>
+            <img src="{$Think.HTML_STATIC}/images/newb.jpg"/>
+            <h2>{$vo.i_title}</h2>
+            <h4>{$vo.i_note}</h4>
+        </li>
+    </ul>
+</section>
+{/volist}
+
+
+{include file="public/fx" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+</body>
+</html>

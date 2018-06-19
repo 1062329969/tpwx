@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/ask.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.min.css">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+</head>
+<body class="bodyb">
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">植发问答</div>
+    <div class="st3"><i class="iconfont" id="collection" data-id="0">&#xe6eb;</i><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+
+<div class="dar">
+      <img src="{:get_wxheadimg($ask.userInfo.portrait,132)}">
+      <div class="dant"><font>{$ask.create_time}</font>{$ask.userInfo.wechaname}</div>
+</div>
+
+<div class="dquestion">
+      <div class="dqtitle">提问</div>
+      <div class="dqcontent"><span>问</span>{$ask.question}</div>
+      <div class="askDImages">
+        {volist name='$images' id='vo2'}
+        <img src="{$vo2.pic}" data-preview-src="{$vo2.pic|str_replace='m_','',###}" data-preview-group="1">
+        {/volist}
+      </div>
+</div>
+
+<div class="danswer">
+    {eq name='$ask.answer' value=''}
+       <p style="padding:15px;">等待回答...</p>
+    {else/}
+    <div class="datitle">回答</div>
+    <div class="dadoc">
+        <img src="{$ask.doctor.pic}">
+        <p class="addoctit">{$ask.doctor.docname}</p>
+        <p>{$ask.doctor.positional_titles}</p>
+        <p>{$ask.doctor.position}</p>
+        <div class="wyzx"><a href="">我要咨询</a></div>
+    </div>
+    <div class="adancontent">
+        <span class="daqus">答</span>{$ask.answer}
+    </div>
+    {/eq}
+    <div class="ainfo">
+        <div class="spi1"><i class="iconfont">&#xe6e4;</i>{$ask.click}</div>
+        <div class="spi2"><i class="iconfont">&#xe70c;</i>{$ask.comment}</div>
+        <div class="spi3" data-id="0"><i class="iconfont">&#xe71a;</i><span>{$ask.praise}</span></div>
+    </div>
+</div>
+
+<div class="pl">
+    <div class="pltitle">评论</div>
+    {volist name='$comment' id='vo'}
+    <div class="pl1" id="pl1">
+        <img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">
+        <div class="pl1-1">
+            <p>{$vo.userInfo.wechaname}</p>
+            <p>{$vo.create_time}</p>
+        </div>
+        <div class="pl2">
+            {$vo.text}
+        </div>
+        <div class="pldz"><i class="iconfont">&#xe71a;</i>{$vo.praise}</div>
+    </div>
+    {/volist}
+    <div class="pljzts">以上是所有评论</div>
+    <div class="subpl"><input placeholder="请输入评论内容~" type="text" id="commentText" value=""><input type="button" id="subComment" value="发表"></div>
+</div>
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+    $(function(){
+        mui.previewImage();
+        getCollection({$ask.id},{$fansInfo.id},2);
+        getPraise({$ask.id},{$fansInfo.id},2);
+        //评论
+        $('#subComment').click(function(){
+            comment({$ask.id},2,'{$Request.token}');
+        });
+        //点赞
+        $(".spi3").click(function(){
+            praise({$ask.id},2,'{$Request.token}');
+        });
+        //收藏
+        $("#collection").click(function(){
+            collection({$ask.id},2,'{$Request.token}');
+        });
+    });
+</script>
+</body>
+</html>

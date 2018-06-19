@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/circle.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/ydui.css?rev=@@hash"/>
+    <style>
+        html,body{font-size:62.5%;width: 100%;height: 100%}
+        ul li{list-style:none;}
+        /*封面{$Think.HTML_STATIC}/images/suvfir.jpg*/
+        .fir{width:100%;height:100%;background:url({$questionnaireinfo.q_gift}) no-repeat;background-size:100% 100%;position:absolute;top:0;left:0;}
+        .fir .fc{position:absolute;left:0;top:70%;width:100%;}
+        .fir .fc img{width:40.6667%;margin:0 auto;display:block;}
+        .fir .fc h2{font-size:2rem;color:#fff;text-align:center;font-weight:normal;width:100%;margin-top:-6%;}
+        .fir .fc p{text-align:left;color:#fff;font-size:1.4rem;line-height:2.2rem;margin:4% auto 0;width: 86%}
+        .fir .fc a{display:block;width:63.333%;height:5rem;background:url({$Think.HTML_STATIC}/images/join.png) no-repeat;background-size:100% 100%;margin:5% auto 0;}
+        /*用户调查*/
+        .user{display:none;width:100%;height:100%;position:absolute;top:0;left:0;}
+        .user h2{font-size:1.7rem;color:#4a4a4a;text-align:center;font-weight:normal;width:93.333%;line-height:4.4rem;border-bottom:1px solid #f0f0f0;margin:0 auto;}
+        .user #appo{width:90%;margin:2rem auto 0;padding:0;}
+        .user #appo li{height:3rem;line-height:3rem;margin-top:8%;}
+        .user #appo li label{float:left;width:19.69697%;font-size:1.4rem;position:relative;top:0.5rem;}
+        .user #appo li div.se{float:left;width:80%;line-height:3rem;border:1px solid #dcdcdc;border-radius:5px;}
+        .user #appo li div select{border:1px solid #dcdcdc;border-radius:5px;padding:0 0 0 1em;display:block;position:relative;margin-bottom: 0;margin-top: 0;line-height: 40px;}
+        .user select option{color:#dcdcdc;}
+        .user #appo li div.se1{border-radius:5px;border:1px solid #dcdcdc;border:none;}
+        .user #appo #txt{font-size:1.2rem;color:#999;line-height:1.8rem;}
+        .user .opt{height:1rem;line-height:1rem;float:left;margin-top:3%;}
+        .user #submits{display:block;width:63.333%;height:4.5rem;background:url({$Think.HTML_STATIC}/images/ub.png) no-repeat;background-size:100% 100%;margin:20% auto 0;}
+        .user p{margin-top:5%;text-align:center;}
+
+        /*遮罩提示框*/
+        .zz{width:100%;height:100%;background:#000;opacity:0.6;position:fixed;top:0;left:0;z-index:99;display:none;}
+        .tips{width:84%;background:#fff;position:fixed;left:8%;top:0;z-index:100;border-radius:8px;padding-bottom:1.8rem;display:none;}
+        .tips h2{color:#009dda;font-size:2rem;text-align:center;padding:1.8rem 0 0 0;}
+        .tips h3{width:74.603175%;margin:1.8rem auto 0;color:#666666;font-size:1.6rem;line-height:2.5rem;font-weight:normal;}
+        .tips h4{padding:1rem 0;margin:1.8rem auto 0;border:1px solid #009dda;border-radius:20px;fotn-size:1.6rem;color:#009dda;font-weight:normal;width:31.746032%;text-align:center;}
+        /*cao修改*/
+        .magic-radio + label:before, .magic-checkbox + label:before{top:0.8rem;left: -1rem;width: 2rem;height: 2rem}
+        .magic-radio + label:after{top:1.4rem;left: -0.4rem;}
+        #wrapper{width: 100%;height: 100%}
+        select.s_project{font-size: 1.5rem;}
+        select.s_yard{font-size: 1.5rem;}
+
+
+        .s_receipt::-webkit-input-placeholder{
+            color:#666;font-size:14px;
+        }
+        .s_receipt::-moz-placeholder{
+            color:#666;font-size:14px;
+        }
+        .s_receipt:-moz-placeholder{
+            color:#666;font-size:14px;
+        }
+        .s_receipt:-ms-input-placeholder{
+            color:#666;font-size:14px;
+        }
+
+        .magic-radio + label:hover:before, .magic-checkbox + label:hover:before{animation-name:color}
+        /*选择地区*/
+       .cityselect-item-box > a{color: #666;font-size: 1.5rem;}
+        .cityselect-nav > a{margin-right: 2.5rem;font-size: 1.5rem;}
+       	.cityselect-nav > a.crt{color: #15BBDC;}
+       	.cityselect-nav > a.crt:after{background-color: #15BBDC;}
+       	.cityselect-item-box > a.crt{color: #15BBDC;}
+       	.cityselect-item-box > a.crt:after{color: #15BBDC;}
+       	.cityselect-title{color: #666666;font-size: 1.5rem;}
+       	.cityselect-title:after{border-color: #D9D9D9;}
+       	#appo li div.se input{font-size: 1.5rem;}
+       	#appo li label font{color: #f00;margin-right: 2%;}
+    </style>
+</head>
+<body style="background: #ffffff;">
+<div id="wrapper">
+    <!--封面-->
+    <div class="fir">
+        <div class="fc">
+            <img src="{$Think.HTML_STATIC}/images/gtitle.png"/>
+            <h2>活动说明</h2>
+            <p>
+            	<?php echo str_replace(array("\r\n", "\r", "\n"), "<br />", $questionnaireinfo['q_rule']); ?></p>
+            <?php
+            	if(!empty($state) && $state ==1 ){
+            ?>
+            <a class="join"></a>
+            <?php
+            	}
+            ?>
+        </div>
+    </div>
+
+    <!--用户调查-->
+    <div class="user">
+        <h2>填写信息</h2>
+        <form action="#" method="">
+            <input type="hidden" class="s_qid" value="{$q_id}" />
+            <ul id="appo">
+                <li>
+                    <label><font>*</font>姓<span style="padding-left:2.8rem;"></span>名</label>
+                    <div class="se se1">
+                        <input type="text" name="res_name" class="s_name" style="border:1px solid #dcdcdc;border-radius:5px;">
+                    </div>
+                </li>
+                <li>
+                    <label><font>*</font>手<span style="padding-left:2.8rem;"></span>机</label>
+                    <div class="se se1">
+                        <input type="number" name="res_tel" class="s_phone" style="border:1px solid #dcdcdc;border-radius:5px;">
+                    </div>
+                </li>
+                <li>
+                    <label><font>*</font>手术日期</label>
+                    <div class="se se1">
+                        <input type="date" name="res_time" class="s_time" style="border:1px solid #dcdcdc;border-radius:5px;">
+                    </div>
+                </li>
+                <li>
+                    <label><font>*</font>就诊项目</label>
+                    <div class="se">
+                        <select name="res_project" class="s_project">
+                            <option value="1">头发种植</option>
+                            <option value="2">顶部加密</option>
+                            <option value="3">美人尖种植</option>
+                            <option value="4">发际线调整</option>
+                            <option value="5">眉毛种植</option>
+                            <option value="6">胡须种植</option>
+                            <option value="7">鬓角种植</option>
+                            <option value="8">体毛种植</option>
+                            <option value="9">疤痕种植</option>
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <label><font>*</font>手术院部</label>
+                    <div class="se">
+                        <select name="res_yard" class="s_yard">
+                            {volist name="$hospital" id="vo"}
+
+                            <option value="{$vo.id}">{$vo.hosname}</option>
+                            <!--<option value="2">上海雍禾</option>-->
+                            <!--<option value="3">广州雍禾</option>-->
+                            <!--<option value="4">深圳雍禾</option>-->
+                            <!--<option value="5">武汉雍禾</option>-->
+                            <!--<option value="6">杭州雍禾</option>-->
+                            <!--<option value="7">成都雍禾</option>-->
+                            <!--<option value="8">长沙雍禾</option>-->
+                            <!--<option value="9">昆明雍禾</option>-->
+                            <!--<option value="10">福州雍禾</option>-->
+                            <!--<option value="11">沈阳雍禾</option>-->
+                            <!--<option value="12">郑州雍禾</option>-->
+                            <!--<option value="13">石家庄雍禾</option>-->
+                            <!--<option value="14">厦门雍禾</option>-->
+                            <!--<option value="15">南京雍禾</option>-->
+                            <!--<option value="16">南宁雍禾</option>-->
+                            <!--<option value="17">天津雍禾</option>-->
+                            <!--<option value="18">温州雍禾</option>-->
+                            <!--<option value="19">太原雍禾</option>-->
+                            <!--<option value="20">贵阳雍禾</option>-->
+                            <!--<option value="21">乌鲁木齐雍禾</option>-->
+                            <!--<option value="22">青岛雍禾</option>-->
+                            <!--<option value="23">重庆雍禾</option>-->
+                            <!--<option value="24">胡须种植</option>-->
+                            <!--<option value="25">鬓角种植</option>-->
+                            <!--<option value="26">宁波雍禾</option>-->
+                            <!--<option value="27">东莞雍禾</option>-->
+                            <!--<option value="28">合肥雍禾</option>-->
+                            {/volist}
+
+                        </select>
+                    </div>
+                </li>
+                <li>
+                	<label><font>*</font>收货地址</label>
+                	<div class="se se1">
+            			<input required="required" onfocus="this.blur();" name="sd_area" id="sd_area" class="cjaddress" type="text" style="border:1px solid #dcdcdc;border-radius:5px 5px 0 0;margin-bottom: 0;border-bottom: none;" placeholder="省份 城市 地区">
+                	</div>
+                </li>
+                <li style="margin-top: 0;">
+                    <label><font></font></label>
+                    <div class="se se1">
+                        <textarea type="text" name="res_tel" class="s_receipt" style="border:1px solid #dcdcdc;border-radius: 0 0 5px 5px;height:80px;line-height:25px;border-top: none;padding-left: 15px;font-size: 1.5rem;" placeholder="具体收货地址"></textarea>
+                </li>
+                <a href="javascript:;" id="submits" /></a>
+                <p>温馨提示：我们将对您的信息保密，请放心填写。</p>
+                
+            </ul>
+            
+        </form>
+    </div>
+
+    <style>
+        .que{display:none;width:100%;margin: 0;padding: 0;height: 100%}
+        .cjimg{position: fixed;width: 100%;height: 100%;top: 0;left: 0}
+        .que li{display:none;}
+        .que li>div{width:100%; height: 100%;position:relative;left: 0;bottom: 0}
+    .que li h5{text-align:right;font-size:1.4rem;color:#fff;padding-right:1rem;margin-top:0rem;padding-top: 3rem}
+    .que li>div>div{width:82.667%;margin:0 auto;}
+    .que li h2{width:100%;margin:1.5rem auto 0;color:#ffffff;font-size:2.1rem;font-weight:bold;line-height:3.2rem;}
+    .que li span.cj_title{width:25%;display:block;margin-top:1rem;color:#ffffff;font-size:1.4rem;line-height:3rem;height:3rem;border-radius:16px;background:#024390;text-align: center;}
+    .que li textarea{width:100%;margin:2.5rem auto 0;color:#ffffff;font-size:1.6rem;display:block;height:18rem;line-height:2rem;background:url({$Think.HTML_STATIC}/images/tp2.png) no-repeat;background-size:100% 100%;border:none;}
+    .que li textarea::-webkit-input-placeholder{color:#fff;}
+    .next{display:block;width:79.032258%;height:5rem;background:url({$Think.HTML_STATIC}/images/nextt.png) no-repeat;background-size:100% 100%;position:relative;bottom:-3.5rem;left:10.48387%;}
+   .se{width:100%;}
+    .que li .opt,.que li .opt1{width:100%;margin:1rem auto 0;color:#ffffff;font-size:1.8rem;line-height:3.7rem;background:url({$Think.HTML_STATIC}/images/tp1.png) no-repeat;background-size:100% 100%;}
+    .que li .opt:nth-of-type(2){margin:1rem auto 0;}
+    .que li .opt:nth-of-type(1){margin:3rem auto 0;}
+    .magic-radio + label:before{border:1px solid #fff;}
+    .magic-radio + label:after{background:#024390;}
+    .magic-radio:checked + label:before{border:1px solid #024390;}
+    .magic-radio + label:before{width:20px;height:20px;}
+	.magic-radio[type=checkbox] + label:before{border-radius: 0px;width: 1.7rem;height: 1.7rem;}
+	.magic-radio[type=checkbox] + label:after{border-radius: 0px;background:url({$Think.HTML_STATIC}/images/99.png) no-repeat;background-size:100% 100%;width: 1.85rem;height: 1.85rem;left: -0.95rem;top: 0.85rem;}
+    .sb2{display:block;width:79.032258%;height:5rem;background:url({$Think.HTML_STATIC}/images/sb2.png) no-repeat;background-size:100% 100%;position:relative;bottom:-1.5rem;left:10.48387%;}
+    </style>
+    <!--题目-->
+    <ul class="que">
+        <?php
+         $count = count($topic);
+         foreach($topic as $k=>$v){
+        ?>
+        <li>
+            <div>
+                <img class="cjimg" src="{$Think.HTML_STATIC}/images/que.jpg" alt=""/>
+                <div style="position: relative;z-index: 99">
+                    <h5 >P<span class="or">{$k+1}</span>/<span class="tt">{$count}</span></h5>
+                    <div class="cjxuan">
+                        <h2>{$k+1}、{$v.qt_topic}</h2>
+                        <span class="cj_title"><?php if($v['qt_type']==1){ ?>单选题<?php }else{ ?>多选题<?php } ?></span>
+                        <div class="se se1">
+                            <input type="hidden" name="" id="" value="{$v.qt_id}" />
+                            <?php
+                            foreach($v['option'] as $ko=>$vo){
+                            ?>
+                            <div class="opt">
+                                <input name="{$k}" onclick="showorhide(this)" class="magic-radio code"  type="<?php if($v['qt_type']==1){ ?>radio<?php }else{ ?>checkbox<?php } ?>" value="{$vo.code}" data-isopen="{$vo.isopen}">
+                                <label style="margin-left:5%;padding-right: 2%;">{$vo.content}</label>
+                            </div>
+                            <?php
+                            }
+                        ?>
+                        </div>
+                       	<textarea class="feedback" placeholder="请简单描述选择此项原因（必填）" style="display: none;"></textarea>
+                        <a class="next"></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <?php } ?>
+        <!--意见反馈-->
+        {if $questionnaireinfo.q_suggest==1}
+        <li>
+            <div>
+                <img class="cjimg" src="{$Think.HTML_STATIC}/images/que.jpg" alt=""/>
+                <div style="position: relative;z-index: 99">
+                    <h5 > 优化建议 </h5>
+                    <div class="cjxuan">
+                        <h2>您对雍禾植发其它工作优化和提升有何好的建议？</h2>
+                        <textarea class="s_feedback" placeholder="必填，您的建议将是我们继续前进的动力！"></textarea>
+                        <a class="next sb2"></a>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {/if}
+        <li style="width: 100%;height: 100%;">
+            <img class="cjEnd" src="{$Think.HTML_STATIC}/images/97.png" style="width: 100%;height: 100%;display: block;"/>
+        </li>
+    </ul>
+</div>
+
+<!--遮罩提示框-->
+<div class="zz"></div>
+<div class="tips">
+    <h2>提示</h2>
+    <h3 style="display: none;">答题失败  以上信息均为必填   请您继续完善信息</h3>
+    <h3>您还没有选择选项或填写原因，还不能进入下一题哦</h3>
+    <h4>好的</h4>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/ydui.citys.js"></script>
+<script src="{$Think.HTML_STATIC}/js/ydui.js"></script>
+<script>
+	function showorhide(_self){
+		var isopen = $(_self).attr('data-isopen');
+		if(isopen==1){
+			$(_self).parents('.se1').next().show();
+		}else{
+			$(_self).parents('.se1').next().hide();
+		}
+	}
+    $(function(){
+    	<?php
+    		if(isset($state) && $state==3){
+		?>
+    	alert('活动已经结束');
+    	<?php
+    		}elseif(isset($state) && $state==2){
+		?>
+    		alert('活动已经暂停');
+    	<?php
+    		}
+    	?>
+    	//判断是否出现建议框
+    	$('li').each(function(m,n){
+    		$(n).find('input.code:checked').each(function(x,y){
+	    		if($(y).attr('data-isopen')=='1'){
+	    		$(y).closest('li').find('textarea.feedback').show();
+		    	}else{
+		    		$(y).closest('li').find('textarea.feedback').hide()
+		    	}
+    		})
+    	})
+    	
+    	
+        //封面
+        $(".join").click(function(){
+            $(".fir").hide();
+            $(".user").show();
+        });
+        function cjtc() {
+            var h1=$(window).height();
+            var h2=$(".tips").height();
+            var h=(h1-h2)/2;
+            $(".tips").css({"position":"fixed","top":h+"px"});
+            $(".zz").show();
+            $(".tips").show();
+            $(".tips").find('h3:last').show()
+            $(".tips").find('h3:first').hide()
+        }
+        function cjtc1() {
+            var h1=$(window).height();
+            var h2=$(".tips").height();
+            var h=(h1-h2)/2;
+            $(".tips").css({"position":"fixed","top":h+"px"});
+            $(".zz").show();
+            $(".tips").find('h3:last').hide()
+            $(".tips").find('h3:first').show()
+            $(".tips").show();
+        }
+        //用户调查
+        $("#submits").click(function(){
+        	if($('.s_receipt').val()==''){
+        		cjtc1();
+        		return false;
+        	}
+        	var numberVal=$("input[type=number]").val()
+            if(!checkphone(numberVal)){
+                return false;
+            }
+            var bool = true;
+            $("#appo .se").each(function(m,n){
+                var a=$(n).find(":input").val();
+                if($.trim(a)==""){
+                    cjtc1();
+                    $(".user").show();
+                    $(".que").hide();
+                    bool = false;
+                    return;
+                }
+            });
+            if(!bool){ return; }
+            $(".zz").hide();
+            $(".tips").hide();
+            $(".user").hide();
+            $(".que").show();
+            $(".que li").eq(0).show();
+
+        });
+        $(".tips h4").click(function(){
+            $(".zz").hide();
+            $(".tips").hide();
+            $(".user").show();
+        });
+        //题目
+        
+        $('li:not(":nth-last-child(2)") a.next').click(function () {
+        	var cjXuan=$(this).closest('li');
+        	var display = cjXuan.find('textarea.feedback').css('display');
+        	var textval = cjXuan.find('textarea.feedback').val();
+        	if(display!='none' && textval==''){
+        		cjtc();
+        		return;
+        	}
+        	
+            if(cjXuan.find('.opt input.code').attr('type')=='radio'){
+//          	$(".cj_title").html('多选题')
+					if(cjXuan.find('.opt input[type=radio]').is(":checked")){
+                    cjXuan.hide().next('li').show();
+	                }
+	                else {
+	                    cjtc();
+	                }    
+            }else if(cjXuan.find('.opt input.code').attr('type')=='checkbox'){
+//          	$(".cj_title").html('单选题')
+                if(cjXuan.find('input[type=checkbox]:checked').length!=0){
+                    cjXuan.hide().next('li').show();
+                    
+                }else{
+            		cjtc();
+                }
+        
+            }
+        });
+		
+        //题目
+        $('li:nth-last-child(2) a.next').click(function () {
+        	var cjXuan=$(this).closest('li');
+            if(cjXuan.find('.opt input.code').attr('type')=='radio'){
+                if(cjXuan.find('.opt input[type=radio]').is(":checked")||cjXuan.find('textarea').val()!=''){
+                    cjXuan.hide().next('li').show();
+                    $('.user').hide()
+                }
+                else {
+                    cjtc();
+                    return false
+                }
+            }else if(cjXuan.find('.opt input.code').attr('type')=='checkbox'){
+                if(cjXuan.find('input[type=checkbox]:checked').length!=0){ 
+                    cjXuan.hide().next('li').show();
+                    $('.user').hide()
+                }else{
+            		cjtc();
+            		return false
+                }
+            }
+            if(cjXuan.find('textarea.s_feedback').val()!=''){
+            	cjXuan.hide().next('li').show();
+                $('.user').hide()
+            }else{
+            	 cjtc();
+                 return false
+            }
+         
+//      	alert(123)
+            ajax()
+            $(this).attr({"disabled":"disabled"});
+            $('.user').hide()
+             cjXuan.hide().next('li').show();
+            
+        });
+        function ajax(){
+        	var subActivity={};
+            subActivity.s_name=$('.s_name').val();
+            subActivity.s_phone=$('.s_phone').val();
+            subActivity.s_project=$('.s_project option:selected').val();
+            subActivity.s_yard=$('.s_yard option:selected').val();
+            subActivity.s_time=$('.s_time').val();
+            subActivity.s_receipt=$('.s_receipt').val();
+            subActivity.s_qid=$('.s_qid').val();
+            subActivity.s_feedback=$('.s_feedback').val();
+			var str=$('.cjaddress').val()
+            var arr=str.split(" ")
+            subActivity.s_province=arr[0]
+            subActivity.s_city=arr[1]
+            subActivity.s_county=arr[2]
+            var info={}
+            $('.que li').each(function(m, n){
+                var	infoTwo={};
+                infoTwo.feedback=$(n).find('textarea.feedback').val()
+                var id=$(n).find('input[type=hidden]').val()
+                var infoThree={};
+                var code={};
+                $(n).find('.opt').each(function(x, y){
+                    code[x]=$(y).find('input.code:checked').val();
+                })
+                infoTwo.code=code;
+                info[id]=infoTwo;
+            })
+            subActivity.info=info
+            $.ajax({
+                type:"post",
+                url:"{:url('questionnaire/add')}",
+                async:true,
+                data:subActivity,
+                success:function(data){
+                    if(data.code==1){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
+            });
+        }
+        //图片不跳了
+        $('.cjimg').click(function () {
+            return false
+        })
+        $('.cjEnd').click(function(){
+            return false
+        })
+    })
+    function checkphone(numberVal) {
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1})|(16[0-9]{1}))+\d{8})$/;
+        var res = myreg.test(numberVal);
+        if(!res){
+            alert('请输入有效的手机号码！');
+            return false;
+        }
+        var bool = false;
+        $.ajax({
+            type:"post",
+            url:"{:url('questionnaire/checkphone')}",
+            data:{phone:numberVal},
+            async:false,
+            success:function(data){
+                if(data.code==1){
+                    bool = true;
+                }else{
+                    alert('您所输入的手机号已参与活动，无法重复参与！');
+                }
+            }
+        });
+        return bool
+    }
+    if (/(Android)/i.test(navigator.userAgent)) {
+        $(".que li span.cj_title").css("lineHeight","3.5rem");
+    }
+    //选择地区
+      /**
+     * 默认调用
+     */
+    !function () {
+        var $target = $('#sd_area');
+
+        $target.citySelect();
+
+        $target.on('click', function (event) {
+            event.stopPropagation();
+            $target.citySelect('open');
+        });
+
+        $target.on('done.ydui.cityselect', function (ret) {
+            $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+        });
+
+        var $edittarget = $('#edit_sd_area');
+
+        $edittarget.citySelect();
+
+        $edittarget.on('click', function (event) {
+            event.stopPropagation();
+            $edittarget.citySelect('open');
+        });
+
+        $edittarget.on('done.ydui.cityselect', function (ret) {
+            $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+        });
+    }();
+
+</script>
+</body>
+</html>

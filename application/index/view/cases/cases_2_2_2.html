@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/details1.css" rel="stylesheet" type="text/css">
+    <style>
+    	
+    	.cjTime{background: url({$Think.HTML_STATIC}/images/13.png);width: 8.85rem;height: 1.85rem;background-size:cover ;color: white;line-height: 1.85rem;text-align: center;font-size: 1.2rem;}
+        .csinfo img{ margin:0 0 1rem 0; width: 100%;}
+        .cjshuq{background: white;padding: 0 0.5rem 1.5rem;margin-bottom:1.05rem;}
+        .cjshuq-title{margin: 1.05rem 0 0 0.5rem;font-size: 1.5rem;color: #333333;padding: 1.5rem 0;}
+        .cjshuq-title span.cjDays{font-size: 1.2rem;color: #a7a7a7;margin-left: 0.9rem;}
+        .cjshuq-content{width: 100%;}
+        .cjshuq-content img{width: 32.33%;padding:0.5rem;border-radius: 1.5rem;box-sizing: border-box}
+ 
+        .csinfo img{margin: 0 0 1.5rem 0;padding: 0;}
+        .csmian{padding-bottom: 0;}
+        .csinfo{padding: 1.25rem 0 0;}
+        .plinfos{border-bottom: none;}
+        .upl{border-top: none;}
+        .upl .tximg img{width: 4rem;margin-right: 0.95rem;}
+        .tximg div{float: left;}
+              
+        .cjname span{margin: 0.5rem 0 0;display: block;}
+        .cjname span:first-of-type{color:#15bdde;font-size: 1.3rem;}
+        .cjname span:last-of-type{font-size: 1.1rem;color: #adadad;}
+        .upl .tx{padding: 1.5rem 1rem;}
+        .upl p{padding-left: 5.95rem;text-indent: 2em;}
+        .plinfo{padding: 0;}
+        .plinfo span img{width: 1.2rem;}
+        .upl .txdz{padding-top: 0;line-height: none; float: none;}
+        .plinfo span{float: none;}
+        .cjhuifu{text-align: right; font-size: 1.2rem;color: #999999;}
+        .cjhuifu span{color: #999999;}
+        .cjhuifu span.txdz{margin: 0 1.8rem 0 1.95rem;}
+        .cjhuifu span.backText img{margin: 0 0.6rem 0 0;}
+        .fonline{margin-top: 1rem;border-bottom: 0.05rem solid #F0F0F0;}
+        .reCont {background: #f3f3f3;padding: 0;line-height: 1.8rem;}
+        .reCont p{padding-left: 4.95rem;padding-right: 2rem; text-indent: 0;}
+        .reCont font{color: #15bdde;margin-right: 0.9rem;}
+        .cjpl{padding: 0 1rem;}
+        .plmaint{position: fixed;bottom: 0;left: 0;z-index: 100;width: 100%;height: 4.9rem;background: #e0e0e0;line-height: 4.9rem;}
+        .plform{padding: 0 1.95rem;background: #e0e0e0;padding: 0 1.5rem;}
+        .plform input{font-size: 1.5rem;}
+        #commentText{width: 68%;height: 2.9rem;background: #FFFFFF;border-radius: 2.9rem;text-indent: 1.55rem;margin:0 3% 0 6%;}
+        #subComment{width: 17%;height: 2.9rem;background: #15bdde;border-radius: 2.9rem;color: white;margin-right: 6%;}
+        .pinput input{padding: 0;}
+        .plform{padding: 0;margin-top: 1.1rem;}
+        .pinput{width: 100%;}
+        .cjtrue{background: white;padding-bottom: 1.5rem;}
+        .cjtrue-title{font-size: 1.5rem;padding-left: 1rem;padding-top: 1.9rem;}
+        .cjtrue-plinfos {padding-top: 1.45rem;padding-bottom: 1rem;border-bottom: 0.05rem solid #f0f0f0;}
+        .cjtrue-plinfos div{margin-right: 1.9rem;}
+        .cjtrue-plinfos-ll{margin-left: 1rem;}
+        .cjtrue-plinfos span{color: #adadad;font-size: 1.1rem;}
+        .cjtrue-plinfos-dz img{width: 1.1rem;height: 1rem;margin-bottom: 0.15rem;}
+        .cjtrue-plinfos-lt span{font-size: 1.2rem;color: #15bdde;}
+        .cjtrue-plinfos div.cjtrue-plinfos-lt{margin-right: 1rem;}
+        .cjtrue-content{padding: 0 1rem;}
+        .cjtrue-content-txt{color: #666666;font-size: 1.3rem;text-indent: 2em;line-height: 2.05rem;margin-top: 2rem;}
+        .cjtrue-content-img img{width: 100%;border-radius: 1rem;margin-top: 1.5rem;}
+        /*作者*/
+       	.cjtrue-plinfos-auther{margin-right: 2.5rem;margin-left: 1rem;}
+       	/*收藏*/
+       	.cjcollection img{width: 1.5rem;margin-right: 0.55rem;}
+       	.plinfos img{margin-bottom: 0.2rem;}
+       	.plinfos div{border-right: 0.05rem solid #F0F0F0;}
+       	.plinfos div:last-of-type{border: none;}
+       	.plinfos .lll{width: 25%;}
+       	.plinfos .pl{width: 25%;}
+       	.plinfos .cdz{width: 25%;}
+       	.plinfos .cjcollection{width: 25%;float: left;text-align: center;font-size: 1.2rem;color: #999999;}
+       	/*回复*/
+       	.cjhf{background: #e0e0e0;position: fixed;bottom: 0;left: 0;z-index: 100;width: 100%;}
+   		.cjhf-content{margin: 1.1rem 0;font-size: 1.5rem;}
+   		.cjhf-content input#cjtxt{height: 2.9rem;width: 68%;background: #FFFFFF;text-indent: 1.55rem;}
+   		.cjhf-content input#cjbt{width: 17%;height: 2.9rem;background: #15bdde;border-radius: 2.9rem;color: white;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">养护健康</h1>
+</header>
+<div style="height: 4.6rem"></div>
+<div class="cjtrue">
+	<div class="cjtrue-title">
+	<h2>三个令人遗憾的故事</h1>
+	</div>
+	<div class="cjtrue-plinfos">
+		<span class="cjtrue-plinfos-auther">
+			作者：文/瞧见
+		</span>
+		<span class="cjtrue-plinfos-time">
+			时间：2018-1-1
+		</span>
+	</div>
+	<div class="cjtrue-content">
+		<div class="cjtrue-content-txt">
+			      当新种植的毛囊适应了新环境以后，就能够长出真实的头 发。成功长出新发后，头发不会再发生脱落的情况当新种植的 毛囊适 拷贝当新种植的毛囊适应了新环境以后，就能够长出真实的头 发。成功长出新发后，头发不会再发生脱落的情况当新种植的 毛囊适 拷贝
+		</div>
+		<div class="cjtrue-content-img"><img src="{$Think.HTML_STATIC}/images/after1.png"/></div>
+		<div class="cjtrue-content-txt">
+			      当新种植的毛囊适应了新环境以后，就能够长出真实的头 发。成功长出新发后，头发不会再发生脱落的情况当新种植的 毛囊适 拷贝当新种植的毛囊适应了新环境以后，就能够长出真实的头 发。成功长出新发后，头发不会再发生脱落的情况当新种植的 毛囊适 拷贝
+		</div>
+		<div class="cjtrue-content-img"><img src="{$Think.HTML_STATIC}/images/after1.png"/></div>
+	</div>
+</div>
+
+<div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{$casesRecord.click}</div><div class="pl" data-id="0"><img src="{$Think.HTML_STATIC}/images/7.png">{$casesRecord.comment}</div><div class="cdz ds1 dianzan"  ><img src="{$Think.HTML_STATIC}/images/8.png"><span>{$casesRecord.praise}</span></div><div class="cjcollection"><img src="{$Think.HTML_STATIC}/images/28.png">111</div></div></div>
+{notempty name='$cont_ad'}<div class="casad"><a href="{$cont_ad.url}"><img src="{$Think.HTML_STATIC}/images/laba.png">{$cont_ad.title}</a></div>{/notempty}
+
+<div class="upl">
+   <!-- <div class="pltitle">评论</div>-->
+
+    {volist name='$comment' id='vo' empty="<p class='empty'>沙发空缺中~~</p>"}
+    {eq name='$vo.plid' value='0'}
+    <div class="tx">
+        <div class="tximg"><div class="cjimg"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}"></div><div class="cjname"><span>{$vo.userInfo.wechaname}</span><span>{$vo.create_time}</span></div></div>
+<!--        <div class="txdz" data-id="{$vo.id}" id="txdz{$vo.id}"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></div>
+-->    </div>
+    <p>{$vo.text}</p>
+    <div class="cjhuifu ">
+    <span class="plinfo" ><span class="backText" data-plid="{$vo.id}" data-uid="{$vo.userInfo.id}" data-align="{$vo.userInfo.wechaname}"><img src="{$Think.HTML_STATIC}/images/14.png"/>111</span></span>
+	<span class="txdz" " data-id="{$vo.id}" id="txdz{$vo.id}"><img src="{$Think.HTML_STATIC}/images/8.png"><span>{$vo.praise}</span></span>  
+    </div>
+    {volist name='$comment2' id='vo2'}
+    {eq name='$vo2.plid' value='$vo.id'}
+    <div class="cjpl">
+    	<div class="reCont"><p><font>{$vo2.userInfo.wechaname}:</font>{$vo2.text} <!--<span>{$vo2.create_time|date='m-d H:i',strtotime(###)}</span>--></p></div>    	
+    </div>
+    {/eq}
+    {/volist}
+    <div class="fonline"></div>
+    {/eq}
+    {/volist}
+</div>
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<!--回复-->
+<div class="cjhf" style="display:none">
+	<div class="cjhf-content">
+		<input type="text" id="cjtx" placeholder="回复" style="width:68%;border-radius: 2.9rem;height: 2.9rem;margin:0 3% 0 6%;"/>
+		<input type="button" id="cjbt" value="回复" />
+	</div>
+</div>
+<!--评论-->
+<div class="plmtop"></div>
+<div class="plmaint">
+    <div class="plform">
+        <div class="pinput"><input id="commentText" type="text" value="" placeholder="我也要评论"><input class="fbpl" type="button" id="subComment" value="发表"></div>
+<!--        <div class="picon"><img src="{$Think.HTML_STATIC}/images/sc.png" id="fbsc" class="collection"><img src="{$Think.HTML_STATIC}/images/plkf.png" onclick="location.href='{$Think.config.zoosnet}'"></div>
+-->        <div id="collection" data-id= "1"></div>
+    </div>
+</div>
+
+
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+    
+    $(function(){
+        mui.previewImage();
+
+        getCollection({$casesRecord.id},{$fansInfo.id},7);
+        getPraise({$casesRecord.id},{$fansInfo.id},6);
+
+        //评论
+        $('#subComment').click(function(){
+            comment({$casesRecord.id},6,'{$Request.token}');
+        });
+
+        //点赞
+        $(".ds1").click(function(){
+            praise({$casesRecord.id},6,'{$Request.token}');
+        });
+
+        //收藏
+        $(".collection").click(function(){
+            collection({$casesRecord.id},7,'{$Request.token}');
+        });
+
+        //评论点赞
+        $(".txdz").click(function(){
+            plid=$(this).attr('data-id');
+            plpraise(plid,1,'{$Request.token}',$(this).attr('id'));
+
+        });
+
+        //回复评论
+        $('.backText').click(function()
+        {
+            userName=$(this).attr('data-align');
+            plid=$(this).attr('data-plid');  //评论的id
+            uid=$(this).attr('data-uid');  //回复的评论用户id
+            var btnArray = ['确定', '取消'];
+            mui.prompt('请输入回复内容', '', '', btnArray, function(e)
+            {
+                if (e.index == 0)
+                {
+                    //提交回复
+                    text=e.value;
+                    if(text=='')
+                    {
+                        mui.alert('回复内容不能为空哦');
+                        return false;
+                    }
+                    $('#commentText').val(text);
+                    recComment({$casesRecord.id},6,'{$Request.token}',plid,uid,text);
+                }
+            })
+        });
+
+        var width = $(window).width(); //浏览器当前窗口可视区域宽度
+        height = width/16*9;
+        $('iframe').height(height);
+
+        //评论下拉加载
+        var a = 0;
+        var offsize = 10;//起始位置(查询数据表时的起始位置)
+        $(document).ready(function(){
+            var range = 80;//距下边界长度/单位px
+            var totalheight = 0;
+            var main = $("#loadinguser");//主体元素
+            $(window).scroll(function(){
+                var srollPos = $(window).scrollTop();
+                totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+                if(($(document).height()+range) <= totalheight) {
+                    if(a==0)
+                    {
+                        a = 1;
+                        $('#loading').html("正在努力为您加载...");
+                        $.post("{:url('comment/nextPageComment')}",{
+                            type:6,
+                            offsize:offsize,
+                            aid:{$casesRecord.id}
+                    },function(data){
+
+                        if(data=='')
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                    }
+                }
+            });
+        });
+          //回复
+        $(".cjhuifu").click(function(){
+        	$(".cjhf").css("display","block");
+        	$(".cjhf #cjtx").focus();
+        	$(".plmaint").css("display","none")
+        })
+        $("#cjbt").click(function(){
+        	$(".cjhf").css("display","none");
+        	$(".plmaint").css("display","block")
+        })
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>个人资料</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="format-detection" content="telephone=no">
+        <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+        <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+        <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/my.css"/>
+    </head>
+
+    <body>
+    <div class="tsinfo">为了更好的为你服务，请完善个人信息！</div>
+    <div class="permain">
+         <ul>
+              <li>
+                   <div class="mctitle"><font>头像</font></div>
+                   <div class="mcvalue"><img style="float: right;" src="{$fansInfo.portrait}" height="44px;"></div>
+              </li>
+              <li>
+                   <div class="mctitle"><font>昵称</font></div>
+                   <div class="mcvalue">{$fansInfo.wechaname}</div>
+              </li>
+              <li>
+                   <div class="mctitle"><font>性别</font></div>
+                   <div class="mcvalue"><select style="width:31px; height:30px; line-height:30px; padding: 0px; margin: 0px; background:#f8f8f8" name="sex" id="sex"><option value="男" {eq name="$fansInfo.sex" value="男" }selected{/eq}>男</option><option value="女" {eq name="$fansInfo.sex" value="女" }selected{/eq}>女</option></select>
+                   </div>
+              </li>
+              <li>
+                   <div class="mctitle"><font>真实姓名</font></div>
+                   <div class="mcvalue"><input name="truename" id="truename" type="text" value="{$fansInfo.truename}"></div>
+              </li>
+              <li>
+                   <div class="mctitle"><font>手机号</font></div>
+                   <div class="mcvalue"><input name="phonenum" id="phonenum" type="text" value="{$fansInfo.phonenum}"></div>
+              </li>
+
+              <li>
+                   <div class="mctitle"><font>所在地区</font></div>
+                   <div class="mcvalue"><input name="area" id="area" type="text" value="{$fansInfo.area}"></div>
+              </li>
+              <li>
+                   <div class="mctitle"><font>详细地址</font></div>
+                   <div class="mcvalue"><input name="address" id="address" type="text" value="{$fansInfo.address}"></div>
+              </li>
+             
+             <li>
+                 <div class="mctitle"><font>电子邮箱</font></div>
+                 <div class="mcvalue"><input name="email" id="email" type="text" value="{$fansInfo.email}"></div>
+             </li>
+             <li>
+                 <div class="mctitle"><font>修改密码</font></div>
+                 <div class="mcvalue"><input onclick="location.href='{:url('my/alterpass')}'"></div>
+             </li>
+         </ul>
+         <input class="butt" type="hidden" value="{$fansInfo.wecha_id}" name="opid" id="opid" />
+         <input class="butt" type="button" value="保存" id="subbutt" />
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/data-1.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        (function($, doc) {
+            $.init();
+            $.ready(function() {
+
+                var cityPicker3 = new $.PopPicker({
+                    layer: 3
+                });
+                cityPicker3.setData(cityData3);
+                var showCityPickerButton = doc.getElementById('area');
+                showCityPickerButton.addEventListener('tap', function(event) {
+                    cityPicker3.show(function(items) {
+                        showCityPickerButton.value=((items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text);
+                    });
+                }, false);
+            });
+        })(mui, document);
+
+        $(document).ready(function(){
+            $('#subbutt').click(function(){
+                email=$('#email').val();
+                var emailReg=/^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
+                if(email && !emailReg.test(email)){
+                    mui.toast('邮箱格式错误！');
+                    return false;
+                }
+                sex=$('#sex').val();
+                truename=$('#truename').val();
+                birthday=$('#birthday').val();
+                company=$('#company').val();
+                phonenum=$('#phonenum').val();
+                position=$('#position').val();
+                wecha_id=$('#opid').val();
+
+                id_card=$('#id_card').val();
+                area=$('#area').val();
+                address=$('#address').val();
+                tel2=$('#tel2').val();
+                password=$('#password').val();
+
+                $.ajax({
+                    url:"{:url('myinfoupdate')}",
+                    data:{sex:sex,truename:truename,birthday:birthday,company:company,position:position,wecha_id:wecha_id,phonenum:phonenum,id_card:id_card,area:area,address:address,tel2:tel2,email:email,password:password},
+                    type:'post',
+                    dataType:'json',
+                    success:function(data)
+                    {
+                        if(data.code==1)
+                        {
+                            mui.toast('保存成功！');
+                        }
+                    }
+                });
+            })
+        })
+    </script>
+    </body>
+</html>

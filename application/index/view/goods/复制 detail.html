@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/address.css?rev=@@hash">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/address2.css">
+    <script src="{$Think.HTML_STATIC}/js/a.flexible.js"></script>
+    <link href="{$Think.HTML_STATIC}/css/goods.css" rel="stylesheet" type="text/css">
+    <style>
+       .gdimg{ overflow: hidden;}
+       .swiper-container-horizontal>.swiper-paginationTop{
+           position: relative;
+           z-index: 100;
+           text-align: center;
+           bottom: 10px;
+           margin-top: -10px;}
+       .swiper-pagination-bullet-active{ margin: 0px 5px;}
+       .tbsminfos{text-align: center;width: 100%}
+    .tcsm img{width: 100%;}
+
+        .tbsm{float: none}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="window.history.go(-1);"></a>
+    <h1 class="mui-title" style="font-weight: normal;"><span class="on">商品</span><span><a href="{:url('detail2',['id'=>$goods.id])}">详情</a></span><span><a href="{:url('comment',['id'=>$goods.id])}">评价</a></span></h1>
+</header>
+
+<div class="gdimg" style="margin-top: 45px;">
+    <div class="swiper-containerTop" style="overflow: hidden;">
+        <div class="swiper-wrapper">
+        {volist name='goodsImgs' id='vo'}
+        <div class="swiper-slide"><img src="{$vo.pic}"></div>
+        {/volist}
+        </div>
+        <div class="swiper-paginationTop"></div>
+    </div>
+</div>
+
+<div class="dprice brd">
+     <div class="dgtitle">{$goods.gdname}</div>
+     <div class="dginfos">{$goods.info}</div>
+     <div class="dgprice"> <span>价格：</span><font class="yjg"><a>￥</a>{$goods.price}</font> <s><font>￥</font>{$goods.original_price}</s></div>
+</div>
+
+{notempty name='$goods.text2'}
+<div class="tcsm">
+     <div ><span class="tbsm">特此说明</span></div>
+     <div class="tbsminfos">
+         {$goods.text2}
+     </div>
+</div>
+{/notempty}
+
+{eq name='$goods.is_yhq' value='1'}
+<div class="guige">
+    <div class="ddd">领券：</div>
+    <div class="adr" onclick="location.href='{:url('coupon/index')}'">
+        <div style="float: right;">共2张 <img width="12" style="margin-top: -2px;" src="{$Think.HTML_STATIC}/images/jtyyy.png"></div>
+        {volist name='$coupon' id='vo'}
+              <span class="mjjj">满{$vo.use_price}减{$vo.cprice}</span>
+        {/volist}
+    </div>
+</div>
+{/eq}
+
+
+<div class="dzgg" style="margin-top:7px; padding-top: 15px;">
+      <div class="ddd">送至：</div>
+      <div class="adr">
+            <div class="adrinfo"><input style="margin: 0px 0 1rem; border: none; height: 20px; padding: 0px;text-overflow: ellipsis;width: 95%;" type="text" class="cell-input" readonly id="J_Address" placeholder="请选择收货地址" value="{$fansInfo['area2']}">
+                <!--{$fansInfo.area}{$fansInfo.address}--></div>
+      </div>
+      <div class="dtd"><img src="{$Think.HTML_STATIC}/images/xxjtt.png"></div>
+</div>
+
+<div class="guige">
+    <div class="ddd">运费：</div>
+    <div class="adr">
+        在线支付{$goods.postage}元
+    </div>
+</div>
+
+<div class="addgnum" style="padding:0 1.5rem 1rem; background:#fff;">
+    <div class="numst" style=" padding-top:6px; float: left; width: 15%; color: #888888">数量：</div>
+    <div class="nums"><div class="nreduce">-</div><input id="goodsNum" readonly="readonly" class="numsinput goodsNum" name="nums[]" type="number" value="1" /><div class="nadd">+</div></div>
+</div>
+
+{notempty name='$gg'}
+<div class="guige">
+    <div class="ddd">规格：</div>
+    <div class="adr">
+        {volist name='$gg' id='vo'}
+         <span>{$vo.gg}</span>
+        {/volist}
+    </div>
+</div>
+{/notempty}
+
+
+
+
+<div class="gdinfos brd">
+    <div class="tjdoctitle">推荐商品</div>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div style="overflow: hidden">
+                {volist name='tjGoods' id='vo' offset="0" length='4'}
+                        <a href="{:url('detail',['id'=>$vo.id])}">
+                            <div class="xqgoodslist">
+                                <div class="xqgsinfo">
+                                    <img src="{$vo.pic}">
+                                    <p style="font-size: 1.4rem;">{$vo.gdname}</p>
+                                    <p class="xqprice"><font>￥</font>{$vo.price}</p>
+                                </div>
+                            </div>
+                        </a>
+                {/volist}
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="buy" id="buynext">
+    <form method="post" action="{:url('buy')}">
+        <div class="buymain" id="buymain">
+            <div class="bgdsi">
+                <img src="{$goods.pic}">
+                <div class="bgdstp">
+                    <div class="bgdtitle">{$goods.gdname}</div>
+                    <div class="bgdprice" id="goodPrice">{$goods.price}</div>
+                </div>
+            </div>
+            <div class="addgnum">
+                <div class="numst">数量</div>
+                <div class="nums"><div class="nreduce">-</div><input id="goodsNum" readonly="readonly" class="numsinput goodsNum" name="nums[]" type="number" value="1" /><div class="nadd">+</div></div>
+            </div>
+            {notempty name='$gg'}
+                <div class="guige" style="padding-left:0px; padding-top: 5px; border-bottom: 1px solid #f8f8f8">
+                    <div class="ddd">规格：</div>
+                    <div class="adr buygg">
+                        {volist name='$gg' id='vo'}
+                        <span data-id="{$key}" data-price="{$vo.ggprice}">{$vo.gg}</span>
+                        {/volist}
+                    </div>
+                </div>
+                <input type="hidden" name="gg" id="gg" value="-1">
+            {else/}
+                <input type="hidden" name="gg" id="gg" value="">
+            {/notempty}
+            <div class="addtotal" style="padding-top: 5px;">共计：<i>￥</i><span id="price">{$goods.price}</span></div>
+        </div>
+        <input type="hidden" name="id[]" value="{$goods.id}" />
+        <input type="hidden" id="basePrice" value="{$goods.price}">
+        {:token()}
+        <div class="nextbutt" data-id="0"></div>
+    </form>
+</div>
+
+
+<div class="h50"></div>
+<div class="gsdfoot">
+    <a href="{:url('index')}"><div class="backhome"><span class="ficon iconfont">&#xe722;</span><p>首页</p></div></a>
+    <a href="{:url('cart')}"><div class="shoppingCart"><span class="ficon iconfont">&#xe698;</span><p>购物车</p><i id="gdcartcount" {neq name='$goodsCartCount' value='0'} style="display: block"{/neq}></i></div></a>
+    <div class="addWishList" id="addWishList">加入购物车</div>
+    <div class="fastBuy" id="fastBuy">立即购买</div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/fx" /}
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/a.citys.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/address.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+    !function ()
+    {
+        var $target = $('#J_Address');
+
+        $target.citySelect();
+
+        $target.on('click', function (event) {
+            event.stopPropagation();
+            $target.citySelect('open');
+        });
+
+        $target.on('done.ydui.cityselect', function (ret)
+        {
+            $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+            var address=ret.provance + ' ' + ret.city + ' ' + ret.area;
+            $.ajax({
+                        url:"{:url('addAddress')}",
+                        data:{address:address},
+                        type:'post'
+            });
+        });
+    }();
+
+    var swiper = new Swiper('.swiper-containerTop', {
+
+        pagination: '.swiper-paginationTop',
+    });
+
+    $(".buygg span").click(function()
+    {
+        $(".buygg span").removeClass('on');
+        $(this).addClass('on');
+        $("#basePrice").val($(this).attr('data-price'));
+        basePrice=$("#basePrice").val();
+        goodsNum=$('.goodsNum').val();
+        $('#price').html((basePrice*goodsNum).toFixed(2));
+        $('#goodPrice').html((basePrice*1).toFixed(2));
+        $("#gg").val($(this).attr('data-id'));
+    });
+
+    getCollection({$goods.id},{$fansInfo.id},5);
+    //收藏
+    $("#collection").click(function(){
+        collection({$goods.id},5,'{$Request.token}');
+    });
+
+    var subopen=true;
+    var mask = mui.createMask(function(){ $('#buynext').hide(400)});
+
+    $('#fastBuy').click(function(){
+        $('#buynext').show(400);
+        $('.nextbutt').text('下一步');
+        $('.nextbutt').attr('data-id',1);
+        mask.show();//显示遮罩
+    });
+
+    $('#addWishList').click(function(){
+        $('#buynext').show(400);
+        $('.nextbutt').text('加入购物车');
+        $('.nextbutt').attr('data-id',2);
+        mask.show();//显示遮罩
+    });
+
+    $('.nreduce').click(function(){
+        goodsNum=parseInt($('.goodsNum').val());
+        if(!$.isNumeric(goodsNum)){
+            alert('商品数量必须是数字');
+            return false;
+        }
+        goodsNum=goodsNum-1;
+        $('.goodsNum').val(goodsNum);
+        if(goodsNum<1)
+        {
+            alert('购买的商品数量必须大于等于1');
+            $('.goodsNum').val(1);
+            return false;
+        }
+        basePrice=$('#basePrice').val();
+        $('#price').html((basePrice*goodsNum).toFixed(2))
+    });
+
+    $('.nadd').click(function(){
+        goodsNum=parseInt($('.goodsNum').val());
+
+        if(!$.isNumeric(goodsNum)){
+            alert('商品数量必须是数字');
+            return false;
+        }
+        goodsNum=goodsNum+1;
+        $('.goodsNum').val(goodsNum);
+        if(goodsNum>{$goods.number})
+        {
+            alert('购买的商品数量超过库存');
+            $('.goodsNum').val({$goods.number});
+            return false;
+        }
+        basePrice=$('#basePrice').val();
+        $('#price').html((basePrice*goodsNum).toFixed(2))
+    });
+
+    $('.nextbutt').click(function()
+    {
+        gg=$("#gg").val();
+        if(gg==-1)
+        {
+            alert('选择商品的规格');
+            return false;
+        }
+
+        num=$(this).attr('data-id');
+        if(num==2)
+        {
+            $('#buynext').hide(400);
+            mask.close();
+            goodsNum=parseInt($('.goodsNum').val());
+            if(!$.isNumeric(goodsNum)){
+                alert('商品数量必须是数字');
+                return false;
+            }
+            if(subopen)
+            {
+                subopen=false;
+                $.ajax({
+                            url:"{:url('addCart')}",
+                            data:{goods_id:{$goods.id},nums:goodsNum,gg:gg,__token__:'{$Request.token}'},
+                        type:'post',
+                    dataType:'json',
+                    success:function(data)
+            {
+                if(data.code==1)
+                {
+                    mui.toast('加入购物车成功');
+                    $('#gdcartcount').show();
+                    subopen=true;
+                }
+                else
+                {
+                    mui.toast(data.msg);
+                    subopen=true;
+                }
+            }
+            });
+            }
+
+        }
+        else
+        {
+            $("form").submit();
+        }
+    })
+
+
+</script>
+
+</body>
+</html>

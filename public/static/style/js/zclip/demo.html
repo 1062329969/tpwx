@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>演示：复制页面内容到剪贴板兼容各浏览器</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="zclip.js"></script>
+<script type="text/javascript">
+$(function(){
+  $(".share_btn").zclip({
+      path: "ZeroClipboard.swf",
+      copy: function(){
+        return $(this).parent().find(".share_txt").val();
+      },
+      afterCopy:function(){/* 复制成功后的操作 */
+        alert("复制成功");
+      }
+  });
+})
+</script>
+</head>
+<body>
+  <div>
+    <textarea class="share_txt"></textarea>
+    <a class="share_btn" href="javascript:void(0);">分享</a>
+  </div>
+</body>
+</html>

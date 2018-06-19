@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}-社区</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        .wrapper02 {position:relative;height:4.5rem;width:100%;overflow:hidden;margin:0 auto;}
+        .wrapper02 .scroller {position:absolute}
+        .wrapper02 .scroller li { padding:0 1rem; height:4.5rem;color:#333;float:left;line-height:4.5rem;font-size: 1.6rem;text-align: center}
+        .wrapper02 .scroller li a{display:block;margin:0 .3rem}
+        .wrapper02 .scroller li.cur{ background: url("{$Think.HTML_STATIC}/images/askt.png") center bottom no-repeat;}
+        .atxd{padding: 1.5rem 1.5rem 0px; background: #fff; margin: 0px;}
+        .atxd .tx img{ float: left;}
+        .atxd .tx span{ float: left; padding-top:7px; line-height: 22px;font-size: 1.2rem; color: #999}
+        .atxd .tx font{ font-size: 1.4rem; color: #111}
+
+
+        .infos span{ padding-right: 0px;}
+        .infos span.wyhd,.infos span.dianzan,.infos span.llcs{ text-align: right; display: block; float: left; width: 33.33%; text-align: center; margin: 0px; color: #999}
+        .infos span.wyhd{ text-align: right; color: #111}
+        .tpic3{padding: 1rem 1.5rem; border: none;}
+        .tpic1{ margin-bottom:0px; padding-bottom: 1.5rem; border: none;}
+        .rmhd{ padding: 1.5rem; background: #fff; border-bottom:#eaeaea solid 1px;}
+        .infos span.llcs{ text-align: left; }
+        .infos{clear: both; padding: 0 1.5rem 1rem; margin-bottom: 1rem; background: #fff; font-size: 1.4rem; overflow: hidden;}
+        .infos img{ width: 15%; margin-top: -3px; margin-right: 3px;}
+        .dianzan span{ line-height: 22px;}
+    </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">问答</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>2])}'"></a>
+</header>
+
+<div class="asktop">
+    <div class="wrapper02" id="demo05">
+        <div class="scroller">
+            <ul class="clearfix">
+                <li><a href="{:url('index',['tid'=>0])}">全部</a></li>
+                {volist name='contType' id='vo'}
+                <li{eq name="$tid" value="$vo.id"} class="cur"{/eq}><a href="{:url('index',['tid'=>$vo.id,'postion'=>$i])}">{$vo.proname}</a></li>
+                {/volist}
+            </ul>
+        </div>
+    </div>
+</div>
+<div  style="margin-top:95px;"></div>
+{volist name='$ask' id='vo'}
+
+
+{switch name="$vo.imgs_nums"}
+{case value="1"}
+<a href="{:url('ask/detail',array('id'=>$vo.id))}">
+    <div class="atxd">
+        <div class="tx"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}" /><span><font>{$vo.userInfo.wechaname}</font> <br>{:get_time(strtotime($vo.create_time))}</span></div>
+    </div>
+    <div class="tpic1">
+        <div class="tp1left">
+            <div class="title">{$vo.qtitle}</div>
+        </div>
+        <div class="pics">
+            {volist name='$vo.images' id='vo2'}
+            <img src="{$vo2.pic}">
+            {/volist}
+        </div>
+    </div>
+</a>
+<div class="infos">
+    <span class="llcs">浏览{$vo.click}次</span>
+    <span class="dianzan" id="dz{$vo.id}" data-id="{$vo.id}" data2-id="0"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></span>
+    <span class="wyhd" onclick="location.href='{:url('ask/answer',['aid'=>$vo.id])}'">我要回答</span>
+</div>
+{/case}
+{case value="2|3|4|5|6|7|8|9"}
+<a href="{:url('ask/detail',array('id'=>$vo.id))}">
+    <div class="atxd">
+        <div class="tx"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}" /><span> <font>{$vo.userInfo.wechaname}</font> <br>{:get_time(strtotime($vo.create_time))}</span></div>
+    </div>
+    <div class="tpic3">
+        <div class="title">{$vo.qtitle}</div>
+        <div class="pics">
+            {volist name='$vo.images' id='vo2' offset="0" length='3'}
+            <div class="picll"><img src="{$vo2.pic}"></div>
+            {/volist}
+        </div>
+    </div>
+</a>
+<div class="infos">
+    <span class="llcs">浏览{$vo.click}次</span>
+    <span class="dianzan" id="dz{$vo.id}" data-id="{$vo.id}" data2-id="0"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></span>
+    <span class="wyhd" onclick="location.href='{:url('ask/answer',['aid'=>$vo.id])}'">我要回答</span>
+</div>
+{/case}
+{default /}
+<a href="{:url('ask/detail',array('id'=>$vo.id))}">
+    <div class="atxd">
+        <div class="tx"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}" /><span> <font>{$vo.userInfo.wechaname}</font> <br>{:get_time(strtotime($vo.create_time))}</span></div>
+    </div>
+    <div class="tpic3">
+        <div class="title">{$vo.qtitle}</div>
+
+    </div>
+</a>
+<div class="infos">
+    <span class="llcs">浏览{$vo.click}次</span>
+    <span class="dianzan" id="dz{$vo.id}" data-id="{$vo.id}" data2-id="0"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></span>
+    <span class="wyhd" onclick="location.href='{:url('ask/answer',['aid'=>$vo.id])}'">我要回答</span>
+</div>
+{/switch}
+{/volist}
+
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>10){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">暂无内容</div>
+<?php } ?>
+
+<div class="fdzx"><a href="{:url('ask/add')}"><img src="{$Think.HTML_STATIC}/images/asktt.png"></a></div>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/scroll.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/navbarscroll.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/web.js"></script>
+
+<script>
+
+    //点赞
+    $(".dianzan").click(function(){
+        id=$(this).attr('data-id');
+        askindexpraise(id,5,'{$Request.token}',$(this).attr('id'));
+    });
+    /*var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 4,
+        centeredSlides: true,
+        paginationClickable: true,
+        spaceBetween: 30,
+        grabCursor: true,
+        width : 'auto'
+    });*/
+    $(function(){
+        $('#demo05').navbarscroll({
+            defaultSelect:{$postion},
+    });
+    });
+
+
+
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        tid:{$tid},
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

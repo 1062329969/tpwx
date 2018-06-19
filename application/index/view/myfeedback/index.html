@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        .bodyb .mui-action-back,.bodyb .mui-title,.bodyb .mui-icon-search{color:#333333;}
+        #imgPicker p{ color: #fff}
+        #loading{ height: 100%; margin-top: 0px;}
+        #table{width:100%;display:-webkit-box;-webkit-box-pack:justify;background: #fff;}
+        #table li{width:50%;}
+        #table li:nth-of-type(1) p{}
+        #table li p{width:100%;text-align:center;padding:1rem 0;font-size: 1.6rem;}
+        #table li p a{color:#333333;display:block;width:100%;}
+        #table li:nth-of-type(2) p a{border:none;}
+        #table li p.active a span{padding: 1rem 0;color:#15bbdc;border-bottom: 0.2rem solid #15BBDC;width: 60%;display: inline-block;}
+        .feedback{background:#ffffff;}
+        .feedback .mui-pull-left{color:#333333;}
+        .feedback .mui-title{color:#333333;}
+        .backc{width:100%;background:#ffffff;border-top:1px solid #e6e6e6;}
+        .backc ul{padding-top:2%;width:94.667%;margin:0 auto;}
+        .tc{width:100%;background:#f0f0f0;margin-top:0;padding-left:1em;border:none;}
+        .backc form ul li{padding:0;border:none;}
+        .backc .mui-table-view-cell:after{background:none;}
+        .backc .form2{border:none;margin-top:0;}
+        .backc textarea{background:#f0f0f0;border:none;padding-left:1em;padding-top:1em;}
+        .backc .type{padding:2% 0;}
+        .backc ul li select option{color:#999999;}
+        .form2 p{margin-top:0;}
+        .form2{padding:0;}
+        .webuploader-pick{background: #f0f0f0;}
+        #btnn{width:86.667%;margin:10% auto 0;padding:2rem 0;background:url({$Think.HTML_STATIC}/images/btnn.jpg) no-repeat;background-size:100% auto;display:block;border:none;}
+        .anniu{background:#f5f5f5;width:100%;clear:both;}
+          /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #333;font-weight:normal; line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+       #table{border-bottom: 0.05rem solid #F0F0F0;}
+       .backc{border-top: none;}
+       #del{width:100%;line-height:5rem;background:red;font-size:1.4rem;color:#fff;text-align:center;position:absolute;bottom:0;left:0;display:none;}
+       .upload{position: relative;width: 25%;}
+       .upload input{
+       	    opacity: 0;
+		    width: 100%;
+		    height: 100%;
+		    position: absolute;
+		    opacity: 0;
+		    left: 0;
+		    top: 0;
+		    z-index: 99;}
+		.upload img{width: 100%;height: 100%;}
+		.addimg{padding-bottom: 1rem;}
+		.addimg figure{width:33%;float: left;height:11.5rem;overflow: hidden;margin: 0;}
+		 .clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		    }
+		.clearfix{
+		    	zoom:1;
+		    }
+		.backc ul{width: 100%;}
+		.backc{padding: 0 1rem;}
+		.backc textarea,.form2 p,.tc,.backc .type{font-size: 1.4rem;}
+		.tc{margin-top: 2%;}
+		#table li p.active a{width: 99%;}
+		#table li p{padding: 0;}
+		#table li p img{padding: 1rem 0;}
+		.backc textarea, .form2 p, .tc, .backc .type{font-size: 1.5rem}
+		.backc .type{color: #666;}
+   </style>
+</head>
+<body class="bodyb" style="background:#f5f5f5;">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class=" mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">反馈</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<ul id="table">
+    <li><p class="active clearfix"><a class="mui-pull-left" href="{:url('index')}"><span>意见反馈</span></a><img class="mui-pull-right" src="{$Think.HTML_STATIC}/images/70.png"/></p></li>
+    
+    <li><p style="padding: 1rem 0;"><a href="{:url('backlist')}" onclick="window.location.href='backlist'">反馈记录 </a></p></li>
+</ul>
+
+<div class="backc">
+    <form action="{:url('add')}" method="post">
+        <ul>
+            <li class="mui-table-view-cell type">
+                	选择您想反馈的问题类型
+            </li>
+            <li>
+                <select name="f_type" class="tc" id="type">
+                    {volist name='typelist' id="vo"}
+                    <option value="{$vo.ft_id}">{$vo.ft_type}</option>
+                    {/volist}
+                </select>
+            </li>
+            <li class="mui-table-view-cell">
+                <textarea name="f_content" rows="7" placeholder="请在此输入您的问题和建议" id="text"></textarea>
+            </li>
+            <li class="form2">
+                <p>问题截图(<span id="txt">0</span>/3)</p>
+                <div class="addimg clearfix appliance my-gallery" id="uploadimg">
+                    <figure id="imgPicker" class="upload">
+                    	<input type="file" accept="image/*" id="file" name="file" />
+            			<img src="{$Think.HTML_STATIC}/images/34.jpg"/>
+                    </figure>
+                    <!--<li id="fileList" class="uploader-list"></li>-->
+                </div>
+            </li>
+            <li class="mui-table-view-cell anniu">
+                <input id="btnn" readonly="readonly"/>
+            </li>
+        </ul>
+    </form>
+</div>
+<div style="height: 45px;"></div>
+<style>
+    #tc{width:100%;height:100%;background:#000;opacity:0.6;position:fixed;top:0;left:0;z-index:99;display:none;}
+    #fkc{width:100%;width:86.667%;background:#f5f5f5;margin:0 auto;position:absolute;top:35%;left:6.667%;z-index:999;display:none;}
+    #fkc img{width:32.30769%;display:block;margin:0 auto;padding:5% 0;}
+    #fkc h3{text-align:center;color:#333333;font-size:1.6rem;margin:0;padding:0;}
+    #fkc p{text-align:center;color:#333333;font-size:1.6rem;color:#999999;font-size:1.4rem;line-height:1.8rem;margin-top:2%;}
+    #fkb{width:36.667%;margin:5% auto 0;padding:2rem 0;background:url({$Think.HTML_STATIC}/images/fkb.png) no-repeat;background-size:100% auto;display:block;border:none;}
+    .cj_alert{width: 70%;background: white;padding: 2rem;position: fixed;top: 35%;left: 15%;text-align: center;border-radius: 2rem;z-index: 99999;}
+    .cj_alert span{border: 1px solid #F0F0F0;width: 6rem;height: 3rem;border-radius:3rem;display: inline-block;text-align: center;line-height: 3rem;margin: 3rem 1.5rem 0;}
+    .cj_back{width: 100%;height: 100%;background: rgba(0,0,0,0.3);position: fixed;top: 0;left: 0;z-index: 9999;}
+</style>
+<div id="tc"></div>
+<div id="fkc">
+    <img src="{$Think.HTML_STATIC}/images/fkc.jpg"/>
+    <h3>反馈成功</h3>
+    <p>反馈成功感谢您对雍享汇的关注与支持，我们会认真<br/>处理您的反馈，尽快修复和完善相关功能。</p>
+    <a href="#" id="fkb" onclick="window.location.href='backlist'"></a>
+</div>
+<div id="del">删除照片</div>
+<!--是否删除照片-->
+<div class="cj_alert" style="display: none;">
+	<p>你确定要删除此照片吗？</p>
+	<p><span class="cj_true">确认</span><span class="cj_false">取消</span></p>
+</div>
+<div class="cj_back" style="display: none;"></div>
+{include file="public/fx" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<!--<script src="{$Think.HTML_STATIC}/js/hua1.js"></script> 
+<script src="{$Think.HTML_STATIC}/js/hua2.js"></script> -->
+<script>
+	 //判断安卓和ios文字颜色
+        if (/(iPhone)/i.test(navigator.userAgent)) {
+		
+            $("header").css("borderColor","#cecece");
+
+        }
+
+    // mui.previewImage();
+
+    $('#btnn').click(function()
+    {
+        var mycars=new Array();
+        $('#fileList img').each(function(index){
+            mycars[index]=$(this).attr('data-preview-src');
+        });
+
+        ty=$("#type option:selected").val();
+        //qtitle=$('#qtitle').val();
+        //tid=$('#tid').val();
+        text=$('#text').val();
+
+        var imgarr = new Array();
+        $('.addimg').each(function(m,n){
+            imgarr[m] = $(n).find('img:not(".upload img")').attr('src');
+        })
+//		var imgarr
+        /*$('body').append("<div class='mb' id='loading'></div>");*/
+        $.ajax({
+            type: "post",
+            url: '{:url("add")}',
+            data: {images:mycars,f_content:text,f_type:ty,imgarr:imgarr,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    $("#tc").show();
+                    $("#fkc").show();
+                }
+                else
+                {
+                    alert("反馈不成功！！！");
+                }
+            }
+        });
+    });
+	$("#file").change(function(){
+        drawTempPhoto();
+       	imgLen()
+    });
+    //绘制照片
+    function drawTempPhoto() {
+        //检验是否为图像文件
+        var file = document.getElementById("file").files[0];
+        if(!/image\/\w+/.test(file.type)){
+            alert("请选择图片文件。")
+            return false;
+        }
+        var reader = new FileReader();
+        // 将文件的格式以Data URL形式读入页面
+        reader.readAsDataURL(file)
+        //等待图片加载完成
+        reader.onload = function (e) {
+            //预览效果
+            //加载图片，此处的this.result为base64格式
+            $(".upload").before("<figure><img src='"+this.result+"'/><input type='hidden' class='imgarr' name='images[]' value='"+this.result+"'></figure>")
+            $("#file").val("")
+            $(".appliance figure:not('.upload')").click(function(){
+//          	var index=$(this).index()
+//          	$(".cj_alert").show()
+//          	$(".cj_back").show()
+//          	$(".cj_true").click(function(eval,inde){
+//          		$(".cj_alert").hide()
+//          		$(".cj_back").hide()
+//          		 $(".appliance figure:not('.upload')").eq(index).remove();
+//          	})
+				$(this).remove()
+                var imgLen=$(".addimg img").length;
+		    	$("#txt").html(imgLen-1)
+		    	$(".upload").show()
+            })
+        }
+    }
+    	function imgLen(){
+    		var imgLen=$(".addimg img").length;
+	    	$("#txt").html(imgLen)
+	    	if(imgLen==3){
+	    		$(".upload").hide()
+	    	}else{
+	    		$(".upload").show()
+	    	}
+    	}
+     $(function () {
+         backH();
+         window.addEventListener('popstate',function(e){
+             window.location.href="{:url('my/index')}"
+         },false);
+
+
+         function backH(){
+             var state = {
+                         title:'title',
+                         url:'{:url('my/index')}'
+         };
+             window.history.pushState(state,'title','#');
+         }
+     })
+
+     $("#fileList >div").on('touchstart', function(e){
+         e.stopPropagation();
+         var index=$(this).index();
+         alert(index);
+         time = setTimeout(function(){
+             showCloseImg(index);
+         }, 500);
+     });
+
+     function showCloseImg(index){
+         $("#del").show();
+         $("#").click(function(){
+             $("#fileList >div").eq(index).remove();
+             $("#del").hide();
+         });
+     }
+
+     function removethis(_self){
+        $(_self).remove();
+        var num=$("#fileList >div").length;
+        $("#txt").html(num);
+        if(num<3){
+            $('#imgPicker').show();
+        }
+     }
+</script>
+</body>
+</html>

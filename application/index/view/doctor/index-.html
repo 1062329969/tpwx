@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/doctor.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">专家团队</div>
+    <div class="st3"><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+<div class="doctop">
+     <img src="{$doctorAd.pic}">
+     <ul>
+         {volist name='hospitalRegion' id='vo'}
+         <li{eq name='$vo.id' value='$id'} class="on"{/eq}><a href="{:url('index',['id'=>$vo.id])}">{$vo.region}</a></li>
+         {/volist}
+     </ul>
+</div>
+
+{volist name='$doctor' id='vo'}
+<a href="{:url('detail',['id'=>$vo.id])}">
+    <div class="doclist">
+        <img src="{$vo.pic}">
+        <div class="docinfo">
+            <div class="docname">{$vo.docname}</div>
+            <div class="doczc">{$vo.positional_titles} | {$vo.position}</div>
+            <div class="docsc">擅长项目：{$vo.good_at}</div>
+            <div class="docpj"><span class="fl">好评率：{$vo.praise}%</span><span class="fr">关注度：{$vo.follow}</span></div>
+            <div class="dwyzx"><a href="{$Think.config.zoosnet}">我要咨询</a></div>
+        </div>
+    </div>
+</a>
+{/volist}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+</body>
+</html>

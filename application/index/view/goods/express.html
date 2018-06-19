@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+    <link href="{$Think.HTML_STATIC}/css/goods.css" rel="stylesheet">
+    <style>
+    		/*顶部标题*/
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+        ul li{list-style: none;}
+        .track-list{padding-left: 5px; position: relative;}
+        .track-list li{position: relative; padding:15px 0 0 25px; line-height: 18px; border-left: 1px solid #d9d9d9; color: #666;}
+        .track-list li.first{color: #15BBDC; padding-top: 0; border-left-color: #fff;}
+        .track-list li .node-icon{position: absolute; left: -6px; top: 50%; width: 11px; height: 11px; background: url({$Think.HTML_STATIC}/images/order-icons.png)  -21px -72px no-repeat;}
+        .track-list li.first .node-icon{background-position:0 -72px;}
+        .track-list li .time{margin-right: 20px; position: relative; top: 4px; display: inline-block; vertical-align: middle;}
+        .track-list li .txt{max-width: 600px; position: relative; top: 4px; display: inline-block; vertical-align: middle;}
+        .track-list li.first .time{margin-right: 20px; }
+        .track-list li.first .txt{max-width: 600px; }
+        
+    </style>
+</head>
+
+<body style="background: #fff">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">物流信息</h1>
+</header>
+<?php if(!is_array($reStr)){?>
+<div class="exmain" style="margin-top: 55px; padding:0 1.5rem; font-size: 1.4rem; line-height: 25px;">
+    {$reStr}
+</div>
+<?php } else {?>
+
+<div class="exmain" style=" margin-top:55px;padding: 1.5rem;">
+    <div class="track-rcol">
+        <div class="track-list">
+        <ul>
+            {volist name='reStr' id='vo'}
+            <li {eq name='$i' value="1" }class="first"{/eq}>
+                <i class="node-icon"></i>
+                <span class="time">{$vo.AcceptTime}</span><br>
+                <span class="txt">{$vo.AcceptStation}</span>
+            </li>
+            {/volist}
+        </ul>
+        </div>
+    </div>
+</div>
+
+<?php }?>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+</body>
+</html>

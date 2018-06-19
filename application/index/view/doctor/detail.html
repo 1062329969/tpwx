@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/doctor.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/doctor3.css" rel="stylesheet" type="text/css">
+    <style>
+    	.cjhos img{margin-right: 0.3rem;}
+    	.cjhos span{margin-right: 0.3rem;}
+    	.cjdoctor-img img{width: 10rem;height: 10rem;}
+    	#header .mui-pull-left img{margin-top: 1.25rem;}
+    	.cjskill-content{width: 100%;padding-left: 2.2rem;}
+    	.cjskill-content span{margin: 0.5rem  0.5rem 0.5rem 0;}
+    	.cjexpert p, .cjaptitude p{color: #999999;}
+    	.cjskill{padding-bottom: 1.5rem;padding-top: 1.5rem;}
+    	.cjskill>div:first-of-type{color: #565656;}
+    	.cjskill-title{padding-bottom: 0.3rem;}
+    	.cjexpert div,.cjaptitude div{color: #565656;margin-bottom: 0.3rem;font-size: 1.5rem;}
+    	.cjexpert ul p, .cjaptitude ul p{line-height: 2.5rem;font-size: 1.3rem;}
+    	.cjskill>div:first-of-type{font-size: 1.5rem;}
+    	.dddcname{margin-bottom: 0;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav" style="z-index: 1000001">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">医生主页</h1>
+</header>
+<div style="height:5.4rem;"></div>
+<div class="detaitldocinfo">
+      <div class="cjdoctor-img">
+          <img src="{$doctor.pic}">
+      </div>
+    <div>
+      <div class="dddcname"><span>{$doctor.docname}</span><span>{$doctor.positional_titles}</span></div>
+       	<div class="cjhos">
+            	<img src="{$Think.HTML_STATIC}/images/19.png"/>
+            	<span>就职院部:</span>
+            	<span>{$hospital.hosname}</span>
+        </div>
+      
+      <!--<div class="ddochp"><p>擅长：{$doctor.good_at}</p></div>
+        <div class="ddochp">{$doctor.zym}</div>-->
+    </div>
+
+    </div>
+<div class="cjskill">
+      		<div class="cjskill-title"><img src="{$Think.HTML_STATIC}/images/24.png"/>擅长领域:</div>
+      		<div class="cjskill-content">
+				<?php  $arr = explode('、',$doctor['good_at']);?>
+				<?php
+					foreach($arr as $k=>$v){
+				?>
+      			<span><?php echo $v; ?></span>
+				<?php } ?>
+      		</div>
+      		<div style="clear: both;"></div>
+</div>
+<div class="cjaptitude">	
+		<div><img src="{$Think.HTML_STATIC}/images/25.png"/>专业资质</div>
+		<ul>
+
+			<li>{$doctor.text2}</li>
+
+		</ul>
+</div>
+<div class="cjexpert">
+	<div><img src="{$Think.HTML_STATIC}/images/26.png"/>专家简介</div>
+	<ul>
+		<li>{$doctor.text}</li>
+	</ul>
+</div>
+<!--<div class="doccont">
+     <div class="doctitle">医生介绍</div>
+     <div class="doccontent">
+           {$doctor.text}
+</div>
+<div class="doccont">
+    <div class="doctitle">专业资质</div>
+    <div class="doccontent">
+          {$doctor.text2}
+    </div>
+</div>
+
+<div class="doccont">
+    <div class="doctitle">行医理念</div>
+    <div class="doccontent doccontentzs">
+          {$doctor.text3}
+    </div>
+</div>-->
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+    $(function(){
+        getCollection({$doctor.id},{$fansInfo.id},6);
+
+        //收藏
+        $(".collection").click(function(){
+            collection({$doctor.id},6,'{$Request.token}');
+        });
+
+    });
+</script>
+</body>
+</html>

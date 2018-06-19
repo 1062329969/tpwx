@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <style type="text/css">
+        /*一心写的*/
+        #imgPicker p{ color: #fff}
+        #loading{ height: 100%; margin-top: 0px;}
+        .asktopss{ background: #fff;padding-top: 2rem;}
+        .asktopss ul{width:81%;border-radius: 3.5rem; margin: 0 auto;background: #8adeee;}
+        .asktopss ul li{float:left;text-align: center; width: 33.33%;color: #fff;position: relative;}
+        .asktopss ul li img{position: absolute;top: -0.55rem;left: -0.45rem;width: 100%;}
+        .asktopss ul li a{line-height:3.5rem; display: block;font-size:1.6rem;}
+        a{color: white;}
+        a:active{color: white;}
+        .askcontent{ padding: 0px;}
+        .atxd{padding: 1.5rem 1.5rem 0px; background: #fff; margin: 0px;}
+        .atxd .tx img{ float: left;}
+        .atxd .tx span{ float: left; padding-top:7px; line-height: 22px;font-size: 1.2rem; color: #999}
+        .atxd .tx font{ font-size: 1.4rem; color: #111}
+        .askcontent{ margin-top: 0px; border: none;}
+        .askconttitle{ font-weight: 600}
+        .cj_intro{width:65%;}
+        .cj_intro h2{font-size: 1.6rem;color: #333333;line-height: 3.2rem;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+        .cj_intro p{font-size: 1.4rem;color: #808080;line-height: 1.9rem;overflow: hidden;display: -webkit-box;  -webkit-line-clamp: 2;  -webkit-box-orient: vertical; }
+        /*@media only screen and (min-width: 320px) and (max-width: 330px) {
+        	.cj_intro h2{line-height: 2rem;}
+        	.cj_intro p{line-height: 1.55rem;}
+        }*/
+        .stagelabel{background: #fff;padding: 2rem 1rem;margin-bottom: 1rem;}
+        .stagelabel a{width:35%;padding-right: 1.5rem;}
+        .stagelabel a img{width: 100%;}
+        .stagelabel span{ display: inline-block;font-size:1.4rem;color:#999999;}
+        .stagelabel ul{ width: 88%; height:38px;margin: 2% auto 0;}
+        .stagelabel ul li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 14px; width: 33%;border-right:1px solid #f0f0f0;text-align:center;}
+        
+        /*li a{color:#666666;}*/
+        ul li img.qimg{display:inline-block;width:15%;margin-right:4%;}
+        .stagelabel ul li:nth-of-type(3){border-right:none;}
+        /*头部*/
+        .memmenu{width:100%;height: 4.4rem;border-bottom: 0.05rem solid #EAEAEA;position: fixed;top: 0;left: 0;line-height: 4.4rem;/*position:relative;z-index:999;*/}
+        .cj_noTop{position: static;}
+        #healthy span{width:49.84%;display:inline-block; line-height: 4.4rem;}
+        #healthy>img{width: 1px;height: 2.3rem;float: left;margin-top: 1.05rem;}
+        #healthy span a{color:#333333;font-size:1.7rem;}
+        #healthy span:nth-of-type(2) a{color:#15bdde;font-weight: 600;}
+        /*banner*/
+        .cj_banner{width: 100%;}
+        .cj_banner img{width: 100%;display: block;}
+        /*底线*/
+        .bo{width:76%;margin:4% auto;}
+        .bo img{width:100%;display:block;}
+        #loading{width:76%;margin:0 auto 3rem;}
+        #loading img{width:100%;}
+        /*.asktopss ul li a{color:#333;}*/
+        /*.asktopss ul li a.active{color:#333;}*/
+        /*.active a{color:#666;}*/
+        .mmmain{position: relative;}
+        #healthy a.mui-pull-left{position: absolute;width:10%;}
+         #healthy a.mui-pull-left img{width: 1rem;height: 1.75rem;z-index: 99999;margin-top: 0;}
+         .mmmain{width: 49.7%;}
+         #healthy div a{font-size: 1.7rem;color: #333;}
+         #healthy div:nth-of-type(3) a{font-weight: bold;color: #15BBDC;}
+        .swiper-button-next, .swiper-button-prev{ width: 18px; height: 29px; background-size:18px 29px; margin-top: -13px;}
+        .swiper-pagination-bullet{background:#b9b9b9;opacity:1;}
+        .swiper-pagination-bullet-active{background:#ffffff;}
+        .swiper-container-horizontal>.swiper-pagination-bullets .swiper-pagination-bullet{margin:0 5px 8px 5px;}
+        .cj_shuhou{position: relative;}
+        .cj_shuhou span{position: absolute;width: 8.9rem;text-align: center;bottom: 0;left: 50%;margin-left: -4.45rem;height: 3px;background: #15BBDC;text-align: center;}
+        .cj_shuhou span img{position: absolute;width: 1.05rem;bottom: -0.5rem;margin-left: -0.525rem;}
+        .clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		}
+		.clearfix{
+		   zoom:1;
+		}
+		.active a{background-size: 100%;background: white;border-radius:3.5rem; color: #333;box-shadow:skyblue 0 0 10px ;}
+    </style>
+</head>
+<body class="bodyb">
+{if $Think.session.from=='index'}
+<!--有返回按钮的div-->
+<div class="memmenu" id="healthy">
+    <div class="mmmain" style="width:100%;">
+        <a class="mui-pull-left" onclick="window.location.href='{:url('index/home')}'" style="display:block;">
+            <img src="{$Think.HTML_STATIC}/images/3.png">
+        </a>
+        <a>术后养护</a>
+    </div>
+</div>
+<div style="height:4.4rem;"></div>
+<div class="cj_banner" onclick="return false;">
+    <img src="{$Think.HTML_STATIC}/images/yh1.jpg"/>
+</div>
+{else /}
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" ><a><img src="{$Think.HTML_STATIC}/images/zj.jpg" class="qimg"/></a></div>
+        <div class="swiper-slide" ><a><img src="{$Think.HTML_STATIC}/images/yh1.jpg" class="qimg"/></a></div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+<div class="memmenu cj_noTop" id="healthy">
+    <span class="mmmain"><a href="{:url('track/stage')}" >直击术后</a></span>
+    <img src="{$Think.HTML_STATIC}/images/69.png"/>
+    <span class="mmmain cj_shuhou"><a href="{:url('haircare/article',['from'=>'bottom'])}">术后养护</a><span><img src="{$Think.HTML_STATIC}/images/98.png"/></span></span>
+</div>
+{/if}
+
+
+
+<!--跟踪-->
+<!--<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" ><a><img src="{$Think.HTML_STATIC}/images/yh1.jpg" class="qimg"/></a></div>
+        <div class="swiper-slide" ><a><img src="{$Think.HTML_STATIC}/images/zj.jpg" class="qimg"/></a></div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>-->
+<!--
+<div class="memmenu" id="healthy">
+    <span class="mmmain"><a href="{:url('track/stage')}" >直击术后</a></span>
+    <img src="{$Think.HTML_STATIC}/images/69.png"/>
+    <span class="mmmain"><a href="{:url('haircare/article',['from'=>'bottom'])}">术后养护</a></span>
+</div>-->
+
+<div class="asktopss">
+    <ul class="clearfix">
+        <li class="{if $hc_type==1}active{/if}">
+            <a href="{:url('haircare/article',['hc_type'=>1])}">养护内容</a>
+        </li>
+        <li class="left {if $hc_type==2}active{/if}">
+            <a href="{:url('haircare/article',['hc_type'=>2])}">护理知识</a>
+        </li>
+        <li class="left {if $hc_type==3}active{/if}">
+            <a href="{:url('haircare/article',['hc_type'=>3])}">常见问题</a>
+        </li>
+        <li style="clear: both;"></li>
+    </ul>
+</div>
+<div id="pagelist">
+    {volist name="list" id='vo' }
+    <div class="stagelabel">
+        <a class="mui-pull-left" href="{:url('articleinfo',['aid'=>$vo.hc_id])}"><img src="{$vo.hc_img}"></a>
+        <div class="cj_intro mui-pull-left" onclick="window.location.href='/haircare/articleinfo/aid/{$vo.hc_id}.html'">
+            <h2>{$vo.hc_title}</h2>
+            <p>{php} echo mb_substr(strip_tags($vo['hc_content']),0,30); {/php}...</p>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    {/volist}
+</div>
+
+{include file="public/fx" /}
+<div id="loading" class="bo"><img style="width: 100%;" src="{$Think.HTML_STATIC}/images/bo.jpg"/></div>
+{if $Think.session.from!='index'}
+{include file="public/footer" /}
+{/if}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script type="text/javascript">
+    $(function() {
+        //上传文字超过两行显示...
+        // var ctxt=$(".cj_intro p").text();
+        // var str=ctxt.substr(0,32) + '...' ;
+        // $(".cj_intro p").text(str);
+        String.prototype.stripHTML = function() {
+            var reTag = /<(?:.|\s)*?>/g;
+            return this.replace(reTag,"");
+        }
+        $('li[name="dianzan"]').click(function(){
+            if($(this).attr('dis')==0){
+                return false;
+            }
+            var _self = $(this);
+            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/dz4.png');
+            $(this).attr('dis',0);
+            var datas = $(this).attr('data');
+            $(this).attr('data','1');
+            var aid = _self.attr('data-id');
+            $.ajax({
+                type: "get",
+                url: '{:url("articlepraise")}',
+                data: {aid:aid,data:datas,__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1){
+                        if(datas==0){
+                            _self.find('span').html(Number(_self.find('span').html())+1);
+                            _self.attr('dis',1);
+                            _self.attr('data','1');
+                        }else{
+                            _self.find('span').html(Number(_self.find('span').html())-1);
+                            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/dz3.png');
+                            _self.attr('dis',1);
+                            _self.attr('data','0');
+                        }
+                    }else{
+                        alert('操作失败');
+                    }
+                }
+            });
+        })
+    })
+    //下拉加载用户数据
+    var a = 0;
+    var pagenum = 2;
+    var dis = false;
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#pagelist");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(dis){
+                    $('#loading').html("<img src='{$Think.HTML_STATIC}/images/bo.jpg'/>");
+                    return false;
+                }
+                if(a==0)
+                {
+                    a = 1;
+//                  $('#loading').html("正在努力为您加载...");
+                    $.get("{:url('haircare/articlelist')}",{page:pagenum,hc_type:{$hc_type}},function(data){
+                        var _html = '';
+                        var datas = data.data;
+                        if(data.data==0)
+                        {
+                            $('#loading').html("<img src='{$Think.HTML_STATIC}/images/bo.jpg'/>");
+                            a = 0;
+                        }
+                        else
+                        {
+                            _html += '';
+                            for(x in datas){
+                                _html += '<div class="stagelabel">';
+                                _html += '<a class="mui-pull-left" href="/haircare/articleinfo/aid/'+datas[x].hc_id+'.html"><img src="'+datas[x].hc_img+'"></a>';
+                                _html += '<div class="cj_intro mui-pull-left"  onclick="window.location.href=\'/haircare/articleinfo/aid/'+datas[x].hc_id+'.html\'">';
+                                _html += '<h2>'+datas[x].hc_title+'</h2>';
+                                _html += '<p>'+datas[x].hc_content.stripHTML().substr(0,30)+'...</p>';
+                                _html += '</div>';
+                                _html += '<div style="clear: both;"></div>';
+                                _html += '</div>';
+                            }
+                            main.append(_html);
+                            pagenum++;
+                            a = 0;
+                        }
+                        if(pagenum == data.last_page){
+                            dis = true;
+                        }
+                    });
+                }
+            }
+        });
+    });
+</script>
+<script src="{$Think.HTML_STATIC}/js/xback.js"></script>
+<script>
+    $(function () {
+        backH();
+        window.addEventListener('popstate',function(e){
+            {if $Think.session.from=='index'}
+            window.location.href="{:url('index/home')}"
+            {else /}
+            window.location.href="{:url('haircare/article')}"
+            {/if}
+        },false);
+        function backH(){
+            var state = {
+                        title:'title',
+                        {if $Think.session.from=='index'}
+                        url:'{:url('index/home')}'
+                        {else /}
+                        url:'{:url('haircare/article')}'
+                        {/if}
+
+        };
+            window.history.pushState(state,'title','#');
+        }
+    })
+
+
+</script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script type="text/javascript">
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        loop:'true',
+        autoplay:3000
+    });
+</script>
+</body>
+</html>

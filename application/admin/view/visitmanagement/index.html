@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$Think.config.sitename}</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style>
+        /*档案列表页*/
+        .row{margin-right:0;margin-left:0;}
+        .sc >div:nth-of-type(2){margin-top:2%;}
+        .r1{margin-top:3%;}
+        .r2{margin-top:2%;}
+        .r3{margin-top:3%;}
+        select{height:30px;line-height:30px;text-align:center;width:60%;}
+        .ibox-content{padding-top:1%;}
+        .ibox-title{padding-bottom:1%;}
+        .ad{margin-top:1%;}
+        .tt{margin:1% 0;}
+        .tt b{color:red;font-weight:normal;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <form method="get" action="{:url('index')}" onsubmit="return checkform()">
+                        <div class="sc">
+                            <div class="">
+                                <div class="row r1">
+                                    <div class="col-md-4">患者姓名：<input type="text" placeholder="" id="lxname" class="input-sm" name="vm_name" value="{$data.vm_name|default=''}"></div>
+                                    <div class="col-md-5">到诊时间：
+                                        <input type="text" placeholder=""  readonly class="input-sm" id="vm_visittimes" name="vm_visittimes" value="{$data.vm_visittimes|default=''}">--
+                                        <input type="text" placeholder=""  readonly class="input-sm" id="vm_visittimee" name="vm_visittimee" value="{$data.vm_visittimee|default=''}">
+                                    </div>
+                                    <div class="col-md-3">
+                                        到诊院部：
+                                        <select name="vm_hospital" id="lxhospital">
+                                            <option value="">请选择</option>
+                                            {foreach name="hlist" item="vo" key="k" }
+                                            <option value="{$k}"{if isset($data.vm_hospital)&&$data.vm_hospital==$k}selected{/if}>{$vo}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row r2">
+                                    <div class="col-md-4">手机号码：<input type="text" placeholder="" id="lxphone" class="input-sm" name="vm_phone" value="{$data.vm_phone|default=''}"></div>
+                                    <div class="col-md-5">手术时间：
+                                        <input type="text" placeholder=""  readonly class="input-sm" id="vm_operationtimes" name="vm_operationtimes" value="{$data.vm_operationtimes|default=''}">--
+                                        <input type="text" placeholder="" readonly class="input-sm" id="vm_operationtimee" name="vm_operationtimee" value="{$data.vm_operationtimee|default=''}">
+                                    </div>
+                                    <div class="col-md-3">项目类别：
+                                        <select name="vm_project" id="lxproject">
+                                            <option value="">请选择</option>
+                                            {foreach name="ptype" item="vo" key="k" }
+                                            <option value="{$k}" {if isset($data.vm_project)&&$data.vm_project==$k}selected{/if}>{$vo}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row r3">
+                                    <div class="input-group-btn">
+                                        <input type="submit" class="btn btn-primary col-md-1 col-md-push-4" value="查询">
+                                        <input type="button" id="lxid" onclick="javascript:window.location.href='{:url("visit_export",array('vm_name'=>$name,'vm_phone'=>$phone,'vm_visittimes'=>$tstart,'vm_visittimee'=>$tover,'vm_operationtimes'=>$pstart,'vm_operationtimee'=>$pover,'vm_hospital'=>$hospital,'vm_project'=>$project))}'"  class="btn btn-primary col-md-1 it col-md-push-7" value="导出">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <button class="btn btn-primary pull-right ad" onclick="window.location.href='{:url("add")}'">新增档案</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="row tt">总共有<b>{$list->total()}</b>条患者档案信息</div>
+                    <div class="table-responsive">
+                        <table class="table table-striped ts">
+                            <thead>
+                            <tr>
+                                <th width="5%"><input type="checkbox" onclick="checkall(this)">全选</th>
+                                <th width="10%">患者姓名</th>
+                                <th width="10%">就诊时间</th>
+                                <th width="10%">手术时间</th>
+                                <th width="10%">性别</th>
+                                <th width="10%">手机</th>
+                                <th width="15%">项目类别</th>
+                                <th width="15%">就诊院部</th>
+                                <th width="30%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='list' id='vo'}
+                            <tr>
+                                <td><input type="checkbox" value="{$vo.vm_id}"></td>
+                                <td>{$vo.vm_name}</td>
+                                <td>{if $vo.vm_visittime}{$vo.vm_visittime|date='Y-m-d',###}{/if}</td>
+                                <td>{if $vo.vm_operationtime}{$vo.vm_operationtime|date='Y-m-d',###}{/if}</td>
+                                <td>{if $vo.vm_sex==1}男{else /}女{/if}</td>
+                                <td>{$vo.vm_phone}</td>
+                                <td>{$ptype[$vo.vm_project]}</td>
+                                <td>{$hlist[$vo.vm_hospital]}</td>
+                                <td>
+                                    <a href="{:url('alter',['vm_id'=>$vo.vm_id])}" type="button" class="btn btn-outline btn-info alter" data-id='{$vo.vm_id}' >编辑</a>
+                                    <button type="button" class="btn btn-outline btn-info del" data-id='{$vo.vm_id}' onclick="del({$vo.vm_id})">删除</button>
+                                    <a href="{:url('views',['vm_id'=>$vo.vm_id])}" type="button" class="btn btn-outline btn-info doview" data-id='{$vo.vm_id}'>查看</a>
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                        <div class="row rf">
+                            <button type="button" class="btn btn-primary pull-left" onclick="alldel()"   id="chd">删除选中项</button>
+                            <!--分页-->
+                            <div class="pagesc">共计：{$list->total()}条 共：{$list->lastPage()}页</div>{$list->render()}
+                            <form class="pagesc" method="get" action="{:url('index')}" style="margin: 20px;">
+                                转向第
+                                <input type="number" name="page" style="width: 15%;" min="1"/>页
+                                <button type="submit">确定</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+
+<script>
+    function checkall(_self) {
+        if($(_self).is(':checked')){
+            console.log(1);
+            $("tbody :checkbox").prop("checked", true);
+        }else{
+            console.log(0);
+            $("tbody :checkbox").prop("checked", false);
+        }
+    }
+
+    function del_id(id) {
+        var ids = {}
+        ids[0] = id;
+        del(ids);
+    }
+
+    function alldel() {
+        var ids = {}
+        $("tbody :checkbox:checked").each(function (m,n) {
+            ids[m] = $(n).val();
+        })
+        del(ids);
+    }
+    function del(id) {
+        layer.confirm('确定删除吗?', function(index){
+            $.ajax({
+                type: 'get',
+                url: "{:url('del')}",
+                data:{vm_id:id},
+                dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                        layer.msg('删除成功');
+                        setTimeout(function () {
+                            window.location=window.location
+                        },1500)
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+            layer.close(index);
+        });
+    }
+    laydate.render({
+        elem: '#vm_visittimes'
+    });
+    laydate.render({
+        elem: '#vm_visittimee'
+    });
+    laydate.render({
+        elem: '#vm_operationtimes'
+    });
+    laydate.render({
+        elem: '#vm_operationtimee'
+    });
+    function checkform() {
+        if( ( $('#vm_visittimes').val() && !$('#vm_visittimee').val() ) || ( !$('#vm_visittimes').val() && $('#vm_visittimee').val() ) ){
+            layer.msg('请完整选择就诊时间');
+            return false;
+        }
+        if( ( $('#vm_operationtimes').val() && !$('#vm_operationtimee').val() ) || ( !$('#vm_operationtimes').val() && $('#vm_operationtimee').val() ) ){
+            layer.msg('请完整选择手术时间');
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+
+    $('#lxid').click(function () {
+        var urls = '{:url("visit_export")}?';
+        // 到诊时间
+        sid = $('#vm_visittimes').val();
+        nid = $('#vm_visittimee').val();
+        if(sid && nid){
+            urls = urls+"&vm_visittimes=" +sid +"&vm_visittimee="+nid;
+        }
+
+        // 手术时间
+        pstart = $('#vm_operationtimes').val();
+        pover = $('#vm_operationtimee').val();
+
+        if(pstart && pover){
+            urls = urls+"&vm_operationtimes=" +pstart +"&vm_operationtimee="+pover;
+        }
+        //姓名
+        names = $('#lxname').val();
+        if(names){
+            urls = urls+"&vm_name=" +names;
+        }
+        //号码
+        iphone = $('#lxphone').val();
+        if(iphone){
+            urls = urls+"&vm_phone="+iphone;
+        }
+        //到诊院部
+        hospital = $('#lxhospital').val();
+        if(hospital){
+            urls = urls+"&vm_hospital="+hospital;
+        }
+        //项目类别
+        project = $('#lxproject').val();
+        if(project){
+            urls = urls+"&vm_project="+project;
+        }
+        window.location.href=urls;
+    })
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/after-sale1.css" rel="stylesheet" type="text/css">
+    <style>
+		.box-body{width: 23rem;z-index: 999999;}
+			/*清除浮动*/
+			 .clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		    }
+		    .clearfix{
+		    	zoom:1;
+		    }
+		    /*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight:normal;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.cjservice-style div span{width: 6rem;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">售后服务</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="cjservice-style">
+    <p>服务类型</p>
+    <div>
+        <span class="on8" data=1>退货</span><span data=2>换货</span><span data=3>商品补发</span>
+    </div>
+</div>
+<div class="cjservice-list clearfix">
+    <div class="mui-pull-left">
+        <img src="{$goodsinfo.pic}"/>
+    </div>
+    <div class="mui-pull-left">
+        <div class="cjintro">
+            {$goodsinfo.gdname}
+        </div>
+        <div class="cjservice-list-drug-num">
+            <span>价格：{$gog.price}</span><span>数量：x{$gog.nums}</span>
+        </div>
+    </div>
+</div>
+<div class="cjreason clearfix">
+    <span class="mui-pull-left">申请原因</span>
+    <div class="mui-pull-right box">
+        <p class="box-title"><span class="des" name="reason" id="reason" >请选择</span> <img src="{$Think.HTML_STATIC}/images/31.png"/></p>
+        <ul class="box-body">
+            <li data="1">订单不能按预计时间送达</li>
+            <li data="2">操作有误（商品、地址等选错）</li>
+            <li data="3">重复下单/误下单</li>
+            <li data="4">其他渠道价格更低</li>
+            <li data="5">不想买了</li>
+            <li data="6">其他原因</li>
+            <li style="clear: both;"></li>
+        </ul>
+    </div>
+
+</div>
+<div class="cjissue">
+    <p>问题描述</p>
+    <textarea placeholder="请在这里输入您的问题描述" name="text" id="text"></textarea>
+    <ul class="appliance clearfix">
+        <li class="upload">
+            <input type="file" accept="image/*" id="file" name="file" />
+            <img src="{$Think.HTML_STATIC}/images/34.jpg"/>
+        </li>
+    </ul>
+</div>
+<div class="cjtip">
+    提交服务单后，售后专员可能与您电话沟通，请保持手机畅通
+</div>
+<div class="cjsubmit">
+    <img src="{$Think.HTML_STATIC}/images/35.jpg"/>
+</div>
+<div class="cjalert" style="display: none;">
+    <p>提示</p>
+    <div class="cjalert-content">您的售后服务提交成功，我们会尽快审核 完成，请耐心等待，如有其它问题，请咨 询在线客服。</div>
+    <div class="cjalert-btn" onclick='window.location.href="{:url('my/myreturnlist')}";'><button>查看进度</button></div>
+</div>
+<p class="mui-backdrop" style="display: none;" ></p>
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+    $("#file").change(function(){
+        drawTempPhoto();
+    });
+    //绘制照片
+    function drawTempPhoto() {
+        //检验是否为图像文件
+        var file = document.getElementById("file").files[0];
+        if(!/image\/\w+/.test(file.type)){
+            alert("请选择图片文件。")
+            return false;
+        }
+        var reader = new FileReader();
+        // 将文件的格式以Data URL形式读入页面
+        reader.readAsDataURL(file)
+        //等待图片加载完成
+        reader.onload = function (e) {
+            //预览效果
+            //加载图片，此处的this.result为base64格式
+            $(".upload").before("<li><img src='"+this.result+"'/><input type='hidden' class='imgarr' name='images[]' value='"+this.result+"'></li>")
+            $("#file").val("")
+            $(".appliance li:not(':last-child')").click(function(){
+                $(this).remove();
+            })
+        }
+    }
+    $(function() {
+        //服务类型
+        $(".cjservice-style div span").click(function(){
+            $(this).addClass("on8").siblings().removeClass("on8")
+        })
+        $('.box-title').click(function() {
+            $('.box-body').toggle();
+        });
+        $('.box-body li').each(function() {
+            $(this).click(function() {
+                $('.box-title .des').attr('data-id',$(this).attr('data'));
+                $('.box-title .des').html($(this).html());
+                $('.box-body').hide();
+            });
+        });
+        $('.box-body li').click(function(){
+            $(this).addClass("on7").siblings().removeClass("on7")
+        })
+        $("#unbind").unbind("click")
+//      $('.box-body li:first-child').css("background","#15bbdc")
+
+
+        $(".cjsubmit img").click(function(){
+            reason=$('#reason').attr('data-id');
+            text=$('#text').val();
+            if(reason==0){
+                alert('请选择退款原因');
+                return false;
+            }
+            var images = new Array();
+            $('.imgarr').each(function(n,m){
+                images[n] = $(m).val();
+            })
+
+            var return_stype=$('.on8').attr('data');
+            $('body').append("<div class='mb' id='loading'></div>");
+            $.ajax({
+                type: "post",
+                url: '{:url("refund")}',
+                data: {text:text,order_id:'{$order_id}',goods_order_goods:'{$goods_order_goods}',returntype:'{$return_type}',gid:'{$gid}',reason:reason,return_stype:return_stype,images:images,return_id:'{$return_id}',__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1)
+                    {
+                        $(".cjalert").show();
+                        $(".mui-backdrop").show();
+                    }
+                    else
+                    {
+                        $('#loading').remove();
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

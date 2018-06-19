@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/main.css">
+<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/highlight.css">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回商品列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('add')}">
+                            
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>商品名称：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入商品名称" name="gdname" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">所属分类：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="tid">
+                                        <option value="0">请选择分类</option>
+                                        {volist name='goodsType' id='vo'}
+                                        <option value="{$vo.id}">{$vo.typename}</option>
+                                            {volist name='vo.child' id='vo2'}
+                                            <option value="{$vo2.id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|--{$vo2.typename}</option>
+                                            {/volist}
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">推荐商品：</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" name="tj" id="tj" value="1">是</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">首页中间推荐商品：</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="stj" id="stj" value="1">是</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">首页中间商品缩率图：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="file" name="pic3"/>
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 尺寸：548*342</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group" style="display: none">
+                                <label class="col-sm-2 control-label">焦点图商品：</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="jd" id="jd" value="1">是</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed" style="display: none"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">可以使用优惠券：</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="is_yhq" id="is_yhq" value="1">是</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">可以使用药品券：</label>
+
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="is_ypq" id="is_ypq" value="1">是</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">摘要：</label>
+
+                                <div class="col-sm-10">
+                                    <textarea id="text" name="info" class="form-control" style="height:100px;"></textarea>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品缩率图：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="file" name="pic"/>
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 尺寸：500*539</span>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品展示图：</label>
+
+                                <div class="col-sm-10" id="imgs">
+                                    <button class="btn btn-primary" style="margin-top: 5px;" type="button" id="addimg">添加</button>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="0" checked>默认</span>
+                                        <input type="file" name="pic2[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="1">默认</span>
+                                        <input type="file" name="pic2[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="2">默认</span>
+                                        <input type="file" name="pic2[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">出售价格：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" step="0.01" class="form-control" placeholder="请输入价格" name="price" onkeyup="onlyNonNegative(this)"   value="0">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">原价：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" step="0.01" class="form-control" placeholder="请输入价格" name="original_price" onkeyup="onlyNonNegative(this)" value="0">
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">规格：</label>
+
+                                <div class="col-sm-10">
+                                    <div class="input-group m-b" style="width: 100%">
+                                        <input type="text" class="form-control" placeholder="请输入商品规格" name="gdgg[]" value="" style="float: left; width:40%; margin-right: 15px;">
+                                        <input type="number" class="form-control" placeholder="请输入商品规格价格" name="gdjg[]" value="" style="float: left; width:40%;">
+                                    </div>
+                                    <div class="input-group m-b" style="width: 100%">
+                                        <input type="text" class="form-control" placeholder="请输入商品规格" name="gdgg[]" value="" style="float: left; width:40%; margin-right: 15px;">
+                                        <input type="number" class="form-control" placeholder="请输入商品规格价格" name="gdjg[]" value="" style="float: left; width:40%;">
+                                    </div>
+                                    <div class="input-group m-b" style="width: 100%">
+                                        <input type="text" class="form-control" placeholder="请输入商品规格" name="gdgg[]" value="" style="float: left; width:40%; margin-right: 15px;">
+                                        <input type="number" class="form-control" placeholder="请输入商品规格价格" name="gdjg[]" value="" style="float: left; width:40%;">
+                                    </div>
+                                    <div class="input-group m-b" style="width: 100%">
+                                        <input type="text" class="form-control" placeholder="请输入商品规格" name="gdgg[]" value="" style="float: left; width:40%; margin-right: 15px;">
+                                        <input type="number" class="form-control" placeholder="请输入商品规格价格" name="gdjg[]" value="" style="float: left; width:40%;">
+                                    </div>
+                                    <div class="input-group m-b" style="width: 100%">
+                                        <input type="text" class="form-control" placeholder="请输入商品规格" name="gdgg[]" value="" style="float: left; width:40%; margin-right: 15px;">
+                                        <input type="number" class="form-control" placeholder="请输入商品规格价格" name="gdjg[]" value="" style="float: left; width:40%;">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">库存：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入库存数量" name="number" onkeyup="onlyNonNegative(this)" value="0">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">邮费：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入邮费" name="postage" onkeyup="onlyNonNegative(this)" value="0">
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">积分抵现：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入积分抵现" name="integral" onkeyup="onlyNonNegative(this)" min="0" value="0">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">特此说明：</label>
+
+                                <div class="col-sm-10">
+                                    <script id="content2" type="text/plain" style="width:100%;height:400px;" name="text2"></script>
+                                    <script type="text/javascript">
+                                       var ue = UE.getEditor('content2');
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">商品介绍：</label>
+
+                                <div class="col-sm-10">
+                                    <script id="content" type="text/plain" style="width:100%;height:400px;" name="text"></script>
+                                    <script type="text/javascript">
+                                        var ue = UE.getEditor('content');
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">规格参数：</label>
+
+                                <div class="col-sm-10">
+                                    <script id="content3" type="text/plain" style="width:100%;height:400px;" name="text3"></script>
+                                    <script type="text/javascript">
+                                        var ue = UE.getEditor('content3');
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">包装售后：</label>
+
+                                <div class="col-sm-10">
+                                    <script id="content4" type="text/plain" style="width:100%;height:400px;" name="text4"></script>
+                                    <script type="text/javascript">
+                                        var ue = UE.getEditor('content4');
+                                    </script>
+                                </div>
+                            </div>
+                            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态：</label>
+
+                                <div class="col-sm-10">
+                                     <select class="form-control m-b" name="status">
+                                        <option value="1">正常</option>
+                                        <option value="0">下架</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $('#addimg').click(function(){
+            $('#imgs').append('<div class="input-group m-b"><span class="input-group-addon"><input type="radio" name="default_img" value="0">默认</span> <input type="file" name="pic2[]" class="form-control"/> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            again();
+        });
+        $("#imgs").on("click",".del",function(){
+            $(this).parent().parent().remove();
+            again();
+        });
+
+        //对上传图片的默认单选按钮 重新赋值
+
+        function again()
+        {
+            i=0;
+            $("#imgs  input[type='radio']").each(function(){
+                $(this).val(i);
+                i=i+1;
+            })
+        }
+
+        //通过2步做到输入的为非负数
+        //1.去掉多余的小数点
+        //2.保证只能输入小数点或数字
+        function onlyNonNegative(obj) {
+            var inputChar = event.keyCode;
+            //alert(event.keyCode);
+
+            //1.判断是否有多于一个小数点
+            if(inputChar == 190) { //输入的是否为.
+                var index1 = obj.value.indexOf(".") + 1; //取第一次出现.的后一个位置
+                var index2 = obj.value.indexOf(".", index1);
+                while(index2 != -1) {
+                    //alert("有多个.");
+
+                    obj.value = obj.value.substring(0, index2);
+                    index2 = obj.value.indexOf(".", index1);
+                }
+            }
+            //2.如果输入的不是.或者不是数字，替换 g:全局替换
+            obj.value = obj.value.replace(/[^(\d|.)]/g, "");
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}-社区</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        #imgPicker p{ color: #fff}
+        #loading{ height: 100%; margin-top: 0px;}
+        .asktopss{margin-top:44px; padding: 1.5rem; background: #fff}
+        .askcontent{ padding: 0px;}
+        atxd{padding: 1.5rem 1.5rem 0px; background: #fff; margin: 0px;}
+        .atxd .tx img{ float: left;}
+        .atxd .tx span{ float: left; padding-top:7px; line-height: 22px;font-size: 1.2rem; color: #999}
+        .atxd .tx font{ font-size: 1.4rem; color: #111}
+        .askcontent{ margin-top: 0px; border: none;}
+        .askconttitle{ font-weight: 600}
+    </style>
+
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="window.history.go(-1);"></a>
+    <h1 class="mui-title">回答</h1>
+</header>
+
+<div class="asktopss">
+    <div class="atxd">
+        <div class="tx"><img src="{:get_wxheadimg($ask.userInfo.portrait,132)}" /><span><font>{$ask.userInfo.wechaname}</font> <br>{:get_time(strtotime($ask.create_time))}</span></div>
+    </div>
+
+    <div class="askconttitle">{$ask.qtitle}</div>
+
+    <div class="askcontent" style=" padding-top: 0rem; padding-bottom:1px;">
+        <div class="askcontp">{$ask.question}</div>
+        <div class="askimgs">
+            {volist name='$images' id='vo2'}
+            <div class="picll"><img src="{$vo2.pic}" data-preview-src="{$vo2.pic|str_replace='m_','',###}" data-preview-group="0"></div>
+            {/volist}
+        </div>
+    </div>
+</div>
+
+<div class="form1" style=" margin-top: 10px;">
+    <textarea name="text" cols="" rows="5" name="text" id="text" placeholder="请输入回答内容" id="text"></textarea>
+</div>
+<div class="form2">
+    <p>照片上传</p>
+    <div class="addimg" id="uploadimg">
+        <div id="imgPicker"><p style="font-size: 50px; color: #fff">+</p><p>最多9张图片</p></div>
+        <div id="fileList" class="uploader-list" style="margin-top: 15px;"></div>
+    </div>
+</div>
+
+<div style="height: 45px;"></div>
+<div class="upsub" id="subbutt">提交</div>
+
+
+
+{include file="public/fx" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+
+    mui.previewImage();
+    
+    $('#subbutt').click(function()
+    {
+
+        var mycars=new Array();
+        $('#fileList img').each(function(index){
+            mycars[index]=$(this).attr('data-preview-src');
+        });
+
+        text=$('#text').val();
+
+        if(text=='')
+        {
+            alert('请输入回答内容');
+            return false;
+        }
+        $('body').append("<div class='mb' id='loading'></div>");
+        $.ajax({
+            type: "post",
+            url: '{:url("answer")}',
+            data: {images:mycars,text:text,aid:{$aid},__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    window.location.href="{:url('detail')}?id="+data.id;
+                }
+                else
+                {
+                    $('#loading').remove();
+                    alert(data.msg);
+                }
+            }
+        });
+    });
+
+    //上传图片
+    // 初始化Web Uploader
+    var uploader = WebUploader.create({
+
+        // 选完文件后，是否自动上传。
+        auto: false,
+        //允许上传的图片个数
+        fileNumLimit: 9,
+        // swf文件路径
+        swf: 'js/Uploader.swf',
+
+        // 文件接收服务端。
+        server: '',
+
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#imgPicker',
+
+        // 只允许选择图片文件。
+        accept: {
+            title: 'Images',
+            extensions: 'gif,jpg,jpeg,bmp,png',
+            mimeTypes: 'image/*'
+        }
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on( 'fileQueued', function( file ) {
+        var $list = $("#fileList"),
+                $li = $(
+                        '<div id="' + file.id + '" class="file-item thumbnail">' +
+                        '<img>' +
+                        '</div>'
+                ),
+                $img = $li.find('img');
+
+        // $list为容器jQuery实例
+        $list.append( $li );
+
+        // 创建缩略图
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 200 x 200
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'src', src );
+        }, 200, 200);
+
+        uploader.makeThumb( file, function( error, src )
+        {
+            if ( error )
+            {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+
+            $img.attr( 'data-preview-src', src );
+        }, 0.5, 0.5);
+    });
+</script>
+</body>
+</html>

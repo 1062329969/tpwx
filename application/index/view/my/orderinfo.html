@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.sitename}</title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+	<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+	<link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<style>
+		/*清除浮动*/
+		.clearfix:after{
+			content: "";
+			display: block;
+			clear:both;
+			height: 0;
+			overflow: hidden;
+		}
+		.clearfix{
+			zoom:1;
+		}
+		/*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.35rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.cjwait{padding: 1.5rem 1rem;width: 100%;background: white;margin-bottom: 1rem;}
+		.cjwait img{width: 1.5rem;margin-right: 0.5rem;margin-bottom: 0.15rem;}
+		.cjdd-address{padding: 1.5rem 1rem;background: white;width: 100%;}
+		.cjdd-address img{width: 0.9rem;margin-right: 0.5rem ;}
+		/*内容*/
+		.cj-content{margin-top: 0.95rem;}
+		.cjservice-list{background: white;padding: 1.5rem 0;border-bottom: 0.05rem solid #F0F0F0;}
+		.cjservice-list>div:nth-of-type(2){width: 62%;}
+		.cjservice-list>div:first-of-type{width:27.4666%;margin-left: 2.66%;margin-right: 2%;}
+		.cjservice-list>div:first-of-type img{width: 100%;}
+		.cjservice-list>div:nth-of-type(2)>div:first-of-type{font-size: 1.3rem;color: #333333;margin: 1rem 0 0;}
+		.cjservice-list-drug-num{font-size: 1.2rem;color: #999999;margin-top: 2.5rem;}
+		.cjservice-list-drug-num span{margin-right: 2.45rem;}
+		/*订单信息*/
+		.cjorder{padding: 1rem;line-height: 2.5rem;background: white;width: 100%;margin-top: 1rem;}
+		.cjorder button{margin-left: 1.65rem;padding: 0.2rem 0.85rem;background: #cccccc;border: none;border-radius: 1.5rem;}
+		/*商品价格*/
+		.cjallprice{width: 100%;background: white;line-height: 2rem;padding: 1.25rem 1rem;color: #666666;}
+		.cjallprice li span.mui-pull-left{color: #666666;}
+		.cjallprice li:nth-of-type(2){border-bottom: 0.05rem solid #f0f0f0;}
+		/*支付*/
+		.cjsub{width: 100%;margin: 1rem 0 0.5rem;}
+		.cjsub span{width: 50%;height: 4.9rem;line-height: 4.9rem;text-align: center;font-size: 1.8rem;display: inline-block;}
+		.cjsub span:first-of-type{background: #CCCCCC;color: #333333;}
+		.cjsub span:last-of-type{background: #15BBDC;color: white;}
+		.cjservice-list>div:first-of-type img{height: 8rem;}
+	</style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+	<h1 class="mui-title">订单详情</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+{eq name='$order.status' value='0'}
+<div class="cjwait">
+	<img src="{$Think.HTML_STATIC}/images/44.png"/>等待付款
+</div>
+{/eq}
+{eq name='$order.status' value='1'}
+<div class="cjwait">
+	<img src="{$Think.HTML_STATIC}/images/44.png"/>正在出库
+</div>
+{/eq}
+{eq name='$order.status' value='2'}
+<div class="cjwait">
+	<img src="{$Think.HTML_STATIC}/images/44.png"/><span class="addressing">正在出库</span>
+</div>
+<script type="text/javascript">
+	$.ajax({
+		type: "post",
+		url: '{:url("goods/ajaxexpress",['oid'=>$order.order_id])}',
+		dataType: "json",
+		success: function(data)
+		{
+			if(typeof(data) === 'string'){
+				$('.addressing').html(data);
+			}else{
+				var _html = '<br />';
+				for(x in data){
+					_html += data[x].AcceptStation+'时间'+data[x].AcceptTime+"<br />";
+				}
+				$('.addressing').html(_html);
+			}
+		}
+	});
+</script>
+{/eq}
+{eq name='$order.status' value='3'}
+<div class="cjwait">
+	<img src="{$Think.HTML_STATIC}/images/44.png"/>等待付款
+</div>
+{/eq}
+
+<div class="cjdd-address clearfix">
+	<div class="mui-pull-left">
+		<img src="{$Think.HTML_STATIC}/images/45.png"/>
+	</div>
+	<div class="mui-pull-left" style="width:90%">
+		<p><?php echo strip_tags($order['address']); ?></p>
+	</div>
+</div>
+<form class="cj-content" method="post" action="{:url('goods/buy')}">
+	{volist name="gog" id="vo"}
+	<div class="cjservice-list clearfix">
+		<div class="mui-pull-left">
+			<img src="{$vo.goods.pic}"/>
+		</div>
+		<div class="mui-pull-left">
+			<div class="cjintro">
+				{$vo.goods.gdname}
+			</div>
+			<div class="cjservice-list-drug-num">
+				<span>数量：x{$vo.nums}</span><span>价格：{$vo.price}</span>
+			</div>
+			{if $order.status!=0}
+			<span class="butt" style="float: right;" onClick="window.location.href='{:url('goods/refund',array('order_id'=>$order.order_id,'goods_order_goods'=>$vo.id,'gid'=>$vo.gid,'returntype'=>2))}'">申请退货</span>
+			{/if}
+		</div>
+	</div>
+	<input type="hidden" name="nums[]" value="{$vo.nums}">
+	<input type="hidden" name="id[]" value="{$vo.goods.id}">
+	<input type="hidden" name="gg[]" value="{$vo.gg}">
+	<input type="hidden" name="pic[]" value="{$vo.goods.pic}">
+	{/volist}
+</form>
+<ul class="cjorder">
+	<li>订单编号：<span id="copy">{$order.order_id}</span><button onclick="copyToClipboard('#copy')">复制</button></li>
+	<li>下单时间：{$order.create_time|date='Y-m-d H:i:s',###}</li>
+	<!-- <li>发票类型：不开发票</li> -->
+</ul>
+<ul class="cjallprice">
+	<!-- <li class="clearfix"><span class="mui-pull-left">商品总额</span><span class="mui-pull-right">￥{$order.price}</span></li> -->
+	<li class="clearfix"><span class="mui-pull-left">运费总额</span><span class="mui-pull-right">￥{$order.postage}</span></li>
+	<li class="clearfix"><span class="mui-pull-left">需付款：</span><span class="mui-pull-right">{$order.price}</span></li>
+</ul>
+
+{eq name='$order.status' value='0'}
+<div class="cjsub">
+	<span class="cancel" data-id="{$oid}">取消订单</span><span class="zfbutt" data-id="{$order.order_id}">去支付</span>
+</div>
+{/eq}
+
+
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script src="{$Think.HTML_STATIC}/js/jquery.zclip.js"></script>
+
+{include file="public/fx" /}
+<script>
+	$(function(){
+		$('.cancel').click(function(){
+			var order_id = $(this).attr('data-id');
+			$.ajax({
+				type: "post",
+				url: '{:url("docancel")}',
+				data: {order_id:order_id,__token__:'{$Request.token}'},
+				dataType: "json",
+				success: function(data)
+				{
+					if(data.code==1)
+					{
+						alert('已取消');
+						window.location.href="{:url('my/mycancelorder',['tid'=>7])}";
+					}
+					else
+					{
+						$('#loading').remove();
+						alert('取消失败');
+					}
+				}
+			});
+		})
+		$('.zfbutt').click(function(){
+			$("form").submit();
+
+		});
+	})
+	//点我复制
+	function copyToClipboard(element) {
+		var $temp = $("<input>");
+		$("body").append($temp);
+		$temp.val($(element).text()).select();
+		document.execCommand("copy");
+		$temp.remove();
+	}
+</script>
+</body>
+</html>

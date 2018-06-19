@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+    	body{width: 100%;height: 100%;}
+        .lps{position: relative;padding-bottom: 0rem;padding-top: 0.8rem;}
+        .mui-checkbox input[type=checkbox]{ position: relative; width: 0; height: 0; top:0; right: 10px;}
+        .mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{ font-size: 20px;}
+        .lps span{ width: auto;}
+        .lsub{width:86.667%;margin:24% auto 0;background:url({$Think.HTML_STATIC}/images/login.png) no-repeat;background-size:100% 100%;color: white;font-size: 1.8rem;}
+        .lsub img{width:100%;display:block;}
+        .lsub .butt{margin-top:0;background:none;}
+        .linfos p font{color:#15b9da;}
+        .ltel{padding-bottom: 0;padding-top: 1.5rem;}
+        .lps input,.ltel input{color:#999;width:auto;border: none;padding-left: 0;font-size: 1.6rem;/*caret-color:red;*/}
+        #second{ border: 0.05rem solid #15BBDC;padding: 0px; width:135%; color:#15BBDC;height:2.4rem;line-height: 2.4rem; background:#fff;border-radius:20px;margin-top:10%;font-size: 1.4rem; }
+        .linfos a{margin:0;}
+        .read{color:#b0b0b0;}
+        input::-webkit-input-placeholder{
+            color:#CCCCCC;
+        }
+        .read input[type=checkbox]:before{content:' ';}
+        .read input[type=checkbox]:checked:before{content:' ';}
+        .read input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{content:' ';}
+        .already{width:3.8667%;margin-right:1%;}
+        /*头部*/
+        /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight: normal;color: #333;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;position: relative;}
+        #header img{line-height: 4.4rem;width: 1rem;height: 1.75rem;margin-top: 1.25rem;}		
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+            }
+        /*登录*/
+        .cj_login_nav{width: 100%;background: white;height: 4.75rem;line-height: 4.75rem;margin-top: 1.05rem;border-top: 0.05rem solid #F0F0F0;}
+        .cj_login_nav span{display: inline-block;width: 49.7%;text-align: center;font-size: 1.6rem;}
+        .cj_login_nav span a{color: #999;line-height: 4.75rem;display: inline-block;}
+        /*tab切换下的蓝色条条*/
+        .cj_login_nav span a.cj_login_nav_cur{color: #333333;border-bottom: 0.15rem solid #15BBDC;}
+        .cj_login_nav img{width:1px;height: 2.3rem;}
+        .loginm{background: white;}
+        .cj_phone{margin: 0 1rem;text-align: start;font-size: 1.6rem;border-bottom: 0.05rem solid #f0f0f0;padding: 0.8rem 0;}
+        .cj_phone input{padding-left: -2px;}
+        .cj_phone span{width: 6.5rem;display: inline-block;}
+        .cj_lps{padding: 0 1rem 0.8rem;text-align: start;font-size: 1.6rem;border-bottom: 0.05rem solid #f0f0f0;}
+        .cj_lps span:first-of-type{position: static;width: 6.5rem;display: inline-block;margin-right: 0.25rem;}
+        .lreg{text-align: center;height: 4.2rem;line-height: 4.2rem;margin-bottom: 0;}
+        .lreg a{color: #15BBDC;display: none;}
+        .mui-toast-message{width:41%;color: white;background: #b8b8b8;line-height: 3rem;font-size: 1.5rem;}
+        .mui-toast-container{bottom: 2.5rem;position: relative;}
+
+    </style>
+</head>
+<body class="bodyb login">
+<header id="header" class="mui-bar">
+    <a class="mui-action-back  mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">用户登录</h1>
+</header>
+
+<div class="cj_login_nav">
+    <span><a class="cj_login_phone cj_login_nav_cur">手机号快捷登录</a></span><img src="{$Think.HTML_STATIC}/images/57.png"/><span><a class="cj_login_account">帐号密码登录</a></span>
+</div>
+<!--手机号登录-->
+<div class="loginm loginm1">
+    <div class="ltel">
+        <div class="cj_phone">
+            <span>手&nbsp;&nbsp;&nbsp;机</span>
+            <input type="text" placeholder="请填写手机号码" value="" name="phonenum2" id="phonenum"/>
+        </div>
+    </div>
+    <div class="lps">
+        <div class="cj_lps">
+            <span>验证码</span><input type="text" placeholder="请填写验证码" value="" maxlength="6"  name="code" id="code" /><span><input id="second" type="button" value="获取验证码"></span>
+        </div>
+    </div>
+    <!--<div class="lsub"><input class="butt" type="button" value="登录" id="sub
+    butt"/></div>-->
+</div>
+<!--帐号密码登录-->
+<div class="loginm loginm2" style="display: none;">
+    <div class="ltel">
+        <div class="cj_phone">
+            <span>帐&nbsp;&nbsp;&nbsp;号</span>
+            <input type="text" placeholder="请填写手机号码" value="" name="phonenum2" id="phonenum" class="phonelogin_u" />
+        </div>
+    </div>
+    <div class="lps">
+        <div class="cj_lps">
+            <span>密&nbsp;&nbsp;&nbsp;码</span><input type="password" placeholder="请输入您的密码" value="" class="phonelogin_p"/>
+        </div>
+    </div>
+    <!--<div class="lsub"><input class="butt" type="button" value="登录" id="sub
+    butt"/></div>-->
+</div>
+<div class="lsub" id="subbutt"><span>登录</span></div>
+<p class="lreg"><a href="{:url('getpass')}">找回密码？</a></p>
+<!--<div style="text-align:center; margin-top: 1.5rem; color: #a9a9a9 ">—— 其他登录方式 ——</div>
+<div style=" text-align: center; padding:2rem 0; line-height: 25px;" onclick="location.href='{:url('member/reg')}'"><img style="width:10%;" src="{$Think.HTML_STATIC}/images/weixinlogo.png"><p style=" line-height:30px; font-size: 1.2rem; color: #a9a9a9">微信登陆</p></div>-->
+
+
+<style>
+    input[type=checkbox] { display: none; }
+    @-moz-keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+    @-webkit-keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+    @keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+    @keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+    @-webkit-keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+    @-moz-keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+    .check-box {border-radius:0;margin-right:0.25rem; margin-top: 0.3rem; background-color: transparent; border: 1px solid #B0B0B0; position: relative; display: inline-block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; -moz-transition: border-color ease 0.2s; -o-transition: border-color ease 0.2s; -webkit-transition: border-color ease 0.2s; transition: border-color ease 0.2s; cursor: pointer; }
+    .check-box::before, .check-box::after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; position: absolute; height: 0; width: 0.1rem; background-color:#15BBDC; display: inline-block; -moz-transform-origin: left top; -ms-transform-origin: left top; -o-transform-origin: left top; -webkit-transform-origin: left top; transform-origin: left top; border-radius: 5px; content: ' '; -webkit-transition: opacity ease .5; -moz-transition: opacity ease .5; transition: opacity ease .5; }
+    .check-box::before { top: 0.78rem; left: 0.54rem; -moz-transform: rotate(-135deg); -ms-transform: rotate(-135deg); -o-transform: rotate(-135deg); -webkit-transform: rotate(-135deg); transform: rotate(-135deg); }
+    .check-box::after { top: 0.51rem; left:0.21rem; -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg); }
+    input[type=checkbox]:checked + .check-box, .check-box.checked { border-color: #15BBDC; }
+    input[type=checkbox]:checked + .check-box::after, .check-box.checked::after { height: 0.4rem; -moz-an   imation: dothabottomcheck 0.2s ease 0s forwards; -o-an   imation: dothabottomcheck 0.2s ease 0s forwards; -webkit-an   imation: dothabottomcheck 0.2s ease 0s forwards; an   imation: dothabottomcheck 0.2s ease 0s forwards; }
+    input[type=checkbox]:checked + .check-box::before, .check-box.checked::before { height:0.7rem; -moz-an   imation: dothatopcheck 0.4s ease 0s forwards; -o-an   imation: dothatopcheck 0.4s ease 0s forwards; -webkit-an   imation: dothatopcheck 0.4s ease 0s forwards; an   imation: dothatopcheck 0.4s ease 0s forwards; }
+    .linfos{position: absolute;bottom:2.8rem; left: 0; text-align: left;text-indent: 1.5rem;}
+    @media only screen and (min-width: 400px){
+        .check-box::before { top: 0.89rem; left: 0.5rem;}
+        .check-box::after { top: 0.52rem; left:0.18rem;}     
+    }
+</style>
+
+	<div class="linfos">
+    <!--<p class="lreg"><a href="{:url('reg')}">注册账号</a>|<a href="{:url('getpass')}">忘记密码？</a></p>-->
+    <p class="mui-checkbox read"><input name="checkbox" id="agree" value="1" type="checkbox" checked=""><label for="agree" class="check-box" style="width:1.44rem;height:1.31rem;padding-right:0;"></label>已阅读并同意<a href="{:url('protocol')}"><font>《雍享汇用户使用协议》</font></a></p>
+	</div>
+<div class="mui-toast-container mui-active" style="opacity: 0;">
+    <div class="mui-toast-message"></div>
+</div>
+<div style="clear: both;"></div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script>
+	var oHeight = $(document).height(); //屏幕当前的高度
+		$(window).resize(function(){
+        if($(document).height() < oHeight){
+        $(".linfos").hide();
+    }else{
+        $(".linfos").show();
+    } 
+    });
+    //手机系统不一样
+    if(/(iPhone)/i.test(navigator.userAgent)){
+        $(".check-box").css("width","1.31rem")
+         $(".cj_phone").css("borderColor","#cecece");
+    }
+    //登录的切换
+    $(".cj_login_phone").click(function(){
+        codefans();
+        $(this).addClass("cj_login_nav_cur").parent().siblings().find("a").removeClass("cj_login_nav_cur");
+        $(".loginm2").hide();
+        $(".loginm1").show();
+        $(".lreg a").hide();
+    })
+    $(".cj_login_account").click(function(){
+        codefans();
+        $(this).addClass("cj_login_nav_cur").parent().siblings().find("a").removeClass("cj_login_nav_cur");
+        $(".loginm1").hide();
+        $(".loginm2").show();
+        $(".lreg a").show();
+    })
+    var countdown=60;
+
+    $("#second").click(function (){
+        sendCode($("#second"));
+    });
+    checkCountdown();
+
+
+    $('#subbutt').click(function(){
+        if($('.loginm1').css('display')=="none"){
+            //使用账号密码登录
+            uplogin();
+        }else{
+            //使用手机验证码登录
+            phonelogin();
+        }
+    });
+
+    function uplogin(){
+        var phonenum2 = $('.phonelogin_u').val();
+        var passwords = $('.phonelogin_p').val();
+        if(!phonenum2){
+            $(".mui-toast-container").css("opacity",1);
+            $(".mui-toast-message").html("请填写手机号")
+            setTimeout("codefans()",3000);//2秒，可以改动
+            return false;
+        }
+        if(!passwords){
+            $(".mui-toast-container").css("opacity",1);
+            $(".mui-toast-message").html("请填写密码")
+            setTimeout("codefans()",3000);//2秒，可以改动
+            return false;
+        }
+        if(!$('#agree').is(':checked')){
+            $(".mui-toast-container").css("opacity",1);
+            $(".mui-toast-message").html("不同意注册协议，无法登录！")
+            setTimeout("codefans()",3000);//2秒，可以改动
+            return false;
+        }
+        $.ajax({
+            type: "POST",
+            url: '{:url("douplogin")}',
+            data:{'phonenum2':$('.phonelogin_u').val(),'password':$('.phonelogin_p').val()},
+            cache:false,
+            dataType:'json',
+            success: function(data){
+                if(data.code!=1)
+                {
+                    $(".mui-toast-container").css("opacity",1);
+                    $(".mui-toast-message").html(data.msg)
+                    setTimeout("codefans()",3000);//2秒，可以改动
+                    if(data.msg=='请先注册'){
+                        window.location.href='{:url("member/reg")}';
+                    }
+                    return false;
+                }
+                else if(data.code=2)
+                {
+                    window.location.href='{:url('index/home')}';
+                }else {
+                    window.location.href='{:url('jump',['tid'=>1])}';
+                }
+            },error : function() {
+                // view("异常！");
+                $(".mui-toast-container").css("opacity",1);
+                $(".mui-toast-message").html("异常")
+                setTimeout("codefans()",3000);//2秒，可以改动
+            }
+        });
+    }
+
+    function phonelogin(){
+        var phonenum = $("#phonenum").val();
+        var code = $("#code").val();
+
+        if(!$('#agree').is(':checked')){
+            $(".mui-toast-container").css("opacity",1);
+            $(".mui-toast-message").html("不同意注册协议，无法登录！")
+            setTimeout("codefans()",3000);//2秒，可以改动
+            return false;
+        }
+        $.ajax( {
+            url:'{:url("login")}',// 跳转到 action
+            data:{
+                phonenum2 : phonenum,
+                code : code
+            },
+            type:'post',
+            cache:false,
+            dataType:'json',
+            success:function(data)
+            {
+                if(data.code!=1)
+                {
+                    $(".mui-toast-container").css("opacity",1);
+                    $(".mui-toast-message").html(data.msg)
+                    setTimeout("codefans()",3000);//2秒，可以改动
+
+                    return false;
+                }
+                else if(data.code=2)
+                {
+                    window.location.href='{:url('index/home')}';
+                }else {
+                    window.location.href='{:url('jump',['tid'=>1])}';
+                }
+            },
+            error : function() {
+                // view("异常！");
+                $(".mui-toast-container").css("opacity",1);
+                $(".mui-toast-message").html("异常")
+                setTimeout("codefans()",3000);//2秒，可以改动
+            }
+        });
+    }
+
+
+    //校验打开页面的时候是否要继续倒计时
+    function checkCountdown()
+    {
+        var secondsremained = $.cookie("secondsremained");
+        if(secondsremained)
+        {
+            var date = new Date(unescape(secondsremained));
+            setCoutDown(date,$("#second"));
+        }
+    }
+    //发送验证码
+    function sendCode(obj)
+    {
+        $(obj).attr('disabled','disabled')
+        var phonenum = $("#phonenum").val();
+        var result = isPhoneNum();
+        if(result)
+        {
+            //加载ajax 获取验证码的方法
+            $.ajax( {
+                url:'{:url("getCode")}',// 跳转到 action
+                data:{
+                    phonenum2 : phonenum,
+                    type:1,
+                    __token__ : "{$Request.token}"
+                },
+                type:'post',
+                cache:false,
+                dataType:'json',
+                success:function(data)
+                {
+                    if(data.code!=1)
+                    {
+                        $(".mui-toast-container").css("opacity",1);
+                        $(".mui-toast-message").html(data.msg)
+                        setTimeout("codefans()",3000);//2秒，可以改动
+                        return false;
+                    }
+                    else
+                    {
+                        var date = new Date();
+                        addCookie("secondsremained",date.toGMTString(),60);//添加cookie记录,有效时间60s
+                        setCoutDown(date,obj);
+                    }
+                },
+                error : function() {
+                    // view("异常！");
+                    $(".mui-toast-container").css("opacity",1);
+                    $(".mui-toast-message").html("异常!!")
+                    setTimeout("codefans()",3000);//2秒，可以改动
+                }
+            });
+
+        }else{
+            $(obj).removeAttr('disabled')
+        }
+    }
+    var nowDate = null;
+    var time_difference = 0;
+    var count_down = 0;
+    function setCoutDown(date,obj) {
+        nowDate = new Date();
+        time_difference = ((nowDate- date)/1000).toFixed(0);
+        count_down = 60 - time_difference;
+        console.log(count_down);
+        if(count_down<=0){
+            obj.removeAttr("disabled");
+            obj.val("获取验证码");
+            addCookie("secondsremained","",60);//添加cookie记录,有效时间60s
+            return;
+        }
+        obj.attr("disabled", true);
+        obj.val("重新发送(" + count_down + ")");
+        setTimeout(function() { setCoutDown(date,obj) },1000) //每1000毫秒执行一次
+    }
+    //发送验证码时添加cookie
+    function addCookie(name,value,expiresHours){
+        //判断是否设置过期时间,0代表关闭浏览器时失效
+        if(expiresHours>0){
+            var date=new Date();
+            date.setTime(date.getTime()+expiresHours*1000);
+            $.cookie(name, escape(value), {expires: date});
+        }else{
+            $.cookie(name, escape(value));
+        }
+    }
+    //校验手机号是否合法
+    function isPhoneNum(){
+        var phonenum = $("#phonenum").val();
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+        if(phonenum==""){
+            //弹出框显示三秒
+            $(".mui-toast-container").css("opacity",1);
+            $(".mui-toast-message").html("请填写手机号码")
+            setTimeout("codefans()",3000);//2秒，可以改动
+            return false;
+        }else if(!myreg.test(phonenum)){
+            //弹出框显示三秒
+            $(".mui-toast-container").css("opacity",1);
+            $(".mui-toast-message").html("手机号码格式错误")
+            setTimeout("codefans()",3000);//2秒，可以改动
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //弹出框透明度为0
+    function codefans(){
+        var box=$(".mui-toast-container");
+        box.css("opacity",0);
+    }
+</script>
+</body>
+</html>

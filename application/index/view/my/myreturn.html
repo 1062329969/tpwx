@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/after-sale.css" rel="stylesheet" type="text/css">
+    <style>
+        .cjservice-num p:first-of-type{padding: 1rem 1rem 0;font-size: 1.4rem;color: #666;}
+        .cjservice-num p:last-of-type{padding: 0.5rem 1rem 1rem;font-size: 1.2rem;color: #999;}
+        header h1.mui-title{font-weight: normal;}
+        .cjapply-service{padding: 0.5rem 0;}
+        .cjapply-service a:hover,.cjapply-service a:link,.cjapply-service a:active,.cjapply-service a:visited{color:#000;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-pull-left" href="{:url('my/index')}"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">申请售后服务</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="cjapply-service">
+    <a href="{:url('my/myreturn')}"><span class="on6">售后申请</span></a><a href="{:url('my/myreturnlist')}"><span>申请记录</span></a>
+</div>
+
+{volist name='$orders' id='vo' empty="<p style='text-align: center; font-size: 1.8rem; padding: 2rem;'>暂时没有相关信息~~</p>"}
+<div class="cjservice-content">
+    <div class="cjservice-num clearfix">
+        <p>
+            服务单号 : {$vo.order_id}
+        </p>
+        <p>
+            下单时间：{$vo.update_time|date='Y-m-d H:i',###}
+        </p>
+    </div>
+    <?php //var_dump($vo['gog']);die; ?>
+    <!--内容1-->
+    {volist name='$vo.gog' id='vo2'}
+    <div class="cjservice-list clearfix">
+        <div class="mui-pull-left">
+            <img src="{$vo2.pic}"/>
+        </div>
+        <div class="mui-pull-left">
+            <div class="cjintro">
+                {$vo2.gdname}
+            </div>
+            <div class="cjservice-list-drug-num">
+                <span class="mui-pull-left">数量：{$vo2.nums}</span>
+                {if ($vo2.gogstatus==0 || $vo2.gogstatus==1)&&($vo.create_time+604800)>time()}
+                <span class="mui-pull-right cjalert" data-url="{:url('goods/refund',array('order_id'=>$vo.order_id,'goods_order_goods'=>$vo2.id,'gid'=>$vo2.gid,'returntype'=>2))}">申请售后</span>
+                {/if}
+
+                {if $vo2.gogstatus==4}
+                <span class="mui-pull-right">审核中</span>
+                {/if}
+                {if $vo2.gogstatus==5}
+                <span class="mui-pull-right">已完成</span>
+                {/if}
+            </div>
+        </div>
+    </div>
+    {/volist}
+    {if ($vo.create_time+604800)<time()}
+    <div class="cjbeyond">
+        <img src="{$Think.HTML_STATIC}/images/33.png"/>
+        <span>该商品已超过售后期限</span>
+    </div>
+    {/if}
+</div>
+{/volist}
+
+
+<!--弹窗-->
+<div class="cjsale-return" style="display: none;">
+    <p>退货政策</p>
+    <ul class="cjsale-return-policy">
+        <li>除药品质量原因外，药品一经售出，不得退换。  以下情况</li>
+        <li>为了保证您的用药安全，若发现实物与订单不符，请与客服联系。</li>
+        <li>以下情况药房可为您办理退货：</li>
+        <li>（1） 按照国家药品相关规定流程检验检测后确定为质量问题的药品。</li>
+        <li>（2） 国家权威管理部门发布公告的产品（如停售、收回等）。</li>
+        <li>（3） 生产厂家公告通知召回、停售的药品。</li>
+    </ul>
+    <p>退货流程</p>
+    <ul class="cjsale-return-policy">
+        <li>如果符合退货条件，请您联系在线客服；经药房药师审核通过可为您办理退货。</li>
+        <li>请您将完整药品及包装（药品外包装、说明书）发票原、发货凭证等一并退回。注意：非雍享汇商城售出药品不予办理退货。</li>
+    </ul>
+    <div class="cjKnow">
+        <button>我知道了</button>
+    </div>
+</div>
+<p class="mui-backdrop" style="display: none;" ></p>
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+    $(function(){
+        //文字超出隐藏
+        var pTxt=$(".cjintro").text();
+        str=pTxt.substr("0,30")+"..."
+        $(".cjintro").text(str)
+        //
+        $(".cjservice-list-drug-num .cjalert").click(function(){
+            $(".cjsale-return").show()
+            $(".mui-backdrop").show()
+            $('.cjKnow button').attr('url',$(this).attr('data-url'));
+            $('.cjKnow button').click(function(){
+                window.location.href=$(this).attr('url');
+            })
+        })
+    })
+
+</script>
+<script>
+    //判断安卓和ios文字颜色
+    if (/(iPhone)/i.test(navigator.userAgent)) {
+        $(".cjservice-list").css("borderColor","#cecece");
+        $("header").css("borderColor","#cecece");
+        $(".cjservice-num").css("borderColor","#cecece");
+    }
+</script>
+</body>
+</html>

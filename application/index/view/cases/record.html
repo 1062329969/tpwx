@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/details1.css" rel="stylesheet" type="text/css">
+    <style>
+
+        #header h1.mui-title{font-weight: normal;line-height: 4.4rem;}
+        #header a img{margin-top: 1.3rem;}
+        .cjTime{background: url({$Think.HTML_STATIC}/images/13.png);text-indent: 1rem; width: 8.85rem;height: 1.85rem;background-size:cover ;color: white;line-height: 1.85rem;text-align: center;font-size: 1.3rem;}
+        .csinfo img{ margin:0 0 1rem 0; width: 100%;}
+        .cjshuq{background: white;padding: 0 1rem 1.5rem;margin-bottom:1.05rem;}
+        .cjshuq-title{margin: 1.05rem 0 0 0.5rem;font-size: 1.5rem;color: #333333;padding: 1.5rem 0;}
+        .cjshuq-title span.cjDays{font-size: 1.2rem;color: #a7a7a7;margin-left: 0.9rem;}
+        .cjshuq-content{width: 100%;}
+        .cjshuq-content img{width: 32.33%;padding:0.5rem;border-radius: 1.5rem;box-sizing: border-box}
+
+        .csinfo img{margin: 0 0 1.5rem 0;padding: 0;}
+        .csmian{padding-bottom: 0;}
+        .csinfo{padding: 1.25rem 0 0;}
+        .plinfos{border-bottom: none;font-size: 1.3rem;border-top: 1px solid #dedede;position: fixed;left: 0;bottom: 0;width: 100%;z-index: 88;}
+        .upl{border-top: none;}
+        .upl .tximg img{width: 3.8rem;margin-right: 0.95rem;}
+        .tximg div{float: left;}
+        .plinfos .lll{text-align: center;}
+        .cjname span{margin: 0.6rem 0 0;display: block;}
+        .cjname span:first-of-type{color:#15bdde;font-size: 1.2rem;}
+        .cjname span:last-of-type{font-size: 1rem;color: #adadad;}
+        .upl .tx{padding: 1.5rem 1rem;}
+        .plinfo{padding: 0;}
+        .plinfo span img{width: 1.2rem;}
+        .upl .txdz{padding-top: 0;line-height: none; float: none;}
+        .plinfo span{float: none;}
+        .cjhuifu{text-align: right; font-size: 1.2rem;color: #999999;margin-top: 1rem;}
+        .cjhuifu span{color: #999999;}
+        .cjhuifu span.txdz{margin: 0 1.8rem 0 1.95rem;}
+        .cjhuifu span.backText img{margin: 0 0.6rem 0 0;}
+        .fonline{margin-top: 1rem;border-bottom: 0.05rem solid #F0F0F0;}
+        .reCont {padding: 0;line-height: 1.8rem;}
+        .reCont p{padding-left: 1.5rem;padding-right: 2.4rem; text-indent: 0;color: #666;}
+        .reCont font{color: #999;margin-right: 0.9rem;}
+        .cj_reply{padding: 0 1rem;}
+        .plmaint{position: fixed;bottom: 0;left: 0;z-index: 100;width: 100%;height: 4.9rem;background: #e0e0e0;line-height: 4.9rem;}
+        .plform{background: #e0e0e0;padding: 0 1.5rem;}
+        .plform input{font-size: 1.5rem;}
+        /*#commentText{width: 68%;height: 2.9rem;background: #FFFFFF;border-radius: 2.9rem;text-indent: 1.55rem;margin:0 3% 0 6%;}
+        #subComment{width: 17%;height: 2.9rem;background: #15bdde;border-radius: 2.9rem;color: white;margin-right: 6%;}*/
+        .pinput input{padding: 0;}
+        .plform{padding: 0;margin-top: 1.1rem;}
+        .pinput{width: 100%;}
+        .cjhf{background: #e0e0e0;position: fixed;bottom: 0;left: 0;z-index: 100;width: 100%;}
+        .cjhf-content{margin: 1.1rem 0;font-size: 1.5rem;}
+        .cjhf-content input#cjtxt{height: 2.9rem;width: 68%;background: #FFFFFF;text-indent: 1.55rem;}
+        .cjhf-content input#cjbt{width: 17%;height: 2.9rem;background: #15bdde;border-radius: 2.9rem;color: white;}
+        /*修改*/
+        .cjshuq-title{margin: 0;}
+        .csuser p{font-size: 1.4rem;}
+        .csuser1{font-size: 1.3rem;}
+        .doctor,.hos1{font-size: 1.3rem;}
+        .csuser img{margin-top: 0.5rem;}
+        .doctor button{line-height: 1.3rem;}
+        .csinfo{padding-top: 0;}
+        .lxcao{margin-bottom: 1rem}
+        .cj_lit_reply{width: 100%;border-radius: 0.5rem;background: #f0f0f0;}
+        /*评论*/
+        .upl p.cj_pl_num{font-size: 1.4rem;color: #333;border-bottom: 0.05rem solid #EAEAEA;padding-bottom: 0;}
+        .cj_pl_num span{font-size: 1.2rem; color: #666;line-height: 3.35rem;}
+        .cj_com_reply,.cj_comment{background: white;position: fixed;bottom: 0;left: 0;z-index: 999;width: 100%;}
+        .cj_com_reply textarea,.cj_comment textarea{width: 100%;height: 17rem;border: none;border-top: 1px solid #eaeaea;padding:0.5rem 1rem;font-size: 1.3rem;}
+        .cj_com_reply span.mui-pull-left,.cj_comment span.mui-pull-left{color: #666666;line-height: 3.25rem;padding: 0 1rem;}
+        .cj_com_reply span.mui-pull-right,.cj_comment span.mui-pull-right{color: #15BBDC;line-height: 3.25rem;padding: 0 1rem;}
+        .cj_collection{text-align: center;width: 32%;}
+        .cj_collection img{width: 1.4rem;margin-right: 0.7rem;margin-top: -0.3rem;}
+        .plinfos .cdz img{vertical-align: top;width: 1.35rem;}
+        .list-title-mlr{border-right:0.05rem solid #e4e4e4;border-left:0.05rem solid #e4e4e4;}
+        .plinfos .lll, .plinfos .cdz,.plinfos .cj_collection span{font-size: 1.3rem;color: #999;text-align: center;}
+        audio, canvas, progress, video{width: 100%;margin: 0 auto;height: 22rem;}
+        .bo{width:76%;margin:4% auto;}
+        .bo img{width:100%;display:block;}
+        .plmtop{height: 3.4rem;}
+        .cj_shade{width: 100%;height: 100%;background: #000;opacity: 0.4;position: fixed;left: 0;top: 0;z-index: 100;display: none;}
+        .cscontent{font-size:1.4rem;}
+
+        .csuser img{width:4.5rem;height:4.5rem;}
+        .csuser p{font-size:1.5rem;}
+        .csuser p.graph{font-size:1.2rem;}
+        .csuser1 span{font-size:1.4rem;}
+        .csuser1 font{font-size:1.4rem;}
+        .doctor, .hos1{font-size:1.4rem;}
+        .csuser p{padding-top:1.2rem;}
+        .csuser p.graph{padding-top:0.3rem;}
+        .csuser1,.hos1,.doctor{line-height:3.8rem;height:3.8rem;}
+        .csuser1 img,.doctor img{margin-left:1.7rem;}
+        .hos1 img{margin-left:0.5rem;}
+        .doctor button{width: 5.25rem;height: 2rem;border: 0.05rem solid #15bdde;text-align: center;margin-top:0.9rem;border-radius: 0.5rem;margin-right: 2.05rem;line-height: 2rem;font-size:1.4rem;}
+        .cscontent{font-size:1.5rem;}
+        .csmian{padding-top:2rem;}
+        .dymid{display: inline-block;margin-left:0.5rem;font-size: 1.4rem; color: #666;line-height: 3.35rem;vertical-align: middle;display: inline-block;}
+        .cjname span:last-of-type{font-size:1.1rem;}
+        .plinfos .lll, .plinfos .cdz, .plinfos .cj_collection span{font-size:1.5rem;}
+        .dianzan{border-right:none;}
+        .reCont p{font-size:1.4rem;}
+        .cj_com_reply span.mui-pull-left, .cj_comment span.mui-pull-left{font-size:1.5rem;}
+        .cj_com_reply span.mui-pull-right, .cj_comment span.mui-pull-right{font-size:1.5rem;}
+        textarea::-webkit-input-placeholder{
+            color:#CCCCCC;
+        }
+
+        .m{width:100%;margin-left: auto;margin-right: auto;margin-top:0;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">植发日记</h1>
+</header>
+
+<div class="csuser">
+    <img src="{:get_wxheadimg($cases.userInfo.portrait,132)}">
+    <p>{$cases.userInfo.wechaname}</p>
+    <!--<p class="ddtime">{:get_time($cases.create_time)}</p>-->
+    <p class="graph">写句签名吧，让大家更了解你~</p>
+</div>
+<div class="csuser1">
+    <div class="tab"><img src="{$Think.HTML_STATIC}/images/9.png"/><span>项目：</span><font>{$cases.project.proname}</font></div>
+</div>
+<div class="hos hos1"><img src="{$Think.HTML_STATIC}/images/10.png"><span>医院：</span><font>{$cases_hospital.hosname}</font></div>
+<div class="doctor"><div><img src="{$Think.HTML_STATIC}/images/11.png"/><span>医生：</span><font>{$doctor_name.docname}</font><a href="{:url('Doctor/detail',array('id'=>$cases.doctor))}"><button class="mui-pull-right">查看</button><p style="clear: both;"></p></a></div></div>
+<!--<div class="hos">{$cases.info}</div>-->
+{empty name='$casesRecord.vurl'}
+<div class="csmian piclistcont" style="padding:0px;">
+    <div class="csmian" style="border:0px;">
+        <div class="cjTime">{$casesRecord.dtitle}</div>
+        <div class="hos hos2">{$casesRecord.info}</div>
+        <div class="csinfo">
+            {volist name='$casesRecord.images' id='vo2'}
+            <img src="{$vo2.pic}" data-preview-src="{$vo2.pic|str_replace='m_','',###}" data-preview-group="2">
+            {/volist}
+            <!--<div class="cscontent"></div>-->
+        </div>
+    </div>
+</div>
+{else/}
+<div class="csmian" style="padding:0px;">
+    <div class="csmian" style="border:0px;">
+        <div class="cjTime lxcao">{$casesRecord.dtitle}</div>
+        <div class="csinfo">
+            <div class="m" style="width:100%;">
+                <video controls  width="100%" poster="{$casesRecord.video_pic}" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" x5-playsinline="true" style="object-fit: fill;">
+                    <source src="{$casesRecord.vurl}" type="video/mp4">
+                </video>
+            </div>
+            <div class="cscontent">{$casesRecord.info}</div>
+        </div>
+    </div>
+</div>
+{/empty}
+{notempty name='$cont_ad'}<div class="casad"><a href="{$cont_ad.url}"><img src="{$Think.HTML_STATIC}/images/laba.png">{$cont_ad.title}</a></div>{/notempty}
+
+<div class="upl" id="b">
+    <div class="pltitle">评论<span class="dymid">({$count3})</span></div>
+    {volist name='$comment3' id='vo' empty="<p class='empty'>沙发空缺中~~</p>"}
+    {eq name='$vo.plid' value='0'}
+    <div class="tx">
+        <div class="tximg"><div class="cjimg"><img src="<?php $userinfo = getuserinfo($vo['uid']); ?><?php echo $userinfo['portrait'] ?>"></div><div class="cjname"><span><?php $userinfo = getuserinfo($vo['uid']); ?><?php echo $userinfo['wechaname'] ?></span><span>{$vo.create_time | date="Y-m-d",###}</span></div></div>
+    </div>
+    <p>{$vo.text}</p>
+    <div class="cj_reply">
+        <div class="cj_lit_reply">
+            {volist name='$comment2' id='vo2'}
+            {eq name='$vo2.plid' value='$vo.id'}
+            <div class="cjpl">
+                <div class="reCont"><p onclick="lx(this,{$vo.id},{$vo.id},{$vo.uid})">
+                    <font>
+                        {$alluser[$vo2.uid]['wechaname']}{if $vo2.uid} 回复 {$alluser[$vo.uid]['wechaname']}{else /}{/if}:
+                    </font>{$vo2.text} <!--<span>{$vo2.create_time|date='m-d H:i',strtotime(###)}</span>--></p></div>
+            </div>
+            {/eq}
+            {/volist}
+        </div>
+    </div>
+    <div class="cjhuifu">
+        <span class="plinfo" >
+            <span class="backText" onclick="lx(this,{$vo.id},{$vo.id},{$vo.uid})">
+                    <img style="width: 1.5rem;" src="{$Think.HTML_STATIC}/images/14.png"/>
+                </span>
+        </span>
+        <span class="txdz " id="txdz{$vo.id}" lx-uid="{$vo.uid}"  pdata-id="{$id}" hc-id="{$vo.id}" datas={if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}1{else /}0{/if} data-ids={$casesRecord.cid}>
+        <img src="{$Think.HTML_STATIC}/images/{if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}66{else/}65{/if}.png"><span>{$vo.praise}</span>
+        </span>
+    </div>
+    <div class="fonline"></div>
+    {/eq}
+    {/volist}
+</div>
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<!--<div id="loading" class="lmore">下拉加载更多...</div>-->
+<div class="cjhf" style="display:none">
+    <div class="cjhf-content">
+        <input type="text" id="cjtx" placeholder="回复" style="width:68%;border-radius: 2.9rem;height: 2.9rem;margin:0 3% 0 6%;"/>
+        <input type="button" id="cjbt" value="回复" />
+    </div>
+</div>
+<!--评论-->
+<div class="cj_comment" style="display: none;">
+    <div>
+        <span class="mui-pull-left">取消</span><span id="commnet_submit" class="mui-pull-right">发表</span>
+    </div>
+    <div id="commentText">
+        <textarea id="commnet_text" placeholder="我的评论更精彩"></textarea>
+        <input type="hidden" name="aid" id="aid" value="{$id}">
+        <input type="hidden" name="pid" id="pid" value="0">
+        <input type="hidden" name="tid" id="tid" value="0">
+        <input type="hidden" name="cuid" id="cuid" value="0">
+    </div>
+</div>
+
+<div class="bo"><img style="width: 100%;" src="{$Think.HTML_STATIC}/images/bo.jpg"/></div>
+<div class="plinfos">
+    <div class="lll">
+        浏览：{php}echo $casesRecord['click']+$casesRecord['clicks']{/php}
+    </div>
+    <div class="lll  lxx" >
+        评论：{$count3}
+    </div>
+
+    <div class="cdz ds1 dianzan list-title-mlr" name="dianzan" res-id="{$fansInfo['id']}" dis=0  data-idd="{$id}" datas={if $praise.i_id && $fansInfo['id']==$praise.i_uids}1{else/}0{/if} data-ids={$casesRecord.cid} >
+    <img src="{$Think.HTML_STATIC}/images/{if $praise.i_id!==NULL && $fansInfo['id']==$praise.i_uids}66{else /}65{/if}.png">
+    <span>{$casesRecord.praise}</span>
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="plmtop"></div>
+<div class="cj_shade"></div>
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+
+<script>
+    function replaceDoc()
+    {
+        window.location.reload()
+    }
+</script>
+
+
+<script>
+    function lx(_self,pid,tid,c_uid){
+        $('#pid').val(pid);
+        $('#tid').val(tid);
+        $('#cuid').val(c_uid);
+        $('#commnet_text').focus();
+        $(".cj_comment").show();
+        $(".cj_shade").show();
+        $('#commnet_text').focus();
+        $("#commnet_text").attr("placeHolder","我的回复更精彩")
+    }
+    //评论
+    $(".plinfos .lxx").click(function(){
+        $(".cj_comment").show();
+        $('#commnet_text').focus();
+        $(".cj_shade").show();
+        $("#commnet_text").attr("placeHolder","我的评论更精彩")
+    })
+    $(".cj_comment span").click(function(){
+        $(".cj_comment").hide()
+        $(".cj_shade").hide()
+    })
+    $(".cj_shade").click(function(){
+        $(".cj_comment").hide();
+        $(".cj_shade").hide()
+    })
+    $('#commnet_submit').click(function(){
+        var commnet_text = $('#commnet_text').val();
+        if(!commnet_text){
+            alert('回复不能为空');
+            return false;
+        }
+        var aid = $('#aid').val();
+        var pid = $('#pid').val();
+        var tid = $('#tid').val();
+        var cuid = $('#cuid').val();
+        $.ajax({
+            type: "post",
+            url: '{:url("Comment/casescomment")}',
+            data: {aid:aid,pid:pid,tid:tid,cuid:cuid,commnet_text:commnet_text,__token__:'{$Request.token}'},
+            dataType: "json",
+            async:true,
+            success: function(data)
+            {
+                if(data.code==1){
+                    alert("不能回复自己的评论");
+                    window.location.reload();
+                }else{
+                    // alert(data.msg);
+                    $('#pid').val(0);
+                    $('#tid').val(0);
+                    $('#cuid').val(0);
+                }
+            }
+        });
+        window.location.reload()
+    })
+
+
+    $(function () {
+        $('div[name="dianzan"]').click(function(){
+            if($(this).attr('dis')==1){
+                return false;
+            }
+            var _self = $(this);
+            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+            $(this).attr('dis',1);
+            var datas = $(this).attr('datas');
+            $(this).attr('datas','1');
+            var res = _self.attr('res-id');
+            var aid = _self.attr('data-ids');
+            var ids=$(".dianzan").attr("data-idd")
+
+            $.ajax({
+                type: "post",
+                url: '{:url("praise/index")}',
+                data: {aid:aid,is:datas,res:res,type:6,i_ids:ids,__token__:'{$Request.token}'},
+                dataType: "json",
+                async:false,
+                success: function(data)
+                {
+                    if(data.code==1) {
+                        if (datas == 0) {
+                            _self.find('span').html(Number(_self.find('span').html())+1);
+                            _self.attr('dis', 0);
+                            _self.attr('datas', '1');
+                        }
+                    } else {
+                        _self.find('span').html(Number(_self.find('span').html())-1);
+                        _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                        _self.attr('dis', 0);
+                        _self.attr('datas', '0');
+                    }
+
+                }
+            });
+        })
+
+    })
+
+
+    $(function(){
+        mui.previewImage();
+        getCollection({$casesRecord.id},{$fansInfo.id},7);
+        // getPraise({$casesRecord.id},{$fansInfo.id},6);
+        //评论
+        // $('#subComment').click(function(){
+        //     tid=$(this).attr('data-uidss');
+        //     comment({$casesRecord.id},6,'{$Request.token}',tid);
+        // });
+        // //回复
+        // $('#subComment1').click(function(){
+        //     var text1=$('#commentText1').val();
+        //     recComment({$casesRecord.id},6,'{$Request.token}',plid,uid,text1,uuid);
+        //
+        //
+        // });
+
+        //评论点赞
+        $(".txdz").click(function(){
+            var pdata=$(this).attr('pdata-id');
+            var ppuid=$(this).attr('ppuid');
+            var hc=$(this).attr('hc-id');
+            var lxuid=$(this).attr('lx-uid');
+            plpraise({$id},1,pdata,ppuid,'{$Request.token}',hc,$(this).attr("id"),lxuid);
+        });
+        // //回复评论
+        // $('.backText').click(function()
+        // {
+        //     $(".cj_com_reply").show();
+        //     $(".cj_shade").show();
+        //     $('#commentText1').focus();
+        //     userName=$(this).attr('data-align');
+        //     plid=$(this).attr('data-plids');  //评论的id
+        //     uid=$(".cj_com_reply").attr('data-uid');  //回复的评论用户id
+        //     reuid = $(this).attr('data-uid');
+        //     uuid = $(this).attr('data-uids');
+        // });
+        //
+        // //回复评论
+        // $(".cj_com_reply span.mui-pull-left").click(function(){
+        //     $(".cj_com_reply").hide()
+        //     $(".cj_shade").hide()
+        // })
+        var width = $(window).width(); //浏览器当前窗口可视区域宽度
+        height = width/16*9;
+        $('iframe').height(height);
+        // //评论下拉加载
+        // var a = 0;
+        // var offsize = 10;//起始位置(查询数据表时的起始位置)
+        // $(document).ready(function(){
+        //     var range = 80;//距下边界长度/单位px
+        //     var totalheight = 0;
+        //     var main = $("#loadinguser");//主体元素
+        //     $(window).scroll(function(){
+        //         var srollPos = $(window).scrollTop();
+        //         totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+        //         if(($(document).height()+range) <= totalheight) {
+        //             if(a==0)
+        //             {
+        //                 a = 1;
+        //                 $('#loading').html("正在努力为您加载...");
+        //                 $.post("{:url('comment/nextPageComment')}",{
+        //                     type:6,
+        //                     offsize:offsize,
+        //                     aid:{$casesRecord.id}
+        //             },function(data){
+        //                 if(data=='')
+        //                 {
+        //                     $('#loading').html("已为您加载全部");
+        //                     a = 0;
+        //                 }
+        //                 else
+        //                 {
+        //                     main.append(data);
+        //                     offsize = offsize+10;
+        //                     a = 0;
+        //                 }
+        //             });
+        //             }
+        //         }
+        //     });
+        // });
+//      //回复
+//      $(".cjhuifu .plinfo").click(function(){
+//      	$(".cjhf").css("display","block");
+//      	$(".cjhf #cjtx").focus();
+//      	$(".plmaint").css("display","none")
+//      })
+//         $(".plinfos .lll").click(function(){
+//             $(".cj_comment").show()
+//             $(".cj_shade").show()
+//         })
+//         $("#cjbt").click(function(){
+//             $(".cjhf").css("display","none");
+//             $(".plmaint").css("display","block")
+//         })
+//         $(".cj_comment span").click(function(){
+//             $(".cj_comment").hide()
+//             $(".cj_shade").hide()
+//         })
+        //判断安卓和ios文字颜色
+        if (/(iPhone)/i.test(navigator.userAgent)) {
+            $(".plinfos").css("borderBottomColor","#cecece");
+            $(".doctor div").css("borderTop","0.05rem solid #cecece");
+            $(".csuser1 .tab").css("borderTop","0.05rem solid #cecece");
+            $("#header").css("borderBottom","0.05rem solid #cecece")
+            $(".lcti").css("borderBottom","0.05rem solid #cecece")
+        }
+        // $(".plinfos .lll").click(function(){
+        //     $(".cj_comment").show()
+        //     $('#commentText').focus();
+        //     $(".cj_shade").show()
+        // })
+        // $(".cj_comment span").click(function(){
+        //     $(".cj_comment").hide()
+        //     $(".cj_shade").hide()
+        // })
+    });
+</script>
+</body>
+</html>

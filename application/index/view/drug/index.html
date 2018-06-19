@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">药品劵</h1>
+</header>
+
+<div class="ypmain">
+
+    {volist name='$coupon' id='vo' empty="<p style='text-align: center; font-size: 1.8rem; padding: 2rem;'>客官别急，药品券正在生产中...</p>"}
+    <div class="yplist" id="reinfo" data-id="{$vo.id}">
+        {php}
+        if($i%3==1)
+        {
+        echo '<img src="'.HTML_STATIC.'/images/ypql.jpg">';
+        }
+        elseif($i%3==2)
+        {
+        echo '<img src="'.HTML_STATIC.'/images/ypqh.jpg">';
+        }
+        elseif($i%3==0)
+        {
+        echo '<img src="'.HTML_STATIC.'/images/ypqj.jpg">';
+        }
+        {/php}
+        <div class="ypqtitle">药品券</div>
+        <div class="pric"><font>￥</font>{$vo.cprice}</div>
+        <div class="yxq">该券仅限于购买药品使用</div>
+        <div class="buyprice">购买价<br><font>￥{$vo.saleprice}</font></div>
+    </div>
+    {/volist}
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script type="text/javascript">
+
+    wx.config({
+        debug: false,
+        appId:    '{$Think.config.Appid}',
+        timestamp: {$timeStamp},
+        nonceStr: '{$nonceStr}',
+        signature: '{$signature}',
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'openAddress',
+            "chooseWXPay"
+        ]
+    });
+
+    var mask = mui.createMask();//callback为用户点击蒙版时自动执行的回调；
+    //调用微信JS api 支付
+    $('.yplist').click(function(){
+
+        var id=$(this).attr('data-id');
+        mask.show();//显示遮罩
+        //首先提交订单
+        $.ajax({
+            type: "post",
+            url: '{:url("index")}',
+            data: {id:id},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1)
+                {
+                    WXPay(data);
+                }
+                else
+                {
+                    mui.alert(data.msg);
+                    mask.close();
+                }
+            }
+        });
+    });
+
+
+    //微信支付
+    function WXPay(data)
+    {
+        wx.chooseWXPay({
+            timestamp: data.data.timestamp,
+            nonceStr: data.data.nonceStr, // 支付签名随机串，不长于 32 位
+            package: data.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+            signType: data.data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+            paySign: data.data.paySign, // 支付签名
+            success: function (res)
+            {
+                var str = JSON.stringify(res);
+                if(res.errMsg == "chooseWXPay:ok")
+                {
+                    mask.close();
+                    mui.alert('支付成功', '', function(){window.location.href="{:url('my/index')}"});
+                }
+                else
+                {
+                    mask.close();
+                    mui.alert('支付失败', '', function(){});
+                }
+            },
+            cancel:function(res){
+                //支付取消 跳转到我的购买商品记录页
+                mask.close();
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

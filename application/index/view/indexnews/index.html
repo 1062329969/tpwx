@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/details1.css" rel="stylesheet" type="text/css">
+    <style>
+
+        .cjTime{background: url({$Think.HTML_STATIC}/images/13.png);width: 8.85rem;height: 1.85rem;background-size:cover ;color: white;line-height: 1.85rem;text-align: center;font-size: 1.2rem;}
+        .csinfo img{ margin:0 0 1rem 0; width: 100%;}
+        .cjshuq{background: white;padding: 0 0.5rem 1.5rem;margin-bottom:1.05rem;}
+        .cjshuq-title{margin: 1.05rem 0 0 0.5rem;font-size: 1.5rem;color: #333333;padding: 1.5rem 0;}
+        .cjshuq-title span.cjDays{font-size: 1.2rem;color: #a7a7a7;margin-left: 0.9rem;}
+        .cjshuq-content{width: 100%;}
+        .cjshuq-content img{width: 32.33%;padding:0.5rem;border-radius: 1.5rem;box-sizing: border-box}
+
+        .csinfo img{margin: 0 0 1.5rem 0;padding: 0;}
+        .csmian{padding-bottom: 0;}
+        .csinfo{padding: 1.25rem 0 0;}
+        .plinfos{border-bottom: none;}
+        .upl{border-top: none;}
+        .upl .tximg img{width: 4rem;margin-right: 0.95rem;}
+        .tximg div{float: left;}
+
+        .cjname span{margin: 0.5rem 0 0;display: block;}
+        .cjname span:first-of-type{color:#15bdde;font-size: 1.3rem;}
+        .cjname span:last-of-type{font-size: 1.1rem;color: #adadad;}
+        .upl .tx{padding: 1.5rem 1rem;}
+        .upl p{padding-left: 5.95rem;text-indent: 2em;}
+        .plinfo{padding: 0;}
+        .plinfo span img{width: 1.2rem;}
+        .upl .txdz{padding-top: 0;line-height: none; float: none;}
+        .plinfo span{float: none;}
+        .cjhuifu{text-align: right; font-size: 1.2rem;color: #999999;}
+        .cjhuifu span{color: #999999;}
+        .cjhuifu span.txdz{margin: 0 1.8rem 0 1.95rem;}
+        .cjhuifu span.backText img{margin: 0 0.6rem 0 0;}
+        .fonline{margin-top: 1rem;border-bottom: 0.05rem solid #F0F0F0;}
+        .reCont {background: #f3f3f3;padding: 0;line-height: 1.8rem;}
+        .reCont p{padding-left: 4.95rem;padding-right: 2rem; text-indent: 0;}
+        .reCont font{color: #15bdde;margin-right: 0.9rem;}
+        .cjpl{padding: 0 1rem;}
+        .plmaint{position: fixed;bottom: 0;left: 0;z-index: 100;width: 100%;height: 4.9rem;background: #e0e0e0;line-height: 4.9rem;}
+        .plform{padding: 0 1.95rem;background: #e0e0e0;padding: 0 1.5rem;}
+        .plform input{font-size: 1.5rem;}
+        #commentText{width: 68%;height: 2.9rem;background: #FFFFFF;border-radius: 2.9rem;text-indent: 1.55rem;margin:0 3% 0 6%;}
+        #subComment{width: 17%;height: 2.9rem;background: #15bdde;border-radius: 2.9rem;color: white;margin-right: 6%;}
+        .pinput input{padding: 0;}
+        .plform{padding: 0;margin-top: 1.1rem;}
+        .pinput{width: 100%;}
+        .cjtrue{background: white;padding-bottom: 1.5rem;}
+        .cjtrue-title{font-size: 1.5rem;padding-left: 1rem;padding-top: 1.9rem;}
+        .cjtrue-plinfos {padding-top: 1.45rem;padding-bottom: 1rem;border-bottom: 0.05rem solid #f0f0f0;}
+        .cjtrue-plinfos div{margin-right: 1.9rem;}
+        .cjtrue-plinfos-ll{margin-left: 1rem;}
+        .cjtrue-plinfos span{color: #adadad;font-size: 1.1rem;}
+        .cjtrue-plinfos-dz img{width: 1.1rem;height: 1rem;margin-bottom: 0.15rem;}
+        .cjtrue-plinfos-lt span{font-size: 1.2rem;color: #15bdde;}
+        .cjtrue-plinfos div.cjtrue-plinfos-lt{margin-right: 1rem;}
+        .cjtrue-content{padding: 0 1rem;}
+        .cjtrue-content-txt{width:100%;color: #666666;font-size: 1.3rem;line-height: 2.05rem;margin-top: 2rem;}
+        .cjtrue-content-img img{width: 100%;border-radius: 1rem;margin-top: 1.5rem;}
+        /*作者*/
+        .cjtrue-plinfos-auther{margin-right: 2.5rem;margin-left: 1rem;}
+        /*收藏*/
+        .cjcollection img{width: 1.5rem;margin-right: 0.55rem;}
+        .plinfos img{margin-bottom: 0.2rem;}
+        .plinfos div{border-right: 0.05rem solid #F0F0F0;}
+        .plinfos div:last-of-type{border: none;}
+        .plinfos .lll{width: 25%;}
+        .plinfos .pl{width: 25%;}
+        .plinfos .cdz{width: 25%;}
+        .plinfos .cjcollection{width: 25%;float: left;text-align: center;font-size: 1.2rem;color: #999999;}
+
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">养护健康</h1>
+</header>
+<div style="height: 4.6rem"></div>
+<div class="cjtrue">
+    <div class="cjtrue-title">
+        <h2>{$news.n_title}</h2>
+    </div>
+    <div class="cjtrue-plinfos">
+		<span class="cjtrue-plinfos-auther">
+			作者：系统
+		</span>
+        <span class="cjtrue-plinfos-time">
+			时间：{:get_time($news.n_addtime)}
+		</span>
+    </div>
+    <div class="cjtrue-content">
+        <div class="cjtrue-content-txt">
+            {$news.n_content}
+
+        </div>
+
+    </div>
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+    $(function(){
+        $("img").attr("alt"," ");
+    })
+</script>
+</body>
+</html>

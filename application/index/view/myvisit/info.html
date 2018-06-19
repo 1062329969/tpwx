@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.sitename}</title>
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+	<link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+	<link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+	<style>
+		/*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #333;font-weight: normal; line-height: 4.4rem;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.cjbasic{background: white;width: 100%;margin-top: 1rem;}
+		.cjbasic li{padding:1.25rem 1rem;}
+		.cjbasic li:first-of-type{color: #333333;font-size: 1.6rem;padding: 1.5rem 1rem;border-bottom: 1px solid #F0F0F0;}
+		.cjbasic li span:first-of-type{color: #666666;font-size: 1.5rem;}
+		.cjbasic li span:last-of-type{color: #999999;font-size: 1.4rem;}
+		.cjbasic li span.cjbasic-red{color: #ff2942;}
+		.cjbasic li span.cjbasic-blue{color: #15BBDC;}
+		.cjinfo {background: white;width: 100%;margin-top: 1rem;}
+		.cjinfo li{padding: 1.25rem 1rem;border-bottom: 0.05rem solid #F0F0F0;}
+		.cjinfo li span.cjbasic-blue img{width: 1.1rem;height: 1.2rem;margin-right: 0.45rem;}
+		.cjinfo li span:first-of-type{color: #666666;font-size: 1.5rem;}
+		.cjinfo li span:last-of-type{color: #999999;font-size: 1.4rem;}
+		.cjinfo li span.cjbasic-blue{color: #15BBDC;}
+	</style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+	<h1 class="mui-title">档案详情</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<ul class="cjbasic">
+	<li>基本资料</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">就诊人</span>
+		<span class="mui-pull-right">{$info.name}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">预留手机</span>
+		<span class="mui-pull-right">{$info.tel}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">性别</span>
+		<span class="mui-pull-right">{$info.sex}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">年龄</span>
+		<span class="mui-pull-right">{$info.age}</span>
+	</li>
+</ul>
+<ul class="cjinfo">
+	<li class="clearfix">
+		<span class="mui-pull-left">就诊院部</span>
+		<span class="mui-pull-right">{$info.hospital}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">手术医生</span>
+		<span class="mui-pull-right">{$info.doctor}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">手术日期</span>
+		<span class="mui-pull-right">{$info.op_time|date='Y-m-d',###}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">服务项目</span>
+		<span class="mui-pull-right cjbasic-blue"><img src="{$Think.HTML_STATIC}/images/a5.png"/>{$info.jz_type}
+		</span>
+	</li>
+</ul>
+
+<ul class="cjbasic">
+	<li>手术详情</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">方式E数量</span>
+		<span class="mui-pull-right">{$info.f_e}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">方式L数量</span>
+		<span class="mui-pull-right">{$info.f_l}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">赠送E数量</span>
+		<span class="mui-pull-right">{$info.z_e}</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">赠送L数量</span>
+		<span class="mui-pull-right">{$info.z_l}</span>
+	</li>
+</ul>
+<ul class="cjbasic">
+	<li>资费明细</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">优惠折扣</span>
+		<span class="mui-pull-right">{$info.yhzk}元</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">优惠券</span>
+		<span class="mui-pull-right cjbasic-red">{$info.yhq}元</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">手术费用</span>
+		<span class="mui-pull-right">{$info.zssfy}元</span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">增费/退费</span
+		><span class="mui-pull-right"> ￥{$info.ztf}元 </span>
+	</li>
+	<li class="clearfix">
+		<span class="mui-pull-left">总手术费用</span>
+		<span class="mui-pull-right cjbasic-blue">￥{$info.zzssf}元</span>
+	</li>
+
+</ul>
+<script src="http://cdn.bootcss.com/jquery/1.10.0/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+{include file="public/fx" /}
+<script>
+
+</script>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style>
+        #myTab li.active{
+            border-top: 4px solid #19aa8d;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>管理板块</h5>
+                    </div>
+                    <div style="margin-top: 1%">
+                        <ul id="myTab" class="nav nav-tabs" style="float: left">
+                            <li data-id="2" {if $mid==2}class="active"{/if}>
+                                <a href="#category" data-toggle="tab">分类</a>
+                            </li>
+                            <li data-id="1" {if $mid==1}class="active"{/if}>
+                                <a href="#plate" data-toggle="tab">板块</a>
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-outline btn-info add"  style="float: right">添加</button>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade {if $mid==2}in active{/if}" id="category">
+                                <div class="ibox-content">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th width="1%"></th>
+                                                <th>分类信息</th>
+                                                <th>文章数量/篇</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {volist name="$h_class" id="vo"}
+                                                <tr>
+                                                    <th><button type="button" class="btn btn-outline btn-info" name="open" data-id='{$vo.hc_id}'>+</button></th>
+                                                    <td>[ID:{$vo.hc_id}]{$vo.hc_name}</td>
+                                                    <td><?php echo return_asum($vo['hc_id'],0); ?></td>
+                                                    <td>
+                                                        <a href="{:url('classadd',['pid'=>$vo.hc_id,'p_name'=>$vo.hc_name])}" class="btn btn-primary">添加子分类</a>
+                                                        <a href="{:url('classalter',['id'=>$vo.hc_id])}" class="btn btn-outline btn-info alter" data-id='{$vo.hc_id}'>编辑</a>
+                                                        <button type="button" class="btn btn-outline btn-info" onclick="delclass(this,{$vo.hc_id},{$vo.hc_pid})" data-id='{$vo.hc_id}'>删除</button>
+                                                    </td>
+                                                </tr>
+                                                {volist name='$vo.child' id='vos'}
+                                                    <tr name="tr_{$vo.hc_id}_{$vos.hc_id}" style="display: none;">
+                                                        <th></th>
+                                                        <td>[ID:{$vos.hc_id}]{$vos.hc_name}</td>
+                                                        <td><?php echo return_asum($vos['hc_id'],$vos['hc_pid']); ?></td>
+                                                        <td>
+                                                            <button type="button" class="btn btn-danger transfer" data-id="{$vos.hc_id}" data-pname="{$vo.hc_name}" data-name="{$vos.hc_name}">&nbsp;&nbsp;转移文章&nbsp;&nbsp;</button>
+                                                            <a href="{:url('classalter',['id'=>$vos.hc_id,'p_name'=>$vo.hc_name])}" class="btn btn-outline btn-info alter" data-id='{$vos.hc_id}'>编辑</a>
+                                                            <button type="button" class="btn btn-outline btn-info" onclick="delclass(this,{$vos.hc_id},{$vos.hc_pid})" data-id='{$vos.hc_id}'>删除</button>
+                                                        </td>
+                                                    </tr>
+                                                {/volist}
+                                            {/volist}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade {if $mid==1}in active{/if}" id="plate">
+                                <div class="ibox-content">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>标题</th>
+                                                <th>简介</th>
+                                                <th>转移文章</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {volist name="$typelist" id="vo"}
+                                            <tr>
+                                                <td>{$vo.id}</td>
+                                                <td>{$vo.name}</td>
+                                                <td>{$vo.info}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger transferplate" data-id="{$vo.id}" data-name="{$vo.name}">转移文章</button>
+                                                </td>
+                                                <td>
+                                                    <a href="{:url('alter',['id'=>$vo.id])}" class="btn btn-outline btn-info alter" data-id='{$vo.id}'>编辑</a>
+                                                    <button type="button" class="btn btn-outline btn-info del" onclick="del(this,{$vo.id})" data-id='{$vo.id}'>删除</button>
+                                                </td>
+                                            </tr>
+                                            {/volist}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $(function () {
+
+            $('#myTab li').click(function () {
+                var data_id = $(this).attr('data-id')
+                history.pushState(200, '', "{:url('index',['mid'=>'"+data_id+"'])}")
+            })
+
+            $('.transfer').click(function () {
+                var id = $(this).attr('data-id');
+                var name = $(this).attr('data-name');
+                var pname = $(this).attr('data-pname');
+                layer.open({
+                    type: 2,
+                    area: ['900px','645px'],
+                    content: "{:url('shiftarticle',['id'=>'"+id+"','pname'=>'"+pname+"','name'=>'"+name+"'])}" //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            })
+
+            $('button[name=open]').click(function () {
+                var id = $(this).attr('data-id');
+                if($(this).html()=='+'){
+                    $('tr[name^=tr_'+id+']').show();
+                    $(this).html('-')
+                }else{
+                    $('tr[name^=tr_'+id+']').hide();
+                    $(this).html('+')
+                }
+            })
+            $('.add').click(function () {
+                var data_id = $('#myTab li.active').attr('data-id')
+                console.log(data_id);
+                if(data_id==1){
+                    window.location.href="{:url('add')}"
+                }else{
+                    window.location.href="{:url('classadd')}"
+                }
+            })
+
+            $('.transferplate').click(function () {
+                var name = $(this).attr('data-name');
+                var id = $(this).attr('data-id');
+                layer.open({
+                    type: 2,
+                    area: ['900px','645px'],
+                    content: "{:url('transferplate',['id'=>'"+id+"','name'=>'"+name+"'])}" //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            })
+        })
+        function del(_self,id) {
+            layer.confirm('确定删除吗?', function(index){
+                $.ajax({
+                    type: 'get',
+                    url: "{:url('del')}",
+                    data:{id:id},
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg('删除成功');
+                            $(_self).parents('tr').remove();
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        }
+        function delclass(_self,id,pid) {
+            layer.confirm('确定删除吗?', function(index){
+                $.ajax({
+                    type: 'get',
+                    url: "{:url('delclass')}",
+                    data:{id:id,pid:pid},
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg(data.msg);
+                            $(_self).parents('tr').remove();
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        }
+    </script>
+</body>
+</html>

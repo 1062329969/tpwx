@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/case1.css" rel="stylesheet" type="text/css">
+    <style>
+        body{}
+        .abtx{margin-left: 1rem;}
+        .voide{padding-top: 1rem;padding-bottom:0}
+        .tags{padding-bottom: 1rem}
+        .list-title{padding: 0.75rem 0;}
+        .topsearch{top: 6.5%;}
+        .csmian2{border-bottom: 0.05rem solid #F0F0F0;    margin-bottom: 5px;}
+        .xlmenus li a.on5{color: #15bdde;}
+        @media only screen and (min-width: 320px) and (max-width: 350px){
+            .xlmenus{top: 16%;}
+            .xldj{height: 85%;}
+        }
+        @media only screen and (min-width: 350px) and (max-width: 450px){
+            .xlmenus{top: 11%;}
+            .xldj{height: 89%;}
+        }
+        header h1.mui-title{font-weight: normal;}
+        .abtx{margin-left: 0;}
+        .aliimg{margin-bottom: 1rem;}
+        .csuser p{font-size: 1.4rem;}
+        #header img{margin-top: 1.25rem;}
+        #header h1.mui-title{line-height: 4.4rem;}
+        .plinfos{width: 100%;padding: 0;line-height: 3.5rem;border-top: 1px solid #F0F0F0;}
+        .plinfos .lll,.plinfos .pl,.plinfos .cdz{width: 33%;text-align: center;}
+        .plinfos>img{float: left;margin-top: 0.8rem;}
+        .plinfos .cdz img{width: 1.35rem;height: 1.25rem;}
+        .csmian2{margin-bottom: 0;}
+        .plinfos .cdz{width:21%;text-align: center;}
+        .plinfos .cdz1{width:33%;text-align: center;}
+        .dyimg img{width: 100%}
+        .csmian{margin-bottom: 1rem}
+        .plinfos{margin-top: 1rem}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar">
+    <a class="mui-action-back  mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">点赞</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<!--跳到机器人那里的链接-->
+<!--onclick="location.href='{$Think.config.zoosnet}'"-->
+{volist name='$list' id='voo'}
+{if $voo.type==6}
+<a href="{:url("cases/detail",['uid'=>$voo.aid])}">
+<div class="csmian2" style="width: 100%; background: white;">
+    <div class="csmian1">
+        <div class="csmian" style="border:0px;">
+            <?php $userinfo = getuserinfo($voo['info']['uid']); ?>
+            <div class="csuser abtx">
+                <img src="<?php echo $userinfo['portrait'] ?>">
+                <p><?php echo $userinfo['wechaname'] ?></p>
+                <p class="ddtime">{:get_time($voo.create_time)}</p>
+            </div>
+            <div class="aliimg">
+                {php}if(!empty($voo['info']['pic2'])){{/php}
+                <div class="albf"><img src="{$voo.info.pic2}"><!--<span>术前</span>--></div>
+                {php}}{/php}
+                <div class="alaf"><img src="{$voo.info.pic}"><!--<span>术后</span>--></div>
+            </div>
+            <p>{php} echo mb_substr(strip_tags($voo['info']['info']),0,40); {/php}...</p>
+
+        </div>
+        <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{$voo.info.click}</div><img src="{$Think.HTML_STATIC}/images/70.png"/><div class="pl list-title-mlr"><img src="{$Think.HTML_STATIC}/images/7.png">{$voo.info.comment}</div><img src="{$Think.HTML_STATIC}/images/70.png"/><div class="cdz cdz1"><img src="{$Think.HTML_STATIC}/images/66.png"><span>{$voo.info.praise}</span></div></div>
+    </div>
+</div>
+</a>
+{elseif $voo.type==1}
+<a href="{:url("cases/record",['id'=>$voo.aid])}">
+<div class="csmian2" style="width: 100%; background: white;">
+    <div class="csmian1">
+        <div class="csmian" style="border:0px;">.
+            <div class="aliimg">
+                <div class="albf"><img src="{$voo.info.pic}"><!--<span>术前</span>--></div>
+                {$voo.info.info}
+            </div>
+        </div>
+        <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{$voo.info.click}</div><img src="{$Think.HTML_STATIC}/images/70.png"/><div class="pl list-title-mlr"><img src="{$Think.HTML_STATIC}/images/7.png">{$voo.info.pinglun}</div><img src="{$Think.HTML_STATIC}/images/70.png"/><div class="cdz cdz1"><img src="{$Think.HTML_STATIC}/images/66.png">{$voo.info.dianzan}</div></div>
+    </div>
+</div>
+</a>
+{elseif $voo.type==5}
+<a href="{:url("forum/detail",['uid'=>$voo.aid])}">
+<div class="csmian2" style="width: 100%; background: white;">
+    <div class="csmian1">
+        <div class="csmian" style="border:0px;">
+            <?php $userinfo = getuserinfo($voo['info']['uid']); ?>
+            <div class="csuser abtx">
+                <img src="<?php echo $userinfo['portrait'] ?>">
+                <p><?php echo $userinfo['wechaname'] ?></p>
+                <p class="ddtime">{:get_time($voo.info.create_time)}</p>
+                <p class="dytitle"> {$voo.info.qtitle}</p>
+            </div>
+        </div>
+        <div class="dyimg">
+            <img src="{$voo.info.pic_s}">
+        </div>
+        <p style="clear: both;"></p>
+    </div>
+    <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{$voo.info.click}</div><div style="color:#aeaeae;width:1rem;height:1rem;line-height:1rem;text-align:center;float:left;margin-top:4%;">·</div><div class="pl list-title-mlr"><img src="{$Think.HTML_STATIC}/images/7.png">{$voo.info.comment}</div><div style="color:#aeaeae;width:1rem;height:1rem;line-height:1rem;text-align:center;float:left;margin-top:4%;">·</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/66.png">{$voo.info.praise}</div></div>
+</div>
+</a>
+{/if}
+{/volist}
+
+<script type="text/javascript">
+    function goserachgid(_self) {
+        var dataurl = "http://ihair.yongxianghui.net/cases/index";
+
+        dataurl +='/gid/'+$(_self).attr('gid');
+        if($('li[active=2] a').attr('pid')!=undefined){
+            dataurl +='/pid/'+$('li[active=2] a').attr('pid');
+        }
+        if($('li a[active=3]').attr('data-id')!=undefined){
+            dataurl += '/tid/'+$('li a[active=3]').attr('data-id');
+        }
+        dataurl += '.html';
+        window.location.href=dataurl;
+    }
+    function goserachpid(_self) {
+        var dataurl = "http://ihair.yongxianghui.net/cases/index";
+
+        if($('li[active=1] a').attr('gid')!=undefined){
+            dataurl +='/gid/'+$('li[active=1] a').attr('gid');
+        }
+        dataurl +='/pid/'+$(_self).attr('pid');
+        if($('li a[active=3]').attr('data-id')!=undefined){
+            dataurl += '/tid/'+$('li a[active=3]').attr('data-id');
+        }
+        dataurl += '.html';
+        window.location.href=dataurl;
+    }
+    function goserachtid(_self) {
+        var dataurl = "http://ihair.yongxianghui.net/cases/index";
+
+        if($('li[active=1] a').attr('gid')!=undefined){
+            dataurl +='/gid/'+$('li[active=1] a').attr('gid');
+        }
+        if($('li[active=2] a').attr('pid')!=undefined){
+            dataurl +='/pid/'+$('li[active=2] a').attr('pid');
+        }
+        dataurl += '/tid/'+$(_self).attr('data-id');
+        dataurl += '.html';
+        window.location.href=dataurl;
+    }
+
+
+</script>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<!--{include file="public/global_footer" /}-->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+
+<script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/data-2.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //判断安卓和ios文字颜色
+    if (/(iPhone)/i.test(navigator.userAgent)) {
+        $("#header").css("borderColor","#cecece");
+    }
+</script>
+</body>
+</html>

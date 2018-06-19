@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{$Think.config.sitename}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+	<link href="{$Think.HTML_STATIC}/css/goods.css" rel="stylesheet">
+	<link rel="stylesheet" href="{$Think.HTML_STATIC}/css/ydui.css?rev=@@hash"/>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+	<script type="text/javascript">
+		function Address(){
+			// layer.open({
+			//     type: 1,
+			//     content: $('#addform') //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+			// });
+		}
+		function submitadd(){
+			var sd_username = $('#sd_username').val();
+			var sd_mobile = $('#sd_mobile').val();
+			var sd_area = $('#sd_area').val();
+			var sd_address = $('#sd_address').val();
+			var sd_zipcode = $('#sd_zipcode').val();
+
+			if(sd_username=='' || sd_mobile=='' || sd_area=='' || sd_address=='' || sd_zipcode==''){
+				layer.msg('请填写完整信息')
+				return false;
+			}
+			$.ajax({
+				type: "post",
+				url: '{:url("shipaddress/add")}',
+				data: {sd_username:sd_username,sd_mobile:sd_mobile,sd_area:sd_area,sd_address:sd_address,sd_zipcode:sd_zipcode},
+				dataType: "json",
+				success: function(data){
+					if(data.code==1){
+						var _html='';
+						_html+="姓名："+sd_username+"<br />";
+						_html+="电话："+sd_mobile+"<br />";
+						_html+="地址："+sd_area+" "+sd_address+"<br />";
+						_html+="邮编："+sd_zipcode;
+						$('.addressInfo').html(_html);
+						layer.closeAll();
+					}else{
+						layer.msg('删除失败');
+					}
+				}
+			});
+		}
+		$(document).ready(function(){
+			//获取图片的数量宽度以及box的宽度
+			var imgNum=$(".buygoodslist").length;
+			var imgLen=$(".buygoodslist").width()
+			var boxWid=imgLen*imgNum
+			$(".cjbox").css("width",boxWid+"px")
+		})
+	</script>
+	<style>
+		.ly, .yf, .pt {
+			line-height: 30px;
+			background: #fff;
+			padding: 1.35rem 1rem;
+		}
+		/*遮罩*/
+		.mui-backdrop{z-index: 998;}
+		/*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight:normal;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.cjaddress{background: white;width: 100%;padding: 2rem 1rem 1.5rem;color: #333333;font-size: 1.4rem;margin-bottom: 1rem;}
+		.cjaddress-personlinfo{border-bottom: 0.05rem solid #F0F0F0;padding-bottom: 2rem;}
+		.cjaddress-personlinfo span{margin-right: 0.5rem;}
+		.cjaddress-personlinfo .cjaddress-personlinfo-name{margin-bottom: 1.5rem;}
+		.cjaddress-default{padding-top: 1.5rem;}
+		.cjaddress-default .mui-pull-left img{width:1.4rem;height: 1.4rem;margin-right: 1rem;margin-bottom: 0.25rem;}
+		.cjaddress-default p{color: #666666;}
+		.cjaddress-default p.on9{color: #3bc6e2;}
+		.cjaddress-default .mui-pull-right span:first-of-type img{width: 1.4rem;margin-right: 0.45rem;margin-bottom: 0.25rem;}
+		.cjaddress-default .mui-pull-right span:first-of-type{margin-right: 2rem;}
+		.cjaddress-default .mui-pull-right span:last-of-type img{width: 1.2rem;height: 1.6rem;margin-right: 0.45rem;margin-bottom: 0.25rem;}
+		/*新建地址*/
+		.cjnew{position: fixed;bottom: 0;left: 0;width: 100%;}
+		.cjnew img{width: 100%;}
+		/*删除的提示框*/
+		.cjalert-del{width: 70%;border: 0.05rem solid #cccccc;border-radius:1rem;background: white;position: fixed;left: 15%;top: 24%;z-index: 1000;}
+		.cjalert-del li{text-align: center;}
+		.cjalert-del li:first-of-type{padding: 2rem 0;font-size: 1.6rem;font-weight: bold;color: #333333;}
+		.cjalert-del li:nth-of-type(2){font-size: 1.4rem;color: #999999;}
+		.cjalert-del li:nth-of-type(3){padding: 2rem 0;}
+		.cjalert-del li:nth-of-type(3) button{padding: 0.75rem 3.25rem;color: #15BBDC;border: 0.05rem solid #15BBDC;border-radius: 2.9rem;margin: 0 0.2rem;}
+		.cjalert-del li:nth-of-type(3) button:first-of-type{color: #FF2942;border-color: #ff2942;}
+		/*新建收货地址页面*/
+		.cjnew-address{width: 100%;background: white;padding:0 1rem;}
+		.cjnew-address li{border-bottom: 0.05rem solid #F0F0F0;padding: 1.5rem 0;}
+		.cjnew-address li span{font-size: 1.4rem;color: #333333;}
+		.cjnew-address li input{font-size: 1.4rem;color: #333333;}
+		.cjnew-address li img{width: 0.7rem;height: 1.3rem;margin-left: 1.1rem;}
+		.cjnew-address li textarea{width: 80%;padding: 0;height: 2rem;height: 6.5rem;border: none;}
+		.cjhold{margin-top: 5rem;text-align: center;}
+		.cjhold img{width: 86%;display: inline-block;}
+		input[type=text]{margin-bottom: 0;padding: 0;border: none;}
+		/*清除浮动*/
+		.clearfix:after{
+			content: "";
+			display: block;
+			clear:both;
+			height: 0;
+			overflow: hidden;
+		}
+		.clearfix{
+			zoom:1;
+		}
+		.mui-bar-nav~.mui-content{padding-top: 0;}
+		.buygoodslist{border-bottom: none;overflow: initial;;margin-top: 0;}
+		.buygoods{width: 100%;}
+		.bigBox{width: 83%;overflow:scroll;float: left;}
+		/*隐藏滚动条*/
+		::-webkit-scrollbar{
+			display:none;
+		}
+		.buygoods img{margin-right: 0.45rem;border:1px solid #f0f0f0;margin-top:4px;}
+		.cjnum{line-height: 6rem;margin-right: 1.5rem;font-size: 1.4rem;color: #999999;}
+		/*留言*/
+		.buyer{padding: 0;margin: 0;border: none;background: none;}
+		.ly{margin-bottom: 1rem;background: white;padding: 1rem;padding-bottom: 0;padding-top:0;}
+		.ly input{border: none;color:#333333;}
+		.cjallprice{padding: 1.35rem 1rem;background: white;width: 100%;line-height: 2.8rem;}
+		.cjallprice span.mui-pull-left{color: #333333;}
+		.cjallprice span.mui-pull-right{color: #ff2942;}
+		/*支付*/
+
+		.cjpay{width: 100%;height: 4.9rem;background: white;border-top: 0.05rem solid #F0F0F0;position: fixed;bottom: 0;left: 0;z-index: 100;}
+		.cjpay div{width: 85%;height: 100%;line-height: 4.9rem;font-size: 1.6rem;color: #333333;}
+		.cjpay-all span{color:#FF2942;}
+		.buysub{background: none;background: url({$Think.HTML_STATIC}/images/51.png) no-repeat;width: 45%;height: 100%;background-size: cover;text-align: center;line-height: 4.9rem;font-size: 1.7rem;border-radius: 0;}
+		@media only screen and (min-width: 320px) and (max-width: 370px) {
+			.cjpay div{width: 85%;}
+			.buysub{width: 45%;}
+		}
+		.cjnum {
+			line-height: 7rem;
+			margin-right: 0.5rem;
+			font-size: 1.4rem;
+			color: #999999;
+			height:6rem;
+		}
+		/*添加收货地址*/
+		.addressInfo{padding: 1rem;}
+		.addressInfo p:first-of-type{line-height: 3.25rem;}
+		.addressInfo p img{width: 0.7rem;height: 1.3rem;margin-top: 1rem;position:relative;top:13px;}
+		.addressInfo p span{margin-right: 1rem;font-size:1.5rem;color:#333333;}
+		.addressInfo p span.cjdefauly{padding: 0.2rem 0.4rem;border: 0.05rem solid #ff2942;color: #ff2942;display: inline-block;line-height: 1.2rem;border-radius: 1.4rem;}
+		.mui-backdrop{background:#f0f0f0;}
+
+		.ly input::-webkit-input-placeholder {
+					color: #333333;
+					font-size:1.5rem;
+			}
+		.pt{border-top:1px solid #f0f0f0;padding:0;height:6rem;}
+		.pt p{margin-top:3.5%;margin-right:3%;}
+
+		.buygoods img{height:10rem;}
+		.cjallprice p{font-size:1.5rem;}
+		.yf{font-size:1.5rem;}
+		select option{font-size:1.5rem;}
+		.yf p{color:#ff803a;font-size:1.5rem;}
+	</style>
+</head>
+
+<body style="background:#f0f0f0;">
+
+<div class="cjdingdan">
+	<header id="header" class="mui-bar mui-bar-nav">
+		<a class="mui-pull-left" id="tc" onclick="window.location.href=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+		<h1 class="mui-title" style="font-weight:normal;color:#333333;">确认订单</h1>
+	</header>
+	<div style="height: 4.4rem;"></div>
+	<div class="mui-content" style="background:#f0f0f0;margin-top:10px;">
+		<div class="addressInfo" onclick="selectAddress()" {if !$shipaddress}style='display:none'{else /}style='display:block'{/if}>
+		<div>
+			<p class="clearfix">
+				<span>{$shipaddress.sd_username}</span>
+				<span>{$shipaddress.sd_mobile}</span>
+				<img onclick="selectAddress()" class="mui-pull-right cjadd-address" src="{$Think.HTML_STATIC}/images/right.png"/>
+			</p>
+			<p>
+				<span>{$shipaddress.sd_area}</span>
+				<span>{$shipaddress.sd_address}</span>
+			</p>
+		</div>
+	</div>
+
+	<a href="{:url('shipaddress/index',['go'=>'cart'])}" id="address" style="margin-top:10px;{if $shipaddress}display:none;{else /}display:block;{/if} width:100%;background:#fff;text-align:center;font-size:1.8rem;height:6rem;line-height:6rem;margin:0 auto 10px;">+请先添加收货地址</a>
+
+
+	<div class="buygoods clearfix">
+		{if isset($goodsordersinfo)} <p>订单编号：{$goodsordersinfo.order_id} </p>{/if}
+		<div class="bigBox">
+			<div class="cjbox">
+				<?php $allprice=0; ?>
+				{volist name='$goods' id='vo'}
+				<?php $allprice = $allprice+$vo['nums']*$vo['price']; ?>
+				<div class="buygoodslist">
+					<img src="{$vo.pic}">
+					<div class="bgdstp" style="display:none">
+						<div class="bgdtitle">{$vo.gdname}</div>
+						<div class="bgdprice"><i>￥</i>{$vo.price} {$vo.ggName}</div>
+						<div class="addgnum baddgnum lr">
+							<div class="nums">x<input style="border: none; float: none; width: 20px;" data-nums="{$vo.number}" data-price="{$vo.price}" class="numsinput" readonly="readonly" name="{$vo.nums}" type="number" value="{$vo.nums}" /></div>
+						</div>
+					</div>
+				</div>
+				<input name="goods_id[]" value="{$vo.id}" class="goods_id" type="hidden">
+				<input name="gg[]" value="{$vo.gg}" class="gg_id" type="hidden">
+				{/volist}
+			</div>
+		</div>
+		<div class="cjnum mui-pull-right">
+            <p style="position:relative;top:24px;">共<span><?php echo $num_sum;?></span>件</p>
+		</div>
+	</div>
+	<div class="buyer">
+		<div class="ly"><input placeholder="选填：给商家留言" type="text" id="remarks" /></div>
+		<!--<div class="yf">运费：￥{$express}</div>-->
+		<div class="cjallprice">
+			<p class="clearfix"><span class="mui-pull-left">商品金额</span><span class="mui-pull-right  id="totalPrice"">￥<?php echo $allprice; ?></span></p>
+			<p class="clearfix"><span class="mui-pull-left .yf">运费</span><span class="mui-pull-right">￥{$express}</span></p>
+		</div>
+		{if 1==0}
+		{gt name='$integral' value='0'}
+		<div class="yf"><p>-￥{$integralPrice}</p>积分抵现：</div>
+		{/gt}
+		{/if}
+
+		{notempty name='$coupon'}
+		<div class="yf">
+			<p>-￥{$coupon.cprice}</p><img src="{$Think.HTML_STATIC}/images/yhq2.png" style="width:7%;transform:rotate(30deg);margin-right:1.5%;font-size:1.5rem;"/>优惠券：
+			{notempty name='$allCoupon'}
+			<div  style="height:4rem;line-height:3rem;background:#f0f0f0;margin-top:3%;">
+				<select id="checkCoupon" onchange="checkCoupon()" style="font-size:1.3rem;color:#ff803a;">
+					{volist name='$allCoupon' id='vo'}
+					<option value="{$vo.cl_id}" data-cprice="{$vo.cprice}" style="font-size:1.3rem;color:#ff803a;">满{$vo.use_price}减{$vo.cprice}</option>
+					{/volist}
+					<option value="0" data-cprice="0" style="font-size:1.3rem;color:#ff803a;">不使用优惠券</option>
+				</select>
+			</div>
+			{/notempty}
+		</div>
+		{/notempty}
+
+		<div class="pt" style="color:#ff2942;"><p style="color:#ff2942;font-size:1.5rem;">合计：￥<span id="totalPrice" style="color:#ff2942;font-size:1.5rem;">0</span></p></div>
+		<div style="height: 4.9rem;"></div>
+		<div class="cjpay clearfix">
+			<div class="mui-pull-right clearfix">
+    	<span class="cjpay-all" style="display: inline-block;">
+    		实付款：<span>￥298.00</span>
+    	</span>
+				<span style="display: inline-block;" class="buysub mui-pull-right"  data-id="1">立即下单</span>
+			</div>
+
+		</div>
+		{if 1==0}
+		{gt name='$fansInfo.balance' value='$totalPrice'}
+		<div class="buysub yuezf" data-id="2">药品券支付</div>
+		{/gt}
+		{/if}
+	</div>
+
+</div>
+
+
+<!--主页面-->
+<div class="cjindex" style="display: none;">
+	<header id="header" class="mui-bar mui-bar-nav">
+		<a class="mui-pull-left" ><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+		<h1 class="mui-title">收货地址管理</h1>
+	</header>
+	{volist name='shipaddresslist' id='vo'}
+	<div class="cjaddress" onclick="checkaddress('{$vo.sd_username}','{$vo.sd_mobile}','{$vo.sd_area}','{$vo.sd_address}','{$vo.sd_zipcode}')">
+		<div class="cjaddress-personlinfo">
+			<div class="cjaddress-personlinfo-name">
+				<span>{$vo.sd_username} </span>
+				<span>{$vo.sd_mobile}</span>
+			</div>
+			<div>
+				<span class="province">{$vo.sd_area}{$vo.sd_address} </span>
+			</div>
+		</div>
+	</div>
+	{/volist}
+	<p class="mui-backdrop" style="display: none;" ></p>
+</div>
+
+
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+<script src="{$Think.HTML_STATIC}/js/ydui.citys.js"></script>
+<script src="{$Think.HTML_STATIC}/js/ydui.js"></script>
+<script type="text/javascript">
+
+
+
+	wx.config({
+		debug: false,
+		appId:    '{$Think.config.Appid}',
+		timestamp: {$timeStamp},
+		nonceStr: '{$nonceStr}',
+		signature: '{$signature}',
+		jsApiList: [
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'openAddress',
+			"chooseWXPay"
+		]
+	});
+
+	function selectAddress(){
+		// layer.open({
+		//     type: 1,
+		//     content: $('#shipaddresslist')
+		// });
+		$('.mui-content').hide();
+		$('.cjson').hide();
+		$('.cjindex').show();
+	}
+	function checkaddress(sd_username,sd_mobile,sd_area,sd_address,sd_zipcode){
+        var _html='';
+        _html+='<div>'
+        _html+='<p class="clearfix">'
+        _html+='<span>'+sd_username+'</span>'
+        _html+='<span>'+sd_mobile+'</span>'
+        _html+='<img onclick="selectAddress()" class="mui-pull-right cjadd-address" src="{$Think.HTML_STATIC}/images/right.png"/>'
+        _html+='</p>'
+        _html+='<p>'
+        _html+='<span>'+sd_area+'</span>'
+        _html+='<span>'+sd_address+'</span>'
+        _html+='</p>'
+        _html+='</div>'
+        $('.addressInfo').html(_html);
+        $('.mui-content').show();
+        $('.cjson').hide();
+        $('.cjindex').hide();
+	}
+	function callAddress()
+	{
+		wx.openAddress({
+			success: function (res)
+			{
+				// 用户成功拉出地址
+				var str='';
+				str=str+'姓名：'+res.userName+"<br>";
+				str=str+'电话：'+res.telNumber+"<br>";
+				str=str+'地址：'+res.provinceName+" ";
+				str=str+res.cityName+" ";
+				str=str+res.countryName+" ";
+				str=str+res.detailInfo+"<br>";
+				str=str+'邮编：'+res.postalCode;
+				$('.address').html('+修改收货地址');
+				$('.addressInfo').html(str);
+				$('.addressInfo').show();
+			},
+			cancel: function () {
+				// 用户取消拉出地址
+			}});
+	};
+
+	checkCoupon();
+	function checkCoupon() {
+		var options=$("#checkCoupon option:selected"); //获取选中的项
+
+		{empty name="$allCoupon"}
+		eachPrice(0)
+		{else /}
+		eachPrice(Number(options.attr('data-cprice')));
+		{/empty}
+	}
+	//价格计算
+	function eachPrice(Couponpri) {
+		var totalPrice=0;
+		if($('.buygoodslist').length>0)
+		{
+			$('.buygoodslist').each(function()
+			{
+				totalPrice=Number(totalPrice)+Number($(this).find('.numsinput').val())*Number($(this).find('.numsinput').attr('data-price'));
+
+			});
+			totalPrice=Number(totalPrice)+{$express};
+			{if 1==0}
+			{gt name='$integral' value='0'}
+			totalPrice=Number(totalPrice)-{$integralPrice};
+			{/gt}
+			{/if}
+			totalPrice=Number(totalPrice)-Couponpri;
+
+			totalPrice=totalPrice.toFixed(2);
+			$('#totalPrice').html(totalPrice);
+			$('.cjpay-all span').html('￥'+totalPrice);
+		}
+		else {
+			$('#totalPrice').html(0);
+			$('.cjpay-all span').html(0);
+		}
+
+	}
+
+	var mask = mui.createMask();//callback为用户点击蒙版时自动执行的回调；
+	//调用微信JS api 支付
+	$('.buysub').click(function()
+	{
+		var totalPrice=$('#totalPrice').html();
+		var goods_id = [];
+		var nums=[];
+		var gg=[];
+		var mode=$(this).attr('data-id');
+
+		{empty name="$allCoupon"}
+		var checkCoupon = 0;
+		{else /}
+		var checkCoupon = $('#checkCoupon').val();
+		{/empty}
+		$('.goods_id').each(function ()
+		{
+			goods_id.push($(this).val());
+		});
+
+		$('.gg_id').each(function ()
+		{
+			gg.push($(this).val());
+		});
+
+		$('.numsinput').each(function ()
+		{
+			nums.push($(this).val());
+		});
+		remarks=$('#remarks').val();
+		address=$('.addressInfo').html();
+
+		if(address=='')
+		{
+			mui.alert('请选择地址');
+			return false;
+		}
+            if($(".addressInfo").is(":hidden")){
+                alert("请填写收货地址")
+                return false;
+            }
+
+		mask.show();//显示遮罩
+		//首先提交订单
+		$.ajax({
+			type: "post",
+			url: '{:url("addOrder")}',
+			data: {goods_id:goods_id,nums:nums,gg:gg,remarks:remarks,address:address,checkCoupon:checkCoupon,__token__:'{$Request.token}'},
+			dataType: "json",
+			success: function(data)
+			{
+				if(data.code==1)
+				{
+					if(mode==1)
+					{
+						WXPay(data);
+					}
+					else
+					{
+						$.ajax({
+							type: "post",
+							url: '{:url("balanceBuy")}',
+							data: {order_id:data.order_id,__token__:'{$Request.token}'},
+							dataType: "json",
+							success: function(data2)
+							{
+								if(data2.code==1)
+								{
+									mask.close();
+									mui.alert('支付成功', '', function(){window.location.href="{:url('my/mygoods')}"});
+								}
+								else if(data2.code==2)
+								{
+									ts(data);
+								}
+								else
+								{
+									mui.alert(data2.msg);
+									mask.close();  //关闭遮罩
+								}
+							}
+						});
+
+					}
+
+				}
+				else
+				{
+					mui.alert(data.msg);
+					mask.close();
+				}
+			}
+		});
+
+
+	});
+
+
+	//微信支付
+	function WXPay(data)
+	{
+		wx.chooseWXPay({
+			timestamp: data.data.timestamp,
+			nonceStr: data.data.nonceStr, // 支付签名随机串，不长于 32 位
+			package: data.data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+			signType: data.data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+			paySign: data.data.paySign, // 支付签名
+			success: function (res)
+			{
+				var str = JSON.stringify(res);
+				if(res.errMsg == "chooseWXPay:ok")
+				{
+					mask.close();
+					mui.alert('支付成功', '', function(){window.location.href="{:url('my/mygoods')}"});
+				}
+				else
+				{
+					mask.close();
+					mui.alert('支付失败', '', function(){});
+				}
+			},
+			cancel:function(res){
+				//支付取消 跳转到我的购买商品记录页
+				mask.close();
+				window.location.href="{:url('my/mygoods')}";
+			}
+		});
+	}
+	//点击进入收货地址
+	$(".cjadd-address").click(function(){
+		$(".cjindex").show()
+		$(".cjdingdan").hide()
+	})
+</script>
+<script>
+
+	$(function(){
+		//判断收货地址为空的时候不能下单
+
+
+
+
+		//设置默认收货地址
+		$(".cjaddress-default p.mui-pull-left").click(function(){
+			if($(this).hasClass("on9")){
+				$(this).removeClass("on9")
+			}else{
+				$(this).addClass("on9")
+			}
+			if($(this).find("img").attr("src")=="/static/index/images/37.png"){
+				$(this).find("img").attr("src","/static/index/images/41.png")
+			}else{
+				$(this).find("img").attr("src","/static/index/images/37.png")
+			}
+		})
+		$(".cjnew img").click(function(){
+			$(".cjindex").hide();
+			$(".cjson").show();
+		})
+		//删除地址
+		$(".cjdelete").click(function(){
+			$(".mui-backdrop").show()
+			$(".cjalert-del").show()
+			var index=$(this).closest(".cjaddress").index()
+			$(".cjdel").click(function(){
+				$(".mui-backdrop").hide()
+				$(".cjalert-del").hide()
+				$(".cjaddress").eq(index).remove()
+			})
+			$(".cjcancel").click(function(){
+				$(".mui-backdrop").hide()
+				$(".cjalert-del").hide()
+			})
+		})
+		$(".cjhold img").click(function(){
+			if($(".name").val()==""){
+				alert("请输入姓名")
+			}else if($(".phone").val()==""){
+				alert("请输入手机号码")
+			}else if($(".cjaddress[type=text]").val().length==0){
+				alert("请选择所在地区")
+			}else if($(".xxaddress").val()==""){
+				alert("请输入详细地址")
+			}
+		})
+		//编辑跳转
+		$(".cjedit").click(function(){
+			$(".cjindex").hide();
+			$(".cjson").show();
+		})
+		$(".cjson #header img").click(function(){
+			$(".cjson").hide();
+			$(".cjindex").show();
+		})
+	})
+	//验证手机号
+	function myFunction(){
+		var phone=new RegExp(/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/)
+		var txtVal=document.getElementById("cjphone").value
+		if(phone.test(txtVal)==false){
+			alert("请输入正确的手机号")
+		}
+	}
+</script>
+<script>
+	/**
+	 * 默认调用
+	 */
+	!function () {
+		var $target = $('#J_Address');
+
+		$target.citySelect();
+
+		$target.on('click', function (event) {
+			event.stopPropagation();
+			$target.citySelect('open');
+		});
+
+		$target.on('done.ydui.cityselect', function (ret) {
+			$(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+		});
+	}();
+
+</script>
+</body>
+</html>

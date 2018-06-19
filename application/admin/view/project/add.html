@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回项目列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('add')}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>项目标题：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required placeholder="请输入项目标题" name="proname" value="">
+                                </div>
+                            </div>
+                            <!--
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目图标：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="file" name="pic"/> 
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目图片：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="file" name="pic2"/>
+                                    <i class="fa fa-info-circle">大小:640*254</i>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">推荐医生：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control" multiple="" name="doc_ids[]">
+                                        {volist name='$doctor' id='vo'}
+                                        <option value="{$vo.id}">{$vo.docname}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目简介：</label>
+
+                                <div class="col-sm-10">
+                                    <script id="container" type="text/plain" style="width:100%;height:400px;" name="text"></script>
+                                    <script type="text/javascript">
+                                       var ue = UE.getEditor('container');
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">案例照片(642*426)：</label>
+
+                                <div class="col-sm-10" id="imgs">
+                                    <button class="btn btn-primary" style="margin-top: 5px;" type="button" id="addimg">添加</button>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="0" checked>默认</span>
+                                        <input type="file" name="pic3[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="1">默认</span>
+                                        <input type="file" name="pic3[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+                                    <div class="input-group m-b">
+                                        <span class="input-group-addon"><input type="radio" name="default_img" value="2">默认</span>
+                                        <input type="file" name="pic3[]" class="form-control"/>
+                                        <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目优势：</label>
+
+                                <div class="col-sm-10">
+                                    <script id="container2" type="text/plain" style="width:100%;height:400px;" name="text2"></script>
+                                    <script type="text/javascript">
+                                        var ue = UE.getEditor('container2');
+                                    </script>
+                                </div>
+                            </div>
+                            -->
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="number" class="form-control" name="sort" oninput="this.value=this.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'')" min="0" value="100">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">状态：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="status">
+                                        <option value="1">正常</option>
+                                        <option value="0">停止</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script>
+
+        $('#addimg').click(function(){
+            $('#imgs').append('<div class="input-group m-b"><span class="input-group-addon"><input type="radio" name="default_img" value="0">默认</span> <input type="file" name="pic3[]" class="form-control"/> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            again();
+        });
+        $("#imgs").on("click",".del",function(){
+            $(this).parent().parent().remove();
+            again();
+        });
+
+        //对上传图片的默认单选按钮 重新赋值
+
+        function again()
+        {
+            i=0;
+            $("#imgs  input[type='radio']").each(function(){
+                $(this).val(i);
+                i=i+1;
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员中心</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+        ul.line{
+            height:20px;
+            overflow: hidden;
+            width: 90%;
+            float: left;
+        }
+        .ads{ overflow: hidden;}
+        .ads img{ float: left;}
+        ul.line li{height:20px;}
+    </style>
+</head>
+<body class="bodyb">
+
+<div class="vipbg" style="margin-top: 0px;">
+    <img class="bgbgbg" src="{$Think.HTML_STATIC}/images/vipimg.jpg">
+    <div class="vinfos">
+        <div class="vtx">
+            <img class="vvvtx" src="{:get_wxheadimg($fansInfo.portrait,132)}">
+            <p>{$fansInfo.wechaname} <img src="{$Think.HTML_STATIC}/images/vjb.png"></p>
+            <p>{notempty name='$visit'}ID：{$visit.code}{/notempty}</p>
+        </div>
+        <div class="qd" onclick="location.href='{:url('sign/index')}'"><img src="{$Think.HTML_STATIC}/images/dingwei.png"><p>签到</p></div>
+    </div>
+</div>
+<div class="vtopm">
+    <div onclick="location.href='{:url('mycollection')}'"><p class="nums">{$collectionNum}</p><p>我的收藏</p></div>
+    <div onclick="location.href='{:url('myfotoplace')}'"><p class="nums">{$fotoplaceNum}</p><p>我的足迹</p></div>
+    <div onclick="location.href='{:url('mymsg')}'"><p class="nums">{$msgnums}</p><p>我的消息</p></div>
+    <div onclick="location.href='{:url('myintegral')}'"><p class="nums">{$fansInfo.integral}</p><p>我的积分</p></div>
+</div>
+
+<div class="vqr" onclick="location.href='{:url('my/myqr')}'">
+    <p><img src="{$Think.HTML_STATIC}/images/myqr.png"><img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></p>推广二维码
+</div>
+
+
+<div class="ads">
+    <img src="{$Think.HTML_STATIC}/images/laba.png">
+    <ul class="line">
+        {volist name='$cont_ad' id='vo'}
+        <li><a href="{$vo.url}">{$vo.title}</a></li>
+        {/volist}
+    </ul>
+</div>
+
+<div class="myorder">
+    <div class="motitle" onclick="location.href='{:url('my/mygoods')}'"><font>我的订单 ></font>我的订单</div>
+</div>
+<div class="orlist">
+    <div class="orlistinfo" onclick="location.href='{:url('my/mygoods',['tid'=>1])}'"><img src="{$Think.HTML_STATIC}/images/dzf.jpg"><p>待付款</p>{neq name='$df' value='0'}<p class="nums">{$df}</p>{/neq}</div>
+    <div class="orlistinfo" onclick="location.href='{:url('my/mygoods',['tid'=>2])}'"><img src="{$Think.HTML_STATIC}/images/dfh.jpg"><p>待发货</p>{neq name='$dfh' value='0'}<p class="nums">{$dfh}</p>{/neq}</div>
+    <div class="orlistinfo" onclick="location.href='{:url('my/mygoods',['tid'=>3])}'"><img src="{$Think.HTML_STATIC}/images/dsh.jpg"><p>待收货</p>{neq name='$dsh' value='0'}<p class="nums">{$dsh}</p>{/neq}</div>
+    <div class="orlistinfo" onclick="location.href='{:url('my/mygoods',['tid'=>4])}'"><img src="{$Think.HTML_STATIC}/images/thh.jpg"><p>退换货</p>{neq name='$thh' value='0'}<p class="nums">{$thh}</p>{/neq}</div>
+</div>
+
+<div class="mydem">
+    <div class="mdmtitle">我的钱包</div>
+</div>
+<div class="mlist">
+    <div onclick="location.href='{:url('myintegral')}'"><p class="nums">{$fansInfo.integral}</p><p>积分</p></div>
+    <div onclick="location.href='{:url('coupon/index')}'"><p class="nums">{$couponNum}</p><p>优惠券</p></div>
+    <div><p class="nums">{$fansInfo.balance}</p><p>余额</p></div>
+</div>
+
+<div class="itinfos" onclick="location.href='{:url('myinfo')}'">
+    <div class="fri">修改密码，基本信息，收货地点 <img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></div>个人资料
+</div>
+
+<div class="itinfos">
+    <div class="fri" onclick="location.href='{:url('eprindex')}'">查看病历信息 <img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></div>电子病历
+</div>
+
+<div class="itinfos" onclick="location.href='{:url('mycomment')}'">
+    <div class="fri"><img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></div>我的动态
+</div>
+
+<div class="itinfos" onclick="location.href='{:url('doctor/index')}'">
+    <div class="fri"><img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></div>医生团队
+</div>
+
+<div class="itinfos" onclick="location.href='{:url('investigation/index')}'">
+    <div class="fri"><img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></div>问卷调查
+</div>
+
+{eq name='$isStaff' value='1'}
+<div class="itinfos" onclick="location.href='{:url('ncase/index')}'">
+    <div class="fri"><img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></div>内部案例
+</div>
+{/eq}
+
+<div class="itinfos" onclick="location.href='{:url('myOpinion')}'">
+    <div class="fri"><img src="{$Think.HTML_STATIC}/images/right.png" class="jtrihgt"></div>意见反馈
+</div>
+
+<div class="buysub" onclick="location.href='{:url('my/out')}'">退出登录</div>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/footer" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    (function($){
+        $.fn.extend({
+            "slideUp":function(value){
+
+                var docthis = this;
+                //默认参数
+                value=$.extend({
+                    "li_h":"20",
+                    "time":4000,
+                    "movetime":1000
+                },value)
+
+                //向上滑动动画
+                function autoani(){
+                    $("li:first",docthis).animate({"margin-top":-value.li_h},value.movetime,function(){
+                        $(this).css("margin-top",0).appendTo(".line");
+                    })
+                }
+
+                //自动间隔时间向上滑动
+                var anifun = setInterval(autoani,value.time);
+
+                //悬停时停止滑动，离开时继续执行
+                $(docthis).children("li").hover(function(){
+                    clearInterval(anifun);			//清除自动滑动动画
+                },function(){
+                    anifun = setInterval(autoani,value.time);	//继续执行动画
+                })
+            }
+        })
+    })(jQuery)
+    $(function(){
+        $(".line").slideUp();
+    })
+
+</script>
+</body>
+</html>

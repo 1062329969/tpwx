@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/index.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="itop">
+     <img src="{$Think.HTML_STATIC}/image/tlogo.png">
+</div>
+<div class="ifouce">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {volist name='$cont_ad' id='vo'}
+            <div class="swiper-slide"><a href="{$vo.url}"><img src="{$vo.pic}"></a></div>
+            {/volist}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+    <div class="ibyj"><img src="{$Think.HTML_STATIC}/image/ibyj.png"></div>
+</div>
+<div class="imian">
+
+    {volist name='$contType' id='vo'}
+    <a href="{eq name='$vo.url' value=''}{:url('type',array('id'=>$vo.id))}{else/}{$vo.url}{/eq}"><div class="iminfo"><img src="{$vo.pic}"><p>{$vo.typename}</p></div></a>
+    {/volist}
+
+</div>
+{include file="public/foot" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        paginationClickable: true,
+        spaceBetween: 30,
+        loop: true
+    });
+</script>
+</body>
+</html>

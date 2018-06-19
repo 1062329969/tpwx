@@ -1,0 +1,24 @@
+body{font-family: "arial";}
+    	#header{border: 1px solid #F0F0F0;}
+    	#header .mui-pull-left img{width: 1rem;height: 1.75rem;margin-top: 0.9rem;}
+    	#header .mui-pull-right img{width: 1.9rem;height: 1.75rem;margin-top: 0.9rem;}
+    	#header .mui-title{font-size: 1.7rem;color: #4a4a4a;}
+    	.mui-bar-nav{box-shadow:0 0px 0px #ccc}
+    	.doclist{margin-top: 0;position: relative;}
+    	.docimname p.name{padding-top: 0;font-size: 1.4rem;}
+    	.docimname p.name span{color: #333333;}
+    	.docimname .cjtitle{font-size: 1.2rem;color: #adadad;}
+    	.cjhos{color: #15bdde;margin-top: 0.95rem;}
+    	.cjhos img{margin-right: 0.85rem;width: 1.4rem;height: 1.35rem;border-radius:0;}
+    	.cjhos span{margin-right: 0.85rem;}
+    	.doclist{border-bottom: 1px solid #f0f0f0;}
+    	.doclist p.cjtx{height: 8rem;}
+    	.doclist p.cjtx img{width: 5.3rem;height: 5.3rem;}	
+    	.cjtitle{margin-top: 0.5rem;}
+    	.doclist img.cjsj{position: absolute;bottom: 0;right:1rem;width: 1.2rem;border-radius: 0;}
+    	.cjconsult{color: white;position: fixed;bottom: 0;left: 0;width: 100%;}
+    	.cjconsult span{width: 49.5%;}
+    	.cjconsult span.cjconsult-phone img{width: 100%;}
+    	.cjconsult span.cjOnline img{width: 100%;}
+    	/*修改后*/
+    	

@@ -1,0 +1,47 @@
+@charset "utf-8";
+@import url(iconfont.css);
+body,nav,dl,dt,dd,p,h1,h2,h3,h4,ul,ol,li,input,button,textarea,footer{margin:0;padding:0}body{font:14px/1.5 SYFZLTKHJW--GB1-0,Tahoma,Arial,Roboto,"Droid Sans","Helvetica Neue","Droid Sans Fallback","Heiti SC",sans-serif;color:#333;background:#f9f9f9;}h1,h2,h3,h4,h5,h6{font-size:100%}form{display:inline}ul,ol{list-style:none}a{text-decoration:none;color:#000}img{vertical-align:middle;border:0;-ms-interpolation-mode:bicubic;-webkit-tap-highlight-color:rgba(0,0,0,0);}button,input,select,textarea{font-size:100%;vertical-align:middle;outline:none;}textarea{resize:none}button,input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;-webkit-appearance:button;-moz-appearance:button}input:focus:-moz-placeholder,input:focus::-webkit-input-placeholder{color:transparent}button::-moz-focus-inner,input::-moz-focus-inner{padding:0;border:0}table{border-collapse:collapse;border-spacing:0}
+a,button,input,textarea{  -webkit-tap-highlight-color: rgba(0,0,0,0;) -webkit-user-modify:read-write-plaintext-only; }
+a:hover{ background:none;}
+/*公共样式*/
+/*头部高度*/
+.fr{ float: right;}
+.fl{ float: left;}
+.itop,.stop{height:50px; line-height:50px;background: #ffffff; overflow: hidden;}
+
+.nodata{ text-align: center; padding: 15px 0px; font-size: 16px;}
+
+/*公共的头部导航 返回 标题 收藏 转发*/
+.stop{ padding:0px 5px;box-shadow:0px 0px 6px #ebebeb; color: #2d7fbb; font-family: "Microsoft YaHei UI";}
+.st1,.st2,.st3{float: left;}
+.st1{ width: 8%; text-align: left;}
+.st1 i{ font-size:28px; color: #059ceb;}
+.st2{ width:76%; font-size: 18px; text-align: center;}
+.st3{ width:16%; text-align:right;}
+.st3 i{ font-size:30px; color: #464646}
+.st3 i[data-id='1']{ color: #2d7fbb}
+
+/*评论样式*/
+.pl{ margin-top:15px; overflow: hidden; background: #fff; border-top: 1px solid #eaeaea;}
+.pl .pltitle{ padding: 10px 15px; font-size: 16px; color: #666666;border-bottom: 1px solid #eaeaea;}
+.pl1{ position: relative; margin: 0 auto; width:95%; padding:20px 0px; border-bottom: 1px solid #eaeaea; overflow: hidden;}
+.pl1 img{ float: left; width:13%; margin-right:2%; border-radius: 50%;}
+.pl1-1 p{ margin-top:5px; line-height:20px; color: #848484}
+.pl2{ float: right; margin-top: 10px; width:85%; color: #3d3d3d;}
+.pldz{ position: absolute; top:15px; right:0px; color: #a6a6a6; line-height: 15px; font-family: Georgia;}
+.pldz img{ width:30%; margin-right: 2px;}
+.pljzts{ margin-top: -1px; background: #f4f4f4 url("../image/plbg.jpg") center no-repeat; background-size:85% auto; padding:10px 0px; text-align: center; font-size: 16px; color: #aeaeae;}
+.subpl{ margin: 15px 0px 20px; padding:0px 10px; overflow: hidden;}
+.subpl input{ border: none;}
+.subpl input[type=text]{ float: left; padding-left: 5px; width: 80%; height: 35px; line-height: 35px; background: #f2f3f6; border-radius: 5px;}
+.subpl input[type=button]{ float: right; padding: 0px; border: none; width:18%; height: 35px; line-height: 35px; text-align: center; color: #fff; background: #0083ce; border-radius: 5px;}
+
+/*分享代码*/
+
+#fxdiv{width:100%; max-width:640px; height:100%; background:rgba(0,0,0,0.6); position:fixed; z-index:1001; top:0; display:none;}
+.fxtu{float:right; width:100%; height:40%; overflow:hidden; text-align:right;}
+.fxtu img{height:100%;}
+.fxtext{float:left; width:60%; margin-left:20%; color:#fff; font-size:18px; margin-top:5%; line-height:32px;}
+
+/**/
+.mb{background:rgba(0,0,0,0.6) url("../image/load.gif") center no-repeat;width:100%; height:100%; position:fixed; top:0px; z-index:999999;}

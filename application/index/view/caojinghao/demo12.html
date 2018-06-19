@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/ydui.css?rev=@@hash"/>
+    <style>
+    	/*遮罩*/
+    	.mui-backdrop{z-index: 998;}
+    	/*顶部标题*/
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+		#header img{width: 1rem;height: 1.75rem;margin-top: 1.35rem;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+   			 box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		.cjaddress{background: white;width: 100%;padding: 2rem 1rem 1.5rem;color: #333333;font-size: 1.4rem;margin-bottom: 1rem;}
+		.cjaddress-personlinfo{border-bottom: 0.05rem solid #F0F0F0;padding-bottom: 2rem;}
+		.cjaddress-personlinfo span{margin-right: 0.5rem;}
+		.cjaddress-personlinfo .cjaddress-personlinfo-name{margin-bottom: 1.5rem;}
+		.cjaddress-default{padding-top: 1.5rem;}
+		.cjaddress-default .mui-pull-left img{width:1.4rem;height: 1.4rem;margin-right: 1rem;margin-bottom: 0.25rem;}
+		.cjaddress-default p{color: #666666;}
+		.cjaddress-default p.on9{color: #3bc6e2;}
+		.cjaddress-default .mui-pull-right span:first-of-type img{width: 1.4rem;margin-right: 0.45rem;margin-bottom: 0.25rem;}
+		.cjaddress-default .mui-pull-right span:first-of-type{margin-right: 2rem;}
+		.cjaddress-default .mui-pull-right span:last-of-type img{width: 1.2rem;height: 1.6rem;margin-right: 0.45rem;margin-bottom: 0.25rem;}
+		/*新建地址*/
+		.cjnew{position: fixed;bottom: 0;left: 0;width: 100%;}
+		.cjnew img{width: 100%;}
+		/*删除的提示框*/
+		.cjalert-del{width: 70%;border: 0.05rem solid #cccccc;border-radius:1rem;background: white;position: fixed;left: 15%;top: 24%;z-index: 1000;}
+		.cjalert-del li{text-align: center;}
+		.cjalert-del li:first-of-type{padding: 2rem 0;font-size: 1.6rem;font-weight: bold;color: #333333;}
+		.cjalert-del li:nth-of-type(2){font-size: 1.4rem;color: #999999;}
+		.cjalert-del li:nth-of-type(3){padding: 2rem 0;}
+		.cjalert-del li:nth-of-type(3) button{padding: 0.75rem 3.25rem;color: #15BBDC;border: 0.05rem solid #15BBDC;border-radius: 2.9rem;margin: 0 1.5rem;}
+		.cjalert-del li:nth-of-type(3) button:first-of-type{color: #FF2942;border-color: #ff2942;}
+		/*新建收货地址页面*/
+		.cjnew-address{width: 100%;background: white;padding:0 1rem;}
+		.cjnew-address li{border-bottom: 0.05rem solid #F0F0F0;padding: 1.5rem 0;}
+		.cjnew-address li span{font-size: 1.4rem;color: #333333;}
+		.cjnew-address li input{font-size: 1.4rem;color: #333333;}
+		.cjnew-address li img{width: 0.7rem;height: 1.3rem;margin-left: 1.1rem;}
+		.cjnew-address li textarea{width: 80%;padding: 0;height: 2rem;height: 6.5rem;border: none;}
+		.cjhold{margin-top: 5rem;text-align: center;}
+		.cjhold img{width: 86%;display: inline-block;}		
+		input[type=text]{margin-bottom: 0;padding: 0;border: none;}
+    </style>
+</head>
+<body class="bodyb">
+	<!--主页面-->
+<div class="cjindex">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">收货地址管理</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="cjaddress">
+	<div class="cjaddress-personlinfo">
+		<div class="cjaddress-personlinfo-name"><span>令狐冲 </span><span>136****1589</span></div>
+		<div><span class="province">北京市 </span><span class="city">朝阳区四环到五环之间</span><span class="county">甘露园20号核建大 厦8层</span></div>
+	</div>
+	<div class="cjaddress-default clearfix" >
+		<p class="mui-pull-left on9"><span><img src="{$Think.HTML_STATIC}/images/37.png"/></span>设为默认地址</p>
+		<p class="mui-pull-right"><span class="cjedit"><img src="{$Think.HTML_STATIC}/images/38.png"/>编辑</span><span class="cjdelete"><img src="{$Think.HTML_STATIC}/images/39.png"/>删除</span></p>
+	</div>
+</div>
+<div class="cjaddress">
+	<div class="cjaddress-personlinfo">
+		<div class="cjaddress-personlinfo-name"><span>令狐冲 </span><span>136****1589</span></div>
+		<div><span class="province">北京市 </span><span class="city">朝阳区四环到五环之间</span><span class="county">甘露园20号核建大厦8层</span></div>
+	</div>
+	<div class="cjaddress-default clearfix" >
+		<p class="mui-pull-left"><span><img src="{$Think.HTML_STATIC}/images/41.png"/></span>设为默认地址</p>
+		<p class="mui-pull-right"><span class="cjedit"><img src="{$Think.HTML_STATIC}/images/38.png"/>编辑</span><span class="cjdelete"><img src="{$Think.HTML_STATIC}/images/39.png"/>删除</span></p>
+	</div>
+</div>
+<div class="cjnew">
+	<img src="{$Think.HTML_STATIC}/images/40.jpg"/>
+</div>
+<!--提示确认要删除吗？-->
+<ul class="cjalert-del" style="display: none;">
+	<li>
+		提示
+	</li>
+	<li>确认要删除吗？</li>
+	<li><button class="cjdel">确认</button><button class="cjcancel">取消</button></li>
+</ul>
+<p class="mui-backdrop" style="display: none;" ></p>
+</div>
+<!--子页面-->
+<div class="cjson"  style="display: none;">
+	<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-pull-left" onclick=""><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">新建收货地址</h1>
+	</header>
+	<div style="height: 4.4rem;"></div>
+	<ul class="cjnew-address">
+		<li><span>收件人：</span><input class="name" type="text" placeholder="请输入姓名" style="width: 80%;padding: 0;height: 2rem;" /></li>
+		<li><span>手机号：</span><input class="phone" id="cjphone" type="text" placeholder="请输入手机号" style="width: 80%;padding: 0;height: 2rem;"  /></li>
+		<li><span>选择地区：</span><input class="cjaddress" type="text" style="width: 70%;padding: 0;height: 2rem;" id="J_Address" placeholder="请选择收货地址"><img src="{$Think.HTML_STATIC}/images/42.png"/></li>
+		<li><span style="vertical-align: top;">详细地址：</span><textarea class="xxaddress" placeholder="街道丶街牌号"></textarea></li>		
+	</ul>
+	<div class="cjhold">
+		<img onclick="myFunction()" src="{$Think.HTML_STATIC}/images/43.png"/>
+	</div>
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/ydui.citys.js"></script>
+<script src="{$Think.HTML_STATIC}/js/ydui.js"></script>
+{include file="public/fx" /}
+<script>
+	
+	$(function(){
+		//设置默认收货地址
+		$(".cjaddress-default p.mui-pull-left").click(function(){
+			if($(this).hasClass("on9")){
+				$(this).removeClass("on9")
+			}else{
+				$(this).addClass("on9")
+			}
+			if($(this).find("img").attr("src")=="/static/index/images/37.png"){
+				$(this).find("img").attr("src","/static/index/images/41.png")
+	 		}else{
+				$(this).find("img").attr("src","/static/index/images/37.png")
+			}
+		})
+		$(".cjnew img").click(function(){			
+			$(".cjindex").hide();
+			$(".cjson").show();
+		})
+		//删除地址
+		$(".cjdelete").click(function(){
+			$(".mui-backdrop").show()
+			$(".cjalert-del").show()
+			var index=$(this).closest(".cjaddress").index()
+			$(".cjdel").click(function(){
+				$(".mui-backdrop").hide()
+				$(".cjalert-del").hide()
+				$(".cjaddress").eq(index).remove()
+			})
+			$(".cjcancel").click(function(){
+				$(".mui-backdrop").hide()
+				$(".cjalert-del").hide()				
+			})
+		})
+		$(".cjhold img").click(function(){
+			if($(".name").val()==""){
+				alert("请输入姓名")
+			}else if($(".phone").val()==""){
+				alert("请输入手机号码")
+			}else if($(".cjaddress[type=text]").val().length==0){
+				alert("请选择所在地区")
+			}else if($(".xxaddress").val()==""){
+				alert("请输入详细地址")
+			}
+		})
+		//编辑跳转
+		$(".cjedit").click(function(){
+			$(".cjindex").hide();
+			$(".cjson").show();
+		})
+		$(".cjson #header img").click(function(){
+			$(".cjson").hide();
+			$(".cjindex").show();
+		})
+	})
+	//验证手机号
+	function myFunction(){
+		var phone=new RegExp(/^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/)
+		var txtVal=document.getElementById("cjphone").value
+		if(phone.test(txtVal)==false){
+			alert("请输入正确的手机号")
+		}
+	}
+</script>
+<script>
+    /**
+     * 默认调用
+     */
+    !function () {
+        var $target = $('#J_Address');
+
+        $target.citySelect();
+
+        $target.on('click', function (event) {
+            event.stopPropagation();
+            $target.citySelect('open');
+        });
+
+        $target.on('done.ydui.cityselect', function (ret) {
+            $(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+        });
+    }();
+    
+</script>
+</body>
+</html>

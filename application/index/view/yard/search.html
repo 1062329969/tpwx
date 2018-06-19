@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>{$Think.config.sitename}</title>
+    <link type="text/css" rel="stylesheet" href="{$Think.HTML_STATIC}/css/history.css" />
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        body{background:#ffffff;}
+        header{padding:0 1rem;margin:0 auto;height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        header a img{width:1rem;margin-top:1.35rem;}
+        #idNumber1{margin-top:1rem;margin-left:2rem;outline-style: none;background-color: #eee;text-indent:3rem;text-overflow:ellipsis;border:none;border-radius:25px;height:3rem;}
+        #search{float:right;border:none;background:none;color:#333333;font-size:1.5rem;line-height:4.4rem;margin-left:1rem;margin:0;padding:0;}
+        header >img{position: absolute;top:1.4rem;left:5rem;width:1.6rem;height:1.6rem;z-index:80;}
+        .bar{width:100%;height:1rem;background:#f0f0f0;}
+        .c1{line-height:4.5rem;height:4.5rem;border-bottom:1px solid #eaeaea;}
+        .c1 span:nth-of-type(1){float:left;padding-left:1rem;color:#333333;font-size:1.5rem;}
+        .c1 span:nth-of-type(2){float:right;padding-right:1rem;color:#999999;font-size:1.4rem;}
+        p{margin-bottom:0;}
+        .mui-content>.mui-table-view:first-child{margin-top:0;}
+        .sd{background:#15bbdc;}        /*根据院部搜索*/
+        .add{display:block;}
+        .add >p{width:100%;line-height:4.5rem;color:#15bdde;font-size:1.5rem;padding:0 1rem;margin:0 auto;border-bottom:1px solid #eaeaea;}
+        .add ul li{height:8.4rem;border-bottom:1px solid #eaeaea;padding:0 1rem;margin:0 auto;}
+        .add ul li a{display:block;height:8.4rem;display:table-cell;vertical-align: middle;}
+        .add ul li a div{float:left;}
+        .add ul li a div:nth-of-type(1){width:5.3rem;height:5.3rem;margin-top: 0.2rem}
+        .add ul li a div img{width:100%;}
+        .add ul li a div:nth-of-type(2) p{margin-left:0.9rem;color:#333333;font-size:1.5rem;margin-top:0.8rem;}
+        .add ul li a div:nth-of-type(2) p:nth-of-type(2){color:#666666;font-size:1.4rem;margin-top:0.5rem;}
+        .list-ul {
+            overflow: hidden
+        }
+        .list-li {
+            line-height: 4rem;
+            border-bottom: 1px solid #eaeaea;
+            position: relative;
+            padding: 0 1rem;
+            color: #999999;
+            -webkit-transform: translateX(0px);
+            line-height:4rem;
+            text-align:left;
+            font-size:1.4rem;
+        }
+        .btn {
+            position: absolute;
+            top: 0;
+            right: -80px;
+            text-align: center;
+            background: #41b1ee;
+            color: #fff;
+            width: 80px;
+            font-size:1.4rem;
+        }
+        .wrap{margin:0 auto; background:#f5f5f5; padding-bottom:0; position:relative;width:100%;max-width:70rem;}
+        .clear{clear:both;height:0;line-height:0;}.fl{float:left;}.fr{float:right;}/*添加收货地址*/
+        .list_address ul{width:100%;overflow:hidden;}.list_address li{position:relative;overflow:hidden;}
+        .list_address .delete{position:absolute;right:-7.3rem;top:0;width:7.3rem;font-size:1.3rem;line-height:4rem;text-align:center;background:#41b1ee;color:#fff;}
+        .add .img-icon{
+            width: 1rem;
+            margin-right: 3%;
+        }
+        .add ul li a div.hos-search{
+            width: 100%;
+            height: 8.4rem;
+        }
+        .add ul li a div.hos-search p:nth-of-type(1){
+            margin-top: 1.8rem;
+            font-size: 1.5rem;
+            line-height: 2.5rem;
+            height: 2.5rem;
+        }
+        .add ul li a div.hos-search p:nth-of-type(2){
+            font-size: 1.4rem;
+            line-height:2.5rem;
+            height:2.5rem;
+            color: #666;
+        }
+        .add ul .li-hos{
+            height: 8.4rem;
+        }
+        .add ul a.hos-a{
+            height:8.4rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <!--<a class="mui-pull-left" onclick="window.location.href='{:url("yard/index")}'"><img src="{$Think.HTML_STATIC}/images/3.png"></a>-->
+    <a class="mui-pull-left" onclick="javascript:history.go(-1);"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <img src="{$Think.HTML_STATIC}/images/27.png"/>
+    <input id="idNumber1" placeholder="请输入分院或医生搜索"/>
+    <button id="search">搜索</button></header>
+    <div class="bar"></div>
+<div style="width: 100%;" id="ybys">
+    <p class="c1">
+        <span>历史搜索</span>
+        <span class="history" id="his-dele">清空</span>
+    </p>
+    <div class="cj_delete history" data-role="page" id="ch_ad" style="width: 100%;float: left;"></div>
+</div>
+</body>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/jquery.mobile-1.4.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(document).on("pagecreate","#ch_ad",function(){
+        $(".list_address li").on("swipeleft",function(){
+            $(this).animate({marginLeft:'-7.3rem'});
+            $(this).find('.delete').animate({right:'0rem'});
+        });	$(".list_address li").on("swiperight",function(){
+            $(this).animate({marginLeft:'0rem'});
+            $(this).find('.delete').animate({right:'-7.3rem'});
+        });
+    });
+    /*$(function(){
+            $("#search").click(function(){
+                var str= $("#idNumber1").val();
+                    if(str="北京"){
+                        $(".c1").hide();
+                        $(".history").hide();
+                    }
+                    if(str="李建新"){
+                        $(".c1").hide();
+                        $(".history").hide();
+                        $("#address").hide();
+                        $("#doctor").show();
+                    }
+                });
+           })*/
+</script>
+<script type="text/javascript">
+    $(document).delegate(".cj_delete>div", "click", function() {
+        $("#idNumber1").val($(this).text());
+    });
+    var hisTime;
+    var hisItem;
+    var firstKey;
+    function init() {
+        hisTime = [];
+        hisItem = [];
+        var i = 0;
+        for(var i=0; i < localStorage.length; i++) {
+            if(!isNaN(localStorage.key(i))) {
+                hisItem.push(localStorage.getItem(localStorage.key(i)));
+                hisTime.push(localStorage.key(i));
+            }
+        }
+        i = 0;
+        $(".cj_delete").html("");
+        for(var i=0; i < hisItem.length; i++) {
+            $(".cj_delete").prepend('<section class="list list_address">'+
+                    '<ul class="list-ul">'+
+                    '<li id="li" class="list-li">'+
+                    '<div class="con">'+hisItem[i]+'</div>'+
+                    '<div class="btn delete">'+'删除'+'</div>'+
+                    '</li>'+
+                    '</ul>'+
+                    '</section>');
+        }
+    }
+    init();
+    $("#search").click(function() {
+        var value = $("#idNumber1").val();
+        var time = (new Date()).getTime();
+        if(!value) {
+            alert("请输入搜索内容");
+            return false;
+        }
+        if($.inArray(value, hisItem) >= 0) {
+            for(var j = 0; j < localStorage.length; j++) {
+                if(value == localStorage.getItem(localStorage.key(j))) {
+                    localStorage.removeItem(localStorage.key(j));
+                }
+            }
+            localStorage.setItem(time, value);
+        }else{
+            if(hisItem.length > 10) {
+                firstKey = hisTime[0];
+                localStorage.removeItem(firstKey);
+                localStorage.setItem(time, value);
+            } else {
+                localStorage.setItem(time, value);
+            }
+        }
+        init();
+        var data = $("#idNumber1").val();
+        var url = "{:url('yard/getAjaxSearch')}";
+        $.ajax({
+            url:url,
+            type:"post",
+            data:{data:data},
+            success:function(data){
+                if(data == 3){
+                    $("#ybys").html("<div>没有搜索到相关数据</div>");
+                    return;
+                }
+                if(data == 2){
+                    $("#ybys").html("<div>数据为空</div>");
+                    return;
+                }
+                $("#ybys").html(data);
+            }
+        });
+    });
+    $("#his-dele").click(function() {
+        var f = 0;
+        for(var f=0; f < hisTime.length; f++) {
+            localStorage.removeItem(hisTime[f]);
+        }
+        init();
+    });
+    $('.word-break').click(function() {
+        var div = $(this).text();
+        $('#idNumber1').val(div);
+    });/*        $('#search').click(function(){        });*/
+    $(".list_address li .delete").click(function(){
+        var f=$(this).closest("section").index();
+        var seNum=$(this).closest(".history").find("section").length;
+        localStorage.removeItem(hisTime[seNum-f-1]);
+        $(this).closest("section").remove();
+        console.log(seNum)
+    })
+$(".list-li").click(function () {
+    var text =$(this).children(".con").text();
+    $("#idNumber1").val(text);
+    $("#search").click();
+});
+</script>
+<script>//		var menusStr='[{"a":3,"b":"33"},{"a":"vv","b":55}]';//        var jsonData = $.parseJSON(menusStr);//        console.log(jsonData);//        var i = 0;//        var tab = "<table>";//        $.each(jsonData,function(index,data){//			console.log(data.a);//			tab += "<tr><td>"+data.a+"</td><tr><td>"+data.b+"</td></tr></tr>";//		});//        tab += "</table>";//        console.log(tab);//        $("body").append(tab);                //      		console.log(data);//    		var jsonData = $.parseJSON(data);				//var menusStr='[{"a":3,"b":"33"},{"a":"vv","b":55}]';//      		if(jsonData.yb == '' && jsonData.ys == ''){//      			var str1 = "<div>没有搜索到相关数据</div>";//      			$("#ybys").append(str1);//      			return;//      		}//      		if(jsonData.yb != ''){////      			$('#address').css('display','none');//					$("#ybys").append(jsonData.yb);//      		}//      		if(jsonData.ys != ''){//      			$('#ybys').append(jsonData,ys);//      		}</script></html>

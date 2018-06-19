@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style>
+        #myTab li.active{
+            border-top: 4px solid #19aa8d;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>您当前所在位置：粉丝&会员>虚拟会员分类</h5>
+                    </div>
+                    <div style="margin-top: 1%">
+                        <button type="button" class="btn btn-outline btn-info add"  style="float: right">添加</button>
+                        <div id="myTabContent" class="tab-content">
+                            <div class="tab-pane fade in active" id="category">
+                                <div class="ibox-content">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <!--<thead>
+                                            <tr>
+                                                <th width="1%"></th>
+                                                <th>分类信息</th>
+                                                <th>文章数量/篇</th>
+                                                <th>操作</th>
+                                            </tr>
+                                            </thead>-->
+                                            <tbody>
+                                            {volist name="$h_class" id="vo"}
+                                                <tr>
+                                                    <td style="width: 1%;"><button type="button" class="btn btn-outline btn-info" name="open" data-id='{$vo.vc_id}'>+</button></td>
+                                                    <td>[ID:{$vo.vc_id}]{$vo.vc_name}</td>
+                                                    <td style="width: 1%;">
+                                                        <a href="{:url('add',['pid'=>$vo.vc_id,'p_name'=>$vo.vc_name])}" class="btn btn-primary">添加子分类</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{:url('alter',['id'=>$vo.vc_id])}" class="btn btn-outline btn-info alter" data-id='{$vo.vc_id}'>编辑</a>
+                                                        <button type="button" class="btn btn-outline btn-info" onclick="del(this,{$vo.vc_id},{$vo.vc_pid})" data-id='{$vo.vc_id}'>删除</button>
+                                                    </td>
+                                                </tr>
+                                                {volist name='$vo.child' id='vos'}
+                                                    <tr name="tr_{$vo.vc_id}_{$vos.vc_id}" style="display: none;">
+                                                        <th></th>
+                                                        <td>[ID:{$vos.vc_id}]{$vos.vc_name}</td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a href="{:url('alter',['id'=>$vos.vc_id,'p_name'=>$vo.vc_name])}" class="btn btn-outline btn-info alter" data-id='{$vos.vc_id}'>编辑</a>
+                                                            <button type="button" class="btn btn-outline btn-info" onclick="del(this,{$vos.vc_id},{$vos.vc_pid})" data-id='{$vos.vc_id}'>删除</button>
+                                                        </td>
+                                                    </tr>
+                                                {/volist}
+                                            {/volist}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $(function () {
+
+            $('#myTab li').click(function () {
+                var data_id = $(this).attr('data-id')
+                history.pushState(200, '', "{:url('index',['mid'=>'"+data_id+"'])}")
+            })
+
+            $('.transfer').click(function () {
+                var id = $(this).attr('data-id');
+                var name = $(this).attr('data-name');
+                var pname = $(this).attr('data-pname');
+                layer.open({
+                    type: 2,
+                    area: ['900px','645px'],
+                    content: "{:url('shiftarticle',['id'=>'"+id+"','pname'=>'"+pname+"','name'=>'"+name+"'])}" //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            })
+
+            $('button[name=open]').click(function () {
+                var id = $(this).attr('data-id');
+                if($(this).html()=='+'){
+                    $('tr[name^=tr_'+id+']').show();
+                    $(this).html('-')
+                }else{
+                    $('tr[name^=tr_'+id+']').hide();
+                    $(this).html('+')
+                }
+            })
+            $('.add').click(function () {
+                var data_id = $('#myTab li.active').attr('data-id')
+                console.log(data_id);
+                if(data_id==1){
+                    window.location.href="{:url('add')}"
+                }else{
+                    window.location.href="{:url('add')}"
+                }
+            })
+
+            $('.transferplate').click(function () {
+                var name = $(this).attr('data-name');
+                var id = $(this).attr('data-id');
+                layer.open({
+                    type: 2,
+                    area: ['900px','645px'],
+                    content: "{:url('transferplate',['id'=>'"+id+"','name'=>'"+name+"'])}" //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                });
+            })
+        })
+        function del(_self,id) {
+            layer.confirm('确定删除吗?', function(index){
+                $.ajax({
+                    type: 'get',
+                    url: "{:url('del')}",
+                    data:{id:id},
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg('删除成功');
+                            $(_self).parents('tr').remove();
+                        }else{
+                            layer.msg('删除失败');
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        }
+        function del(_self,id,pid) {
+            layer.confirm('确定删除吗?', function(index){
+                $.ajax({
+                    type: 'get',
+                    url: "{:url('del')}",
+                    data:{id:id,pid:pid},
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg(data.msg);
+                            $(_self).parents('tr').remove();
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        }
+    </script>
+</body>
+</html>

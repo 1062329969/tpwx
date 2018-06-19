@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="window.history.go(-1);"></a>
+    <h1 class="mui-title">视频</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>6])}'"></a>
+</header>
+
+<div class="voide" id="vi">
+    <div class="voidecont">
+        <div class="spimg" id="sp">
+           <iframe  height="200" width='100%' src="{$video.video_url}" frameborder=0 allowfullscreen id="qimg"></iframe>
+        </div>
+    </div>
+
+
+    <div class="voidetitle">{$video.title}</div>
+    <div class="voidinfo"><font>{$video.create_time|date='m-d H:i',###}发布</font><font>{$video.click}次播放</font></div>
+    <div class="dz">
+        <div class="vshared" onclick="fenxiang()">
+            分享到：
+            <img src="{$Think.HTML_STATIC}/images/sqq.jpg">
+            <img src="{$Think.HTML_STATIC}/images/swx.jpg">
+            <img src="{$Think.HTML_STATIC}/images/swb.jpg">
+        </div>
+        <font class="ds1 dianzan" data-id="0"><img src="{$Think.HTML_STATIC}/images/hdz.png"><span>{$video.praise}</span></font>
+        <font class="ds12 dianzan2" data-id="0"><img src="{$Think.HTML_STATIC}/images/bh.png" style="margin-top:0px;"><span>{$video.praise2}</span></font>
+    </div>
+
+    {volist name='$aboutvideo' id='vo'}
+    <a href="{:url('detail',array('id'=>$vo.id))}">
+    <div class="aboutvoide">
+        <div class="abvleft">
+            <div class="abctitle">{$vo.title}</div>
+            <div class="abcinfo">{$vo.userInfo.wechaname} &nbsp;&nbsp;{$vo.click}次播放</div>
+        </div>
+        <div class="abvimg"><img src="{$vo.pic}"></div>
+    </div>
+    </a>
+    {/volist}
+</div>
+
+
+<div class="plform">
+    <div class="pinput"><input id="commentText" type="text" value="" placeholder="输入评论内容..."><div class="fbpl" id="subComment">发表</div></div>
+    <div class="picon"><span id="collection"><img src="{$Think.HTML_STATIC}/images/sc.png" id="fbsc" class="collection"></span><img src="{$Think.HTML_STATIC}/images/plkf.png" onclick="location.href='{$Think.config.zoosnet}'"></div>
+</div>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+    $(function(){
+        var width = $(window).width();    //浏览器当前窗口可视区域宽度
+        height = width/16*9;
+        $('iframe').height(height);
+    });
+
+    //评论
+    $('#subComment').click(function(){
+        comment({$video.id},7,'{$Request.token}');
+    });
+
+    getCollection({$video.id},{$fansInfo.id},8);
+    getPraise({$video.id},{$fansInfo.id},7);
+    getPraise2({$video.id},{$fansInfo.id},7);
+    //点赞
+    $(".ds1").click(function(){
+        praise({$video.id},7,'{$Request.token}');
+    });
+
+    //鄙视
+    $(".ds12").click(function(){
+
+
+        praise2({$video.id},7,'{$Request.token}');
+    });
+
+    //收藏
+    $(".collection").click(function(){
+        collection({$video.id},8,'{$Request.token}');
+    });
+
+
+    //创建遮罩层
+    function CreatNodeAll()
+    {
+        var TopMask=window.parent.document.getElementById("qimg");
+        TopMask.style.position="absolute";
+        TopMask.style.top="70px";
+        TopMask.style.left="5%";
+        TopMask.style.zIndex="2000";
+        TopMask.style.backgroundColor="#000000";
+        TopMask.style.filter="alpha(opacity=30)";
+        TopMask.style.width="90%";
+        TopMask.style.height="200px";
+        window.parent.document.body.appendChild(TopMask);
+
+        var ovi=document.getElementById("vi");
+        ovi.style.marginTop="210px";
+    }
+
+
+    //移除遮罩层
+    function CancelAll()
+    {
+        //var TopMask=window.parent.document.getElementById("qimg");
+        //window.parent.document.body.removeChild(window.parent.document.getElementById("qimg"));
+        //var vi=document.getElementById("vi");
+        //vi.style.marginTop="0";
+    }
+</script>
+</body>
+</html>

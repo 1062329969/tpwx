@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+    	.yyendtime{font-size: 1.4rem;margin-bottom: 0.75rem;}
+    	.yhqcont .price{font-size:5rem;margin-left:4%;line-height:5rem;margin-top:1.5rem;}
+    	.yhqinfos p{font-size: 1.6rem;margin-top: 0.8;}
+    	header h1.mui-title{font-weight: normal;}
+    	.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        .yhqmain{margin-top: 0;}
+		.yhqcont .price{}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">优惠券</h1>
+</header>
+<div style="height: 4.4rem"></div>
+
+
+<div class="yhqmain">
+    {volist name='$coupon' id='vo' empty="<p style='text-align: center; font-size: 1.8rem; padding: 2rem;'>客官别急，优惠券正在生产中...</p>"}
+    <div class="yhqlist">
+        <div class="yhqcont">
+            {php}
+              if($i%3==1)
+              {
+                  echo '<img src="'.HTML_STATIC.'/images/yhql.jpg">';
+              }
+              elseif($i%3==2)
+              {
+                  echo '<img src="'.HTML_STATIC.'/images/yhqh.jpg">';
+              }
+              elseif($i%3==0)
+              {
+                  echo '<img src="'.HTML_STATIC.'/images/yhqzi.jpg">';
+              }
+            {/php}
+
+            <div class="yhqinfos">
+                <div class="price"><span>￥</span>{$vo.cprice}</div>
+                <p>满{$vo.use_price}元使用优惠券</p>
+            </div>
+            <div class="yyendtime">有效期：{$vo.end_time|date='Y年m月d日',###}</div>
+
+        </div>
+        <div class="yhqsy">
+            {switch name="vo.state"}
+            {case value="0"}<img src="{$Think.HTML_STATIC}/images/yhqsyqk.jpg"><p id="getCoupon" data-id="{$vo.id}">立即<br>领取</p>{/case}
+            {case value="1"}<img src="{$Think.HTML_STATIC}/images/yhqsyqk.jpg"><p>已经<br>领取</p>{/case}
+            {case value="2"}<img src="{$Think.HTML_STATIC}/images/hyqyjsy.jpg"><p>已经<br>使用</p>{/case}
+            {/switch}
+        </div>
+    </div>
+    {/volist}
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script>
+    $(function(){
+        $('#getCoupon').click(function(){
+            var id=$('#getCoupon').attr('data-id');
+            $.ajax({
+                type: "post",
+                url: '{:url('getCoupon')}',
+                data: {id:id,__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1)
+                    {
+                        alert('恭喜您，领取成功！');
+                        window.location.reload();
+                    }
+                    else
+                    {
+                        alert(data.msg);
+                    }
+                }
+            });
+        });
+        $('.yhqlist .yhqcont').click(function () {
+            return false;
+        })
+    })
+     //判断安卓和ios文字颜色
+        if (/(iPhone)/i.test(navigator.userAgent)) {
+			$(".plmaint").css("borderColor","#cecece");
+            $("header").css("borderColor","#cecece");
+
+        }
+
+</script>
+</body>
+</html>

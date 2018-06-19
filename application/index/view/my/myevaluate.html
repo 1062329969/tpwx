@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/mui.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/icons-extra.css" />
+    <link href="{$Think.HTML_STATIC}/css/goods.css?v=1.1.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/iconfont.css" rel="stylesheet">
+    <style>
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight: normal;}
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        .gordermain{ margin-top:10px; overflow: hidden;}
+        .gorderid{ padding-left:1rem; line-height:1.3rem; padding-bottom: 5px; font-size: 14px; border-bottom: 1px solid #f7f7f7;}
+        .gorinfo{ background: #fff; overflow: hidden; padding: 10px 0px; margin-bottom: 10px;}
+        .ggoods{ padding: 10px; overflow: hidden;}
+        .ggoods img{width: 10.2rem;border-radius: 0.5rem; float: left;}
+        .bgdstp{ width: 58%; float: right;}
+        .addgnum{ float: right; font-size: 12px;}
+        .gstatus{ padding:0 10px; overflow: hidden;}
+        .total{ float: left; color: #ea5e5f;}
+        .gstatusinfo{ float: right; font-size: 14px;height: 30px; line-height: 30px;}
+        .gstatusinfo span{ float: right; margin-right: 5px;}
+        .butt,.zfbutt{ text-align: center; background: #56bb37; color: #fff; border-radius:5px;}
+        .gorderid span{ float: right; padding-right:1rem; font-size: 12px; color: #b7b7b7}
+        .wrapper02 {position:relative;height:4.5rem;width:100%;overflow:hidden;margin:0 auto;background:#fff}
+        .wrapper02 .scroller {position:absolute;width: 100%;}
+        .wrapper02 .scroller li {width: 16.666%; height:4.5rem;color:#333;float:left;line-height:4.5rem;font-size: 1.6rem;text-align: center}
+        .wrapper02 .scroller li a{color:#868686;display:block;margin:0 .3rem}
+        .wrapper02 .scroller li.cur{color:#15BBDC; border-bottom: 0.1rem solid #15BBDC;}
+        .cjagain,.butt{width: 8rem;height: 2.2rem;text-align: center; border: 1px solid #15B9DA;color: #15BBDC;background: white;border-radius: 2.2rem;line-height: 2.2rem;}
+    	.asktop{top: 4.4rem;}
+    	.gordermain{margin-top: 0;}
+    	.gorderid{color: #666666;font-size: 1.3rem;margin:5px 0 10px;padding-bottom: 10px;}
+  		.gorderid span.dycol{color: #15BBDC;}
+  		.bgdtitle{height: 5rem;margin-top: 2rem;}
+    </style>
+</head>
+
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-pull-left" href="{:url('my/index')}"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">我的订单</h1>
+</header>
+
+<div class="asktop">
+    <div class="wrapper02" id="demo05">
+        <div class="scroller">
+            <ul class="clearfix">
+                  <li {if $tid==0}class="cur"{/if}><span onclick="window.location.href='{:url(\'mygoods\',[\'tid\'=>0])}'">全部</span></li>
+                <li {if $tid==1}class="cur"{/if}><span onclick="window.location.href='{:url(\'mygoods\',[\'tid\'=>1])}'">待付款</span></li>
+                <li {if $tid==3}class="cur"{/if}><span onclick="window.location.href='{:url(\'mygoods\',[\'tid\'=>3])}'">待收货</span></li>
+                <!-- <li {if $tid==4}class="cur"{/if}><a href="{:url('getreturngoods',['tid'=>4])}">退换货</a></li> -->
+                <li {if $tid==5}class="cur"{/if}><span onclick="window.location.href='{:url(\'mygoods\',[\'tid\'=>5])}'">已完成</span></li>
+                <li {if $tid==6}class="cur"{/if}><span onclick="window.location.href='{:url(\'myevaluate\',[\'tid\'=>6])}'">待评价</span></li>
+                <li {if $tid==7}class="cur"{/if}><span onclick="window.location.href='{:url(\'mycancelorder\',[\'tid\'=>7])}'">已取消</span></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="height: 10rem;"></div>
+
+
+
+<div class="gordermain">
+    {volist name='$goodsOrdersGoods' id='vo' empty="<p style='text-align: center; font-size: 1.8rem; padding: 2rem;'>暂时没有相关信息~~</p>"}
+
+    <div class="gorinfo">
+
+        <div class="gorderid"><span class="dycol">已完成</span> 单号:{$vo.order_id}</div>
+        {volist name='$vo.gog' id='vo2'}
+        <div class="ggoods">
+            <img src="{$vo2.goods.pic}">
+            <div class="bgdstp">
+                <div class="bgdtitle">{$vo2.goods.gdname}</div>
+                <div class="bgdprice">￥{$vo2.price} {$vo2.ggName}</div>
+                <div class="addgnum">
+                    ×{$vo2.nums}
+                </div>
+            </div>
+        </div>
+        <div class="gstatus">
+            <div class="gstatusinfo"><span class='butt' onclick="location.href='{:url('goods/evaluate',['goods_id'=>$vo2['gid'],'oid'=>$vo2['oid']])}'">晒单评价</span></div>
+        </div>
+        {/volist}
+
+    </div>
+    {/volist}
+</div>
+
+
+<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/scroll.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/navbarscroll.js"></script>
+<script src="{$Think.HTML_STATIC}/js/xback.js"></script>
+<script>
+    $(function () {
+        backH();
+        window.addEventListener('popstate',function(e){
+            window.location.href="{:url('my/index')}"
+        },false);
+
+
+        function backH(){
+            var state = {
+                        title:'title',
+                        url:'{:url('my/index')}'
+        };
+            window.history.pushState(state,'title','#');
+        }
+    })
+      //判断安卓和ios文字颜色
+        if (/(iPhone)/i.test(navigator.userAgent)) {
+		
+            $("header").css("borderColor","#cecece");
+
+        }
+</script>
+</body>
+</html>

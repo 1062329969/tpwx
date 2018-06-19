@@ -1,0 +1,638 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+    <style type="text/css">
+        html,body{height: 100%}
+        .auto .mui-action-back, .auto .mui-title{color:#4a4a4a;}
+        #fm{width:100%;height:100%;background:url({$Think.HTML_STATIC}/images/fm.jpg) no-repeat;background-size:100% 100%;position:absolute;z-index:100;}
+
+        .pro{width:100%;height:100%;background:url({$Think.HTML_STATIC}/images/pro.jpg) no-repeat;background-size:100% 100%;border:none;position:absolute;top:0;left:0;overflow:hidden;}
+
+        .pro #tit{display:block;text-align:left;margin:0 auto;padding-top:6rem;font-size:2.2rem;width:84%;font-weight:bold;color:#ffffff;line-height:3rem;}
+        .pro ul li{text-align: left;color: #666666;font-size: 1.8rem;width: 84%;;margin:1rem auto 0;height:4rem;line-height:4rem;}
+        .pro ul li:nth-of-type(1){margin-top:1.8rem;}
+        #footer{bottom:0;box-shadow:none;}
+        #footer span{display:inline-block;width:33.7333%;}
+        #footer img{display:block;width:100%;}
+        #footer{background:none;border:none;padding:0;position:absolute;bottom:3%;z-index: 999;}
+        #footer span:nth-of-type(1){margin-left:12.4%;}
+        #footer span:nth-of-type(2){margin-left:8%;}
+        #footer span:nth-of-type(3){margin-left:8%;}
+        #reading{width:100%;height:100%;background:#fff;border:none;display:none;}
+        #reading img{display: block;width: 30%;margin:0 auto;position:relative;}
+        /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;font-weight: normal;line-height: 4.4rem;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;}
+
+        /*弹窗*/
+        #tc{width:100%;height:100%;background:#000;opacity:0.6;position:fixed;top:0;left:0;z-index:99;display:none;}
+        #result{width:87.2%;background:#ffffff;position:absolute;top:20%;left:6.5%;z-index:999;display:none;}
+        #result h2{text-align:center;color:#666666;}
+        #result p{color:#999999;width:95%;margin:0 auto;}
+        #result .butt{width:38.685015%;margin:10% auto 0;padding:2.6rem 0;background:url({$Think.HTML_STATIC}/images/fin.jpg) no-repeat;background-size:100% auto;display:block;}
+        #result img{width:20.315385%;margin:0 auto;display:block;padding-top:8%;}
+        #result h2{font-weight:normal;color:#ffffff;font-size:1.6rem;padding-top:4%;}
+        #result p{font-weight:normal;color:#ffffff;font-size:1.5rem;padding-top:3%;line-height:1.8rem;}
+
+        #tw{width:72%;position:absolute;left:14%;top:23%;z-index:300;}
+        #fm p img{display:block;width:100%;}
+        #co{width:66%;position:absolute;left:17%;top:13%;z-index:200;animation: co 10s linear  infinite;}
+        #ci{width:58%;position:absolute;left:21%;top:15.5%;z-index:200;animation: ci 10s linear  infinite;transform:rotate(240deg);}
+
+        @keyframes co{
+            0%{transform:rotate(0deg);}
+            100%{transform:rotate(360deg);}
+        }
+        @keyframes ci{
+            0%{transform:rotate(360deg);}
+            100%{transform:rotate(0deg);}
+        }
+
+        .conl{width:14.285714%;height:100%;background:#7c95de;border:1px solid #82aee3;border-radius:6px 0 0 6px;text-align:center;color:#ffffff;font-size:1.7rem;float:left;}
+        .conr{width:84.126984%;height:100%;background:#7c95de;border:1px solid #82aee3;border-radius:0  6px 6px 0;text-align:left;color:#ffffff;font-size:1.7rem;float:right;padding-left:8%;}
+
+
+        /*input[type=checkbox] { display: none; }
+        @-moz-keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+        @-webkit-keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+        @keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+        @keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+        @-webkit-keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+        @-moz-keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+        .check-box {border-radius:0;margin-right:0.25rem; margin-top: 0.3rem; background-color: transparent; border: 1px solid #B0B0B0; position: relative; display: inline-block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; -moz-transition: border-color ease 0.2s; -o-transition: border-color ease 0.2s; -webkit-transition: border-color ease 0.2s; transition: border-color ease 0.2s; cursor: pointer; }
+        .check-box::before, .check-box::after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; position: absolute; height: 0; width: 0.1rem; background-color:#15BBDC; display: inline-block; -moz-transform-origin: left top; -ms-transform-origin: left top; -o-transform-origin: left top; -webkit-transform-origin: left top; transform-origin: left top; border-radius: 5px; content: ' '; -webkit-transition: opacity ease .5; -moz-transition: opacity ease .5; transition: opacity ease .5; }
+        .check-box::before { top: 0.78rem; left: 0.54rem; -moz-transform: rotate(-135deg); -ms-transform: rotate(-135deg); -o-transform: rotate(-135deg); -webkit-transform: rotate(-135deg); transform: rotate(-135deg); }
+        .check-box::after { top: 0.51rem; left:0.21rem; -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg); }
+        input[type=checkbox]:checked + .check-box, .check-box.checked { border-color: none; }
+        input[type=checkbox]:checked + .check-box::after, .check-box.checked::after { height: 0.4rem; -moz-an   imation: dothabottomcheck 0.2s ease 0s forwards; -o-an   imation: dothabottomcheck 0.2s ease 0s forwards; -webkit-an   imation: dothabottomcheck 0.2s ease 0s forwards; an   imation: dothabottomcheck 0.2s ease 0s forwards; }
+        input[type=checkbox]:checked + .check-box::before, .check-box.checked::before { height:0.7rem; -moz-an   imation: dothatopcheck 0.4s ease 0s forwards; -o-an   imation: dothatopcheck 0.4s ease 0s forwards; -webkit-an   imation: dothatopcheck 0.4s ease 0s forwards; an   imation: dothatopcheck 0.4s ease 0s forwards; }
+        .linfos{position: absolute;bottom:2.8rem; left: 0; text-align: left;text-indent: 1.5rem;}
+        @media only screen and (min-width: 400px){
+            .check-box::before { top: 0.89rem; left: 0.5rem;}
+            .check-box::after { top: 0.52rem; left:0.18rem;}
+        }*/
+
+        input[type="checkbox"]{width:100%;visibility:hidden;}
+        input[type="checkbox"]:checked +div{background: url({$Think.HTML_STATIC}/images/dg.png) no-repeat;background-size: cover;width:2rem;height:2rem;margin-left:85%;margin-top:-3rem;position:relative;}
+        input[type="radio"]{width:100%;visibility:hidden;}
+        input[type="radio"]:checked +div{background: url({$Think.HTML_STATIC}/images/dg.png) no-repeat;background-size: cover;width:2rem;height:2rem;margin-left:85%;margin-top:-3rem;position:relative;}
+        .swiper-slide input[type="radio"]:checked +div{margin-top:-4rem;}
+		
+
+        .sq{width:100%;margin:2rem auto 0;background:#fff;opacity:0.1;height:33rem;position:relative;}
+        #si{width:94.667%;margin:-94% auto 0;}
+		
+        .fir label{display:block;padding:0 2rem;}
+        .fir .tw{margin:0 auto;padding:0 2rem;}
+        .fir .tw img{width:50%;display:block;float:left;padding:0 0.5rem;}
+		.fir label.firLable{display: block;padding:8rem 0 5rem;}
+
+        .swiper-pagination-bullet{background:#fff;}
+        .swiper-pagination-bullet-active{background:#fff;width: 1.6rem;height: 0.85rem;border-radius: 0.85rem;}
+        #qcir{bottom:45%;}
+
+        .clearfix:after{
+            content: "";
+            display: block;
+            clear:both;
+            height: 0;
+            overflow: hidden;
+        }
+        .clearfix{
+            zoom:1;
+        }
+    </style>
+    <script>
+        $(function(){
+            $("#wrap >div").hide();
+            $('#fm').click(function(){
+                $("#wrap >div").eq(0).show();
+                /*$(this).next().show();*/
+                $('#footer').show();
+                /*$(this).remove();*/
+                $("#fm").hide();
+                   //题数变化
+		        var proIndex=$('.pro:visible').index()+1
+			    var proNum=$(".pro").length
+			    $(".question").html(proIndex);
+			    $(".questionLen").html(proNum);
+			    first()
+                //alert($("#footer p").parents().find(".pro").is(":visible"));
+               /* if($("#footer p").parents().find(".pro").is(":visible")){
+                    $(this).find("p").css("color","red");
+                }*/
+            })
+        })
+    </script>
+</head>
+<body style="background: #fff;overflow:hidden;">
+
+
+
+<!--script type="text/javascript">
+    setTimeout(function(){
+        alert('自主检测暂未开放，小编回家过年啦！！！！');
+        window.location.href="{:url('track/index')}";
+    },1000);
+</script-->
+
+{if 1==1}
+<!--<header id="header" class="mui-bar mui-bar-nav auto">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="/static/index/images/3.png"></a>
+    <h1 class="mui-title">在线测试</h1>
+</header>-->
+<style>
+#fm h2{width:100%;text-align:center;font-size:2.4rem;color:#fff;position:absolute;bottom:37%;font-weight:900;}
+#fm h3{width:100%;text-align:center;font-size:1.9rem;color:#fff;font-weight:normal;position:absolute;bottom:31%;}
+#fm h3 span{padding-right:2.2rem;}
+#fm h3 span:nth-of-type(3){padding-right:0;}
+#fm h3 span img{width:2rem;}
+#fm h6{width:100%;text-align:center;font-size:1.4rem;color:#fff;font-weight:normal;position:absolute;bottom:25%;}
+#fm >div{width:63.333%;margin:0 auto;position:absolute;left:18.5%;bottom:8%;}
+#fm >div img{display:block;width:100%;}
+</style>
+<div id="fm">
+	<a href="{:url('index')}" id="fin"><img src="{$Think.HTML_STATIC}/images/fh.png"/></a>
+    <p id="tw"><img src="{$Think.HTML_STATIC}/images/tw.png"/></p>
+    <p id="co"><img src="{$Think.HTML_STATIC}/images/co.png"/></p>
+    <p id="ci"><img src="{$Think.HTML_STATIC}/images/co.png"/></p>
+
+    <h2>在线分析 </h2>
+    <h3>
+        <span><img src="{$Think.HTML_STATIC}/images/ic.png"/>脱发</span>
+        <span><img src="{$Think.HTML_STATIC}/images/ic.png"/>掉发</span>
+        <span><img src="{$Think.HTML_STATIC}/images/ic.png"/>头发健康状况</span>
+    </h3>
+    <h6>温馨提示：每人只能测试 “1” 次，请选择和您相符的症状。</h6>
+    <div><img src="{$Think.HTML_STATIC}/images/begin.png"/></div>
+</div>
+
+<div id="wrap">
+{php}
+foreach($exerciselist as $k=>$v){
+{/php}
+    <div class='pro'>
+    	<a href="{:url('index')}" id="fin"><img src="{$Think.HTML_STATIC}/images/fh.png"/></a>
+    	<p style="position: absolute;top: 1rem;right: 1rem;color: #fff;font-size: 1.4rem;">P<span class="question"></span>/<span class="questionLen"></span></p>
+        <span id="tit">
+            {$k+1}、{$v.e_content}
+            <?php if($k==0){ ?>
+                <span class="many" style="font-size:1.4rem;color:#ffffff;border:1px solid #4fecd8;border-radius:6px;display:block;width:22%;text-align:center;margin-top:3%;">多选题</span>
+            <?php }else{ ?>
+                <span class="many" style="font-size:1.4rem;color:#ffffff;border:1px solid #4fecd8;border-radius:6px;display:block;width:22%;text-align:center;margin-top:3%;">单选题</span>
+            <?php } ?>
+        </span>
+        <?php
+            if($k==4){
+                $checklist = json_decode($v['e_answerscore'],true);
+        ?>
+        <div class="sq"></div>
+        <div class="swiper-container" id="si" style="height: 100%;">
+            <div class="swiper-wrapper qcon">
+        <?php
+                foreach($checklist as $kl=>$vl){
+        ?>
+                    <div class="swiper-slide fir">
+                    	<label class="firLable" >
+                        <div class="tw clearfix">
+                            {php}
+                            foreach($vl['imgarr'] as $ki=>$vi){
+                            {/php}
+                            <img src="{$vi}" class="trt">
+                            {php}
+                            }
+                            {/php}
+                        </div>
+                        <label class="cj_label" for="pro_{$k}_{$kl}">
+                            <p class="conl cjconl">{$vl.code}</p>
+                            <p class="conr cjconr">{$vl.answer}</p>
+                        </label>
+                        <input xie='{$vl.score.0}' yang='{$vl.score.1}' you='{$vl.score.2}' cha='{$vl.score.3}' tuo='{$vl.score.4}' type="radio" value="{$vl.code}" data-id="{$v.e_id}" id='pro_{$k}_{$kl}' name="pro{$k}[]" style="margin-top:-1rem;margin-left:90%;"/>
+                        <div></div>
+                        </label>
+                    </div>
+					<style type="text/css">
+						.cj_label p{line-height: 4rem;margin-top: 1.5rem;}
+						.cj_label p.cjconr{}
+					</style>
+					<script>
+						
+					</script>
+        <?php
+                }
+        ?>
+            </div>
+            <div class="swiper-pagination" id="qcir"></div>
+        </div>
+        <?php
+            }else{
+        ?>
+        <ul>
+            {php}
+            $checklist = json_decode($v['e_answerscore'],true);
+            foreach($checklist as $kl=>$vl){
+            if($k==0){
+            {/php}
+            <li>
+                <label for="pro_{$k}_{$kl}">
+                        <p class="conl">{$vl.code}</p>
+                        <p class="conr">{$vl.answer}</p>
+                </label>
+                <input xie='{$vl.score.0}' yang='{$vl.score.1}' you='{$vl.score.2}' cha='{$vl.score.3}' tuo='{$vl.score.4}' type="checkbox" value="{$vl.code}" data-id="{$v.e_id}" id='pro_{$k}_{$kl}' name="pro{$k}[]" style="margin-top:-8rem;margin-left:90%;"/>
+                <div></div>
+            </li>
+            {php}
+            }else{
+            {/php}
+            <li>
+                {if $k!=4}
+                <label for="pro_{$k}_{$kl}">
+                    <p class="conl">{$vl.code}</p>
+                    <p class="conr">{$vl.answer}</p>
+                </label>
+                <input xie='{$vl.score.0}' yang='{$vl.score.1}' you='{$vl.score.2}' cha='{$vl.score.3}' tuo='{$vl.score.4}' type="radio" value="{$vl.code}" data-id="{$v.e_id}" id='pro_{$k}_{$kl}' name="pro{$k}[]" onclick="return checka(this)" style="margin-top:-8rem;margin-left:90%;"/>
+                <div></div>
+                {/if}
+            </li>
+            {php}
+            }
+            }
+            {/php}
+        </ul>
+        <?php } ?>
+    </div>
+{php}
+}
+{/php}
+</div>
+
+<style>
+    #zz{position:fixed;top:0;left:0;background:#000;opacity:0.6;z-index:999;width:100%;height:100%;display:none;}
+    #stips{width:80%;background:#fff;margin:0 auto;position:absolute;top:0;left:10%;padding-bottom:2rem;border-radius:15px;z-index:10000;display:none;}
+    #stips h2{text-align:center;color:#333333;font-size:1.7rem;padding-top:3rem;}
+    #stips ul{width:81.667%;margin:0 auto;display:-webkit-box;-webkit-box-pack:justify;padding-top:3rem;}
+    #stips ul li{width:45.306122%;}
+    #stips ul li img{width:100%;display:block;}
+</style>
+<div id="zz"></div>
+<div id="stips">
+    <h2>提示</h2>
+    <h2>确定提交测试吗？</h2>
+    <ul>
+        <li id="ta"><img src="{$Think.HTML_STATIC}/images/ta.png"/></li>
+        <li id="ts"><img src="{$Think.HTML_STATIC}/images/ts.png"/></li>
+    </ul>
+</div>
+<script>
+$(function(){
+    var h1=$("#stips").height();
+    //alert(h1);
+    var h2=$(window).height();
+    var h=(h2-h1)/2;
+    $("#stips").css("top",h+"px");
+   
+})
+</script>
+
+<div id='reading'><img id="rm" src="{$Think.HTML_STATIC}/images/cj.gif"/></div>
+
+<!--<div id="over" style="display:none">
+    <span></span>
+    <a class="but" href="{:url('index')}">完成测试</a>
+</div>-->
+
+<style>
+#result{width:100%;height:100%;background:url(/static/index/images/pro.jpg) no-repeat;background-size:100% 100%;border:none;position:absolute;top:0;left:0;}
+.cj_plan{padding: 0 1.8rem;}
+.cj_plan_content{width: 100%;border: 1px dashed #899fbe;padding: 1.5rem 1rem}
+.cj_plan_content h3{text-align: center;font-size: 1.6rem;color: #fff;font-weight: normal;margin-bottom: 0.85rem;}
+.cj_plan_content p{text-indent: 2em;font-size: 1.4rem;color: #333;line-height: 2rem;}
+.hair_title{text-align: center;font-size: 3rem;color: #fff;margin-top:5rem;}
+#fin{width:8%;position:absolute;left:1rem;top:1rem;padding-top:0;display:block;}
+.cj_inline_content{width: 100%}
+#fin img{display:block;width:100%;}
+</style>
+
+<div id="result">
+    <div class="hair_title">头发现状</div>
+    <div id="main" style="width:30rem;height: 25rem;clear:both;margin: 10% auto 0"></div>
+    <div class="cj_inline_content" style="overflow:hidden;">
+        <a href="{:url('index')}" id="fin"><img src="{$Think.HTML_STATIC}/images/fh.png"/></a>
+        <div class="cj_plan">
+            <div class="cj_plan_content">
+                <h3 id="t_title"></h3>
+                <p id="t_content"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer" style='display:none;'>
+    <span onclick='goprev()' id="checkprev"><img src="{$Think.HTML_STATIC}/images/pre.png"/></span>
+    <span style='display:inline-block;' id='checknext' onclick="gonext()"><img src="{$Think.HTML_STATIC}/images/next.png"/></span>
+    <span style='display:inline-block;display:none' id='submit'  onclick="gosubmit()"><img src="{$Think.HTML_STATIC}/images/gs.png"/></span>
+    <p style="padding:0 2rem;display: none;" onclick="gonext()"><img style="width: 100%;" src="{$Think.HTML_STATIC}/images/96.png"/></p>
+</div>
+<script type="text/javascript">
+    function checka(_self){
+        $(_self).attr('checked','checked');
+        /*gonext();*/
+    }
+    //第一题
+	function first(){
+		if($('.pro:visible').index()==0){
+           $("#footer span").hide()
+           $("#footer p").show()
+        }else{
+        	 $("#footer #checknext").show()
+        	 $("#footer #checkprev").show()
+        	 $("#footer p").hide()
+        }
+	}
+    function goprev(){
+        if($('.pro:visible').index()==1){         
+        	 $("#footer p").show()
+        	 $("#footer span").hide()
+        }
+        var _self = $('.pro:visible');
+        _self.delay(100).hide(0);
+        if(_self.prev().hasClass('pro')){
+            _self.prev().show();
+            if($('.pro:visible').index()==3){
+                $('#checknext').show();
+                $('#submit').hide();
+            }
+        }
+        //题数变化
+        var proIndex=$('.pro:visible').index()+1
+	    var proNum=$(".pro").length
+	    $(".question").html(proIndex);
+	    $(".questionLen").html(proNum);
+    }
+
+
+    function gonext(){
+        var v1 = $(".pro:visible").find('input:checkbox[name^=pro]:checked').length;
+        var v2=$(".pro:visible").find('input:radio[name^=pro]:checked').length;
+        if(v1>0 || v2>0) {
+            
+        } else {
+            alert("选中一个选项才能进入下一题");
+            return false;
+        }
+
+       /* console.log($('.pro:visible').index());*/
+       /*var v1=$('input:checkbox[name^=pro]:checked').length;
+       var v2=$('input:radio[name^=pro]:checked').length;
+
+       if(v1==0 || v2==0) {
+           alert("选中一个选项才能进入下一题");
+           return false;
+       }*/
+
+     /*var s1=$(this).parents().find(".pro:visible").find('input:checkbox[name^=pro]:checked').length;
+     var s2=$(this).parents().find('input:radio[name^=pro]:checked').length;
+     alert(s1);
+     alert(s2);
+
+     if(s1==0){
+         alert("选中一个选项才能进入下一题");
+         return false;
+     }*/
+
+     if($('.pro:visible').index()==0){
+            $("#footer #checknext").show()
+        	 $("#footer #checkprev").show()
+        	 $("#footer p").hide()
+        }
+        if($('.pro:visible').index()==4){
+            $('#submit').show();
+            $('#checknext').hide();
+            $('#ec').show();
+            return false;
+        }
+
+        var _self = $('.pro:visible');
+        _self.delay(100).hide(0);
+        if(_self.next().hasClass('pro')){
+            _self.next().show();
+            if($('.pro:visible').index()==3){
+                $('#checknext').hide();
+                $('#submit').show();
+            }
+        }
+        //题数变化
+        var proIndex=$('.pro:visible').index()+2
+	    var proNum=$(".pro").length
+	    $(".question").html(proIndex);
+	    $(".questionLen").html(proNum);
+    }
+    function gosubmit(){
+
+        if($('input:checkbox[name^=pro]:checked').length==0){
+            alert("您还没有完成测试！！！");
+            return false;
+        }
+        if($('input:radio[name^=pro]:checked').length!=4){
+            alert("您还没有完成测试！！！");
+            return false;
+        }
+        if($('input:radio[name^=pro]:checked').length==4){
+            $("#wrap").hide();
+            $('#footer').hide();
+        }
+        $("#zz").show();
+        $("#stips").show();
+        $("#ta").click(function(){
+            $("#zz").hide();
+            $("#stips").hide();
+            $('#reading').hide();
+            $("#result").hide();
+            $("#tc").hide();
+            $("#wrap").show();
+            $('#footer').show();
+        });
+        $("#ts").click(function(){
+            $("#zz").hide();
+            $("#stips").hide();
+            if($('input:radio[name^=pro]:checked').length==4){
+                $('#reading').show();
+                $('.pro').hide();
+                $('#footer').hide();
+                $('#reading').show();
+
+                var h1=$("#rm").height();
+                var h2=$(window).height();
+                var h=(h2-h1)/2;
+                $("#rm").css({"position":"relative","top":h+"px"});
+
+                var ud_exercise = new Array();
+                var ud_fraction = {};
+                var ud_code = new Array();
+                console.log($('input:radio[name^=pro]:checked').length);
+
+                var xie = 0;
+                var yang = 0;
+                var you = 0;
+                var cha = 0;
+                var tuo = 0;
+
+                var udexercise = {};
+                var udcode = {};
+                $('input:checkbox[name^=pro]:checked').each(function(m,n){
+                    xie += Number($(n).attr('xie'));
+                    yang += Number($(n).attr('yang'));
+                    you += Number($(n).attr('you'));
+                    cha += Number($(n).attr('cha'));
+                    tuo += Number($(n).attr('tuo'));
+                    udcode[m] = $(n).val();
+                    udexercise[m] = $(n).attr('data-id');
+                })
+
+                ud_code[0] = udcode;
+                ud_exercise[0] = udexercise;
+
+
+                $('input:radio[name^=pro]:checked').each(function(m,n){
+                    xie += Number($(n).attr('xie'));
+                    yang += Number($(n).attr('yang'));
+                    you += Number($(n).attr('you'));
+                    cha += Number($(n).attr('cha'));
+                    tuo += Number($(n).attr('tuo'));
+                    ud_code[m+1] = $(n).val();
+                    ud_exercise[m+1] = $(n).attr('data-id');
+                })
+                ud_fraction['xie'] = xie;
+                ud_fraction['yang'] = yang;
+                ud_fraction['you'] = you;
+                ud_fraction['cha'] = cha;
+                ud_fraction['tuo'] = tuo;
+                console.log(ud_fraction)
+                console.log(ud_code)
+                console.log(ud_exercise)
+                // return false;
+                setTimeout(function(){
+                    $.ajax({
+                        type: "post",
+                        url: '{:url("detection")}',
+                        data: {ud_exercise:ud_exercise,ud_fraction:ud_fraction,ud_code:ud_code,__token__:"{$Request.token}"},
+                        dataType: "json",
+                        success: function(data){
+                            if(data.code==1){
+                                $('#over span').html(data.msg);
+                                $('#over').show();
+                                $("#result").show();
+                                $("#to").show();
+                                $("#tc").show();
+                                $.get("getdetectioninfo",function(data){
+                                    console.log(data);
+                                    console.log(data.tipsinfo);
+                                    console.log(data.fenshu);
+                                    $("#t_content").text(data.tipsinfo.t_content);
+                                    $("#t_title").text(data.tipsinfo.t_title);
+                                    var fenshu = data.fenshu.replace("[","").replace("]","").split(",");
+                                    var myChart = echarts.init(document.getElementById('main'));
+                                    var newfenshu=new Array();
+                                    newfenshu[4]=fenshu[2]
+                                    newfenshu[1]=fenshu[1]
+                                    newfenshu[0]=fenshu[4]
+                                    newfenshu[3]=fenshu[3]
+                                    newfenshu[2]=fenshu[0]
+								    var option = {
+								        polar : [
+								            {
+								                splitNumber: 4, // 网格线的个数
+								                center:['50%','50%'], // 图的位置
+								                indicator : [
+								                    { text: '脱发', max:10+2},
+								                    { text: '头痒', max:10+2},
+								                    { text: '头屑', max:10+2},
+								                    { text: '发质差', max:10+2},
+								                    { text: '头油', max:10+2},
+								                ],
+								                name:{
+								                    textStyle: {
+								                        color:'#fff',
+								                        fontSize:'20'
+								                    }
+								                }
+								            }
+								        ],
+								        series : [
+								            {
+								                type: 'radar',
+								                data : [
+								                    {
+								                        value : newfenshu,
+								                        
+								                        name : '预算分配（Allocated Budget）',
+								
+								                    }
+								                ],
+								
+								                //改变线的颜色
+								                itemStyle: {
+								                    normal:{
+								                        color: '#01a0c5',
+								                    },
+								                    emphasis: {
+								                        // 高亮时点的颜色。
+								                        color: 'blue'
+								                    }
+								                }
+								            }
+								        ]
+								    };
+								   	console.log(newfenshu);
+								    myChart.setOption(option);
+                                })
+                                /*setTimeout(function(){
+                                 window.location.href="{:url('index')}";
+                                 },10000)*/
+                            }else{
+                                alert('测试失败');
+                            }
+                        }
+                    });
+                    $("#fin").click(function(){
+                        $('#reading').hide();
+                        $("#result").hide();
+                        $("#tc").hide();
+                        window.location.href="{:url('index')}";
+                    });
+                    
+                    
+                },3000);
+            }
+
+        });
+
+
+
+
+    }
+
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+    });
+</script>
+{/if}
+
+<script src="{$Think.HTML_STATIC}/js/echarts-all.js"></script>
+<script>
+   
+</script>
+</body>
+</html>

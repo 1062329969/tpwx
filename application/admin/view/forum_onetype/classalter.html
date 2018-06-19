@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style>
+        .control-label font{ color:#F00;}
+        .form-group,.m-b{ margin-bottom:5px;}
+        .hr-line-dashed{ margin:5px 0px;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>
+                        您当前所在位置：
+                        <a href="{:url('index',['mid'=>1])}" >头条分类板块></a>
+                        <a href="{:url('index',['mid'=>2])}" >分类></a>
+                        <a href="javascript:;" >添加新分类</a>
+                    </h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a href="{:url('index',['mid'=>2])}">返回列表</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('classalter',['id'=>$id])}">
+                        {if isset($p_name)}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上级分类：</label>
+                            <div class="col-sm-10">
+                                <?php echo urldecode($p_name); ?>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        {/if}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><font>*</font>排序：</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" required placeholder="请输入排序" id="hc_order" name="hc_order" value="{$info.hc_order}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"><font>*</font>分类名称：</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" required placeholder="请输入分类名称" id="hc_name" name="hc_name" value="{$info.hc_name}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                {:token()}
+                                <button class="btn btn-primary" type="submit">保存内容</button>
+                                <button class="btn btn-white" onclick="history.go(-1)" type="button" type="button">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/validate/messages_zh.min.js"></script>
+<script>
+    $().ready(function() {
+        // 在键盘按下并释放及提交后验证提交表单
+        $("form").validate({
+            rules: {
+                hc_order:{
+                    required : true,
+                    digits:true
+                },
+                hc_name:{
+                    required : true,
+                }
+            },
+            messages: {
+                hc_name: "请正确输入名称",
+                hc_order:{
+                    required: "必填",
+                    digits: "必须是整数"
+                }
+            }
+        })
+    });
+</script>
+</body>
+</html>

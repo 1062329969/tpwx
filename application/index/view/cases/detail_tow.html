@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">植发日记</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>0])}'"></a>
+</header>
+
+<div class="csuser">
+      <img src="{:get_wxheadimg($cases.userInfo.portrait,132)}">
+      <p>{$cases.userInfo.wechaname}</p>
+      <p class="ddtime">{:get_time($cases.create_time)}</p>
+      <div class="tab"><font>{$cases.project.proname}</font></div>
+</div>
+<div class="hos"><img src="{$Think.HTML_STATIC}/images/hos.png">{$cases.hosname}</div>
+<div class="hos">{$cases.info}</div>
+
+<div class="csmian">
+     <div class="cstitle">术前照片<font>（发布于{$cases.create_time|date='Y-m-d',###}）</font></div>
+     <div class="csinfo">
+         {volist name='$casesImgs' id='vo'}
+         <img src="{$vo.pic}" data-preview-src="{$vo.pic|str_replace='m_','',###}" data-preview-group="1">
+         {/volist}
+         <!--<div class="cscontent">{$cases.info}</div>-->
+     </div>
+</div>
+
+<div class="cstitle lcti">我的植发日记{eq name='$ttime' value="0" }<font class="on" onclick="location.href='{:url('detail',['id'=>$cases['id'],'ttime'=>1])}'">时间倒叙↓</font>{else/}<font class="on" onclick="location.href='{:url('detail',['id'=>$cases['id'],'ttime'=>0])}'">时间正序↑</font> {/eq}  <font id="vvvpic">只看视频</font></div>
+
+
+{volist name='$casesRecord' id='vo'}
+{empty name='$vo.vurl'}
+<div class="csmian piclistcont" style="padding:0px;" onclick="location.href='{:url('record',['id'=>$vo.id])}'">
+     <div class="csmian" style="border:0px;">
+         <font class="days">{$vo.dtitle}</font>
+         <div class="csinfo">
+             {volist name='$vo.images' id='vo2'}
+             <img src="{$vo2.pic}" data-preview-src="{$vo2.pic|str_replace='m_','',###}" data-preview-group="2">
+             {/volist}
+             <div class="cscontent">{$vo.info}</div>
+         </div>
+         </div>
+    <div class="plinfos" onclick="location.href='{:url('record',['id'=>$vo.id])}'"><div class="lll"><img src="{$Think.HTML_STATIC}/images/yan.png">浏览·{$vo.click}</div><div class="pl"><img src="{$Think.HTML_STATIC}/images/hl.png">评论·{$cases.comment}</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/adz.png">点赞·{$cases.praise}</div></div
+    ></div>
+     </div>
+{else/}
+<div class="csmian" style="padding:0px;" onclick="location.href='{:url('record',['id'=>$vo.id])}'">
+
+    <div class="csmian" style="border:0px;">
+
+        <font class="days">{$vo.dtitle}</font>
+        <div class="csinfo">
+            <iframe height="200" width='100%' src="{$vo.vurl}" frameborder=0 allowfullscreen></iframe>
+            <div class="cscontent">{$vo.info}</div>
+        </div>
+    </div>
+    <div class="plinfos" onclick="location.href='{:url('record',['id'=>$vo.id])}'"><div class="lll"><img src="{$Think.HTML_STATIC}/images/yan.png">浏览·{$vo.click}</div><div class="pl"><img src="{$Think.HTML_STATIC}/images/hl.png">评论·{$cases.comment}</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/adz.png">点赞·{$cases.praise}</div></div
+    ></div>
+</div>
+{/empty}
+
+{/volist}
+
+
+
+{notempty name='$cont_ad'}<div class="casad"><a href="{$cont_ad.url}"><img src="{$Think.HTML_STATIC}/images/laba.png">{$cont_ad.title}</a></div>{/notempty}
+
+<?php if(count($aboutCases)>1){?>
+<div class="cstitle lcti">相关案例</div>
+{volist name='aboutCases' id='vo'}
+<div class="csmian" style="padding:0px;margin-top: 0px; margin-bottom: 1rem;" onclick="location.href='{:url('detail',array('id'=>$vo.id))}'">
+    <div class="csmian" style="border:0px; ">
+        <div class="csuser abtx">
+            <img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">
+            <p>{$vo.userInfo.wechaname}</p>
+            <p class="ddtime">{:get_time($cases.create_time)}</p>
+        </div>
+        <div class="aliimg">
+            <div class="albf"><img src="{$vo.pic}"><span>Before</span></div>
+            <div class="alaf"><img src="{$vo.pic2}"><span>After</span></div>
+        </div>
+        <p class="alinfs">{$vo.info}</p>
+        <div class="tags"><img src="{$Think.HTML_STATIC}/images/tags.png">{$vo.project.proname}</div>
+    </div>
+    <div class="plinfos"><div class="lll"><img src="{$Think.HTML_STATIC}/images/yan.png">浏览·{$vo.click}</div><div class="pl"><img src="{$Think.HTML_STATIC}/images/hl.png">评论·{$vo.comment}</div><div class="cdz"><img src="{$Think.HTML_STATIC}/images/adz.png">点赞·{$vo.praise}</div></div
+    >
+</div>
+{/volist}
+<?php }?>
+
+<!--<div class="lmore">下拉加载更多</div>-->
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script>
+    mui.previewImage();
+    $(function(){
+        $('#vvvpic').click(function(){
+            html=$('#vvvpic').html();
+            if(html=='只看视频')
+            {
+                $('#vvvpic').html('查看全部');
+                $('.piclistcont').hide();
+            }
+            else
+            {
+                $('#vvvpic').html('只看视频');
+                $('.piclistcont').show();
+            }
+        });
+        //评论
+        $('#subComment').click(function(){
+            comment({$cases.id},3,'{$Request.token}');
+        });
+
+        //点赞
+        $(".ds1").click(function(){
+            praise({$cases.id},3,'{$Request.token}');
+        });
+
+        //收藏
+        $("#collection").click(function(){
+            collection({$cases.id},3,'{$Request.token}');
+        });
+
+        var width = $(window).width(); //浏览器当前窗口可视区域宽度
+        height = width/16*9;
+        $('iframe').height(height);
+    });
+</script>
+
+</body>
+</html>

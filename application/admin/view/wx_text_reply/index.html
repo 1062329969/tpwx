@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>文本关键词回复</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a id="add">添加</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">编号</th>
+                                        <th width="10%">关键词</th>
+                                        <th width="55%">回复内容</th>
+                                        <th width="10%">匹配类型</th>
+                                        <th width="10%">添加时间</th>
+                                        <th width="10%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    {volist name='text_reply' id='vo'}
+                                    <tr>
+                                        <td>{$vo.id}</td>
+                                        <td>{$vo.keyword}</td>
+                                        <td>{$vo.text}</td>
+                                        <td>{eq name='$vo.type' value='1'}包含匹配{else}完全匹配{/eq}</td>
+                                        <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                                        <td>
+                                            <button type="button" class="btn btn-outline btn-info alter" data-id='{$vo.id}'>编辑</button>
+                                            <button type="button" class="btn btn-outline btn-info del" data-id='{$vo.id}'>删除</button>
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+		 $(document).ready(function()
+		 {
+			 //添加
+			 $('#add').click(function()
+			 {
+				layer.open({
+				  type: 2,
+				  area: ['60%', '68%'],
+				  fixed: false, //不固定
+				  maxmin: true,
+				  content: '{:url("add")}',
+                  end:function()
+                  {
+                     window.location.reload();
+                  }
+				});
+		     });
+			 
+			 //修改
+			 $('.alter').click(function()
+			 {
+				
+				id=$(this).attr('data-id');
+				parent.layer.open({
+				type: 2,
+				title: '修改关键词',
+				shadeClose: true,
+				shade: 0.8,
+				area: ['50%', '60%'],
+				content: '{:url("alter",array("id"=>"'+id+'"))}', //iframe的url
+				  end: function(){
+				  	   window.location.reload();
+				  }
+			    });
+
+			 });
+			 
+			 //删除
+			 $('.del').click(function(){
+				
+				id=$(this).attr('data-id');
+				layer.confirm('您确定要删除这个关键词吗？', {
+				  btn: ['确定','取消'] //按钮
+				 }, function()
+				 {
+					//var index = layer.load();  //加载等待层
+					$.ajax({
+					   type: "post",
+					   url: '{:url("del",array("id"=>"'+id+'"))}',
+					   data: {id:id},
+					   dataType: "json",
+					   success: function(data){
+						  if(data.code==1)
+						  {
+							  window.location.reload();
+						  }
+					   }
+					});
+				});
+			})
+
+		 });
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+       <?php if(!is_array($reStr)){?>
+       <div style="padding: 20px;">{$reStr}</div>
+       <?php } else {?>
+       <div class="" id="ibox-content">
+
+           <div id="vertical-timeline" class="vertical-container light-timeline">
+               {volist name='reStr' id='vo'}
+               <div class="vertical-timeline-block">
+                   <div class="vertical-timeline-icon navy-bg">
+                       <i class="fa"></i>
+                   </div>
+                   <div class="vertical-timeline-content">
+                       <p>{$vo.AcceptStation}</p>
+                       <span class="vertical-date"><small>{$vo.AcceptTime}</small></span>
+                   </div>
+               </div>
+               {/volist}
+           </div>
+       </div>
+       <?php }?>
+</body>
+</html>

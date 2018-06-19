@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/single.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">{$contText.contType.typename}</div>
+    <div class="st3"><i class="iconfont" id="collection" data-id="0">&#xe6eb;</i><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+<div class="singMain">
+    <div class="arctitle">{$contText.title}</div>
+    {neq name='$contText.pic' value=''}<img src="{$contText.pic}">{/neq}
+    {$contText.text}
+</div>
+{include file="public/foot" /}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+    getCollection({$contText.id},{$fansInfo.id},6);
+    //收藏
+    $("#collection").click(function(){
+        collection({$contText.id},6,'{$Request.token}');
+    });
+</script>
+</body>
+</html>

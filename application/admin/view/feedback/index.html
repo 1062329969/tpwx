@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{$Think.config.sitename}</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>反馈管理</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">反馈人</th>
+                                        <th width="5%">头像</th>
+                                        <th width="20%">反馈内容</th>
+                                        <th width="10%">反馈类型</th>
+                                        <th width="10%">反馈时间</th>
+                                        <th width="25%">反馈图片</th>
+                                        <th width="10%">审批时间</th>
+                                        <th width="30%">审批信息</th>
+                                        <th width="20%">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name='list' id='vo'}
+                                    <tr>
+                                        <?php $userinfo = getuserinfo($vo['f_uid']) ?>
+                                        <td><?php echo $userinfo['wechaname'] ?></td>
+                                        <td><img style="width: 50px" src="<?php echo $userinfo['portrait'] ?>" /></td>
+                                        <td>{$vo.f_content}</td>
+                                        <td>{$typelist[$vo.f_type]}</td>
+                                        <td>{$vo.f_addtime|date='Y-m-d H:i:s',###}</td>
+                                        <td>
+                                        <?php
+                                      $imgarr = json_decode($vo['f_pic']);
+                                      if($imgarr){
+                                      foreach($imgarr as $k=>$v){
+                                  ?>
+                                            <img src="<?php echo $v ?>" style="width: 100px" onclick="enlarge(this)">
+                                            <?php }} ?>
+                                        </td>
+                                        <td>
+                                            {$vo.f_backtime|date='Y-m-d H:i:s',###}
+                                        </td>
+                                        <td>{$vo.f_back}</td>
+                                        <td>
+                                            {if !$vo.f_backuid}
+                                                <button type="button" class="btn btn-outline btn-info express" data-id='{$vo.f_id}' onclick="edit({$vo.f_id})">审批</button>
+                                            {/if}
+                                        </td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                            {$list->render()}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        function edit(id){
+            layer.prompt({
+                formType: 2,
+                title: '请输入审批内容',
+                area: ['800px', '350px'] //自定义文本域宽高
+            }, function(value, index, elem){
+                $.ajax({
+                    type: 'get',
+                    url: "{:url('alter')}",
+                    data:{vals:value,id:id},
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg('审批成功');
+                            setTimeout(window.location.reload(),10000);
+                        }else{
+                            layer.msg('审批失败');
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        }
+        function enlarge(_self) {
+            layer.open({
+                type: 1,
+                area: '900px',
+                content: '<img src="'+$(_self).attr('src')+'" />'
+            });
+        }
+    </script>
+</body>
+</html>

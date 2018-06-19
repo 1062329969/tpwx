@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/project.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/swiper-3.4.2.min.css" rel="stylesheet">
+</head>
+<body class="bodyb">
+<div class="stop">
+    <div class="st1"><i class="iconfont">&#xe720;</i></div>
+    <div class="st2">植发项目</div>
+    <div class="st3"><i class="iconfont">&#xe6eb;</i><i class="iconfont" onclick="fenxiang()">&#xe726;</i></div>
+</div>
+<div class="prtop">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            {volist name='$projectAd' id='vo'}
+            <div class="swiper-slide"><a href="{$vo.url}"><img src="{$vo.pic}"></a></div>
+            {/volist}
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+</div>
+<div class="prxcy">18年 80000余案例  国际ISO认证植发技术</div>
+<div class="prolist">
+    {volist name='$project' id='vo'}
+    <a href="{:url('detail',['id'=>$vo.id])}"><img src="{$vo.pic}"><p>{$vo.proname}</p></a>
+    {/volist}
+</div>
+{include file="public/foot" /}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 1,
+        paginationClickable: true,
+        spaceBetween: 30,
+        loop: true
+    });
+</script>
+</body>
+</html>

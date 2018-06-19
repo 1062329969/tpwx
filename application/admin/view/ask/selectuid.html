@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<style>
+    .form-group{background:#fff;margin-bottom:0;}
+    .btn-danger{background:#dedede;border:none;}
+    .btn-cancel{background:#dedede;color:#fff;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <form method="get" action="{:url('selectuid')}">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>选择文章所属用户</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('add')}">添加模拟用户</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <div class="form-group clear-fix">
+                                <label class="col-sm-1 control-label">用户昵称<input type="text" name="wechaname" value="<?php if(isset($wechaname)){ ?>{$wechaname}<?php } ?>" /></label>
+
+                                <label class="col-sm-1 control-label">用户分类</label>
+                                <div class="col-sm-3">
+                                    <select class="form-control m-b s2" name="fido">
+                                        <option value="">请选择一级分类</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <select class="form-control m-b s3" name="fidt">
+                                        <option value="">请选择二级分类</option>
+                                    </select>
+                                </div>
+                              <button type="submit" class="btn btn-primary adduser">搜索</button>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="15%">头像</th>
+                                        <th width="10%">昵称</th>
+                                        <!--<th width="10%">用户类别</th>
+                                        <th width="10%">性别</th>
+                                        <th width="10%">生日</th>
+                                        <th width="15%">手机号码</th>-->
+                                        <th width="15%">所在分类</th>
+                                        <th width="20%">用户创建时间</th>
+                                        <th width="15%">选择</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {volist name='user_info' id='vo'}
+                                    <tr>
+                                        <td><img src="{$vo.portrait}" style="width:60%" /></td>
+                                        <td>{$vo.wechaname}</td>
+                                        <!--<td>{eq name='$vo.type' value='1'}模拟用户{else/}真实用户{/eq}</td>
+                                        <td>{$vo.sex}</td>
+                                        <td>{$vo.birthday}</td>
+                                        <td>{$vo.phonenum}</td>-->
+                                        <td>头条>植发大讲堂</td>
+                                        <td>{$vo.regtime|date='Y-m-d H:i:s',###}</td>
+                                        <!--<td><button type="button" class="btn btn-w-m btn-danger" data-id="{$vo.id}">选中</button></td>-->
+                                        <td><input type="radio" name="choice" data-id="{$vo.id}" class="rad"></td>
+                                    </tr>
+                                    {/volist}
+                                </tbody>
+                            </table>
+                            {$user_info->render()} <div class="pagesc">共计：{$user_info->total()}条</div>
+                            <div class="col-sm-12">
+                                <button type="button" class="btn adduser col-sm-3 col-sm-offset-2 btn-danger">确定</button>
+                                <button type="button" class="btn adduser col-sm-3 col-sm-offset-2 btn-cancel">取消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </form>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+		 $(document).ready(function(){			 
+             $('.btn-danger').click(function(){
+                 $("table tr").each(function(i,dom){
+                     var n=$(this).find("td input.rad");
+                     if(n.is(":checked")){
+                         id=$(this).find("td input.rad").attr('data-id');
+                         $(".uid",window.parent.document).attr("value",id);//子窗口给父窗口元素赋值
+                         alert('选择成功，请关闭当前窗口');
+                     }
+                 });
+             });
+             $('.btn-cancel').click(function(){
+                 alert('取消操作，请关闭当前窗口')
+             });
+		 });
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改关键词</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" action="{:url('alter')}">
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>关键词：</label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required="" placeholder="请输入关键词" name="keyword" value="{$text_reply.keyword}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>关键词类型：</label>
+
+                                <div class="col-sm-10">
+                                    <select class="form-control m-b" name="type">
+                                        <option value="1" {eq name="$text_reply.type" value="1"}selected{/eq}>包含匹配 （当此关键词包含粉丝输入关键词时有效）</option>
+                                        <option value="2" {eq name="$text_reply.type" value="2"}selected{/eq}>完全匹配 （当此关键词和粉丝输入关键词完全相同时有效）</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"><font>*</font>内容或简介：</label>
+
+                                <div class="col-sm-10">
+                                    <textarea name="text" placeholder="请不要多于300个中文字符或者1000个英文字符否则无法发送!" class="form-control" required="" style="height:150px">{$text_reply.text}</textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" value="{$text_reply.id}" name="id">
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        table{ background: #ffffff}
+        td{padding:8px 10px; text-align: center; border: 1px solid #f5ece5; position: relative;}
+        td img{ width: 10px; position:absolute; bottom: 5px; right: 5px;}
+    </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">签到</h1>
+</header>
+
+<div class="qdtop">
+    <img src="{$Think.HTML_STATIC}/images/jftop.png">
+    <div class="lxqd">连续签到每天赠送{$Think.config.signjf}个积分</div>
+</div>
+
+<div class="qdtitle">今日签到</div>
+<div class="myjf">获得<font>{$todaySign}</font>积分</div>
+<div class="qdinfo">连续签到 {$signNum}天  累计签到 {$signCount} 天</div>
+<div class="jfmain" style="padding-bottom: 2rem;">
+    <div class="rili">
+        <div class="qdm">
+            <div class="upm" onclick="location.href='{:url('index',['date'=>$up])}'">< 上月</div>
+            <div class="dqm">{$current}</div>
+            <div class="nextm" onclick="location.href='{:url('index',['date'=>$next])}'">下月 ></div>
+        </div>
+        <table width="100%" cellspacing="0" class="table_calendar" style="border: 4px solid #4389df; border-radius: 5px; ">
+            <thead class="f14">
+            <tr style="background: #e7feff">
+                <td width="16%">日</td>
+                <td width="14%">一</td>
+                <td width="14%">二</td>
+                <td width="14%">三</td>
+                <td width="14%">四</td>
+                <td width="14%">五</td>
+                <td width="14%">六</td>
+            </tr>
+            </thead>
+            <tbody class="f14">
+            <?php foreach($draws as $draw) {?>
+            <tr>
+                <?php foreach($draw as $date) {?>
+                <td class="<?php echo $date['tdclass']?>">
+                    <p class="<?php echo $date['pclass']?>"><?php echo $date['day']?></p>{:getQd($fansInfo['id'],$year,$month,$date['day'])}
+                </td>
+                <?php }?>
+            </tr>
+            <?php }?>
+            </tbody>
+        </table>
+    </div>
+    <div class="fxjf" onclick="fenxiang()">
+        分享再获得<font>{$Think.config.sharejf}</font>积分
+    </div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/fx" /}
+{include file="public/global_footer" /}
+{include file="public/wxShare" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+    {eq name='sign' value='1'}alert('签到成功！'){else/}{/eq}
+</script>
+</body>
+</html>

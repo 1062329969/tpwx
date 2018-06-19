@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+    	body{width: 100%;height: 100%;}
+        .lps{position: relative;padding-bottom: 0;}
+        .mui-checkbox input[type=checkbox]{position: relative; width: 0; height: 0; top:0; right: 10px;}
+        .mui-checkbox input[type=checkbox]:before, .mui-radio input[type=radio]:before{ font-size: 20px;}
+        .lps span{ width: auto;}
+        .lsub{width:86.667%;margin:37.3% auto 0;background:url({$Think.HTML_STATIC}/images/login.png) no-repeat;background-size:100% 100%;color: white;font-size: 1.8rem;}      
+        .lsub img{width:100%;display:block;}
+        .lsub .butt{margin-top:0;background:none;}
+        .linfos p font{color:#15b9da;}
+        .ltel{padding-bottom: 0;}
+        .ltel input{color:#999;width:60%;border: none;padding-left: 0;}
+        .lps input{color:#999;width:60%;border: none;padding-left: 0;}       
+        .linfos a{margin:0;}
+        .read{color:#b0b0b0;}
+        input::-webkit-input-placeholder{
+            color:#CCCCCC;
+        }
+        .read input[type=checkbox]:before{content:' ';}
+        .read input[type=checkbox]:checked:before{content:' ';}
+        .read input[type=checkbox]:checked:before, .mui-radio input[type=radio]:checked:before{content:' ';}
+        .already{width:3.8667%;margin-right:1%;}       
+        /*头部*/
+       /*顶部标题*/
+		.mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight: normal;color: #333;}
+		#header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;position: relative;}
+		#header img{line-height: 4.4rem;width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+		.mui-bar {
+			-webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+			box-shadow: 0 0 1px rgba(0,0,0,0);
+		}
+		/*登录*/
+		.loginm{background: white;margin-top: 1rem;}
+		.cj_phone{margin: 0 1rem;text-align: start;font-size: 1.6rem;border-bottom: 0.05rem solid #f0f0f0;padding-bottom: 1rem;}
+		.cj_phone input{padding:0;}
+		.cj_phone span{width:31%;display: inline-block;}
+		.lreg{text-align: center;height: 4.2rem;line-height: 4.2rem;margin-bottom: 0;}
+		.lreg a{color: #15BBDC;display: none;}
+		.mui-toast-message{width:41%;color: white;background: #b8b8b8;line-height: 3rem;font-size: 1.5rem;}
+		.mui-toast-container{bottom: -2rem;position: relative;}
+		@media only screen and (min-width: 320px) and (max-width: 360px) {
+        	.lsub{padding: 1.2rem 0;}
+        	.cj_phone span{width:37%;}
+        }
+    </style>
+</head>
+<body class="bodyb login">
+<header id="header" class="mui-bar">
+    <a class="mui-action-back  mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">设置新密码</h1>
+</header>
+<!--手机号登录-->
+<div class="loginm loginm1">
+    <form method="post" action="{:url('dosetpass')}">
+    <div class="ltel">
+    	<div class="cj_phone">
+    		<span>设置新密码</span>
+    		<input type="password" placeholder="包含字母数字（6~15位）的密码" id="phonenum" name="pass" class="pass"/>
+    	</div>    	
+    </div>
+     <div class="ltel">
+    	<div class="cj_phone">
+    		<span>再次输入新密码</span>
+    		<input type="password" id="phonenum" name="confirmpass" class="pass1"/>
+    	</div>    	
+    </div>
+    </form>
+</div>
+<div class="lsub" id="subbutt"><span>提交</span></div>
+<style>
+    input[type=checkbox] { display: none; }
+    @-moz-keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+    @-webkit-keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+    @keyframes dothabottomcheck {  0% { height: 0;} 100% { height: 50px;}}
+    @keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+    @-webkit-keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+    @-moz-keyframes dothatopcheck {  0% { height: 0;} 50% { height: 0;} 100% { height: 120px;}}
+    .check-box {border-radius:0;margin-right:0.25rem; margin-top: 0.3rem; background-color: transparent; border: 1px solid #B0B0B0; position: relative; display: inline-block; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; -moz-transition: border-color ease 0.2s; -o-transition: border-color ease 0.2s; -webkit-transition: border-color ease 0.2s; transition: border-color ease 0.2s; cursor: pointer; }
+    .check-box::before, .check-box::after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; position: absolute; height: 0; width: 0.1rem; background-color:#15BBDC; display: inline-block; -moz-transform-origin: left top; -ms-transform-origin: left top; -o-transform-origin: left top; -webkit-transform-origin: left top; transform-origin: left top; border-radius: 5px; content: ' '; -webkit-transition: opacity ease .5; -moz-transition: opacity ease .5; transition: opacity ease .5; }
+    .check-box::before { top: 0.78rem; left: 0.54rem; -moz-transform: rotate(-135deg); -ms-transform: rotate(-135deg); -o-transform: rotate(-135deg); -webkit-transform: rotate(-135deg); transform: rotate(-135deg); }
+   	.check-box::after { top: 0.51rem; left:0.21rem; -moz-transform: rotate(-45deg); -ms-transform: rotate(-45deg); -o-transform: rotate(-45deg); -webkit-transform: rotate(-45deg); transform: rotate(-45deg); }
+    input[type=checkbox]:checked + .check-box, .check-box.checked { border-color: #15BBDC; }
+    input[type=checkbox]:checked + .check-box::after, .check-box.checked::after { height: 0.4rem; -moz-an   imation: dothabottomcheck 0.2s ease 0s forwards; -o-an   imation: dothabottomcheck 0.2s ease 0s forwards; -webkit-an   imation: dothabottomcheck 0.2s ease 0s forwards; an   imation: dothabottomcheck 0.2s ease 0s forwards; }
+    input[type=checkbox]:checked + .check-box::before, .check-box.checked::before { height:0.7rem; -moz-an   imation: dothatopcheck 0.4s ease 0s forwards; -o-an   imation: dothatopcheck 0.4s ease 0s forwards; -webkit-an   imation: dothatopcheck 0.4s ease 0s forwards; an   imation: dothatopcheck 0.4s ease 0s forwards; }
+    .linfos{position: absolute;bottom: 2.8rem; left: 0; text-align: left;text-indent: 1.5rem;}    
+    @media only screen and (min-width: 400px){
+    	.check-box::before { top: 0.89rem; left: 0.5rem;}
+    	.check-box::after { top: 0.52rem; left:0.18rem;}
+    }
+</style>
+<div class="linfos">
+    <p class="mui-checkbox read"><input name="checkbox" id="agree" value="1" type="checkbox" checked=""><label for="agree" class="check-box" style="width:1.44rem;height:1.31rem;padding-right:0;"></label>已阅读并同意<a href="{:url('protocol')}"><font>《雍享汇用户使用协议》</font></a></p>
+</div>
+<div class="mui-toast-container mui-active" style="opacity: 0;">
+	<div class="mui-toast-message"></div>
+</div>
+<div style="clear: both;"></div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script>
+	var oHeight = $(document).height(); //屏幕当前的高度
+		$(window).resize(function(){
+        if($(document).height() < oHeight){
+        $(".linfos").hide();
+    }else{
+        $(".linfos").show();
+    } 
+    });
+	//手机系统不一样
+	if(/(iPhone)/i.test(navigator.userAgent)){
+		$(".check-box").css("width","1.31rem")
+	}
+
+    $('#subbutt').click(function()
+    {
+        var pass = $(".pass").val();
+        var pass1 = $(".pass1").val();
+        var passVal=/^[A-Za-z0-9]+$/;
+        if(pass==""){
+        	//弹出框显示三秒
+           $(".mui-toast-container").css("opacity",1);
+	       $(".mui-toast-message").html("请设置新密码")
+			setTimeout("codefans()",3000);//2秒，可以改动
+        }else if(pass.length<6|pass.length>15|!passVal.test(pass)){
+        	//弹出框显示三秒
+           $(".mui-toast-container").css("opacity",1);
+	       $(".mui-toast-message").html("密码格式错误")
+			setTimeout("codefans()",3000);//2秒，可以改动
+        }else if(pass!=pass1){
+        	//弹出框显示三秒
+           $(".mui-toast-container").css("opacity",1);
+	       $(".mui-toast-message").html("密码不一致")
+			setTimeout("codefans()",3000);//2秒，可以改动
+        }else if(!$('#agree').is(':checked'))
+        {
+        	//弹出框显示三秒
+           $(".mui-toast-container").css("opacity",1);
+	       $(".mui-toast-message").html("不同意注册协议，无法登录！")
+			setTimeout("codefans()",3000);//2秒，可以改动
+            return false;
+        }
+        $('form').submit();
+    });   
+     //弹出框透明度为0
+	function codefans(){
+		var box=$(".mui-toast-container");
+		box.css("opacity",0);
+	} 
+</script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回反馈列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data"  action="{:url('alter',['sid'=>$sid])}">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">院部：</label>
+                                <div class="col-sm-10">
+                                    <select name="res_hid" class="form-control">
+                                        {volist name='hlist' id='vo'}
+                                        <option value="{$vo.id}" {if $vo.id==$content.res_hid}selected{/if}>{$vo.hosname}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            {if 0==1}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目：</label>
+                                <div class="col-sm-10" id="imgs">
+                                    <select name="res_project" class="form-control">
+                                        {foreach name="project" item="vo" key="k" }
+                                            <option value="{$k}" {if $k==$content.res_project}selected{/if}>{$vo}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            {/if}
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">到院时间：</label>
+                                <div class="col-sm-10">
+                                    <input type="date" class="form-control" value="{$content.res_time|date='Y-m-d',###}" name="res_time">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">姓名：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="{$content.res_name}" name="res_name">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">手机：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="{$content.res_tel}" name="res_tel">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">性别：</label>
+                                <div class="col-sm-10">
+                                    <input type="radio" value="1" name="res_sex" {if $content.res_sex==1}checked{/if} checked>男
+                                    <input type="radio" value="2" name="res_sex" {if $content.res_sex==2}checked{/if}>女
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">年龄：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" value="{$content.res_age}" name="res_age">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="hidden" name="res_id" value="{$content.res_id}">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="submit">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+</body>
+</html>

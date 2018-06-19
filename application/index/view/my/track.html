@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style>
+        body{ font-size: 1.3rem;}
+        .lctitle{ clear: both; margin-top: 1rem; padding:1rem 0px 0; border-top:1px solid #f6f6f6; font-size: 1.3rem;}
+        .fkmainl{ background: #fff}
+        .fktitle{ padding:1rem 1.5rem 0.5rem; font-size: 1.6rem; font-weight: 600; color: #333}
+        .fkinfo{ padding: 0rem 1.5rem 0.7rem; border-bottom:1px solid #f6f6f6; font-size: 1.3rem;}
+        .lcjl{ padding: 1rem 1.5rem 1rem; border-bottom:1px solid #f6f6f6;}
+        .lccont{ line-height: 20px; font-size: 1.5rem; border: none; color: #000000;}
+        .hkcontent{ position: relative; color: #333; clear: both; padding: 1rem; background: #eeeeee; border-radius: 3px; line-height: 20px; font-size: 1.3rem;}
+        .triangle_border_up{ position: absolute; top:-7px; left:25px; width: 0;
+            height: 0;
+            border-right:7px solid transparent;
+            border-bottom:7px solid #eeeeee;
+            border-left:7px solid transparent;}
+        .lcjtime{ font-size: 1.3rem;}
+        .fkkimgs img{ width: 32%; float: left; margin: 0.5rem 1% 0.5rem;}
+        .fkkimgs{ overflow: hidden;}
+    </style>
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">疗程跟踪</h1>
+</header>
+
+<div class="lcgz">
+    <div class="gzdoc">
+        <div class="docimg" >
+            <p class="docname" style="margin-top: 0.5rem;">手术日期：{$visit.op_time}</p>
+            <p class="docname" style="margin: 0.5rem 0 0.5rem;">主治医师：{$visit.doctor}</p>
+        </div>
+        <div class="anniu" style="padding-top: 1.2rem;">
+            <font onclick="location.href='{:url('track_add',['id'=>$vid])}'">反馈</font>
+        </div>
+    </div>
+    {volist name='$track' id='vo'}
+    <div class="fkmainl">
+        <div class="fktitle">{$vo.title}</div>
+        <div class="fkinfo">发友：{$visit.name}&nbsp;&nbsp;{$vo.create_time|date='Y-m-d H:i:s',###}</div>
+        <div class="lcjl">
+            <div class="lccont">{$vo.feedback}</div>
+            <div class="fkkimgs">
+                {volist name='$vo.images' id='img'}
+                 <img src="{$img.pic}">
+                {/volist}
+            </div>
+            <div class="lcjtime">症状详细描述</div>
+        </div>
+
+        <div class="gzdoc" style="padding-top: 0px;">
+            <div class="docimg" style="margin-bottom:0.5rem; width: 100%;">
+                <img src="{$Think.HTML_STATIC}/images/jz.png" style="width:18%;">
+                <div style="float: left;">
+                    <p class="docname" style="float: left; margin-right: 0.5rem;">{$visit.doctor}</p>
+                    <p class="zctitle" style="float: left; margin-top: 1.2rem; font-size: 1.3rem">主治医师</p>
+                    <p style=" padding-top: 0.3rem; clear: both; color: #999999; font-size: 1.3rem; padding-top: 5px;">{notempty name='$vo.update_time'}{$vo.update_time|date='Y-m-d H:i:s',###}{/notempty}</p>
+                </div>
+            </div>
+            <div class="hkcontent">
+                 <div class="triangle_border_up"><span></span></div>
+                 {notempty name='$vo.doc_back'}{$vo.doc_back}{else/}暂无回复{/notempty}
+            </div>
+        </div>
+    </div>
+
+    {/volist}
+
+</div>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+</body>
+</html>

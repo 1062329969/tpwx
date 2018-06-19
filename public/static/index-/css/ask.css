@@ -1,0 +1,61 @@
+@import url(style.css);
+
+.askmain{ margin-bottom: 10px; background: #fff; overflow: hidden; border-top: 1px solid #eaeaea;}
+.topad img{ margin: 10px 0px; width: 100%;}
+.asklist{margin:5px 0px 0px; padding: 10px; background: #fff; overflow: hidden;}
+.alr{ overflow: hidden;}
+.alr img{ float: left; margin-right: 10px; width:15%; border-radius: 50%;}
+.alr p{ padding-top:2px; color: #999999;}
+.question{width: 100%; }
+.qmain{padding:10px 10px 0px;}
+.question span{ float: left; margin-right: 5px; width:20px; height:20px; line-height:20px; text-align: center; border-radius:2px; background: #0083ce; color: #fff}
+.question p{}
+.question img{ float: left; margin:10px 2% 5px; width:29%;}
+
+.anwser{width: 100%; overflow: hidden;}
+.amain{ float:left; padding:10px; width:68%}
+.anwser span{ float: left; margin-right: 5px; width:20px; height:20px; line-height:20px; text-align: center; border-radius:2px; background: #0083ce; color: #fff}
+.question p{ line-height: 22px;}
+.adoc{ float: right; width:25%; text-align: center;}
+.adoc img{ margin-top:5px; width:85%; border-radius: 50%;}
+.adoc p{ text-align: center; color: #3598db; line-height: 24px;}
+
+.ainfo{ overflow: hidden; padding:10px 20px 10px; border-top: 1px solid #eaeaea; border-bottom: 1px solid #eaeaea; }
+.spi1,.spi2,.spi3{ float: left; width:33.33%; line-height:30px; color: #a6a6a6; font-size: 14px;font-family: Georgia;}
+.spi1 img,.spi2 img,.spi3 img{margin-right:5px; height:16px;}
+.spi1{ text-align: left;}
+.spi2{ text-align: center;}
+.spi3{ text-align: right;}
+.spi3[data-id='1']{ color: #2d7fbb}
+
+.dar{margin-top: 15px; height:80px; line-height:80px; border-top:1px solid #eaeaea; border-bottom:1px solid #eaeaea; background: #fff}
+.dar img{ float: left; margin: 10px 10px 0 10px; width: 60px; height: 60px; border-radius: 50%;}
+.dant{ padding:0 15px 0 20%; color: #999999}
+.dant font{ float: right;}
+
+.dquestion,.danswer{ margin-top: 10px; background: #fff; border-top:1px solid #eaeaea;  border-bottom:1px solid #eaeaea;}
+.dqtitle,.datitle{ padding: 10px 10px 10px 15px; font-size: 16px; border-bottom:1px solid #eaeaea; color: #333333; font-weight: 500}
+.dqcontent,.adancontent{ padding: 10px 10px 10px 15px;}
+.dqcontent span,.adancontent span.daqus{ display: inline-block; margin-right: 5px; width:20px; height:20px; line-height:20px; text-align: center; border-radius:2px; background: #0083ce; color: #fff}
+.adancontent span.daqus{ float: left;}
+.dadoc{ position: relative; margin: 10px; padding: 10px; background: #f6f6f6; overflow: hidden;}
+.dadoc img{ float: left; margin-right:7px; width:80px; height:80px; border-radius: 50%;}
+.dadoc p{ width:96%; color: #9b9b9b;}
+.dadoc p.addoctit{ color: #333333; padding-bottom: 3px; font-size: 16px;}
+.wyzx{ position: absolute; top: 0px; margin-top:10px; text-align:center; right: 5px; width:70px; height:30px; line-height:30px; color: #fff; background: #0083ce; border-radius: 5px;}
+.wyzx a{ color: #fff}
+
+.askDImages{ padding-left: 15px;}
+.askDImages img{ width:30%; margin: 10px 1%;}
+
+.twbutt{ position: fixed; z-index: 9999; bottom: 30px; right:20px;}
+
+.twbutt img{ width:60px;}
+
+
+
+
+
+
+
+

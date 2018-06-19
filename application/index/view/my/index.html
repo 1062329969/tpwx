@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/mine.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+    	/*导航菜单修改*/   	
+    	header .cj-qn{width: 100%;padding: 0 1rem;}
+    	header .qn{margin: 5% 0 0;width: 100%;}
+    	header .qn li{width: 20%;}
+    	header .qn li a img{width: 38%;}
+    	header .qn li a p{margin-top: 15%;}
+    	.an img:nth-of-type(1){width: 6%;}
+    	.qwc li a img{width: 26.5%;}
+    	header .qn li a p{font-size: 1.5rem;}
+    	header .qpc ul{width: 85%;}
+    	.qwc li a p{font-size: 1.4rem;}
+        header .qn li a{position:relative;}
+        #dot{width:15px;height:15px;font-size:1.2rem;background:#f93a26;border-radius:100%;border:1px solid #fff;box-sizing:border-box;line-height:13px;box-sizing:border-box;text-align:center;color:#fff;position:absolute;top:-0.5rem;right:1.8rem;}
+        header .qpc ul li{position:relative;}
+        #dot2{width:10px;height:10px;background:#f93a26;border-radius:100%;position:absolute;top:0rem;right:0.8rem;}
+    </style>
+</head>
+<body class="bodyb">
+<!--头部-->
+<header>
+    <div class="qp"><img src="{$Think.HTML_STATIC}/images/qp.png" class="qimg"/></div>
+    <div class="qpc">
+        <p><img src="{$fansInfo['portrait']}" class="qimg" style="border-radius: 50%;" /></p>
+        <h3>{$fansInfo['wechaname']}</h3>
+        <ul>
+            <li>
+                <a href="{:url('mydiary/index')}">
+                    <h2 style="width:58%;margin:0 auto;"><img src="{$Think.HTML_STATIC}/images/qqo.png" class="qimg"/></h2>
+                    <h4>日记</h4>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('my/mycollection')}">
+                    <h2 style="width:58%;margin:0 auto;"><img src="{$Think.HTML_STATIC}/images/qqr.png" class="qimg"/></h2>
+                    <h4>收藏</h4>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('mypraise/index')}">
+                    <h2 style="width:58%;margin:0 auto;"><img src="{$Think.HTML_STATIC}/images/qqf.png" class="qimg"/></h2>
+                    <h4>点赞</h4>
+                </a>
+            </li>
+            <li>
+                <a href="{:url('myinformation/index')}">
+                    <h2 style="width:58%;margin:0 auto;"><img src="{$Think.HTML_STATIC}/images/icon5.png" class="qimg"/></h2>
+                    <h4>消息</h4>
+                    <?php $count = getinformationcount($fansInfo['id']); if($count){ ?><div id="dot2"></div><?php } ?>
+
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!--导航-->
+    <div class="cj-qn">
+    	<ul class="qn">
+        <li>
+            <a href="{:url('mygoods',['tid'=>1])}">
+                <img src="{$Think.HTML_STATIC}/images/pn1.png"/>
+                <p>待付款</p>
+                {if $df }
+                <div id="dot">{$df}</div>
+                {/if}
+            </a>
+        </li>
+        <li>
+            <a href="{:url('mygoods',['tid'=>3])}">
+                <img src="{$Think.HTML_STATIC}/images/pn2.png"/>
+                <p>待收货</p>
+                {if $dsh }
+                <div id="dot">{$dsh}</div>
+                {/if}
+            </a>
+        </li>
+        <li>
+            <a href="{:url('myevaluate',['tid'=>6])}">
+                <img src="{$Think.HTML_STATIC}/images/pn3.png"/>
+                <p>待评价</p>
+                {if $dpj }
+                <div id="dot">{$dpj}</div>
+                {/if}
+            </a>
+        </li>
+        <li>
+            <a href="{:url('my/myreturn')}">
+                <img src="{$Think.HTML_STATIC}/images/pn4.png"/>
+                <p>退款/售后</p>
+                {if $tksh }
+                <div id="dot">{$tksh}</div>
+                {/if}
+            </a>
+        </li>
+        <li>
+            <a href="{:url('my/mygoods')}">
+                <img src="{$Think.HTML_STATIC}/images/pn5.png"/>
+                <p>我的订单</p>
+            </a>
+        </li>
+    </ul>
+    </div>
+    
+</header>
+
+<!--内容导航-->
+<ul class="qwc">
+    <li>
+        <a href="{:url('myvisit/index')}">
+            <img src="{$Think.HTML_STATIC}/images/pw5.png"/>
+            <p>档案</p>
+        </a>
+    </li>
+    <li>
+        <a href="{:url('myreservation/index')}">
+            <img src="{$Think.HTML_STATIC}/images/pw3.png"/>
+            <p>我的预约</p>
+        </a>
+    </li>
+    <li>
+        <a href="{:url('coupon/index')}">
+            <img src="{$Think.HTML_STATIC}/images/pw1.png"/>
+            <p>优惠券</p>
+        </a>
+    </li>
+    <li>
+        <a href="{:url('shipaddress/index')}">
+            <img src="{$Think.HTML_STATIC}/images/pw2.png"/>
+            <p>收货地址</p>
+        </a>
+    </li>
+</ul>
+<ul class="qwc qwct">
+
+    <li>
+        <a href="{:url('about/index')}">
+            <img src="{$Think.HTML_STATIC}/images/pw7.png"/>
+            <p>关于</p>
+        </a>
+    </li>
+    <li>
+        <a href="{:url('myfeedback/index')}">
+            <img src="{$Think.HTML_STATIC}/images/pw8.png"/>
+            <p>意见反馈</p>
+        </a>
+    </li>
+    <li>
+        <a href="https://www.sobot.com/chat/h5/index.html?sysNum=4bd44e32f01b4e50b69273c9626193c4&source=1">
+            <img src="{$Think.HTML_STATIC}/images/pw4.png"/>
+            <p>联系客服</p>
+        </a>
+    </li>
+    <li>
+        <a href="#">
+            <!--<img src="{$Think.HTML_STATIC}/images/pw6.png"/>
+            <p>消息</p>-->
+        </a>
+    </li>
+</ul>
+
+<!--按钮-->
+<div class="an">
+    <!--<a href=""><img src="{$Think.HTML_STATIC}/images/tx.png"/></a>-->
+    <a href="{:url('setoption/set')}"><img src="{$Think.HTML_STATIC}/images/sz.png"/></a>
+</div>
+
+{include file="public/footer" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    (function($){
+        $.fn.extend({
+            "slideUp":function(value){
+
+                var docthis = this;
+                //默认参数
+                value=$.extend({
+                    "li_h":"20",
+                    "time":4000,
+                    "movetime":1000
+                },value)
+
+                //向上滑动动画
+                function autoani(){
+                    $("li:first",docthis).animate({"margin-top":-value.li_h},value.movetime,function(){
+                        $(this).css("margin-top",0).appendTo(".line");
+                    })
+                }
+
+                //自动间隔时间向上滑动
+                var anifun = setInterval(autoani,value.time);
+
+                //悬停时停止滑动，离开时继续执行
+                $(docthis).children("li").hover(function(){
+                    clearInterval(anifun);          //清除自动滑动动画
+                },function(){
+                    anifun = setInterval(autoani,value.time);   //继续执行动画
+                })
+            }
+        })
+    })(jQuery)
+    $(function(){
+        $(".line").slideUp();
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+@import url(style.css);
+
+.arclist{ padding:10px 0px;}
+.arclmain{ padding:15px; background: #fff; border-top:1px solid #eaeaea; border-bottom:1px solid #eaeaea;}
+.arclmain img{ width:100%;}
+.arclmain p{ margin:10px 0px 0px; line-height: 23px; width:100%; color: #333}
+
+
+

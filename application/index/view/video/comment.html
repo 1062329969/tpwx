@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">视频</h1>
+    <a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>6])}'"></a>
+</header>
+
+<div class="voide">
+    <div class="voidecont">
+        <div class="spimg">
+            <iframe height="200" width='100%' src="{$video.video_url}" frameborder=0 allowfullscreen></iframe>
+        </div>
+    </div>
+</div>
+
+<div class="upl">
+    {volist name='$comment' id='vo' empty="<p class='empty'>沙发空缺中~~</p>"}
+    <div class="vplist">
+        {eq name='$vo.plid' value='0'}
+        <div class="tx">
+            <div class="tximg"><img src="{:get_wxheadimg($vo.userInfo.portrait,132)}">{$vo.userInfo.wechaname}</div>
+            <div class="txdz" data-id="{$vo.id}" id="txdz{$vo.id}"><img src="{$Think.HTML_STATIC}/images/pldz.png"><span>{$vo.praise}</span></div>
+        </div>
+        <p>{$vo.text}</p>
+        <div class="plinfo"><span class="backText" data-plid="{$vo.id}" data-uid="{$vo.userInfo.id}" data-align="{$vo.userInfo.wechaname}">回复</span>{$vo.create_time}</div>
+
+        {volist name='$comment2' id='vo2'}
+        {eq name='$vo2.plid' value='$vo.id'}
+        <div class="reCont"><p><font>{$vo2.userInfo.wechaname}:</font> {$vo2.text} <span>{$vo2.create_time|date='m-d H:i',strtotime(###)}</span></p></div>
+        {/eq}
+        {/volist}
+        <div class="fonline"></div>
+        {/eq}
+    </div>
+    {/volist}
+</div>
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<div id="loading" class="lmore">下拉加载更多...</div>
+
+
+<div class="plform">
+    <div class="pinput"><input id="commentText" type="text" value="" placeholder="输入评论内容..."><div class="fbpl" id="subComment">发表</div></div>
+    <div class="picon"><span id="collection"><img src="{$Think.HTML_STATIC}/images/sc.png" id="fbsc" class="collection"></span><img src="{$Think.HTML_STATIC}/images/plkf.png" onclick="location.href='{$Think.config.zoosnet}'"></div>
+</div>
+
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+{include file="public/fx" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script>
+    $(function(){
+        var width = $(window).width();    //浏览器当前窗口可视区域宽度
+        height = width/16*9;
+        $('iframe').height(height);
+    });
+
+    getCollection({$video.id},{$fansInfo.id},8);
+
+    //评论
+    $('#subComment').click(function(){
+        comment({$video.id},7,'{$Request.token}');
+    });
+
+    //评论点赞
+    $(".txdz").click(function(){
+        plid=$(this).attr('data-id');
+        plpraise(plid,1,'{$Request.token}',$(this).attr('id'));
+
+    });
+
+    //收藏
+    $(".collection").click(function(){
+        collection({$video.id},8,'{$Request.token}');
+    });
+
+
+    //评论下拉加载
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 80;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()+range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('comment/nextPageComment')}",{
+                        type:6,
+                        offsize:offsize,
+                        aid:{$video.id}
+                    },function(data){
+
+                        if(data=='')
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    //回复评论
+    $('.backText').click(function()
+    {
+        userName=$(this).attr('data-align');
+        plid=$(this).attr('data-plid');  //评论的id
+        uid=$(this).attr('data-uid');  //回复的评论用户id
+        var btnArray = ['确定', '取消'];
+        mui.prompt('请输入回复内容', '', '', btnArray, function(e)
+        {
+            if (e.index == 0)
+            {
+                //提交回复
+                text=e.value;
+                if(text=='')
+                {
+                    mui.alert('回复内容不能为空哦');
+                    return false;
+                }
+                $('#commentText').val(text);
+                recComment({$video.id},7,'{$Request.token}',plid,uid,text);
+            }
+        })
+    });
+
+</script>
+
+</body>
+</html>

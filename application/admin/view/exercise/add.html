@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>题库添加</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+    .inputstyle{
+        background-color: #FFF;
+        background-image: none;
+        border: 1px solid #e5e6e7;
+        border-radius: 1px;
+        color: inherit;
+        display: block;
+        padding: 6px 12px;
+        -webkit-transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+        transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+        width: 100%;
+        font-size: 14px;
+        display: table-cell;
+    }
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>添加</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回题库列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('add')}">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">问题：</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="e_content" id="e_content">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">性别：</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="radio" name="sex" value="1">男
+                                        <input type="radio" name="sex" value="2">女
+                                        <input type="radio" name="sex" value="3" checked="checked">未知
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">性别：</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="radio" name="ex_type" onclick="showanswer(this,0)" checked="checked" value="1">单选
+                                        <input type="radio" name="ex_type" onclick="showanswerf(this,0)" value="2">多选
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">答案：</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group m-b answer" style="width: 100%;border: 1px #00E8D7 solid;padding: 10px 10px 10px 10px;">
+                                        <div name='extypediv'>
+                                            <input type="button" class="btn btn-success" value="+" data="add">
+                                        </div>
+                                        <div name='scorediv' style="height: 50px">
+                                            头屑：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="xie"  oninput="this.value=this.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">
+                                            头痒：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="yang"  oninput="this.value=this.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">
+                                            头油：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="you"  oninput="this.value=this.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">
+                                            发质差：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="cha"  oninput="this.value=this.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">
+                                            脱发：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="tuo"  oninput="this.value=this.value.replace(/\D/g,'').replace(/^0+(?=\d)/,'')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">
+                                        </div>
+                                        <div name='answerdiv'>
+                                            <p>选项：<input type="text" class="inputstyle"  placeholder="请输入选项" name="answer0" style=" width:40%; margin-right: 15px;"></p>
+                                            <div name="imgdiv" id="img0">
+                                                <!--<input type="button" class="btn btn-success" value="+" data="imgadd" data-id="0">-->
+                                                <input type="button" class="btn btn-success" value="添加图片" onclick="$(this).next().click();" data="imgadd" data-id="0">
+                                                <input type="file" class="inputstyle"  style="width:40%;display: none" onchange="setimagebase(this)">
+                                                <p>
+                                                </p>
+                                            </div>
+                                            <!--<input type="hidden" class="form-control"  placeholder="请输入选项" name="answer_f0" style="float: left; width:40%; margin-right: 15px;">-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    {:token()}
+                                    <button class="btn btn-primary" type="button">保存内容</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        function showanswer(_self,ids) {
+            
+        }
+        function showanswerf(_self,ids) {
+            
+        }
+        function setimagebase(e) {
+            var file = e.files[0];
+            if(!/image\/\w+/.test(file.type)){
+                alert("请选择图片文件。")
+                return false;
+            }
+            var reader = new FileReader();
+            // 将文件的格式以Data URL形式读入页面
+            reader.readAsDataURL(file)
+            var _self = $(e);
+            //等待图片加载完成
+            reader.onload = function (e) {
+                var _html = '';
+                _html+='<img src="'+this.result+'" onclick="$(this).remove();">';
+                console.log(this.result);
+                _self.next().append(_html);
+//                $(e).val(this.result);
+            }
+        }
+        var counts = 1;
+        $(function () {
+            /*$('input[data=imgadd]').click(function () {
+                var ids = $(this).attr('data-id');
+                var _html = '';
+                _html+='<p>';
+                _html+='<input type="file" class="inputstyle"  style="width:40%;" onchange="setimagebase(this)">';
+                _html+='</p>';
+                $('#img'+ids).append(_html);
+            })*/
+            $('input[data=add]').click(function () {
+                if($('.answer').length>=8){
+                    layer.msg('最多为八个答案');
+                    return false;
+                }
+                var _html = '';
+                _html+='<div class="input-group m-b answer" style="width: 100%;border: 1px #00E8D7 solid;padding: 10px 10px 10px 10px;">';
+                _html+='<div name="extypediv">';
+                _html+='<input type="button" class="btn btn-success" value="-" data="del">';
+                _html+='</div>';
+                _html+='<div name="scorediv" style="height: 50px">';
+                _html+='头屑：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="xie"  oninput="this.value=this.value.replace(/\\D/g,\'\').replace(/^0+(?=\\d)/,\'\')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">';
+                _html+='头痒：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="yang"  oninput="this.value=this.value.replace(/\\D/g,\'\').replace(/^0+(?=\\d)/,\'\')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">';
+                _html+='头油：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="you"  oninput="this.value=this.value.replace(/\\D/g,\'\').replace(/^0+(?=\\d)/,\'\')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">';
+                _html+='发质差：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="cha"  oninput="this.value=this.value.replace(/\\D/g,\'\').replace(/^0+(?=\\d)/,\'\')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">';
+                _html+='脱发：<input type="text" class="inputstyle" style="width: 100px;" placeholder="请输入分数" name="tuo"  oninput="this.value=this.value.replace(/\\D/g,\'\').replace(/^0+(?=\\d)/,\'\')"  min="1" max="10" data="score" style=" width:10%; margin-right: 15px;">';
+                _html+='</div>';
+                _html+='<div name="answerdiv">';
+                _html+='<p>选项：<input type="text" class="inputstyle"  placeholder="请输入选项" name="answer'+counts+'" style=" width:40%; margin-right: 15px;"></p>';
+                _html+='<div name="imgdiv" id="img'+counts+'">';
+                _html+='<input type="button" class="btn btn-success" value="添加图片" onclick="$(this).next().click();" data="imgadd" data-id="'+counts+'">';
+                _html+='<input type="file" class="inputstyle"  style="width:40%;display: none" onchange="setimagebase(this)">';
+                _html+='<p>';
+                _html+='</p>';
+                _html+='</div>';
+                _html+='</div>';
+                _html+='</div>';
+
+                /*_html+='<div class="input-group m-b answer" style="width: 100%">';
+                _html+='<input type="radio" name="ex_type'+counts+'" value="1">文字<input type="radio" name="ex_type'+counts+'" value="2">图片';
+                _html+='<input type="text" class="form-control"  placeholder="请输入选项" name="answer'+counts+'" style="float: left; width:40%; margin-right: 15px;">';
+                _html+='<input type="file" class="form-control"  placeholder="请输入选项" style="float: left; width:40%; margin-right: 15px;">';
+                _html+='<input type="hidden" class="form-control"  placeholder="请输入选项" name="answer_f'+counts+'" style="float: left; width:40%; margin-right: 15px;">';
+                _html+='<img src="">';
+                _html+='<input type="text" class="form-control"  placeholder="请输入分数" name="score'+counts+'" data="score" oninput="this.value=this.value.replace(/\D/g,\'\').replace(/^0+(?=\d)/,\'\')"  min="1" max="10" style="float: left; width:10%; margin-right: 15px;">';
+                _html+='<input type="button" class="btn btn-success" value="-" data="del">';
+                _html+='</div>';*/
+                counts = counts+1;
+                var _div = $(this).parent().parent().parent();
+                _div.append(_html);
+                $('input[data=del]').click(function () {
+                    $(this).parents('.answer').remove();
+                })
+            })
+
+            $('.btn-primary').click(function () {
+                if(!$.trim($("#e_content").val())){
+                    layer.msg('请输入问题内容');
+                    return false;
+                }
+                var arr = new Array();
+
+                var objs = {};
+                var question = $('#e_content').val();
+                var sex = $('input[name=sex]:checked').val();
+                var e_type = $('input[name=ex_type]:checked').val();
+
+                objs.e_content = question;
+                objs.e_sex = sex;
+                objs.e_type = e_type;
+                objs.datas = {}
+                $('.answer').each(function(m,n){
+                    dataarr = {};
+                    var scorediv = $(n).find('div[name=scorediv]');
+                    var answerdiv = $(n).find('div[name=answerdiv]');
+                    var imgp = answerdiv.find('div[name=imgdiv] p');
+
+                    var score ={};
+                    score[0] = scorediv.find('input[name=xie]').val();
+                    score[1] = scorediv.find('input[name=yang]').val();
+                    score[2] = scorediv.find('input[name=you]').val();
+                    score[3] = scorediv.find('input[name=cha]').val();
+                    score[4] = scorediv.find('input[name=tuo]').val();
+                    // console.log(score);
+                    var answer = answerdiv.find('p input').val();
+                    // console.log(answer);
+                    var imgarr = {};
+                    imgp.find('img').each(function(x,y){
+                        imgarr[x] = $(y).attr('src');
+                    })
+
+                    dataarr.score = score;
+                    dataarr.answer = answer;
+                    dataarr.imgarr = imgarr;
+                    objs.datas[m] = dataarr;
+                })
+                console.log(objs);
+
+                $.ajax({
+                    type:'POST',
+                    url:'{:url("add")}',
+                    data:objs,
+                    success:function(data){
+                        if(data.code){
+                            window.location.href="{:url('exercise/index')}"
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                })
+
+                /*$('input[data=score]').each(function(m,n){
+                    if(!$.trim($(n).prev().val())){
+                        layer.msg('请输入选项内容');
+                    }else if(Number($(n).val())>10){
+                        layer.msg('分数最大值为10分');
+                        return false;
+                    }else if(Number($(n).val())<1){
+                        layer.msg('分数最小值为1分');
+                        return false;
+                    }else{
+                        arr[m] = Number($(n).val());
+                    }
+                })
+                if($.inArray(10, arr)<0){
+                    layer.msg('必须有最高分10分选项');
+                }
+                if(arr.length != $.unique(arr).length){
+                    layer.msg('分数不能重复');
+                    return false;
+                }*/
+//                $('form').submit();
+            })
+        })
+    </script>
+</body>
+</html>

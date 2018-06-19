@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+    	.clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		    }
+		.clearfix{
+		    	zoom:1;
+		    }
+    	body{width: 100%;height: 100%;}
+        /*顶部标题*/
+        .mui-title{font-size: 1.7rem;color: #4a4a4a;line-height: 4.4rem;font-weight: normal;color: #333;}
+        #header{height: 4.4rem;border-bottom: 0.05rem solid #f0f0f0;z-index: 100;position: fixed;left: 0;top: 0;line-height: 4.4rem;}
+        #header a.mui-pull-left img{width: 1rem;height: 1.75rem;margin-left: 0.55rem;}
+        #header a.mui-pull-right img{width: 1.8rem;height: 1.65rem;margin-right: 0.7rem;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+            }
+        /*底部*/
+       	.cj_bottom{text-align: center;width: 100%;padding: 2rem 0;}
+       	.cj_bottom img{width: 76%;}
+       	/*分院详情*/
+       	.cj_banner img{width: 100%;}
+       	.cj_yard{width: 100%;background: white;padding-bottom: 1.75rem;}
+        .cj_position{font-size: 1.3rem;color: #666;}
+        .cj_position img{width: 1.4rem;margin-right: 0.6rem;}
+        .cj_position,.cj_yard_name{padding: 0 1.5rem;}   
+        .cj_yard_name{margin-top: 1.75rem;margin-bottom: 1.15rem;height: 2.1rem}
+        .cj_yard_name span{font-size: 1.6rem;color: #2B2B2B;font-weight: bolder;margin-right: 1.5rem;display: block;float: left}
+        .cj_yard_name a{vertical-align: middle; background: white;border: 1px solid #15BBDC;width: 5.4rem;height: 2.1rem;line-height: 2.1rem;border-radius: 1rem;color: #15BBDC;display: block;float: left;text-align: center}
+        /*doctor-team*/
+       	.route_title,.team_title{font-size: 1.7rem;color: #333;border-left: 6px solid #15BBDC;padding-left: 1rem;}
+       	.big_box_doctor{padding: 0 1rem;width: 100%;overflow: scroll;padding-bottom: 3rem;}     	       	
+       	.box_doctor a{float: left;width: 13.8rem;margin-right: 1rem;}
+       	.box_doctor img{width: 100%;margin-right: 1rem;}
+       	.box_doctor a:last-of-type{margin-right:0;}
+       	.cj_team{padding-top: 2rem;}
+       	.team_title{margin-bottom: 1rem;}
+       	.Big_box{width: 100%;height: 18.35rem;overflow: hidden;margin-bottom: 2rem;}
+       	/*route*/
+       	.cj_route{background: white;width: 100%;padding-top: 1.5rem;position: relative;margin-bottom: 3.15rem;}
+       	.route_route{color: #666;}
+       	.route_route .route_route_span{background: url({$Think.HTML_STATIC}/images/75.png) no-repeat;width: 5.25rem;height: 2rem;background-size:cover;line-height: 2rem;display: inline-block;text-align: center;color: white;margin-right: 0.75rem;}
+   		.route_route li{border-top: 1px solid #e6e6e6;padding: 2rem 1rem;}
+   		/*.route_route li p{width: 100%;background: #00a0e9}*/
+    	.route_title{margin-bottom: 1.5rem;z-index: 99;}
+    	.bottom_arrow,.top_arrow{position: absolute;left: 50%;width: 5rem;margin-left: -2.5rem;bottom: -1.25rem;z-index: 99;}
+    	/*diary*/
+    	.cj_diary{background: white;width: 100%;padding-top: 1.5rem;}
+    	.diary_title{padding-bottom: 1.5rem;padding-right: 1rem;border-bottom: 1px solid #EAEAEA;}
+    	.diary_title img{width: 0.7rem;}
+    	.diary_title span.mui-pull-left{font-size: 1.7rem;color: #333;border-left: 6px solid #15BBDC;padding-left: 1rem;}
+    	.diary_title span.mui-pull-right{color: #666;font-size: 1.3rem;}
+    	.diary_title span.mui-pull-right img{margin-bottom: 0.25rem;}
+    	.diary_content{background: white;}
+    	.hua{overflow: hidden;}
+    	.cj_top{position: relative;z-index: 99;}
+		embed{margin-bottom:1.5%;width:100%;height:200px;}
+    	
+    </style>
+</head>
+<body class="bodyb login">
+<header id="header" class="mui-bar clearfix">
+    <a class="mui-action-back  mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">分院</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<!--分院-->
+<div class="cj_yard">
+	<div class="cj_banner">
+		<img src="{$hosData.pic}"/>
+	</div>
+	<div class="cj_yard_name">
+		<span>{$hosData.hosname}</span><a href="{:url('map',['map'=>$hosData.coordinate,'name' => $hosData.address])}">导航</a>
+	</div>
+	<div class="cj_position"><img src="{$Think.HTML_STATIC}/images/74.png"/>{$hosData.address}</div>
+</div>
+<!--doctor team-->
+<div class="cj_team">
+	<div class="team_title">
+		医生团队
+	</div>
+	<div class="Big_box">
+		<div class="big_box_doctor">
+			<div class="box_doctor clearfix">
+				{foreach name="docData" item="vo"}
+					<a href="{:url('doctor/detail',['id'=>$vo.id])}"><img src="{$vo.yard_pic}"/></a>
+				{/foreach}
+			</div>
+		</div>
+	</div>	
+</div>
+<!--route-->
+<div class="cj_route">
+	<div class="route_title">
+		来院参考乘车路线
+	</div>
+
+	<style>
+	.qm_top li p{line-height:32px;}
+	</style>
+	<ul class="route_route cj_top qm_top">
+			<li>
+				<p>
+					{$hosData.bus}
+				</p>
+				<img style="display: none;" class="top_arrow" src="{$Think.HTML_STATIC}/images/78.png"/>
+				<img class="bottom_arrow" src="{$Think.HTML_STATIC}/images/77.png" />
+			</li>
+	</ul>
+
+
+	<div class="hua">
+		<ul class="route_route cj_hua" style="display: none;">
+
+		</ul>
+	</div>		
+	<img style="display: none;" class="top_arrow" src="{$Think.HTML_STATIC}/images/78.png"/>
+	<img class="bottom_arrow" src="{$Think.HTML_STATIC}/images/77.png" />
+</div>
+<!--diary-->
+<div class="cj_diary qlog">
+	<div class="diary_title clearfix">
+		<span class="mui-pull-left">植发日记</span><a href="{:url('cases/index')}"><span class="mui-pull-right">更多 <img src="{$Think.HTML_STATIC}/images/42.png"/> </span></a>
+	</div>
+	<!--<div class="diary_content">-->
+		<!--&lt;!&ndash;放植发日记列表&ndash;&gt;-->
+	<!--</div>-->
+	{volist name='$cases' id='vo'}
+	<a href="{:url('cases/detail',array('uid'=>$vo.id))}">
+		<div class="qlogc">
+			<ul class="qp">
+				<li><img src="{$vo.userInfo.portrait}" class="qimg" id="ty"/></li>
+				<li>
+					<h5>{$vo.userInfo.wechaname}</h5>
+					<h6>{$vo.data_time}</h6>
+				</li>
+			</ul>
+			<div class="qdes">
+				<?php if(!empty($vo['vurl'])){ ?>
+				<div class="csmian" style="padding:0px;" onclick="location.href='{:url('record',['uid'=>$vo.id])}'">
+					<div class="csmian" style="border:0px;">
+						<div class="csinfo">
+							<!--<iframe height="200" width='100%' src="{$vo.vurl}" frameborder=0 allowfullscreen></iframe>--><!--cases_record表-->
+							<embed src="{$vo.vurl}"/>
+						</div>
+					</div>
+				</div>
+				<?php }else{ ?>
+				<div id="qa">
+					<div><img src="{$vo.pic}" class="qimg"/><img src="{$Think.HTML_STATIC}/images/be.png" id="tag"/></div>
+					<div><img src="{$vo.pic2}" class="qimg"/><img src="{$Think.HTML_STATIC}/images/af.png" id="tag"/></div>
+
+				</div>
+				<?php }?>
+				<p id="di">{$vo.info}</p>
+				<p id="plant"><img src="{$Think.HTML_STATIC}/images/qicon.png"/>{$vo.project.proname}</p>
+
+				<div class="qlist">
+					<ul>
+						<li>
+							<a href="javascript:void(0);"><img src="{$Think.HTML_STATIC}/images/icon2.png" class="qimg" id="eye"/>{$vo.click}</a>
+						</li>
+						<li>
+							<a href="{:url('cases/detail',array('uid'=>$vo.id))};"><img src="{$Think.HTML_STATIC}/images/icon3.png"  data_id="{$vo.id}"/>{$vo.comment}</a>
+						</li>
+						<li id="ds1" class="dianzan" name="dianzan" res-id="{$fansInfo['id']}" uid="{$vo.caser.id}" dis=0 datas={if $vo.praise.i_id && $fansInfo['id']==$vo.praise.i_uids}1{else /}0{/if} data-idss={$vo.id}>
+							<a href="javascript:void(0);">
+								<img src="{$Think.HTML_STATIC}/images/{if $vo.praise.i_id && $fansInfo['id']==$vo.praise.i_uids}66{else /}65{/if}.png" /><span style="position:relative;top:0.2rem;">{$vo.caser.praise}</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</a>
+	{/volist}
+</div>
+<!--footer-->
+<div class="cj_bottom">
+	<img src="{$Think.HTML_STATIC}/images/bo.jpg"/>
+</div>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script type="text/javascript">
+    $('li[name="dianzan"]').click(function(){
+        if($(this).attr('dis')==1){
+            return false;
+        }
+        var _self = $(this);
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+        $(this).attr('dis',1);
+        var datas = $(this).attr('datas');
+        $(this).attr('datas','1');
+        var res = _self.attr('res-id');
+        var uid = _self.attr('uid');
+        var aid = _self.attr('data-idss');
+        $.ajax({
+            type: "post",
+            url: '{:url("praise/index")}',
+            data: {aid:aid,is:datas,res:res,i_ids:uid,type:6,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1) {
+                    if (datas == 0) {
+                        _self.find('span').html(Number(_self.find('span').html())+1);
+                        _self.attr('dis', 0);
+                        _self.attr('datas', '1');
+                    }
+                } else {
+                    _self.find('span').html(Number(_self.find('span').html())-1);
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                    _self.attr('dis', 0);
+                    _self.attr('datas', '0');
+                }
+
+            }
+        });
+    })
+</script>
+<script type="text/javascript">
+	$(function(){
+		var docNum=$(".box_doctor img").length;
+		var docLen=13.8;
+		var docWid=docLen*docNum+(docNum-1)*1
+		$(".box_doctor").css("width",docWid+'rem')
+		//路线收起和展开
+		// $(".cj_top li:gt(0)").hide();
+		// $(".top_arrow").click(function(){
+		// 	$(".cj_top li:gt(0)").slideUp("slow",function(){
+		// 		$(".top_arrow").hide().next().show()
+		// 	})
+		// })
+		// $(".bottom_arrow").click(function(){
+		// 	$(".cj_top li:gt(0)").slideDown("slow",function(){
+		// 		$(".bottom_arrow").hide().prev().show()
+		// 	})
+		// })
+
+		var h1=40;
+		var h2=$(".cj_top li").height();
+		var h3=h1+80;
+		var h=h2+40;
+		if(h2<=h3){
+            $(".bottom_arrow").hide();
+		}
+		if(h2>h1){
+		    $(".cj_top").css({"height":h3+"px","overflow":"hidden"});
+            $(".bottom_arrow").click(function(){
+                $(".cj_top").animate({"height":h+"px","overflow":"auto"},"slow");
+                $(".bottom_arrow").hide().prev().show();
+            });
+		}
+		if(h1<=h2){
+            $(".top_arrow").click(function(){
+                $(".cj_top").animate({"height":h3+"px","overflow":"hidden"},"slow");
+                $(".top_arrow").hide().next().show();
+            });
+		}
+	});
+
+
+
+
+
+</script>
+</body>
+</html>

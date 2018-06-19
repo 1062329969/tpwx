@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta required name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$Think.config.sitename}</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style type="text/css">
+    	body{font-size: 16px;}
+    	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{border-top: none;padding: 20px;}
+    	.table-striped>tbody>tr:nth-of-type(odd){background: none;}
+    	.table>tbody>tr.topBorder td{border-top: 1px solid #999;padding-top: 40px;}
+    	.table>tbody>tr.paddBottom td{padding-bottom: 40px;}
+    	.table>tbody>tr.bottomBorder+tr td{padding-top: 40px;}
+    	.table>tbody>tr.bottomBorder td{border-bottom: 1px solid #999;padding-bottom: 40px;}
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                        <table class="table table-striped">
+                            <tr>
+                                <td width="50%">
+                                    <span>患者姓名:{$info.vm_name}</span>
+                                </td>
+                                <td width="50%">
+                                    <span>出生日期:{$info.vm_bir| date='Y-m-d',###}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:
+                                    </span>
+                                    <?php if($info['vm_sex']==1){ ?>
+                                    男
+                                    <?php }else{ ?>
+                                    女
+                                    <?php }?>
+                                </td>
+                                <td>
+                                    <span>手&nbsp;&nbsp;机&nbsp;&nbsp;号:{$info.vm_phone}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>到诊时间:{$info.vm_visittime|date='Y-m-d',###}</span>
+                                </td>
+                                <td>
+                                    <span>接诊医生:{$info.vm_admissiondoctor}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>项目类别:{$ptype[$info.vm_project]}</span>
+                                 
+                                </td>
+                                <td>
+                                    <span>到诊院部:{$hospital.hosname}</span>
+                                   
+                                </td>
+                            </tr>
+                            <tr class="paddBottom">
+                                <td colspan="2">
+                                    <span>诊断描述:{$info.vm_diagnosisnote}</span>
+                                </td>
+                            </tr>
+                            <tr class="topBorder" cellspacing='10'>
+                                <td>
+                                    <span>手术时间:{$info.vm_operationtime|date='Y-m-d',###}</span>
+                                </td>
+                                <td>
+                                    <span>毛囊单位:{$info.vm_hairfollicle}</span>
+                                </td>
+                            </tr>
+                            <tr class="bottomBorder">
+                                <td>
+                                    <span>手术医生:{$info.vm_surgerydoctor}</span>
+                                </td>
+                                <td>
+                                    <span>手术费用:{$info.vm_money}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注：{$info.vm_note}</span>
+                                </td>
+                            </tr>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/validate/messages_zh.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+</body>
+</html>

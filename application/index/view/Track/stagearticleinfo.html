@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link rel="stylesheet" type="text/css" href="{$Think.HTML_STATIC}/css/webuploader.css">
+    <link href="{$Think.HTML_STATIC}/css/add.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <style type="text/css">
+        .asktopss{padding: 1.5rem; background: #fff}
+        .asktopss ul{ width: 88%; height: 20px;margin: 0 auto;}
+        .asktopss ul li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 14px; width: 33%;}
+        .asktopss .left{ border-left: 1px #ccc solid; }
+        .askcontent{ padding: 0px;}
+        .atxd{padding: 1.5rem 1.5rem 0px; background: #fff; margin: 0px;}
+        .atxd .tx img{ float: left;}
+        .atxd .tx span{ float: left; padding-top:7px; line-height: 22px;font-size: 1.2rem; color: #999}
+        .atxd .tx font{ font-size: 1.4rem; color: #111}
+        .askcontent{ margin-top: 0px; border: none;}
+        .askconttitle{ font-weight: 600}
+        .stagelabel{
+            background: #fff;
+            margin-top:44px;
+        }
+        .clearfix:after{
+            content: "";
+            display: block;
+            clear:both;
+            height: 0;
+            overflow: hidden;
+        }
+        .clearfix{
+            zoom:1;
+        }
+        .stagelabel a img{ display: block;margin: 0 auto; width: 88%;border-radius: 10%;margin-bottom: 10px; }
+        .stagelabel span{ display: inline-block;}
+        .stagelabel ul{ width: 88%; height: 40px;margin: 0 auto;}
+        .stagelabel ul li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 14px; width: 33%;}
+        .active a{ color:#007aff; }
+        .p_title{
+            height: 28px;
+            line-height: 28px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top:2%;
+        }
+        /*video::-webkit-media-controls-enclosure {
+            overflow:hidden;
+        }
+        video::-webkit-media-controls-panel {
+            width: calc(100% + 30px);
+        }*/
+        #three{
+            width: 94%;
+            height: 40px;
+            margin: 0 auto;
+            padding-top: 7px;
+            margin-top: 10px;
+        }
+        #three li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 14px; width: 33%;}
+        .comment_ul ul{ width: 88%; margin: 0 auto;padding-top: 10px;}
+        .comment_ul ul li{display: block;float: left;line-height: 25px;font-size: 14px;width: 100%}
+        #comment_div{ overflow: hidden;background-color: #fff;overflow: hidden;padding: 2rem 1rem;border-bottom: 1px solid #f0f0f0;}
+
+        #imgPicker p{ color: #fff}
+        #loading{ height: 100%; margin-top: 0px;}
+        .asktopss{ padding:0 0 0.4rem 0; background: #fff;}
+        .asktopss ul{ width:100%; height: 20px;margin: 0 auto;}
+        .asktopss ul li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 16px; width: 33%;}
+        .asktopss .left{ border-left: 1px #f0f0f0 solid; }
+        .askcontent{ padding: 0px;}
+        .atxd{padding: 1.5rem 1.5rem 0px; background: #fff; margin: 0px;}
+        .atxd .tx img{ float: left;}
+        .atxd .tx span{ float: left; padding-top:7px; line-height: 22px;font-size: 1.2rem; color: #999}
+        .atxd .tx font{ font-size: 1.4rem; color: #111}
+        .askcontent{ margin-top: 0px; border: none;}
+        .askconttitle{ font-weight: 600}
+        .stagelabel{background: #fff;margin-bottom: 10px;padding-top:5%;padding-bottom:5%;}
+        .stagelabel a img{ display: block;margin: 0 auto; width: 88%;border-radius:10px;margin-bottom: 10px; }
+        .stagelabel span{ display: inline-block;font-size:1.4rem;}
+        .stagelabel ul{ width: 88%; height:38px;margin: 0 auto;border-top:1px solid #f0f0f0;border-bottom:1px solid #f0f0f0;padding:0.5rem 0;}
+        .stagelabel ul li{ display: block;float: left;height: 25px;line-height: 25px;text-align: center;font-size: 14px; width: 33%;border-right:1px solid #f0f0f0;text-align:center;}
+        .active a{ color:#15bdde;font-weight:600; }
+
+        .mui-action-back, .mui-title, .mui-icon-search{color:#333333;}
+        .mui-pull-left{color:#333333;}
+        .mui-bar-nav{box-shadow:none;}
+        header{border:1px solid #f0f0f0;}
+        .mui-bar{height:5rem;}
+        .mui-bar .mui-icon{padding:14px 0;}
+
+        li a{color:#666666;}
+        ul li img.qimg{display:inline-block;width:15%;margin-right:4%;}
+        .stagelabel ul li:nth-of-type(3){border-right:none;}
+        /*顶部标题*/
+       #header h1.mui-title{font-size: 1.7rem;color: #4a4a4a;font-weight: normal;line-height: 4.4rem;}
+        .mui-bar {
+            -webkit-box-shadow: 0 0 1px rgba(0,0,0,0);
+            box-shadow: 0 0 1px rgba(0,0,0,0);
+        }
+        #header img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+        #header{height: 4.4rem;}
+
+        .m{width:100%;margin-left: auto;margin-right: auto;margin-top:0;}
+
+        .tags{width:100%;padding:0 1rem;margin:1.3rem auto 0;}
+        .tags >span{margin-bottom:1rem;display:block;float:left;font-size:1.4rem;color:#4c4c4c;border:1px solid #16badb;border-radius: 8px;text-align:center;padding:0.3rem 1rem;margin-right:0.75rem;}
+    </style>
+
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-pull-left" onclick="window.location.href='{:url('track/stagearticle',['sid'=>$sid])}'"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">{$stage.s_name}</h1>
+</header>
+<div style="height: 4.4rem;"></div>
+<div class="asktopss">
+    <div class="m" style="width:100%;">
+        <video controls preload="auto" width="100%" poster="{$stagearticle.a_img}"  webkit-playsinline="true" x-webkit-airplay="true" playsinline="true" 
+										      x5-playsinline="true" style="object-fit: fill;">
+            <source src="{$stagearticle.a_video}" type="video/mp4">
+        </video>
+    </div>
+    <?php if($stagearticle['a_label']){ ?>
+    <div class="tags">
+        <?php
+            $arr = explode(',',$stagearticle['a_label']);
+            foreach($arr as $k=>$v){
+        ?>
+        <span>{$v}</span>
+        <?php } ?>
+    </div>
+    <?php } ?>
+    <!--<p class="p_title" style="text-align:center;width:100%;">{$stagearticle.a_title}</p>-->
+    <div style="clear:both;width:90%;margin:0 auto;" id="id1">
+        {$stagearticle.a_content}
+    </div>
+    <style>
+        #id1 >p{width:100%;line-height:2.25rem;color:#666666;}
+        #three li{border-right:1px solid #f0f0f0;color:#999999;}
+        #three li:nth-of-type(3){border-right:none;}
+        #three ul li img{display:inline-block;width:15%;margin-right:4%;}
+        #three{background: white;width: 100%;position: fixed;left: 0;bottom: 0;z-index: 99;border-top:1px solid #F0F0F0 ;}
+        .cj_pl_num{font-size: 1.6rem;color: #333;border-bottom: 0.08rem solid #EAEAEA;padding-bottom: 0;padding-top: 1rem;background: white;padding-left: 1rem;padding-bottom: 1rem;}
+		.cj_pl_num span{font-size: 1.4rem; color: #666;line-height: 3.35rem;vertical-align: middle;display: inline-block;}
+		.cj_pl_num span.dymid{vertical-align: middle;display: inline-block;margin-left: 0.5rem;}
+		.allcomment_div{margin-top: 1rem;}
+    </style>
+</div>
+<ul id="three">
+    <li style="text-align:center"><img src="{$Think.HTML_STATIC}/images/icon2.png" class="qimg" id="eye" style="width:18%;margin-right:6%;"/>{$stagearticle.a_browse}</li>
+    <li style="text-align:center" class="look"><img src="{$Think.HTML_STATIC}/images/icon3.png" class="qimg" style="margin-right:6%;"/>{$stagearticle.a_reply}</li>
+    <li style="text-align:center" name="dianzan" dis=1 data={if $praise.p_id && $fansInfo['id']==$praise.p_uid}1{else /}0{/if} data-id={$stagearticle.a_id}>
+    <img src="{$Think.HTML_STATIC}/images/6{if $praise.p_id && $fansInfo['id']==$praise.p_uid}6{else /}5{/if}.png" class="qimg" style="position:relative;margin-right:3%;">
+    <span>{$stagearticle.a_collection}</span>
+    </li>
+</ul>
+<div class="allcomment_div">
+	<p class="cj_pl_num">评论<span class="dymid"></span></p>
+    {volist name='commontlist' id='cvo'}
+    <div id="comment_div">
+        <div class="clearfix" style="overflow: hidden;">
+            <img src="{$alluser[$cvo.c_uid]['portrait']}" style="border-radius: 50%;float:left; width: 3.5rem;">
+            <div style="float:left;margin-left:14px;">
+                <span style="font-size:1.2rem;color: #15BBDC;margin: 0.4rem 0;display: inline-block;">{$alluser[$cvo.c_uid]['wechaname']}</span>
+                <br />
+                <span style="font-size: 1rem;color: #999;">{$cvo.c_addtime|date='Y-m-d H:i',###}</span>
+            </div>
+            <span class="clearfix" style="margin-top: 1rem;margin-right: 1rem;">
+                <span style="float:right;padding-left: 5px;color: #666;width:4rem;display: inline-block;text-align: center;">{$cvo.c_praise}</span>
+                <img style="float:right;width: 20px;" src="{$Think.HTML_STATIC}/images/6{if in_array($fansInfo['id'],$cvo.praise)}6{else /}5{/if}.png" dis=1 data="{if in_array($fansInfo['id'],$cvo.praise)}1{else /}0{/if}" onclick="commetn_dianzan(this,{$cvo.c_id},{$stagearticle.a_id})">
+            </span>
+        </div>
+        <div class="comment_ul">
+            <p style="margin-top: 5px;padding-left: 5px;" onclick="commont_commont(this,{$cvo.c_id},{$cvo.c_id},{$cvo.c_uid})">
+                {$cvo.c_content}
+            </p>
+            <ul>
+                {if isset($cvo.child)}
+                {volist name="$cvo.child" id="cv"}
+                <li>
+                    <p onclick="commont_commont(this,{$cv.c_id},{$cvo.c_id},{$cv.c_uid})">
+                        {$alluser[$cv.c_uid]['wechaname']}
+                        {if $cv.c_cuid} 回复 {$alluser[$cv.c_cuid]['wechaname']}{else /}{/if}
+                        ：{$cv.c_content}
+                    </p>
+                </li>
+                {/volist}
+                {/if}
+            </ul>
+        </div>
+    </div>
+    {/volist}
+</div>
+<style>
+    .plmaint{position: fixed;bottom: 0;left: 0;z-index: 100;width: 100%;height: 4.9rem;background: #e0e0e0;line-height: 4.9rem;}
+    .plform{background: #e0e0e0;padding: 0 1.5rem;}
+    .plform input{font-size: 1.5rem;}
+    #commnet_text{width: 100%;height: 15rem;background: #FFFFFF;display:block;border: none;padding: 1rem;}
+    #commnet_submit{color: #15BBDC;}
+    .pinput input{padding: 0;}
+    .plform{padding: 0;margin-top: 1.1rem;}
+    .pinput{width: 100%;}
+    .cjhf{background: #e0e0e0;position: fixed;bottom: 0;left: 0;z-index: 100;width: 100%;}
+    .cjhf-content{margin: 1.1rem 0;font-size: 1.5rem;}
+    .cjhf-content input#cjtxt{height: 2.9rem;width: 68%;background: #FFFFFF;text-indent: 1.55rem;}
+    .cjhf-content input#cjbt{width: 17%;height: 2.9rem;background: #15bdde;border-radius: 2.9rem;color: white;}
+    .cj_top{height: 3.25rem;line-height: 3.25rem;border-bottom: 1px solid #F0F0F0;padding: 0 1rem;font-size: 1.5rem;}
+</style>
+<footer id="footer" style="bottom:0px;position:fixed;background:#fff;width: 100%;background: white;display: none;">
+    <div class="cj_top clearfix">
+        <span class="mui-pull-left">取消</span>
+        <span class="mui-pull-right" id="commnet_submit">提交</span>
+    </div>
+    <textarea id="commnet_text"></textarea>
+    <input type="hidden" name="aid" id="aid" value="{$stagearticle.a_id}">
+    <input type="hidden" name="pid" id="pid" value="0">
+    <input type="hidden" name="tid" id="tid" value="0">
+    <input type="hidden" name="cuid" id="cuid" value="0">
+</footer>
+<div style="height: 4rem;"></div>
+{include file="public/fx" /}
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="{$Think.HTML_STATIC}/js/webuploader.js"></script>
+<script src="{$Think.HTML_STATIC}/js/web.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script type="text/javascript">
+    mui.init();
+    $(function() {
+    	
+        $('li[name="dianzan"]').click(function(){
+            if($(this).attr('dis')==0){
+                return false;
+            }
+            var _self = $(this);
+            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+            $(this).attr('dis',0);
+            var datas = $(this).attr('data');
+            $(this).attr('data','1');
+            var aid = _self.attr('data-id');
+            $.ajax({
+                type: "get",
+                url: '{:url("stagearticlepraise")}',
+                data: {aid:aid,data:datas,__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1){
+                        if(datas==0){
+                            _self.find('span').html(Number(_self.find('span').html())+1);
+                            _self.attr('dis',1);
+                            _self.attr('data','1');
+                        }else{
+                            _self.find('span').html(Number(_self.find('span').html())-1);
+                            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/65.png');
+                            _self.attr('dis',1);
+                            _self.attr('data','0');
+                        }
+                    }else{
+                        alert('操作失败');
+                    }
+                    $('#pid').val(0);
+                    $('#tid').val(0);
+                    $('#cuid').val(0);
+                }
+            });
+        })
+        $('#commnet_submit').click(function(){
+            var commnet_text = $('#commnet_text').val();
+            if(!commnet_text){
+                mui.toast('评论不能为空');
+                return false;
+            }
+            $("#footer").hide()
+            $("#three").show()
+            var aid = $('#aid').val();
+            var pid = $('#pid').val();
+            var tid = $('#tid').val();
+            var cuid = $('#cuid').val();
+
+            $.ajax({
+                type: "post",
+                url: '{:url("stagearticlecomment")}',
+                data: {aid:aid,pid:pid,tid:tid,cuid:cuid,commnet_text:commnet_text,__token__:'{$Request.token}'},
+                dataType: "json",
+                success: function(data)
+                {
+                    if(data.code==1){
+                        window.location.reload();
+                    }else{
+                        alert(data.msg);
+                        $('#pid').val(0);
+                        $('#tid').val(0);
+                        $('#cuid').val(0);
+                    }
+                }
+            });
+
+        })
+    })
+    /**
+     * @param HTMLobj _self
+     * @param int pid 父级id
+     * @param int tid 顶级id
+     * @param int c_uid 被评论id
+     *
+     * @return html 追加评论html
+     */
+    function commont_commont(_self,pid,tid,c_uid){
+        $('#pid').val(pid);
+        $('#tid').val(tid);
+        $('#cuid').val(c_uid);
+        $("#footer").show()
+        $('#commnet_text').focus();
+    }
+
+    function commetn_dianzan (_self,c_id,a_id) {
+        if($(_self).attr('dis')==0){
+            return false;
+        }
+        $(_self).attr('src','{$Think.HTML_STATIC}/images/66.png');
+        $(_self).attr('dis',0);
+        var datas = $(_self).attr('data');
+        $.ajax({
+            type: "get",
+            url: '{:url("stagearticlecommentpraise")}',
+            data: {p_cid:c_id,p_said:a_id,data:datas,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1){
+                    if(datas==0){
+                        $(_self).prev().html(Number($(_self).prev().html())+1);
+                        $(_self).attr('dis',1);
+                        $(_self).attr('data','1');
+                    }else{
+                        $(_self).prev().html(Number($(_self).prev().html())-1);
+                        $(_self).attr('src','{$Think.HTML_STATIC}/images/65.png');
+                        $(_self).attr('dis',1);
+                        $(_self).attr('data','0');
+                    }
+                }else{
+                    alert('操作失败');
+                }
+            }
+        });
+    }
+    $(function(){
+        //点击跳出评论
+        $(".look").click(function(){
+            $("#three").hide();
+            $("#footer").show()
+            $("#footer").show()
+            $("#commnet_text").focus()
+        })
+        //点击取消
+        $(".cj_top span.mui-pull-left").click(function(){
+            $("#three").show();
+            $("#footer").hide()
+        })
+    })
+</script>
+
+</body>
+</html>

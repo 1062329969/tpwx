@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta required name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{$Think.config.sitename}</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <style type="text/css">
+        textarea{width:77%;height: 100px;margin-left:0.5%;font-size:16px;}
+        input{width: 180px;height: 30px;}
+        select{width: 180px;height: 30px;}
+        td span{text-align: right;font-size:16px;}
+        td input{font-size:16px;margin-left:0.5%;}
+        .tw{height:120px;padding-bottom:30px;}
+        .table-striped>tbody>tr:nth-of-type(odd){background:#dedede;}
+        .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{border-top:none;}
+        .row{margin:0;}
+        .table>tbody>tr>td{padding:12px 0;}
+        .tw span{position:relative;top:-85px;}
+        .table>tbody>tr.trt>td{padding:12px 0 30px 13%;}
+        .table>tbody>tr.trt1>td{padding:30px 0 12px 13%;}
+        .ibox-content{background:#dedede;}
+        .table>tbody>tr>td{padding-left:13%;}
+    </style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="table-responsive" action="{:url('add')}" method="post">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td >
+                                        <span>患者姓名:</span><input type="text" id="vm_name"  name="vm_name" value="">
+                                    </td>
+                                    <td >
+                                        <span>出生日期:</span><input type="text" id="vm_bir" readonly  name="vm_bir" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</span>
+                                        <select id="vm_sex"  name="vm_sex">
+                                            <option value="1">男</option>
+                                            <option value="2">女</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span>手&nbsp;&nbsp;机&nbsp;&nbsp;号:</span><input type="text" id="vm_phone"  name="vm_phone" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>到诊时间:</span><input type="text" id="vm_visittime" readonly  name="vm_visittime" value="">
+                                    </td>
+                                    <td>
+                                        <span>接诊医生:</span><input type="text" id="vm_admissiondoctor"  name="vm_admissiondoctor" value="">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>项目类别:</span>
+                                        <select id="vm_project"  name="vm_project">
+                                            {foreach name="ptype" item="vo" key="k" }
+                                                <option value="{$k}">{$vo}</option>
+                                            {/foreach}
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <span>到诊院部:</span>
+                                        <select id="vm_hospital"  name="vm_hospital">
+                                            {volist name='hlist' id='vo'}
+                                            <option value="{$vo.id}">{$vo.hosname}</option>
+                                            {/volist}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom:1px solid rgb(169, 169, 169);" class="trt">
+                                    <td colspan="2" class="tw">
+                                        <span>诊断描述:</span><textarea id="vm_diagnosisnote"  name="vm_diagnosisnote" ></textarea>
+                                    </td>
+                                </tr>
+                                <tr class="trt1">
+                                    <td>
+                                        <span>手术时间:</span><input type="text" id="vm_operationtime" readonly  name="vm_operationtime" value="">
+                                    </td>
+                                    <td>
+                                        <span>毛囊单位:</span><input type="text" id="vm_hairfollicle"  name="vm_hairfollicle" value="">
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom:1px solid rgb(169, 169, 169);" class="trt">
+                                    <td>
+                                        <span>手术医生:</span><input type="text" id="vm_surgerydoctor"  name="vm_surgerydoctor" value="">
+                                    </td>
+                                    <td>
+                                        <span>手术费用:</span><input type="text" id="vm_money"  name="vm_money" value="">
+                                    </td>
+                                </tr>
+                                <tr class="trt1">
+                                    <td colspan="2" class="tw">
+                                        <span>备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注:</span><textarea id="vm_note"  name="vm_note" ></textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-5">
+                                    <button class="btn btn-primary submit" type="submit" style="width: 150px;">保存</button>
+                                    <!--<button class="btn btn-white" onclick="history.go(-1)" type="button">取消</button>-->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/validate/messages_zh.min.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+    <script>
+        laydate.render({
+            elem: '#vm_visittime'
+        });
+        laydate.render({
+            elem: '#vm_operationtime'
+        });
+        laydate.render({
+            elem: '#vm_bir'
+        });
+//        jQuery.validator.addMethod("isMobile", function(value, element) {
+//            var length = value.length;
+//            var mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+//            return this.optional(element) || (length == 11 && mobile.test(value));
+//        }, "请正确填写您的手机号码");
+//        $().ready(function() {
+//            // 在键盘按下并释放及提交后验证提交表单
+//            $("form").validate({
+//                rules: {
+//                    vm_name:"required",
+//                    vm_bir:"required",
+//                    vm_sex:"required",
+//                    vm_visittime:"required",
+//                    vm_admissiondoctor:"required",
+//                    vm_project:"required",
+//                    vm_hospital:"required",
+//                    vm_diagnosisnote:"required",
+//                    vm_operationtime:"required",
+//                    vm_hairfollicle:{
+//                        required : true,
+//                        digits:true
+//                    },
+//                    vm_surgerydoctor:"required",
+//                    vm_money:"required",
+//                    vm_note:"required",
+//                    vm_phone : {
+//                        required : true,
+//                        minlength : 11,
+//                        isMobile : true
+//                    },
+//                },
+//                messages: {
+//                    vm_name: "请输入您的名字",
+//                    vm_phone: "请输入正确手机号",
+//                    vm_bir:'必填',
+//                    vm_sex:'必填',
+//                    vm_visittime:'必填',
+//                    vm_admissiondoctor:'必填',
+//                    vm_project:'必填',
+//                    vm_hospital:'必填',
+//                    vm_diagnosisnote:'必填',
+//                    vm_operationtime:'必填',
+//                    vm_hairfollicle:{
+//                        required: "必填",
+//                        digits: "必须是整数"
+//                    },
+//                    vm_surgerydoctor:'必填',
+//                    vm_money:'必填',
+//                    vm_note:'必填'
+//                }
+//            })
+//        });
+//        function checkform() {
+//            var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1})|(16[0-9]{1}))+\d{8})$/;
+//            var res = myreg.test($("#vm_phone").val());
+//            if(!res){
+//                layer.msg('请输入有效的手机号码！');
+//                return false;
+//            }
+//
+//        }
+    </script>
+</body>
+</html>

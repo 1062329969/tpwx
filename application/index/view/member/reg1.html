@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" onclick="self.location=document.referrer;"></a>
+    <h1 class="mui-title">注册</h1>
+</header>
+<div class="regmain">
+    <div class="regtel">
+        <input type="text" placeholder="请输入手机号码" value="" name="phonenum" id="phonenum"/>
+    </div>
+    <div class="regcode">
+        <input type="text" class="intel" placeholder="请输入验证码" value="" name="code" id="code"><span><input id="second" maxlength="6" type="button" value="获取验证码"></span>
+    </div>
+    <div class="regpass">
+        <input type="password" placeholder="请输入登录密码" value="" name="password" id="password">
+    </div>
+    <div class="regnext">
+        <input type="button" id="next" value="下一步">
+    </div>
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script>
+
+    var countdown=60;
+
+    $(function()
+    {
+        $("#second").click(function (){
+            sendCode($("#second"));
+        });
+        checkCountdown();
+
+        $("#next").click(function ()
+        {
+
+            var phonenum = $("#phonenum").val();
+            var code = $("#code").val();
+            var password = $("#password").val();
+
+            $.ajax( {
+                url:'{:url("reg")}',// 跳转到 action
+                data:{
+                    phonenum : phonenum,
+                    code : code,
+                    password : password
+                },
+                type:'post',
+                cache:false,
+                dataType:'json',
+                success:function(data)
+                {
+                    if(data.code!=1)
+                    {
+                        alert(data.msg);
+                        return false;
+                    }
+                    else
+                    {
+                        window.location.href='{:url("address")}';
+                    }
+                },
+                error : function() {
+                    // view("异常！");
+                    alert("异常！");
+                }
+            });
+        });
+
+
+    });
+
+    //校验打开页面的时候是否要继续倒计时
+    function checkCountdown()
+    {
+        var secondsremained = $.cookie("secondsremained");
+        if(secondsremained)
+        {
+            var date = new Date(unescape(secondsremained));
+            setCoutDown(date,$("#second"));
+        }
+    }
+    //发送验证码
+    function sendCode(obj)
+    {
+        var phonenum = $("#phonenum").val();
+        var result = isPhoneNum();
+        if(result)
+        {
+            //加载ajax 获取验证码的方法
+            $.ajax( {
+                url:'{:url("getCode")}',// 跳转到 action
+                data:{
+                    phonenum2 : phonenum,
+                    __token__ : "{$Request.token}"
+                },
+                type:'post',
+                cache:false,
+                dataType:'json',
+                success:function(data)
+                {
+                    if(data.code!=1)
+                    {
+                        alert(data.msg);
+                        return false;
+                    }
+                    else
+                    {
+                        var date = new Date();
+                        addCookie("secondsremained",date.toGMTString(),60);//添加cookie记录,有效时间60s
+                        setCoutDown(date,obj);
+                    }
+                },
+                error : function() {
+                    // view("异常！");
+                    alert("异常！");
+                }
+            });
+
+        }
+    }
+    var nowDate = null;
+    var time_difference = 0;
+    var count_down = 0;
+    function setCoutDown(date,obj) {
+        nowDate = new Date();
+        time_difference = ((nowDate- date)/1000).toFixed(0);
+        count_down = 60 - time_difference;
+        console.log(count_down);
+        if(count_down<=0){
+            obj.removeAttr("disabled");
+            obj.val("获取验证码");
+            addCookie("secondsremained","",60);//添加cookie记录,有效时间60s
+            return;
+        }
+        obj.attr("disabled", true);
+        obj.val("重新发送(" + count_down + ")");
+        setTimeout(function() { setCoutDown(date,obj) },1000) //每1000毫秒执行一次
+    }
+    //发送验证码时添加cookie
+    function addCookie(name,value,expiresHours){
+    //判断是否设置过期时间,0代表关闭浏览器时失效
+        if(expiresHours>0){
+            var date=new Date();
+            date.setTime(date.getTime()+expiresHours*1000);
+            $.cookie(name, escape(value), {expires: date});
+        }else{
+            $.cookie(name, escape(value));
+        }
+    }
+    //校验手机号是否合法
+    function isPhoneNum(){
+        var phonenum = $("#phonenum").val();
+        var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+        if(!myreg.test(phonenum)){
+            alert('请输入有效的手机号码！');
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+</script>
+</body>
+</html>

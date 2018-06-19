@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+.form-horizontal h5{font-size:15px;}
+.cen{text-align:center;padding:6px 12px;}
+span{color:red;}
+.bsw{text-align:center;}
+.bsw img{display:block;width:100%;}
+.hr-line-dashed{margin:15px 0;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>您当前所在位置：头条&nbsp;&nbsp;>&nbsp;&nbsp;添加新文章</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回问答列表</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('alter')}">
+                            <h5>添加文章</h5>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="sort" onkeyup="onlyNonNegative(this)" value="{$content.sort}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">文章标题<span>*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control title" required placeholder="请输入文章标题" name="qtitle" value="{$content.qtitle}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">文章板块<span>*</span></label>
+                                <div class="col-sm-3">
+                                    <select class="form-control m-b s1" name="fid" required>
+                                        <option value="">请选择文章板块</option>
+                                        {volist name='$forum' id='vo'}
+                                        <option value="{$vo.id}" {eq name="$content.fid" value="$vo.id"}selected{/eq}>{$vo.name}</option>
+                                        {/volist}
+                                    </select>
+
+                                </div>
+
+                                <label class="col-sm-2 control-label">文章分类<span>*</span></label>
+                                <div class="col-sm-2">
+                                    <select class="form-control m-b s2" name="class_first" id="class_first">
+                                        <option value="">请选择一级分类</option>
+                                        {foreach name="class_arr" item="vo" key="k" }
+                                            <option value='{$k}' {eq name="$content.class_first" value="$k"}selected{/eq}>{$vo.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <select class="form-control m-b s2" name="class_second" id="class_second">
+                                        <option value="">请选择二级分类</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">文章状态</label>
+                                <div class="col-sm-10">
+                                    <div class="col-sm-2"><input type="radio" name="dis" checked/>显示</div>
+                                    <div class="col-sm-2"><input type="radio" name="dis"/>隐藏</div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否推荐</label>
+                                <div class="col-sm-10">
+                                <div class="col-sm-2"><input type="radio" name="recommend"  value="0" {if condition="($content.recommend == 0)"} checked="checked"{/if}/>是</div>
+                                    <div class="col-sm-2"><input type="radio" name="recommend" value="1" {if condition="($content.recommend == 1)"} checked="checked" {/if}/>否</div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否精选</label>
+                                <div class="col-sm-10">
+                                    <div class="col-sm-2"><input type="radio" name="selecteds"  value="0"  {if condition="($content.selecteds == 0)"} checked="checked"{/if}/> 是</div>
+                                    <div class="col-sm-2"><input type="radio" name="selecteds"  value="1"  {if condition="($content.selecteds == 1)"} checked="checked"{/if}/> 否</div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">虚拟用户</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control uid" value="{$content.uid}" name="uid">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-primary adduser">选择</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">封面排版</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+
+                                        <div class="col-sm-3 bsw bs1">
+                                            <img src="{$Think.HTML_STATIC}/img/bs2.jpg"/>
+                                            <input type="radio" name="bs" value="1" {if condition="($content.bs == 1)"} checked="checked" {/if}/>单张小图
+                                        </div>
+                                        <div class="col-sm-3 bsw">
+                                            <img src="{$Think.HTML_STATIC}/img/bs3.png"/>
+                                            <input type="radio" name="bs" value="2" {if condition="($content.bs == 2)"} checked="checked" {/if}/>单张大图
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">封面图片：</label>
+                                <div class="col-sm-10" id="imgs">
+                                    <img style="margin-bottom: 10px;" data-id="{$askImgs.id}" class="caseimg" src="{$askImgs.pic_s}" width="100">
+                                    <button class="btn btn-primary" style="margin-top: 5px;" type="button" id="addimg">添加</button>
+                                    <input type="file" name="pic_s">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">文章内容</label>
+                                <div class="col-sm-10">
+                                    <script id="container" type="text/plain" style="width:100%;height:400px;"   name="question">{$content.question}</script>
+                                    <script type="text/javascript">
+                                    var ue = UE.getEditor('container');
+                                    </script>
+                                    <!--<textarea required style="width:100%;height:400px;" name="question" value="{$content.question}" class="s4"></textarea>-->
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">浏览量</label>
+                                <div class="col-sm-2">
+                                    <input readonly="readonly" class="form-control" placeholder="展示浏览量"  onkeyup="onlyNonNegative(this)" value="{$sum = $content.click+$content.click_s}">
+                                </div>
+                                <div class="col-sm-1 cen">=</div>
+                                <div class="col-sm-2">
+                                    <input readonly="readonly" class="form-control" placeholder="真实浏览量" name="click" onkeyup="onlyNonNegative(this)" value="{$content.click}">
+                                </div>
+                                <div class="col-sm-1 cen">+</div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" placeholder="虚拟浏览量" name="click_s" onkeyup="onlyNonNegative(this)" value="{$content.click_s}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <!--<div class="form-group">
+                                <label class="col-sm-2 control-label">发布者：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入发布者" name="author" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>-->
+
+                                <div style="display: none"  id="sids">
+
+                                </div>
+                            <input type="hidden" value="{$id}" name="id"  />
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    {:token()}
+                                    <button class="btn btn-white col-sm-5 col-sm-offset-1 cj" type="submit">保存到草稿</button>
+                                    <button class="btn btn-primary col-sm-5 col-sm-offset-1 save" type="submit">保存并发布</button>
+                                </div>
+
+                            </div>
+                            <input type="hidden">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        $('.cj').click(function () {
+            $(this).parents('.form-horizontal').attr('action',"{:url('alter',['specialclass'=>1])}")
+        });
+
+        var classstr = '<?php echo json_encode($class_arr); ?>'
+        classarr = JSON.parse(classstr);
+        $('#class_first').change(function () {
+            var f_id = $(this).val()
+            if(f_id){
+                $('#class_second').html('');
+            }
+            var _html = '';
+            for (x in classarr[f_id]['child']){
+                _html += '<option value="'+x+'">'+classarr[f_id]['child'][x]+'</option>'
+            }
+            $('#class_second').html(_html);
+        })
+
+        var classstr = '<?php echo json_encode($class_arr); ?>'
+        classarr = JSON.parse(classstr);
+        if($('#class_first').val()!=''){
+
+            var f_id = $('#class_first').val();
+            var f_sid = {if isset($content['class_first'])&&$content['class_second']!=''} {$content['class_second']}{else /}null{/if};
+            var _html = '<option value="">请选择二级分类</option>';
+            for (x in classarr[f_id]['child']){
+                if(f_sid==x){
+                    _html += '<option value="'+x+'" selected>'+classarr[f_id]['child'][x]+'</option>'
+                }else{
+                    _html += '<option value="'+x+'">'+classarr[f_id]['child'][x]+'</option>'
+                }
+            }
+            $('#class_second').html(_html);
+        }
+
+
+        $('.adduser').click(function()
+        {
+            layer.open({
+                type: 2,
+                area: ['70%', '90%'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '{:url("Ask/selectUid")}'
+            });
+        });
+        $('#addimg').click(function(){
+            $('#imgs').append('<div class="input-group m-b"><span class="input-group-addon"><input type="radio" name="default_img" value="0">默认</span> <input type="file" name="pic[]" class="form-control"/> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            again();
+        });
+        $("#imgs").on("click",".del",function(){
+            $(this).parent().parent().remove();
+            again();
+        });
+
+        //对上传图片的默认单选按钮 重新赋值
+
+        function again()
+        {
+            i=0;
+            $("#imgs  input[type='radio']").each(function(){
+                $(this).val(i);
+                i=i+1;
+            })
+        }
+
+        //通过2步做到输入的为非负数
+        //1.去掉多余的小数点
+        //2.保证只能输入小数点或数字
+        function onlyNonNegative(obj) {
+            var inputChar = event.keyCode;
+            //alert(event.keyCode);
+
+            //1.判断是否有多于一个小数点
+            if(inputChar == 190) { //输入的是否为.
+                var index1 = obj.value.indexOf(".") + 1; //取第一次出现.的后一个位置
+                var index2 = obj.value.indexOf(".", index1);
+                while(index2 != -1) {
+                    //alert("有多个.");
+
+                    obj.value = obj.value.substring(0, index2);
+                    index2 = obj.value.indexOf(".", index1);
+                }
+            }
+            //2.如果输入的不是.或者不是数字，替换 g:全局替换
+            obj.value = obj.value.replace(/[^(\d|.)]/g, "");
+        }
+        <!-- 一分钟保存一次 -->
+        $(function () {
+                setInterval(function ajax() {
+                    var sid = $('#data_id').val();
+                    if(typeof(sid)=='undefined'){
+                        $.ajax({
+                            type:'post',
+                            data:$("form").serialize(),
+                            url:"{:url('titlesave')}",
+                            dataType: "json",
+                            success:function (data) {
+                                if(data.code==1){
+                                    var sid = '<input type="hidden" name="sids" id="data_id" value="'+data.data+'"}>'
+                                    $('#sids').html(sid);
+                                }
+                            }
+                        })
+                    }else {
+                        $.ajax({
+                            type:'post',
+                            data:$("form").serialize(),
+                            url:"{:url('titleedit')}",
+                            dataType: "json",
+                            success:function (data) {
+                                if(data.code==1){
+
+                                }else {
+                                    layer.msg('保存失败');
+                                }
+                            }
+                        })
+                    }
+                },60000)//60000
+
+        })
+    </script>
+</body>
+</html>

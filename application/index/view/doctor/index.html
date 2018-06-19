@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=no" name="viewport" id="viewport">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/mui.picker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/mui.poppicker.css" rel="stylesheet" />
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/doctor.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/doctor2.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        .cjhos img{width: 2rem;height: 1.75rem;}
+        .doclist p{padding-top: 0;}
+        .doclist p.cjtx img{width: 7rem;height: 7rem;}
+        #header .mui-pull-left img{margin-top: 1.25rem;}
+        #header a.mui-pull-right img{margin-top: 1.2rem;}
+        .doclist p.name span{font-weight: normal;}
+        .cjconsult span{width: 50%;}
+		header h1.mui-title{font-weight: normal;}
+    </style>
+</head>
+<body class="bodyb">
+<header id="header" class="mui-bar mui-bar-nav" style="z-index: 1000001">
+    <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <h1 class="mui-title">医生团队</h1>
+
+    <!--<a class="mui-icon mui-icon-search mui-pull-right" onclick="location.href='{:url('search/index',['sType'=>1])}'"></ a>-->
+</header>
+<div style="height:4.4rem;"></div>
+
+{volist name='doctors' id='vo'}
+<a href="{:url('detail',['id'=>$vo.id])}">
+    <div class="doclist">
+        <div class="docimname">
+            <p class="cjtx mui-pull-left"><img src="{$vo.pic}" /></p>
+            <p class="name"><span>{$vo.docname}</span></p>
+            <ul class="cjtitle">
+                <li>{$vo.position}</li>
+                <li>{$vo.positional_titles}</li>
+            </ul>
+            <div class="cjhos">
+                <img src="{$Think.HTML_STATIC}/images/19.png"/>
+                <span>就职院部:</span>
+                <span>{$vo.hospital.hosname}</span>
+            </div>
+        </div>
+        <img class="cjsj" src="{$Think.HTML_STATIC}/images/20.png"/>
+    </div>
+</a>
+{/volist}
+<div class="cjconsult">
+    <span class="cjconsult-phone mui-pull-left"><a href="tel:400-888-6667"><img src="{$Think.HTML_STATIC}/images/23.jpg"/></a></span><span class="cjOnline mui-pull-right"><a href="https://www.sobot.com/chat/h5/index.html?sysNum=4bd44e32f01b4e50b69273c9626193c4&source=1"><img src="{$Think.HTML_STATIC}/images/22.jpg"/></a></span>
+</div>
+
+
+<!--下拉加载-->
+<div id="loadinguser"></div>
+<?php if($count>8){ ?>
+<div id="loading" class="lmore">下拉加载更多...</div>
+<?php } if($count==0){ ?>
+<div id="wushuju" class="lmore">没有找到任何数据，试试其他选项</div>
+<?php } ?>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+{include file="public/global_footer" /}
+<script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.picker.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.poppicker.js"></script>
+<script>
+
+    $("#showHos").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }
+        $(this).children('img').attr('src','/static/index/images/ld.png');
+        $(this).addClass('on');
+        $("#showPro").children('img').attr('src','/static/index/images/dowojt.jpg');
+        $("#showPro").removeClass('on');
+        if($('.xldj').css('display')=='block')
+        {
+            $('.xldj').hide();
+            $('.xlpro').hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xldj').show();
+            $('.xlpro').hide();
+        }
+
+    });
+
+    $("#showPro").click(function(){
+        if($('.mbnoimg').length==0)
+        {
+            $('body').append("<div class='mbnoimg'></div>");
+        }
+        $(this).children('img').attr('src','/static/index/images/ld.png');
+        $(this).addClass('on');
+        $("#showHos").children('img').attr('src','/static/index/images/dowojt.jpg');
+        $("#showHos").removeClass('on');
+        if($('.xlpro').css('display')=='block')
+        {
+            $('.xlpro').hide();
+            $('.xldj').hide();
+            $('.mbnoimg').remove();
+        }
+        else
+        {
+            $('.xlpro').show();
+            $('.xldj').hide();
+        }
+
+    });
+
+    //下拉加载用户数据
+    var a = 0;
+    var offsize = 10;//起始位置(查询数据表时的起始位置)
+    $(document).ready(function(){
+        var range = 50;//距下边界长度/单位px
+        var totalheight = 0;
+        var main = $("#loadinguser");//主体元素
+        $(window).scroll(function(){
+            var srollPos = $(window).scrollTop();
+            totalheight = parseFloat($(window).height()) + parseFloat(srollPos);
+            if(($(document).height()-range) <= totalheight) {
+                if(a==0)
+                {
+                    a = 1;
+                    $('#loading').html("正在努力为您加载...");
+                    $.post("{:url('nextPage')}",{
+                        offsize:offsize,
+                        pid:'{$pid}',
+                        hid:{$hid}
+                    },function(data){
+
+                        if(data==0)
+                        {
+                            $('#loading').html("已为您加载全部");
+                            a = 0;
+                        }
+                        else
+                        {
+                            main.append(data);
+                            offsize = offsize+10;
+                            a = 0;
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

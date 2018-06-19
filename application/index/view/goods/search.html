@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{$Think.config.sitename}</title>
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.5, user-scalable=0">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/search1.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <style>
+        .history {text-align: center;}
+        #idNumber1 {width:82%;overflow: hidden;text-align: left;height: 2rem;border:none;border-radius: 1rem;font-size: 14px;}
+        .delete:after {clear: both;content: '.';display: block;width: 0;height: 0;visibility: hidden;}
+        .delete>div {background:#fff;width:96%;margin:0 auto;height:4rem;line-height:4rem;border-bottom: 1px solid #f0f0f0;text-align: left;padding-left:.8rem;font-size: 1.3rem;box-sizing:border-box;}
+        #search {width:100%;height:2rem;font-size: 16px;line-height: 14px;color: #000;padding-bottom: 2px;display:block;}
+        #his-dele {background:#fff;width:100%;display: inline-block;box-sizing:border-box;display: block;text-align:left;padding-left:0.8rem;font-size: 1.5rem;color:#666666;border-bottom: 1px solid #f0f0f0;margin-top:6rem;padding-bottom:0.6rem;}
+        #idNumber1 input[type="image"]{width: 1.16rem;height: 1.16rem;float: left;margin-right: .42rem;}
+        #idNumber1 input[type="text"]{height: 1.16rem;line-height: 1.16rem;float: left;color: #878787;text-align: left;font-size: .62rem;background: none;}
+        p {width: 100%;overflow: hidden;clear: both;background:none;text-align: left;padding-left: 1rem;padding-top: 1rem;box-sizing: border-box;}
+        #header input{height:3rem;}
+        #header .mui-pull-left img{width: 1rem;height: 1.75rem;margin-top: 1.25rem;}
+    </style>
+</head>
+<body style="background:#fff;">
+<header id="header" class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-pull-left" onclick="window.location.href='{:url(\"goods/index\")}'"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
+    <img src="{$Think.HTML_STATIC}/images/27.png" style="position: absolute;top:1.4rem;left:4rem;width:1.6rem;height:1.6rem;" />
+    <input type="text" class="" id="idNumber1"  style="margin-left:1rem;outline-style: none;background-color: #eee;text-indent:3rem;text-overflow:ellipsis;">
+    <div class="cjsearch mui-pull-right"><button id="search" style="border:none;color:#4a4a4a;">搜索</button></div>
+</header>
+
+<div class="history" id="his-dele">历史搜索
+    <img id='delico' src="{$Think.HTML_STATIC}/images/del.png" style="width:4%;display: inline-block;float:right;margin-right:0.8rem;"/>
+</div>
+
+<div class="delete history" id='hlist' style="width: 100%;margin-top:0;color:#999999;font-size:1.3rem;">
+    {volist name="list" id="vo"}
+    <div class="word-break" id="" style=" z-index: 1000;"><a href="{:url('goods/goodslist')}?gdname={$vo.so_name}">{$vo.so_name}</a></div>
+    {/volist}
+</div>
+
+
+
+
+<!--清空历史记录-->
+
+<script>
+    // $(document).delegate(".delete>div", "click", function() {
+    //     $("#idNumber1").val($(this).text());
+    // });
+
+    // /*搜索记录相关*/
+    // //从localStorage获取搜索时间的数组
+    // var hisTime;
+    // //从localStorage获取搜索内容的数组
+    // var hisItem;
+    // //从localStorage获取最早的1个搜索时间
+    // var firstKey;
+
+    // function init() {
+    //     //每次执行都把2个数组置空
+    //     hisTime = [];
+    //     hisItem = [];
+    //     //模拟localStorage本来有的记录
+    //     //localStorage.setItem("a",12333);
+    //     //本函数内的两个for循环用到的变量
+    //     var i = 0
+    //     for(; i < localStorage.length; i++) {
+    //         if(!isNaN(localStorage.key(i))) {
+    //             hisItem.push(localStorage.getItem(localStorage.key(i)));
+    //             hisTime.push(localStorage.key(i));
+    //         }
+    //     }
+    //     i = 0;
+    //     //执行init(),每次清空之前添加的节点
+    //     $(".delete").html("");
+    //     for(; i < hisItem.length; i++) {
+    //         //alert(hisItem);
+    //         $(".delete").prepend('<div class="word-break" id=""style=" z-index: 1000;">' + hisItem[i] + '</div>')
+    //     }
+    // }
+    // init();
+
+    $("#search").click(function() {
+        var value = $("#idNumber1").val();
+        var time = (new Date()).getTime();
+
+        if(!value) {
+            alert("请输入搜索内容");
+            return false;
+        }
+        window.location.href="{:url('goods/goodsList')}?gdname="+value;
+        // //输入的内容localStorage有记录
+        // if($.inArray(value, hisItem) >= 0) {
+        //     for(var j = 0; j < localStorage.length; j++) {
+        //         if(value == localStorage.getItem(localStorage.key(j))) {
+        //             localStorage.removeItem(localStorage.key(j));
+        //         }
+        //     }
+        //     localStorage.setItem(time, value);
+        // }
+        // //输入的内容localStorage没有记录
+        // else {
+        //     //由于限制了只能有6条记录，所以这里进行判断
+        //     if(hisItem.length > 10) {
+        //         firstKey = hisTime[0]
+        //         localStorage.removeItem(firstKey);
+        //         localStorage.setItem(time, value);
+        //     } else {
+        //         localStorage.setItem(time, value)
+        //     }
+        // }
+        // init();
+        //正式的时候要提交的！！！
+        //$("#form1").submit()
+
+    });
+
+    //清除记录功能
+    $("#delico").click(function() {
+        $.ajax({
+            type: "get",
+            url: '{:url("goods/searchdel")}',
+            dataType: "json",
+            success: function(data){
+                if(data.code==1)
+                {
+                    $('#hlist').html('');
+                }
+            }
+        });
+    });
+    //苹果手机不兼容出现input无法取值以下是解决方法
+    $(function() {
+        $('.word-break').click(function() {
+            var div = $(this).text();
+            $('#idNumber1').val(div);
+        })
+        //取到值以后button存储无法取值，这里强迫浏览器强行刷新可解决
+        // $('#search').click(function() {
+        //     window.location.reload();
+        // })
+    })
+</script>
+</body>
+</html>
