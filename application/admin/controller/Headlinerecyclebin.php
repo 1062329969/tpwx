@@ -17,13 +17,13 @@ class Headlinerecyclebin extends Admin
 {
     protected $modelName='';
     public function _initialize(){
-//        parent::_initialize();
+        parent::_initialize();
         $this->modelName=new AskModel;
 
     }
 
     private function getwhere($datas){
-        $where = ['specialclass'=>0,'del'=>1];
+        $where = ['del'=>1];
         //搜索内容关键词
         $arr = ['qtitle','question','author'];
         foreach ($arr as $k=>$v){
@@ -40,9 +40,11 @@ class Headlinerecyclebin extends Admin
             $timearr = explode(' - ',$datas['time_starandend']);
             $where['create_time'] = [
                 ['>=',strtotime($timearr['0'])],
-                ['<=',strtotime($timearr['0'])],
+                ['<=',strtotime($timearr['1'])+86400],
             ];
         }
+
+
         if(Session::get('adminid') !=1){
             $where['admin_user'] = Session::get('adminid');
         }
@@ -69,6 +71,7 @@ class Headlinerecyclebin extends Admin
         $datas = input('param.');
         $data = input('param.lname');
         $statuss = input('param.lstatus');
+        $fids = input('param.fids');
 
         //兼容搜索时 没有查询此字段或者导航进来没有查询
         $class_first = isset($datas['class_first'])?$datas['class_first']:'';
@@ -98,6 +101,7 @@ class Headlinerecyclebin extends Admin
         if(isset($datas['fid'])){
             $this->assign('fid',$datas['fid']);
         }
+        $this->assign('fids',$fids);
         $this->assign('datas',$datas);
         $this->assign('category',$category);
         $this->assign('data',$data);

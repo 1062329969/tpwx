@@ -75,7 +75,7 @@ span{color:red;}
                                 <label class="col-sm-2 control-label">文章分类<span>*</span></label>
                                 <div class="col-sm-2">
 
-                                    <select class="form-control m-b s2" id="class_first" name="class_first">
+                                    <select class="form-control m-b s2" id="class_first" name="class_first" style="width:120%;" required>
                                         <option value="">请选择一级分类</option>
                                         {foreach name="class_arr" item="vo" key="k" }
                                             <option value='{$k}'>{$vo.name}</option>
@@ -84,7 +84,7 @@ span{color:red;}
                                 </div>
                                 <div class="col-sm-2">
 
-                                    <select class="form-control m-b s2" id="class_second" name="class_second">
+                                    <select class="form-control m-b s2" id="class_second" name="class_second" style="width:120%;" required>
                                         <option value="">请选择二级分类</option>
                                     </select>
 
@@ -95,8 +95,8 @@ span{color:red;}
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">文章状态</label>
                                 <div class="col-sm-10">
-                                    <div class="col-sm-2"><input type="radio" name="dis" checked/>显示</div>
-                                    <div class="col-sm-2"><input type="radio" name="dis"/>隐藏</div>
+                                    <div class="col-sm-2"><input type="radio" name="status" value="1" checked/>显示</div>
+                                    <div class="col-sm-2"><input type="radio" name="status" value="0"/>隐藏</div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -104,8 +104,8 @@ span{color:red;}
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">是否推荐</label>
                                 <div class="col-sm-10">
-                                    <div class="col-sm-2"><input type="radio" name="recommend" />是</div>
-                                    <div class="col-sm-2"><input type="radio" name="recommend" checked/>否</div>
+                                    <div class="col-sm-2"><input type="radio" name="recommend" value="0" />是</div>
+                                    <div class="col-sm-2"><input type="radio" name="recommend" value="1" checked/>否</div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -113,8 +113,8 @@ span{color:red;}
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">是否精选</label>
                                 <div class="col-sm-10">
-                                    <div class="col-sm-2"><input type="radio" name="selecteds" />是</div>
-                                    <div class="col-sm-2"><input type="radio" name="selecteds" checked/>否</div>
+                                    <div class="col-sm-2"><input type="radio" name="selecteds" value="0" />是</div>
+                                    <div class="col-sm-2"><input type="radio" name="selecteds" value="1" checked/>否</div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -158,6 +158,15 @@ span{color:red;}
                                         <input type="file" name="pic_s[]" class="form-control"/>-->
                                         <!--<span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span>-->
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">首页头条封面图：</label>
+                                <div class="col-sm-10">
+                                    <img style="margin-bottom: 10px;" class="caseimg" src="" width="100">
+                                    <input type="file" name="home_pic_s">
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>

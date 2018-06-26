@@ -89,16 +89,16 @@ class AskModel extends Model
 
         if($ppid == 4){
             //推荐
-            $orders = 'recommend desc';
+            $orders = 'sort desc,recommend desc';
         }elseif ($ppid ==3){
             //热榜
-            $orders = 'click desc';
+            $orders = 'sort desc,click desc';
         }elseif ($ppid == 2){
             //精选
-            $orders = 'selecteds desc';
+            $orders = 'sort desc,selecteds desc';
         }else{
             //最新
-            $orders = 'create_time desc';
+            $orders = 'sort desc,create_time desc';
         }
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
     }
@@ -106,6 +106,7 @@ class AskModel extends Model
 
     //大图
     public static function f_ones($ppid,$page=6,$offsize=0)
+
     {
         $where['status']=1;
         $where['del']=0;
@@ -115,16 +116,16 @@ class AskModel extends Model
 
         if($ppid == 4){
             //推荐
-            $orders = 'recommend desc';
+            $orders = 'sort desc,recommend desc';
         }elseif ($ppid ==3){
             //热榜
-            $orders = 'click desc';
+            $orders = 'sort desc,click desc';
         }elseif ($ppid == 2){
             //精选
-            $orders = 'selecteds desc';
+            $orders = 'sort desc,selecteds desc';
         }else{
             //最新
-            $orders = 'create_time desc';
+            $orders = 'sort desc,create_time';
         }
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
     }
@@ -137,9 +138,9 @@ class AskModel extends Model
         $where['bs'] = 1;
         $orders = "";
         if($ppid == 2){
-            $orders = 'click desc';
+            $orders = 'sort desc,click desc';
         }elseif ($ppid ==1){
-            $orders = 'create_time desc';
+            $orders = 'sort desc,create_time desc';
         }
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
     }
@@ -163,7 +164,7 @@ class AskModel extends Model
     {
         $where['fid'] = $tid;
         $where['status']=1;
-        $where['bs'] = 1;
+        $where['bs'] = 2;
         $orders = "";
         if($ppid == 2){
             $orders = 'click desc';
@@ -195,13 +196,14 @@ class AskModel extends Model
     {
         $where['fid'] = $aid;
         $where['bs'] = 1;
+        $where['status']=1;
 
 //        $arr = array('fid'=>$aid);
         $orders = "";
         if($ppid ==1){
-            $orders= 'create_time desc';
+            $orders= 'sort desc,create_time desc';
         }elseif ($ppid == 2){
-            $orders= 'click desc';
+            $orders= 'sort desc,click desc';
         }
 
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
@@ -211,13 +213,14 @@ class AskModel extends Model
     {
         $where['fid'] = $aid;
         $where['bs'] = 2;
+        $where['status']=1;
 
 //        $arr = array('fid'=>$aid);
         $orders = "";
         if($ppid ==1){
-            $orders= 'create_time desc';
+            $orders= 'sort desc,create_time desc';
         }elseif ($ppid == 2){
-            $orders= 'click desc';
+            $orders= 'sort desc,click desc';
         }
 
         return self::where($where)->order($orders)->limit($offsize,$page)->select();

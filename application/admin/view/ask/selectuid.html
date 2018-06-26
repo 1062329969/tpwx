@@ -11,9 +11,26 @@
 <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
 <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
 <style>
+    .clearfix:after{
+        content: "";
+        display: block;
+        clear:both;
+        height:0;
+        overflow: hidden;
+    }
+    .clearfix{
+        zoom:1;
+    }
     .form-group{background:#fff;margin-bottom:0;}
     .btn-danger{background:#dedede;border:none;}
     .btn-cancel{background:#dedede;color:#fff;}
+
+    .row{margin-left:0;margin-right:0;}
+    input{line-height:30px;margin-top:20px;}
+    .m-b{height:34px;line-height:30px;margin-top:20px;}
+    label{margin-top:20px;margin-left:10px;line-height:34px;}
+    .float-e-margins .btn{height:30px;text-align:center;width:100px;display:inline-block;}
+    .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{padding:0;}
 </style>
 </head>
 <body class="gray-bg">
@@ -40,27 +57,29 @@
 
                     <div class="ibox-content">
                         <div class="table-responsive">
-                            <div class="form-group clear-fix">
-                                <label class="col-sm-1 control-label">用户昵称<input type="text" name="wechaname" value="<?php if(isset($wechaname)){ ?>{$wechaname}<?php } ?>" /></label>
-
-                                <label class="col-sm-1 control-label">用户分类</label>
-                                <div class="col-sm-3">
-                                    <select class="form-control m-b s2" name="fido">
+                            <div class="row form-group clear-fix">
+                                    <label class="col-sm-1 col-xs-1 col-md-1 control-label" style="width:60px;">用户昵称</label>
+                                    <input class="col-sm-4 col-xs-4 col-md-6 " type="text" name="wechaname" value="<?php if(isset($wechaname)){ ?>{$wechaname}<?php } ?>" placeholder="请输入昵称搜索"/>
+                            </div>
+                            <div class="row form-group clear-fix">
+                                <div class="col-sm-8">
+                                    <label class="col-sm-1 col-md-1 control-label">用户分类</label>
+                                    <select class="m-b s2 col-sm-2 col-md-4" name="fido">
                                         <option value="">请选择一级分类</option>
                                     </select>
-                                </div>
-                                <div class="col-sm-3">
-                                    <select class="form-control m-b s3" name="fidt">
+                                    <select class="m-b s3 col-sm-2 col-md-4" name="fidt" style="margin-left:10px;">
                                         <option value="">请选择二级分类</option>
                                     </select>
                                 </div>
-                              <button type="submit" class="btn btn-primary adduser">搜索</button>
+                            </div>
+                            <div class="row">
+                                <button type="submit" class="btn btn-primary adduser col-sm-2 col-md-2 col-xs-offset-5 col-sm-offset-5 col-md-offset-5" style="display:block;">搜索</button>
                             </div>
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th width="15%">头像</th>
-                                        <th width="10%">昵称</th>
+                                        <th width="15%">昵称</th>
                                         <!--<th width="10%">用户类别</th>
                                         <th width="10%">性别</th>
                                         <th width="10%">生日</th>
@@ -87,11 +106,21 @@
                                     {/volist}
                                 </tbody>
                             </table>
-                            {$user_info->render()} <div class="pagesc">共计：{$user_info->total()}条</div>
-                            <div class="col-sm-12">
-                                <button type="button" class="btn adduser col-sm-3 col-sm-offset-2 btn-danger">确定</button>
-                                <button type="button" class="btn adduser col-sm-3 col-sm-offset-2 btn-cancel">取消</button>
+                            <div class="row pagesc pull-right" style="width:100%;">
+                                <!--分页-->
+                                <div class="pagesc" style="/*float:right;*/">{$user_info->total()}条 共：{$user_info->lastPage()}页</div>{$user_info->render()}
+                                <form class="pagesc" method="get" action="{:url('selectuid')}" style="margin: 20px;">
+                                    <div style="margin-left:10px;">
+                                        转向第
+                                        <input type="number" name="page" style="width:5%;" min="1"/>页
+                                        <button type="submit" class="btn btn-primary">确定</button>
+                                    </div>
+                                </form>
                             </div>
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn adduser col-sm-1 col-xs-1 col-sm-offset-4 col-xs-offset-4 btn-danger col-md-offset-5">确定</button>
+                            <button type="button" class="btn adduser col-xs-1 col-sm-1  col-xs-offset-4 col-sm-offset-2 col-md-offset-2 btn-cancel" style="margin-left:50px;">取消</button>
                         </div>
                     </div>
                 </div>
@@ -115,12 +144,14 @@
                      if(n.is(":checked")){
                          id=$(this).find("td input.rad").attr('data-id');
                          $(".uid",window.parent.document).attr("value",id);//子窗口给父窗口元素赋值
-                         alert('选择成功，请关闭当前窗口');
+                         //alert('选择成功，请关闭当前窗口');
+                         var index = parent.layer.getFrameIndex(window.name);
+                         setTimeout(function(){parent.layer.close(index)}, 100);
                      }
                  });
              });
              $('.btn-cancel').click(function(){
-                 alert('取消操作，请关闭当前窗口')
+                 alert('取消操作，请关闭当前窗口');
              });
 		 });
     </script>

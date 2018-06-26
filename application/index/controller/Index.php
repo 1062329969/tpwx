@@ -167,7 +167,7 @@ class Index extends Wap
         $doctor =  Db::name('forum_onetype')
             ->alias('a')
             ->join('ask b','a.id  = b.fid')
-            ->where(['b.fid'=>36])
+            ->where(['b.fid'=>36,'b.specialclass'=>0,'b.del'=>0,'b.status'=>1])
             ->order('create_time desc')
             ->limit('0,3')
             ->select();
@@ -175,7 +175,7 @@ class Index extends Wap
         $hair_askr = Db::name('forum_onetype')
             ->alias('a')
             ->join('ask b','a.id  = b.fid')
-            ->where(['b.fid'=>37])
+            ->where(['b.fid'=>37,'b.specialclass'=>0,'b.del'=>0,'b.status'=>1])
             ->order('create_time desc')
             ->limit('0,3')
             ->select();
@@ -184,7 +184,7 @@ class Index extends Wap
         $experience = Db::name('forum_onetype')
             ->alias('a')
             ->join('ask b','a.id  = b.fid')
-            ->where(['b.fid'=>38])
+            ->where(['b.fid'=>38,'b.specialclass'=>0,'b.del'=>0,'b.status'=>1])
             ->order('create_time desc')
             ->limit('0,3')
             ->select();
@@ -193,7 +193,7 @@ class Index extends Wap
         $first_aide = Db::name('forum_onetype')
             ->alias('a')
             ->join('ask b','a.id  = b.fid')
-            ->where(['b.fid'=>39])
+            ->where(['b.fid'=>39,'b.specialclass'=>0,'b.del'=>0,'b.status'=>1])
             ->order('create_time desc')
             ->limit('0,3')
             ->select();

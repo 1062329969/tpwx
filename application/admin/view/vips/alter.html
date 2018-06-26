@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+    <style type="text/css">
+        tr{
+            height: 50px;
+            line-height: 50px;
+        }
+        select{height: 30px;}
+        .row{margin-top: 20px;}
+        input[type=button]{margin-left: 50px;}
+        .title-nav{width: 100%;border-bottom: 1px solid #666;}
+        .title-nav span{padding:0 10px;line-height:40px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
+        .title-nav span.active{background: white;border-top:3px solid #15BBDC ;color: #15BBDC;}
+        /*.table{border: 1px solid #666;}*/
+        #typediv a{
+            display: inline-block;
+            width: 70px;
+            text-align: center;
+        }
+        .active{
+            background-color: rgba(0, 157, 217, 1);
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>您当前所在位置：粉丝&会员>会员管理</h5>
+                </div>
+                <div class="ibox-content">
+                    <div id="typediv" style="height: 38px;line-height: 30px;">
+                        <a class="active">基本资料</a>
+                        <a href="{:url('alterint',['id'=>$id])}">积分</a>
+                    </div>
+                    <div class="table-responsive" style="border: 1px rgb(228, 228, 228) solid;">
+                        <table class="table">
+                            <thead style="background-color: #f9f9f9">
+                            <tr>
+                                <th colspan="3">账号信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td width="20%">登录账号（绑定手机）：</td>
+                                <td>{$info.phonenum}</td>
+                                <td width="5%"></td>
+                            </tr>
+                            <tr>
+                                <td>登录密码</td>
+                                <td></td>
+                                <td><a href="javascript:;" onclick="editval('{$info.password}','password','登录密码')">修改</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="table-responsive" style="border: 1px rgb(228, 228, 228) solid;margin-top: 20px">
+                        <table class="table">
+                            <thead style="background-color: #f9f9f9">
+                            <tr>
+                                <th colspan="3">基本资料</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td width="20%">所在会员组：</td>
+                                <td><?php echo return_vipclass($id)['vc_name'] ?></td>
+                                <td width="5%"><a href="javascript:;" onclick="checks();">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>会员ID</td>
+                                <td>{$info.id}</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>头像</td>
+                                <td><img src="{$info.portrait}" style="width: 10%" /></td>
+                                <td><a href="javascript:;" onclick="editval('{$info.portrait}','portrait','头像')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>昵称</td>
+                                <td>{$info.wechaname}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.wechaname}','wechaname','昵称')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>真实姓名</td>
+                                <td>{$info.truename}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.truename}','truename','真实姓名')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>绑定手机</td>
+                                <td>{$info.phonenum}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.phonenum}','phonenum','绑定手机')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>身份证号码</td>
+                                <td>{$info.id_card}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.id_card}','id_card','身份证号码')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>性别</td>
+                                <td>{if $info.sex}{$info.sex}{else /}未知{/if}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.sex}','sex','性别')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>生日</td>
+                                <td>{$info.birthday|date='Y-m-d',###}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.birthday}','birthday','生日')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>现居地址</td>
+                                <td>
+                                    {$info.province}-
+                                    {$info.citys}-
+                                    {$info.areas}-
+                                    {$info.address}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.address}','address','现居地址')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>情感状态</td>
+                                <td>{$info.emotion}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.emotion}','emotion','情感状态')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>个性签名</td>
+                                <td>{$info.signature}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.signature}','signature','个性签名')">修改</a></td>
+                            </tr>
+                            <tr>
+                                <td>兴趣爱好</td>
+                                <td>{$info.hobby}</td>
+                                <td><a href="javascript:;" onclick="editval('{$info.hobby}','hobby','兴趣爱好')">修改</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/zclip/zclip.js"></script>
+
+<script>
+    function editval(vals,type,titles) {
+        layer.open({
+            title:'修改'+titles,
+            type: 2,
+            area :['800px','500px'],
+            content: "{:url('editval',['type'=>'"+type+"','id'=>$id])}"
+        });
+    }
+    function checks() {
+        $.ajax({
+            type: "post",
+            url: '{:url("checkvipclassset")}',
+            dataType: "json",
+            success: function(data){
+                if(data.code==1){
+                    editval('{vip.vc_name}','vipclass','会员组')
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        })
+
+    }
+</script>
+</body>
+</html>

@@ -50,7 +50,7 @@
                                             <tbody>
                                             {volist name="$h_class" id="vo"}
                                                 <tr>
-                                                    <th><button type="button" class="btn btn-outline btn-info" name="open" data-id='{$vo.hc_id}'>+</button></th>
+                                                    <th><button type="button" class="btn btn-outline btn-info" name="open" data-id='{$vo.hc_id}'>-</button></th>
                                                     <td>[ID:{$vo.hc_id}]{$vo.hc_name}</td>
                                                     <td><?php echo return_asum($vo['hc_id'],0); ?></td>
                                                     <td>
@@ -60,7 +60,7 @@
                                                     </td>
                                                 </tr>
                                                 {volist name='$vo.child' id='vos'}
-                                                    <tr name="tr_{$vo.hc_id}_{$vos.hc_id}" style="display: none;">
+                                                    <tr name="tr_{$vo.hc_id}_{$vos.hc_id}">
                                                         <th></th>
                                                         <td>[ID:{$vos.hc_id}]{$vos.hc_name}</td>
                                                         <td><?php echo return_asum($vos['hc_id'],$vos['hc_pid']); ?></td>
@@ -125,7 +125,6 @@
     <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
     <script>
         $(function () {
-
             $('#myTab li').click(function () {
                 var data_id = $(this).attr('data-id')
                 history.pushState(200, '', "{:url('index',['mid'=>'"+data_id+"'])}")
@@ -144,12 +143,12 @@
 
             $('button[name=open]').click(function () {
                 var id = $(this).attr('data-id');
-                if($(this).html()=='+'){
-                    $('tr[name^=tr_'+id+']').show();
-                    $(this).html('-')
-                }else{
+                if($(this).html()=='-'){
                     $('tr[name^=tr_'+id+']').hide();
                     $(this).html('+')
+                }else{
+                    $('tr[name^=tr_'+id+']').show();
+                    $(this).html('-')
                 }
             })
             $('.add').click(function () {
@@ -184,7 +183,7 @@
                             layer.msg('删除成功');
                             $(_self).parents('tr').remove();
                         }else{
-                            layer.msg('删除失败');
+                            layer.msg(data.msg);
                         }
                     }
                 });

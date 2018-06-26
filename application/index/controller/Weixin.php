@@ -66,6 +66,28 @@ class Weixin extends Controller
 				switch ($this->data["Event"]) {
 					//关注时触发
 					case 'subscribe':
+						try {
+							//实例化微信类
+							$Wxuserinfo = new  \app\admin\controller\Wxuserinfo();
+							//获取用户基本信息
+							$data = $Wxuserinfo->get_one_user_info($this->data['FromUserName']);
+							//转化成数组
+							$data = json_decode($data, true);
+							//开启事务处理保持一致性
+							Db::transaction(function() use($data)
+							{
+								if(Db::name('wx_user_info')->where('openid',$data['openid'])->find())
+								{
+									Db::name('wx_user_info')->where('openid',$data['openid'])->data($data)->update();
+								}else{
+									Db::name('wx_user_info')->insert($data);
+								}
+
+							});
+
+						} catch (\Exception $e) {
+							//数据异常
+						}
 						//关注自动回复
 						$wx_follow = Db::name('wx_follow')->limit(1)->find();
 						if (!empty($wx_follow['text'])) {

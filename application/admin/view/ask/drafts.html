@@ -16,9 +16,12 @@
 	.row{margin-top: 20px;}
 	input[type=button]{margin-left: 50px;}
 	.title-nav{width: 100%;border-bottom: 1px solid #666;}
-	.title-nav span{padding:0 10px;line-height:40px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
-	.title-nav span.active{background: white;border-top:3px solid #15BBDC ;color: #15BBDC;}
+    .title-nav span{color:#000;padding:0 10px;line-height:33px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
+	.title-nav span.active{background: #15BBDC;color: #ffffff;border:none;}
 	/*.table{border: 1px solid #666;}*/
+	label{text-align: center;}
+	.col-sm-4{padding-left: 0;}
+    .btn{padding: 6px 8px}
 </style>
 </head>
 <body class="gray-bg">
@@ -47,22 +50,25 @@
 
                         	<div>
                         		<div class="row">
-                        		<label class="col-md-4" >文章标题<input type="text" name="qtitle" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['qtitle']}<?php } ?>"/></label>
-                        		<label class="col-md-4">关键词<input type="text"  name="question" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['question']}<?php } ?>" /></label>
-                        		<label class="col-md-4">创建人<input type="text"   name="author" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['author']}<?php } ?>"/></label>
+                        		<label class="col-md-4 col-sm-4"><label class="col-md-4 col-sm-4">文章标题</label><input class="col-md-8 col-sm-8" type="text" name="qtitle" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['qtitle']}<?php } ?>"/></label>
+                        		<label class="col-md-4 col-sm-4"><label class="col-md-4 col-sm-4">内容关键词</label><input class="col-md-8 col-sm-8" type="text"  name="question" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['question']}<?php } ?>" /></label>
+                        		<label class="col-md-4 col-sm-4"><label class="col-md-4 col-sm-4">创建人</label><input class="col-md-8 col-sm-8" type="text"   name="author" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['author']}<?php } ?>"/></label>
                         		</div>
                         		<div class="row">
-                        		<label class="col-md-4">
-                        			后台分类
-                        			<select name="class_first">
+                        		<label class="col-md-4 col-sm-4">
+                        			<label class="col-md-4 col-sm-4">后台分类</label>
+                        			<select class="col-md-8 col-sm-8" name="class_first">
                         				<option value="">请选择一级分类</option>
                                         {volist name="$category" id="vo"}
                                         <?php if($vo['hc_pid']==0){?>
                         				    <option value="{$vo.hc_id}" {if isset($datas.class_first)&&$datas.class_first==$vo.hc_id}selected{/if}>{$vo.hc_name}</option>
                                         <?php } ?>
                                         {/volist}
-                        			</select>--
-                        			<select name="class_second">
+                        			</select>
+                        		</label>
+                        		<label class="col-md-4 col-sm-4">
+                        			<label class="col-md-4 col-sm-4">--</label>
+                        			<select class="col-md-8 col-sm-8" name="class_second">
                         				<option value="">请选择二级分类</option>
                                         {volist name="$category" id="vo"}
                                             <?php if($vo['hc_pid'] !==0){?>
@@ -71,22 +77,28 @@
                                         {/volist}
                         			</select>
                         		</label>
-                        		<label class="col-md-4">创建时间
-
-                                    <input id="sid" type="text" name="start_time" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['start_time']}<?php } ?>" />至
-                                    <input id="eid" type="text" name="over_time" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['over_time']}<?php } ?>" />
-                                </label>
-                        		<label class="col-md-4">显示状态
-                        			<select name="lstatus" style="height: 30px;margin-right: 50px">
-                                        <option value="">全部状态</option>
-                                            <option value="1" {if $statuss==1}selected{/if}>已显示</option>
-                                            <option value="2" {if $statuss==2}selected{/if}>已隐藏</option>
-                                    </select>
-                        		</label>
+                        		<!--<label class="col-md-4 col-sm-4"><label class="col-md-4 col-sm-4">显示状态</label>-->
+                        			<!--<select class="col-md-8 col-sm-8" name="lstatus" >-->
+                                        <!--<option value="">全部状态</option>-->
+                                            <!--<option value="1" {if $statuss==1}selected{/if}>已显示</option>-->
+                                            <!--<option value="2" {if $statuss==2}selected{/if}>已隐藏</option>-->
+                                    <!--</select>-->
+                        		<!--</label>-->
+                        		</div>
+                        		<div class="row">
+                        		<label class="col-md-4 col-sm-4">
+                        			<label class="col-md-4 col-sm-4">创建时间</label>
+                                    <input class="col-md-8 col-sm-8" id="sid" type="text" name="start_time" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['start_time']}<?php } ?>" />
+                                 </label> 
+                                <label class="col-md-4 col-sm-4">
+                                    <label class="col-md-4 col-sm-4">至</label>
+                                    <input class="col-md-8 col-sm-8" id="eid" type="text" name="over_time" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['over_time']}<?php } ?>" />
+                               	</label>
+                        		
                         		</div>
                         	</div>
 
-                                <div style="text-align: center;margin: 30px 0 50px">
+                                <div class="co-md-12 col-sm-12" style="text-align: center;margin: 30px 0 50px">
                                     <!--所属板块:
                                     <select name="lname" style="height: 30px;margin-right: 50px">
                                         <option value="">全部板块</option>
@@ -100,37 +112,36 @@
                                             <option value="1" {if $statuss==1}selected{/if}>显示</option>
                                             <option value="2" {if $statuss==2}selected{/if}>隐藏</option>
                                     </select>-->
-                                    <input type="submit" class="btn btn-primary" value="搜索">
-                                    <input type="button" class="btn btn-primary" value="重置条件">
+                                    <input type="submit" class="btn btn-primary col-md-1 col-sm-1 col-md-offset-5 col-sm-offset-5" value="搜索">
+                                    <button type="button" class="btn btn-primary col-md-1 col-sm-1" style="margin-left:50px">重置条件</button>
                                 </div>
-
                                 <div class="title-nav">
-                                    <?php if(empty($fid)){ ?>
+                                    <?php if(empty($fid)&& empty($fids)){ ?>
                                         <a href="{:url('drafts')}"><span class="all active">全部文章</span></a>
                                     <?php }else{ ?>
                                         <a href="{:url('drafts')}"><span >全部文章</span></a>
                                     <?php } ?>
 
                                     {foreach name="$list" item="vo" key="k"}
-                                        <a href="{:url('drafts',['fid'=>$k])}"><span {if !empty($fid)&&$fid==$k} class="active"{/if}>{$vo}</span></a>
+                                        <a href="{:url('drafts',['fid'=>$k])}"><span {if !empty($fid)&&$fid==$k || $fids == $k} name="fid" class="active"{/if}>{$vo}</span></a>
                                     {/foreach}
-                                	<!--<span class="boke">植发星播客</span>-->
-                                	<!--<span class="baoju">毛发情报局</span>-->
-                                	<!--<span class="xieshi">头发那些事</span>-->
+                                    <input type="hidden" name="fid" value="<?php if(!empty($fid)){ ?>{$fid}<?php } ?>">
+                                    <!--<span class="boke">植发星播客</span>-->
+                                    <!--<span class="baoju">毛发情报局</span>-->
+                                    <!--<span class="xieshi">头发那些事</span>-->
                                 </div>
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                    	<th width="5%"><input type="checkbox">全选</th>
-                                        <th width="5%">排序</th>
-                                        <th width="15%">标题</th>
-                                        <th width="10%">发布人</th>
-                                        <th width="10">所属板块</th>
-
-                                        <th width="15%">创建时间</th>
-                                        <th width="5">状态</th>
-                                        <th width="10%">预览地址</th>
-                                        <th width="20%">操作</th>
+                                    	<th width="8%"><input type="checkbox">全选</th>
+                                        <th width="8%">排序</th>
+                                        <th width="12%">标题</th>
+                                        <th width="5%">发布人</th>
+                                        <th width="13%">所属板块</th>
+                                        <th width="12%">创建时间</th>
+                                        <th width="5%">状态</th>
+                                        <th width="5%">预览地址</th>
+                                        <th width="32%">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -144,7 +155,7 @@
                                         <!--<td>{php}if($vo['status']==1){{/php}显示{php}}else{{/php}隐藏{php}}{/php}</td>-->
                                         <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
                                         <td>
-                                                <button type="button" class="btn btn-success btn-danger">待发布</button>
+                                            <button type="button" class="btn btn-success btn-danger">待发布</button>
                                         </td>
                                         <td>
                                             <a data-href="<?php echo think\Request::instance()->domain(); ?>/forum/detail/uid/{$vo.id}" class="btn btn-success copybutton" >复制链接</a>
@@ -158,10 +169,21 @@
                                     {/volist}
                                 </tbody>
                             </table>
-                            <div><input type="button" onclick="alldele()"  class="btn btn-primary" value="删除已选" /><input type="button" onclick="adds()" class="btn btn-primary" value="提交排序" /></div>
-                            <div></div>
-                            <div class="pagesc">共计：{$content->total()}条 共：{$content->lastPage()}页</div>{$content->render()}
-
+                            <div>
+                            	<input type="button" onclick="alldele()"  class="btn btn-primary" value="删除已选" /><input type="button" onclick="adds()" class="btn btn-primary" value="提交排序" />
+                            </div>
+                            <div class="row pagesc" style="width:52%;float: right;">
+                                <!--分页-->
+                                <div class="pagesc">共{$content->total()}条记录 共{$content->lastPage()}页</div>
+                                {$content->render()}
+                                <form class="pagesc" method="get" action="{:url('drafts')}" style="margin: 20px;">
+                                    <div style="margin-top:17px;margin-left:10px;">
+                                        <span>转向第</span>
+                                        <input type="number" name="page" style="width: 8%;" min="1"/>页
+                                        <button type="submit" class="btn btn-primary">确定</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                         </div>
 

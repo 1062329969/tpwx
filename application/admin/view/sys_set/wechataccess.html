@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>站点配置</title>
+		<link rel="shortcut icon" href="favicon.ico">
+		<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+		<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+		<link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+		<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+		<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+		<style>
+			.control-label font {
+				color: #F00;
+			}
+			
+			.form-group,
+			.m-b {
+				margin-bottom: 5px;
+			}
+			
+			.hr-line-dashed {
+				margin: 5px 0px;
+			}
+			
+			.step {
+				text-align: center;
+			}
+			
+			.row {
+				margin-top: 50px;
+			}
+			input{height: 30px;}
+			select{height: 30px;}
+			.cj-btn{margin: 200px 0;text-align: center;}
+			form{width: 100%;margin-top: 50px;}
+			font{color: red;}
+			textarea{width: 100%;}
+			.hr-line-dashed{margin: 20px 0;}
+			p{color: #15BBDC;cursor: pointer;}
+		</style>
+	</head>
+
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeInRight">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<h5>您当前所在位置：平台设置>微信公众号接入</h5>
+						</div>
+						<div class="ibox-content">
+							<!--步骤一-->
+							<form class="bs-example bs-example-form"  action="" role="form">	
+								<div class="row">
+									<div class="col-md-12 col-sm-12 step">
+										<img class="col-sm-12 col-md-8 col-md-offset-2" src="{$Think.HTML_STATIC}/img/112.png" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+																		
+												<label class="col-md-2 col-sm-2">设置站点域名</label>
+												<div class="input-group col-md-8 col-sm-8 ">
+													<select class="col-md-2 col-sm-2">
+														<option>http://</option>
+														<option>https://</option>
+													</select>
+													<input type="text" class="col-md-10 col-sm-10">
+												</div>
+										
+									</div>
+									<div class="col-md-12 col-sm-12">
+										<label class="col-md-2 col-sm-2"></label>
+										<div class=" col-md-8 col-sm-8">
+											填写当前站点域名，根据实际情况填写，例如：http://yf.zhifa.cn或者https://yf.zhifa.cn
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div  class="col-md-12 col-sm-12 cj-btn">
+										<button class="btn btn-primary step1" type="button">下一步</button>
+									</div>
+								</div>
+							</form>
+							<!--步骤二-->
+							<form method="post" class="form-horizontal" style="display: none;" action="">
+							<div class="row">
+									<div class="col-md-12 col-sm-12 step">
+										<img class="col-sm-12 col-md-8 col-md-offset-2" src="{$Think.HTML_STATIC}/img/113.png" />
+									</div>
+								</div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 control-label">公众号名称<font>*</font></label>
+                                <div class="col-sm-10">
+                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                </div>
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+									填写公众号的名称
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述</label>
+                                <div class="col-sm-10">
+                                    <textarea name="" rows="10" ></textarea>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">公众号账号<font>*</font></label>
+                                <div class="col-sm-10">
+                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                </div>
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+									填写公众号登录账号，一般为英文账号
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">原始ID<font>*</font></label>
+                                <div class="col-sm-10">
+                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                </div>
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+									在给粉丝发送客服消息时,原始ID不能为空。建议您完善该选项
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">公众号类型<font>*</font>：</label>
+                                <div class="col-sm-10">
+                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />普通订阅号</label>
+                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />普通服务号</label>
+                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />认证订阅号</label>
+                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />认证服务号/认证媒体/政府订阅号</label>
+                                </div>
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+									注意：即使公众平台显示为“未认证”, 但只要【公众号设置】/【账号详情】下【认证情况】显示资质审核通过, 即可认定为认证号.
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">开发者ID(AppID)<font>*</font></label>
+                                <div class="col-sm-10">
+                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                </div>
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+									请填写微信公众平台后台的AppId
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">开发者密码(AppSecret)<font>*</font></label>
+                                <div class="col-sm-10">
+                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                </div>
+                                <label class="col-sm-2 control-label"></label>
+                                <div class="col-sm-10">
+									请填写微信公众平台后台的AppSecret, 只有填写这两项才能管理自定义菜单
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">设置IP白名单<font>*</font></label>
+                                <div class="col-sm-10">
+                                    通过开发者ID及密码调用获取access_token接口时，需要设置访问来源IP为白名单。开发者需要在【基本配置】中设置服务器IP白名单
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+							<div class="form-group">
+                                <label class="col-sm-2 control-label">Oauth 2.0<font>*</font></label>
+                                <div class="col-sm-10">
+			在微信公众号请求用户网页授权之前，开发者需要先到公众平台网站的【开发者中心】网页服务中配置授权回调域名。
+                                </div>
+                            </div>
+                            
+                            <div class="hr-line-dashed"></div>
+							<div class="form-group">
+	                            <label class="col-sm-2 control-label">公众号头像：</label>
+	                            <div class="col-sm-10">
+	                                <img style="margin-bottom: 10px;" class="caseimg" src="" width="100">
+	                                <input type="file" name="smallimg">
+	                                建议上传图片尺寸，300px * 300px
+	                            </div>
+	                        </div>
+                            <div class="hr-line-dashed"></div>
+                            
+                            <div class="form-group">
+	                            <label class="col-sm-2 control-label">公众号二维码：</label>
+	                            <div class="col-sm-10">
+	                                <img style="margin-bottom: 10px;" class="caseimg" src="" width="100">
+	                                <input type="file" name="smallimg">
+	                               		建议上传图片尺寸，600px * 600px
+	                            </div>
+	                        </div>
+                            <div class="hr-line-dashed"></div>
+                          
+                            <div class="form-group">
+                                <div class="col-sm-12 " style="text-align: center;"> 
+                                    <button class="btn btn-primary step2" type="button">下一步</button>
+                                </div>
+                            </div>
+                        </form>
+							<!--步骤三-->
+							<form style="display: none;">
+								<div class="row">
+									<div class="col-md-12 col-sm-12 step">
+										<img class="col-sm-12 col-md-8 col-md-offset-2" src="{$Think.HTML_STATIC}/img/114.png" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12 col-sm-12">
+										请按照以下引导完成公众号配置
+									</div>
+								</div>
+								<div class="row">  
+									<div class="col-md-12 col-sm-12">
+										登录<a href="https://mp.weixin.qq.com/" target="_blank">微信公众平台</a> 开点击左侧菜单最后一项，进入【<font>开发者中心</font>】
+									</div>
+									<div class="col-md-12 col-sm-12">
+										<img src="{$Think.HTML_STATIC}/img/116.png"/>
+									</div>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-12 col-sm-12">
+										#将以下链接填入对应栏目（点击即可复制到剪贴板）
+									</div>
+									<div class="form-group col-md-12 col-sm-12">
+		                                <label class="col-sm-2 control-label">URL</label>
+		                                <div class="col-sm-8">
+		                                    <p id="p1" onclick="copyToClipboard('#p1')" class="col-sm-8">http://yf.zhifa.cn/weixin/index.html</p>
+											<div class="col-sm-4"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
+		                                </div>
+		                                <div class="col-sm-2">
+		                                </div>
+		                            </div> 
+		                            <div class="form-group col-md-12 col-sm-12">
+		                            	<label class="col-sm-2 control-label">Token</label>
+		                                <div class="col-sm-8">
+											<p id="p2" onclick="copyToClipboard('#p2')" class="col-sm-8">2cd98a817c083ab796c654b82cb177fd</p>
+											<div class="col-sm-4"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
+		                                </div>
+		                                <div class="col-sm-2">
+		                                </div>
+		                            </div>
+		                            <div class="form-group col-md-12 col-sm-12" >
+		                            	<label class="col-sm-2 control-label">EncodingAESKey</label>
+		                                <div class="col-sm-8">
+											<p id="p3" onclick="copyToClipboard('#p3')" class="col-sm-8">B8gJBYGCYtNLylYlGNZ8T6gL6nCBGGlD6tTj67YGJ6y</p>
+											<div class="col-sm-4"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
+		                                </div>
+		                                <div class="col-sm-2">
+		                                	<button class="btn btn-primary new" type="button">生成新的</button>
+		                                </div>
+		                            </div>   
+                            	</div>
+                            	<div class="row">
+                            		<div class="co-md-12 col-sm-12">
+                            			<img src="{$Think.HTML_STATIC}/img/118.png"/>
+                            		</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12" style="text-align: center;">
+										<button class="btn btn-primary finish">完成配置并检测是否接入成功</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+		<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+		<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+		<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+		<script type="text/javascript">
+			function copyToClipboard(element) {
+			  var $temp = $("<input>");
+			  $("body").append($temp);
+			  $temp.val($(element).text()).select();
+			  document.execCommand("copy");
+			  $temp.remove();
+			}
+			$(function(){
+				$('p').click(function(){
+					$(this).next().find('img').show().parents('.form-group').siblings().find('img').hide()
+				})
+				$('.step1').click(function(){
+					$(this).parents('form').hide().next().show()
+				})
+				$('.step2').click(function(){
+					$(this).parents('form').hide().next().show()
+				})
+				//随机生成43位数
+				function randomWord(randomFlag, min, max){
+				    var str = "",
+				        range = min,
+				        arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+				    // 随机产生
+				    if(randomFlag){
+				        range = Math.round(Math.random() * (max-min)) + min;
+				    }
+				    for(var i=0; i<range; i++){
+				        pos = Math.round(Math.random() * (arr.length-1));
+				        str += arr[pos];
+				    }
+				    return str;
+				}
+				$('.new').click(function(){
+				$('#p3').html(randomWord(false, 43))
+				})
+				console.log(randomWord(false, 43))
+			})
+		</script>
+	</body>
+
+</html>

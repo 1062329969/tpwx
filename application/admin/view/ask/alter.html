@@ -95,8 +95,8 @@ span{color:red;}
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">文章状态</label>
                                 <div class="col-sm-10">
-                                    <div class="col-sm-2"><input type="radio" name="dis" checked/>显示</div>
-                                    <div class="col-sm-2"><input type="radio" name="dis"/>隐藏</div>
+                                    <div class="col-sm-2"><input type="radio" name="status" value="1" {if $content.status==1}checked="checked"{/if}/>显示</div>
+                                    <div class="col-sm-2"><input type="radio" name="status" value="0"  {if $content.status==0}checked="checked"{/if}/>隐藏</div>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
@@ -158,7 +158,19 @@ span{color:red;}
                                     <input type="file" name="pic_s">
                                 </div>
                             </div>
+
                             <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">首页头条封面图：</label>
+                                <div class="col-sm-10">
+                                    <img style="margin-bottom: 10px;" class="caseimg" src="{$askImgs.home_pic_s}" width="100">
+                                    <input type="file" name="home_pic_s">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">文章内容</label>
@@ -167,7 +179,6 @@ span{color:red;}
                                     <script type="text/javascript">
                                     var ue = UE.getEditor('container');
                                     </script>
-                                    <!--<textarea required style="width:100%;height:400px;" name="question" value="{$content.question}" class="s4"></textarea>-->
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>

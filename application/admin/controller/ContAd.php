@@ -87,7 +87,7 @@ class ContAd extends Admin
 
         $this->addPosition[21]['id']=21;
         $this->addPosition[21]['title']='头条-为你推荐广告';
-        $this->addPosition[21]['size']='300*150';
+        $this->addPosition[21]['size']='头条-为你推荐广告';
 
 
 	}

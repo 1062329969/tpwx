@@ -12,6 +12,16 @@
 		textarea::-webkit-input-placeholder{
 			color:#CCCCCC;
 		}
+		.clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height:0;
+		    	overflow: hidden;
+		    }
+		    .clearfix{
+		    	zoom:1;
+		    }
 		.cjTime{background: url({$Think.HTML_STATIC}/images/13.png);width: 8.85rem;height: 1.85rem;background-size:cover ;color: white;line-height: 1.85rem;text-align: center;font-size: 1.2rem;}
 		.csinfo img{ margin:0 0 1rem 0; width: 100%;}
 		.cjshuq{background: white;padding: 0 0.5rem 1.5rem;margin-bottom:1.05rem;}
@@ -51,7 +61,7 @@
 		.pinput input{padding: 0;}
 		.plform{padding: 0;margin-top: 1.1rem;}
 		.pinput{width: 100%;}
-		.cjtrue{background: white;padding-bottom: 1.5rem;}
+		.cjtrue{background: white;padding: 0 0.6rem 1.5rem;}
 		.cjtrue-title{font-size: 1.5rem;padding:2rem 1rem 0;font-weight: bold;}
 		.cjtrue-plinfos{padding-top:1.5rem;clear:both;}
 		.cjtrue-plinfos span{color: #adadad;font-size: 1.2rem;}
@@ -85,16 +95,18 @@
 		.cj_doctorSay li span.lx3{color:#de7b76;}
 		.cj_doctorSay li span.lx4{color:#e3a359;}
 		.cj_doctorSay li img{width: 3rem;height:3rem;margin-right: 0.7rem;}
-		.cj_collection{text-align: center;width: 32%;}
-		.cj_collection img{width: 1.5rem;margin-right: 0.7rem;vertical-align: sub;margin-bottom: 0.2rem;}
-		.plinfos .cdz img{width: 1.5rem;height: 1.35rem;vertical-align: top;margin-top: 0.2rem;}
-		.list-title-mlr{border-right:0.08rem solid #e4e4e4;border-left:0.08rem solid #e4e4e4;}
+		.cj_collection{text-align: center;line-height: 4.4rem;}
+		.cj_collection img{width: 1.9rem;}
+		.plinfos .cdz img{width: 1.9rem;height: 1.9rem;}
 		.plinfos .lll, .plinfos .cdz,.plinfos .cj_collection span{font-size: 1.5rem;color: #999;text-align: center;}
-		.plinfos .lll, .plinfos .cdz,.plinfos .cj_collection{width: 33.33%;}
+		.plinfos .lll{width: 19%;line-height: 3.4rem;}
+		.plinfos .lll span,.plinfos .cdz span{line-height: 3.4rem;}
+		.plinfos .cdz{width: 15%;line-height: 3.4rem;}
+		.plinfos .lll img{width: 2.05rem;height: 1.9rem;}
 		audio, canvas, progress, video{width: 100%;margin: 0 auto;height: 22rem;}
 		.bo{width:76%;margin:4% auto;}
 		.bo img{width:100%;display:block;}
-		.plmtop{height: 3.4rem;}
+		.plmtop{height:5.8rem;}
 		.cj_shade{width: 100%;height: 100%;background: #000;opacity: 0.4;position: fixed;left: 0;top: 0;z-index: 100;display: none;}
 		.upl p.cj_pl_num{font-size: 1.6rem;color: #333;border-bottom: 0.08rem solid #EAEAEA;padding-bottom: 0;padding-top: 1rem;}
 		.cj_pl_num span{font-size: 1.4rem; color: #666;line-height: 3.35rem;vertical-align: middle;display: inline-block;}
@@ -118,18 +130,25 @@
 		.wv p{color:#999999;font-size:1.2rem;line-height:1.5rem;margin-top:0.5rem;}
 		.wv p:nth-of-type(1){color:#666666;font-size:1.4rem;margin-top:0.8rem;}
 		.cjtrue-content-txt p{text-align: justify;}
+		.cj-pl{width: 60%;margin-left: 3.2%;margin-right:0;position: relative;}
+		.cj-pl img{position: absolute;top: 0.95rem;left: 1.7rem;width:1.7rem ;}
+		.cj-pl input{width: 100%;height: 3.4rem;border-radius: 3.4rem;margin-bottom: 0;background: #f2f2f2;font-size: 1.5rem;color: #666;text-indent: 2em;border:none;}
+		.user img{width: 2.6rem;height: 2.6rem;border-radius: 50%;margin-left: 0.8rem;margin-right: 0.5rem;}
+		.user span{line-height: 4.4rem;font-size: 1.2rem;color: #565656;}
 	</style>
 </head>
 <body class="bodyb">
-<header id="header" class="mui-bar mui-bar-nav">
+<header id="header" class="mui-bar mui-bar-nav clearfix topbar">
 	<a class="mui-pull-left" onclick="window.history.go(-1);"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
-	<h1 class="mui-title">内容</h1>
+	<div class="mui-pull-left user" style="display: none;">
+		<img src="<?php $userinfo = getuserinfo($list['uid']); ?><?php echo $userinfo['portrait'] ?>"/><span><?php $userinfo = getuserinfo($list['uid']); ?><?php echo $userinfo['wechaname'] ?></span>
+	</div>
+	<div class="cj_collection mui-pull-right collection" name="collection" res-id="{$fansInfo['id']} uid="{$list['uid']}" dis=0 data={if $sc.id && $fansInfo['id']==$sc.uid}1{else /}0{/if} data-ids={$id} >
+			<img src="{$Think.HTML_STATIC}/images/{if $sc.id && $fansInfo['id']==$sc.uid}174{else /}173{/if}.png"/>
+				<!--<span style="display: inline-block;">{$list.shoucang}</span>-->
+	</div>
 </header>
 <div style="height: 4.4rem"></div>
-
-
-
-
 <div class="cjtrue">
 	<div class="cjtrue-title">
 		<!--<img style="width:3rem;height:3rem;border-radius:100%;display:block;float:left;" src="<?php $userinfo = getuserinfo($list['uid']); ?><?php echo $userinfo['portrait'] ?>">-->
@@ -195,12 +214,11 @@
 		</div>
 		<p>{$vo.text}</p>
 		<div class="cj_reply">
-			<img class="cj_horn" src="{$Think.HTML_STATIC}/images/67.png"/>
+			<img class="cj_horn" src="{$Think.HTML_STATIC}/images/65.jpg"/>
 			<div class="cj_lit_reply">
 				{volist name='$vo.child' id='vo2'}
 				{eq name='$vo2.plid' value='$vo.id'}
 				<div class="cjpl">
-
 					<div class="reCont">
 						<p onclick="lx(this,{$vo.id},{$vo.id},{$vo.uid})">
 						<font>{$alluser[$vo2.uid]['wechaname']}{if $vo2.uid} 回复 {$alluser[$vo.uid]['wechaname']}{else /}{/if}:</font>
@@ -219,11 +237,10 @@
 				</span>
 			</span>
 			<span class="txdz" id="txdz{$vo.id}"  hc-id="{$id}" lx-uid ="{$vo.uid}"  data-id="{$vo.id}" datas={if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}1{else /}0{/if} data-ids={$vo.uid}>
-				<img src="{$Think.HTML_STATIC}/images/{if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}66{else /}65{/if}.png">
+				<img src="{$Think.HTML_STATIC}/images/{if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}66{else /}65{/if}.jpg">
 				<span>{$vo.praise}</span>
 			</span>
 		</div>
-
 		<div class="fonline"></div>
 	</div>
 	{/eq}
@@ -232,18 +249,17 @@
 <!--下拉加载-->
 <div id="loadinguser"></div>
 <!--<div class="lmore">我是有底线的</div>-->
-<div id="loading" class="bo"><img style="width: 100%;" src="{$Think.HTML_STATIC}/images/bo.jpg"/></div>
-<div class="plinfos">
-	<div class="lll">评论：{$comment3}</div>
-	<div class="cdz ds1 dianzan list-title-mlr"  name="dianzan" res-id="{$fansInfo['id']}" uid="{$list['uid']}" dis=0 datas={if $praise.i_id && $fansInfo['id']==$praise.i_uids}1{else /}0{/if} data-ids={$id} >
-		<img src="{$Think.HTML_STATIC}/images/{if $praise.i_id && $fansInfo['id']==$praise.i_uids}66{else /}65{/if}.png">
-		<span style="display: inline-block;">{$list.praise}</span>
+<!--<div id="loading" class="bo"><img style="width: 100%;" src="{$Think.HTML_STATIC}/images/bo.jpg"/></div>-->
+<div class="plinfos clearfix">
+	<div class="cj-pl mui-pull-left">
+		<input type="text" readonly="readonly" placeholder="写评论" />
+		<img src="{$Think.HTML_STATIC}/images/111.png"/>
 	</div>
-		<div class="cj_collection picon mui-pull-left collection" name="collection" res-id="{$fansInfo['id']} uid="{$list['uid']}" dis=0 data={if $sc.id && $fansInfo['id']==$sc.uid}1{else /}0{/if} data-ids={$id} >
-			<img src="{$Think.HTML_STATIC}/images/{if $sc.id && $fansInfo['id']==$sc.uid}64{else /}63{/if}.png"/>
-				<span style="display: inline-block;">{$list.shoucang}</span>
-		</div>
-	<div style="clear: both;"></div>
+	<div class="lll"><img src="{$Think.HTML_STATIC}/images/110.jpg"/><span>{$comment3}</span></div>
+	<div class="cdz ds1 dianzan list-title-mlr"  name="dianzan" res-id="{$fansInfo['id']}" uid="{$list['uid']}" dis=0 datas={if $praise.i_id && $fansInfo['id']==$praise.i_uids}1{else /}0{/if} data-ids={$id} >
+		<img src="{$Think.HTML_STATIC}/images/{if $praise.i_id && $fansInfo['id']==$praise.i_uids}66{else /}65{/if}.jpg">
+		<span>{$list.praise}</span>
+	</div>
 </div>
 <!--评论-->
 <div class="cj_comment" style="display: none;">
@@ -273,6 +289,7 @@
 <script src="{$Think.HTML_STATIC}/js/web.js"></script>
 <script src="{$Think.HTML_STATIC}/js/mui.zoom.js"></script>
 <script src="{$Think.HTML_STATIC}/js/mui.previewimage.js"></script>
+<script src="{$Think.HTML_STATIC}/js/scroll-up-bar.js"></script>
 {include file="public/fx" /}
 
 <script>
@@ -280,12 +297,17 @@
     {
         window.location.reload()
     }
-</script>
-
-<script>
-
-
-
+	//导航条显示隐藏
+	$('.topbar').scrollupbar();
+	
+    $(document).scroll(function(){
+    	var top = $(document).scrollTop();
+       if(top==0){
+				$('.user').stop().hide()
+			}else{
+				$('.user').stop().show()
+			}
+    });
     function lx(_self,pid,tid,c_uid){
         $('#pid').val(pid);
         $('#tid').val(tid);
@@ -301,7 +323,7 @@
             return false;
         }
         var _self = $(this);
-        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.jpg');
         $(this).attr('dis',1);
         var datas = $(this).attr('datas');
         $(this).attr('datas','1');
@@ -323,7 +345,7 @@
                     }
                 } else {
                     _self.find('span').html(Number(_self.find('span').html())-1);
-                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.jpg');
                     _self.attr('dis', 0);
                     _self.attr('datas', '0');
 
@@ -339,7 +361,7 @@
             return false;
         }
         var _self = $(this);
-        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/64.png');
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/174.png');
         $(this).attr('dis',1);
         var datas = $(this).attr('data');
         $(this).attr('data','1');
@@ -356,12 +378,10 @@
                         _self.find('span').html(Number(_self.find('span').html())+1);
                         _self.attr('dis',0);
                         _self.attr('data','1');
-
-
                     }
                 }else{
                     _self.find('span').html(Number(_self.find('span').html())-1);
-                    _self.find('img').attr('src','{$Think.HTML_STATIC}/images/63.png');
+                    _self.find('img').attr('src','{$Think.HTML_STATIC}/images/173.png');
                     _self.attr('dis',0);
                     _self.attr('data','0');
 //                           console.log(_self.find('span').html())
@@ -369,9 +389,6 @@
             }
         });
     })
-
-
-
     $(function(){
         var cjNum=$(".cj_return").length;
         for(var i=0;i<cjNum;i++){
@@ -509,7 +526,7 @@
             });
         });
         //评论
-        $(".plinfos .lll").click(function(){
+        $(".plinfos .cj-pl").click(function(){
             $(".cj_comment").show();
             $('#commnet_text').focus();
             $(".cj_shade").show();

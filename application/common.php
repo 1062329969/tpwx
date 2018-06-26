@@ -2,6 +2,7 @@
 // 应用公共文件
 
 use think\Route;
+use think\Db;
 Route::rule('archives','/archives.php/index/login');
 
 /*
@@ -502,4 +503,73 @@ function return_asum($id,$pid){
     }
     // echo  \think\Db::getLastSql();
     return $counts;
+}
+
+/**
+ * 获取会员分组
+ */
+function return_vipclass($uid){
+    $setting = Db::name('vipclasssetting')->find(1);
+    if($setting['vcs_type']==2){
+        //根据积分
+        $user = Db::name('user_info')->find($uid);
+        $integral = $user['integral'];
+        $class = Db::name('vipclass')->where('vc_int<='.$integral)->order('vc_int desc')->find();
+        if(!$class){
+            $class = Db::name('vipclass')->order('vc_int asc')->find();
+        }
+    }else{
+        $user = Db::name('user_info')->find($uid);
+        $vip = $user['vipclass'];
+        $class = Db::name('vipclass')->find($vip);
+        if(!$class){
+            $integral = $user['integral'];
+            $class = Db::name('vipclass')->where('vc_int<='.$integral)->order('vc_int desc')->find();
+            $vc_id = $class['vc_id'];
+            Db::name('user_info')->where(['id'=>$vc_id])->update(['vipclass'=>$vc_id]);
+        }
+    }
+    if(!$class){
+        $class['vc_name'] = '';
+    }
+    return $class;
+}
+
+
+//随机生成EncodingAESKey
+function generate_password( $length = 8 ) {
+// 密码字符集，可任意添加你需要的字符
+    $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    $password = '';
+    for ( $i = 0; $i < $length; $i++ )
+    {
+    // 这里提供两种字符获取方式
+    // 第一种是使用 substr 截取$chars中的任意一位字符；
+    // 第二种是取字符数组 $chars 的任意元素
+    // $password .= substr($chars, mt_rand(0, strlen($chars) – 1), 1);
+       $password .= $chars[ mt_rand(0, strlen($chars) - 1) ];
+    }
+    return $password;
+}
+
+//echo generate_password(43);
+
+function return_vipsum($vip){
+    $setting = Db::name('vipclasssetting')->find(1);
+    if($setting['vcs_type']==2){
+        $class = Db::name('vipclass')->find($vip);
+        $intstart = $class['vc_int'];
+        $info = Db::name('vipclass')->where('vc_int>'.$intstart)->order('vc_int asc')->find();
+//        echo Db::getLastSql();
+        $intend = $info['vc_int'];
+        $where['integral'] = [
+            ['>=',$intstart],
+            ['<',$intend],
+        ];
+        $sum = Db::name('user_info')->where($where)->count();
+//        echo Db::getLastSql();
+    }else{
+        $sum = Db::name('user_info')->where(['vipclass'=>$vip])->count();
+    }
+    return $sum;
 }

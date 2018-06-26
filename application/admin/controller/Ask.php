@@ -18,6 +18,7 @@ use app\admin\model\ProjectModel;
 use think\Db;
 use think\Session;
 use app\admin\model\LogModel;
+use app\admin\model\CommentModel;
 
 class Ask extends Admin
 
@@ -59,8 +60,6 @@ class Ask extends Admin
             $datas['start_time'] = strtotime($datas['start_time']);
             $where['create_time'] = array('between',$datas['start_time'].','.$datas['over_time']);
 
-
-
         }
 
         if(Session::get('adminid') !=1){
@@ -75,8 +74,13 @@ class Ask extends Admin
             $where['class_second'] = $datas['class_second'];
         }
         //显示状态
-        if(isset($datas['lstatus'])){
-            $where['status'] = $datas['lstatus'];
+        if(isset($datas['lstatus'])&& !empty($datas['lstatus'])){
+            if($datas['lstatus'] == 2){
+                $where['status'] = 0;
+            }else{
+                $where['status'] = $datas['lstatus'];
+
+            }
         }
 
         //板块
@@ -110,10 +114,11 @@ class Ask extends Admin
         }
         //创建时间
         if(!empty($data_s['start_time']) && isset($data_s['over_time'])){
-            $where['create_time'] = [
-                ['>=',strtotime($data_s['start_time'])],
-                ['<=',strtotime($data_s['over_time'])],
-            ];
+
+            $data_s['over_time'] = strtotime($data_s['over_time']) + 86400;
+            $data_s['start_time'] = strtotime($data_s['start_time']);
+            $where['create_time'] = array('between',$data_s['start_time'].','.$data_s['over_time']);
+
         }
 
         if(Session::get('adminid') !=1){
@@ -128,10 +133,19 @@ class Ask extends Admin
             $where['class_second'] = $data_s['class_second'];
         }
         //显示状态
-        if(isset($data_s['lstatus'])){
-            $where['status'] = $data_s['lstatus'];
+        if(isset($data_s['lstatus'])&& !empty($data_s['lstatus'])){
+            if($data_s['lstatus'] == 2){
+                $where['status'] = 0;
+            }else{
+                $where['status'] = $data_s['lstatus'];
+
+            }
         }
 
+        //板块
+        if(isset($data_s['fids']) && !empty($data_s['fids'])){
+            $where['fid'] = $data_s['fids'];
+        }
         //板块
         if(isset($data_s['fid']) && !empty($data_s['fid'])){
             $where['fid'] = $data_s['fid'];
@@ -163,7 +177,7 @@ class Ask extends Admin
         //板块
         $list = Db::name('forum_onetype')->order('id desc')->select();
         $list = array_column($list,'name','id');
-        $content = Db::name('ask')->where($where)->order('sort desc,create_time desc')->paginate(15,false,['query' => request()->param()]);
+        $content = Db::name('ask')->where($where)->order('create_time desc')->paginate(15,false,['query' => request()->param()]);
         if(!empty($datas['fid'])){
             $this->assign('fid',$datas['fid']);
         }
@@ -222,8 +236,11 @@ class Ask extends Admin
 
     //修改排序
     public function addsort(){
-        $data = input('param.');
-        $list = Db::name('ask')->where(['id'=>$data['id']])->update(['sort'=>$data['sort']]);
+        $data = input('param.sort/a');
+        foreach ($data as $k=>$v){
+            $list = Db::name('ask')->where(['id'=>$v['pid']])->update(['sort'=>$v['aid'],'update_time'=>time()]);
+        }
+//        $list = Db::name('ask')->where(['id'=>$data['id']])->update(['sort'=>$data['sort']]);
         if($list){
             return ['code'=>1];
         }else{
@@ -259,7 +276,7 @@ class Ask extends Admin
 
         }
 //        $user_info=UserInfoModel::getAll();
-        $user_info = Db::name('userInfo')->where($where)->order('id desc')->paginate(15,false,['query' => request()->param()]);
+        $user_info = Db::name('userInfo')->where($where)->order('id desc')->paginate(6,false,['query' => request()->param()]);
         $this->assign('user_info',$user_info);
         if(isset($data['wechaname'])){
             $this->assign('wechaname',$data['wechaname']);
@@ -279,7 +296,7 @@ class Ask extends Admin
 //    }
 //查看评论
     public function usercomment()
-    {echo 999;exit;
+    {
         $id = input('param.id');
         $comment = Db::name('comment')->alias('c')->join('user_info u', 'c.uid=u.id')->field('c.*,u.id as uid,u.wechaname,u.portrait')->order('create_time asc')->where(['c.aid' => $id,'del'=>0])->select();
 
@@ -323,7 +340,7 @@ class Ask extends Admin
             $text = input('post.com_content');
             $aid = input('post.article_id');
             $data['uid'] = $uid;
-            $data['type'] = 4;
+            $data['type'] = 5;
             $data['reuid'] = $comment_uid;
             $data['aid'] = $aid;
             $data['text'] = $text;
@@ -393,7 +410,16 @@ class Ask extends Admin
             }
 
 
+            $home_pic_s=$this->upload($request,'home_pic_s');
 
+            if(!empty($home_pic_s))
+            {
+                $data['home_pic_s']=$home_pic_s;
+            }
+            else
+            {
+                unset($data['home_pic_s']);
+            }
 
             //多文件上传
 			if(empty($data['default_img']))
@@ -434,6 +460,8 @@ class Ask extends Admin
 					$key=$key+1;
 				}
 			}
+
+            $data['admin_user'] = Session::get('adminid');
 
             if(!empty($data['sids'])){
                 $sid = $data['sids'];
@@ -488,6 +516,7 @@ class Ask extends Admin
         $data = input('param.');
         //如果填写了标题，板块，文章一级分类，二级分类。则保存，否则不进项任何操作
         if(!empty($data['qtitle']) && !empty($data['fid'])&& !empty($data['class_first']) && !empty($data['class_second'])){
+            $data['admin_user'] = Session::get('adminid');
             //同时也保存到草稿箱
             $data['specialclass']=1;
             $res = $this->modelName->allowField(true)->save($data);
@@ -637,6 +666,7 @@ class Ask extends Admin
 
 			//上传图片
 			$pic=$this->upload($request,'pic_s');
+            $home_pic_s=$this->upload($request,'home_pic_s');
 			if(!empty($pic))
 			{
 				$data['pic_s']=$pic;
@@ -646,6 +676,16 @@ class Ask extends Admin
 
 				unset($data['pic_s']);
 			}
+
+            if(!empty($home_pic_s))
+            {
+                $data['home_pic_s']=$home_pic_s;
+            }
+            else
+            {
+                unset($data['home_pic_s']);
+            }
+
             $data['id'] = intval($data['id']);
 
 			//多文件上传
@@ -719,6 +759,8 @@ class Ask extends Admin
     public function drafts(){
         $data_s = input('param.');
         $data = input('param.lname');
+
+        $fids = input('param.fids');
         $statuss = input('param.lstatus');
         $where = $this->getwheres($data_s);
 
@@ -739,6 +781,7 @@ class Ask extends Admin
         if(isset($data_s['fid'])){
             $this->assign('fid',$data_s['fid']);
         }
+        $this->assign('fids',$fids);
         $this->assign('department',$department);
         $this->assign('datas',$data_s);
         $this->assign('category',$category);

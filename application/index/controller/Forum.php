@@ -6,8 +6,6 @@
  * 论坛
  */
 namespace app\index\controller;
-
-
 use ApiOauth\ApiOauth;
 use app\admin\controller\ForumType;
 use app\index\model\AskModel;
@@ -30,8 +28,6 @@ use app\index\model\CasesRecordImgsModel;
 use app\index\model\DoctorModel;
 use app\index\model\CasesImgsModel;
 use app\index\model\AskImgsModel;
-
-
 class Forum extends Wap
 {
     protected $timeStamp;
@@ -94,10 +90,9 @@ class Forum extends Wap
         $ppppid = AskModel::get_onon(0,8,0,$pppid);
         //发友说
         $id = input('param.id',0);
-        $hair = AskModel::f_one($ppid,3,0);
+        $hair = AskModel::f_one($ppid,6,0);
         //大图
-        $big_c = AskModel::f_ones($ppid,1,0);
-
+        $big_c = AskModel::f_ones($ppid,2,0);
         $position=input('param.position',20);
         $tjGoods=ContAdModel::getAll_tow($position);
         $this->assign('tjGoods',$tjGoods);
@@ -224,10 +219,10 @@ class Forum extends Wap
         $ppid = input('param.ppid',2);//默认显示热点
 //        $forum = ForumOnetypeModel::find($aid);
         $forum = Db::name('forum_onetype')->where(['id'=>$aid])->find();
-        $hair=AskModel::getOne_0ne($aid,$ppid,3,0);
+        $hair=AskModel::getOne_0ne($aid,$ppid,6,0);
 
         //大图
-        $big_c = AskModel::getOne_0nes($aid,$ppid,1,0);
+        $big_c = AskModel::getOne_0nes($aid,$ppid,2,0);
 
 
         $one = Db::name('forum_onetype')->order('id asc')->select();
@@ -249,15 +244,17 @@ class Forum extends Wap
         $ppid = input('param.pid');
         $tid=input('param.tid');
         $offsize=input('param.offsize',0);
+
+        $big_offsize = ($offsize / 3);
 //        $forum= AskModel::f_tow($tid,$ppid,6,$offsize);
         $hair = AskModel::f_tow($tid,$ppid,6,$offsize);
+
         //大图
-        $big_c = AskModel::f_tows($tid,$ppid,2,$offsize);
+        $big_c = AskModel::f_tows($tid,$ppid,2,$big_offsize);
 
 
 
 
-//        echo AskModel::getLastSql();die;
         if(empty($hair) && empty($big_c))
         {
             return 0;
@@ -342,9 +339,8 @@ class Forum extends Wap
             ->find();
         $this->assign('list',$list);
         //获取内容总数
-        $quantity = strlen($list['question']);
-
-
+        $res = strip_tags($list['question']);
+        $quantity = mb_strlen($res,'utf-8');
         $this->assign('quantity',$quantity);
 
         //浏览数增1
@@ -358,7 +354,7 @@ class Forum extends Wap
         //收藏
         $sc = Db::name('collection')->where(['aid'=>$id,'uid'=>$this->fansInfo['id']])->find();
         //点赞
-        $praise = Db::name('information')->where(['i_ids'=>$id,'i_uids'=>$this->fansInfo['id'],'i_module'=>5])->find();
+        $praise = Db::name('information')->where(['i_ids'=>$id,'i_uids'=>$this->fansInfo['id'],'i_module'=>5,'i_type'=>2])->find();
         $this->assign('sc',$sc);
         $this->assign('praise',$praise);
 
@@ -494,6 +490,7 @@ class Forum extends Wap
     {
         $ppid = input('param.tid',3);
         $offsize=input('param.offsize',0);
+        $big_offsize = ($offsize / 3);
 
         //大图
 //        $big_c = AskModel::f_ones($ppid,2,$offsize);
@@ -503,7 +500,7 @@ class Forum extends Wap
 
         $hair = AskModel::f_one($ppid,6,$offsize);
         //大图
-        $big_c = AskModel::f_ones($ppid,2,$offsize);
+        $big_c = AskModel::f_ones($ppid,2,$big_offsize);
 
         if(empty($hair) && empty($big_c))
         {

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+    <style type="text/css">
+        tr{
+            height: 50px;
+            line-height: 50px;
+        }
+        select{height: 30px;}
+        .row{margin-top: 20px;}
+        input[type=button]{margin-left: 50px;}
+        .title-nav{width: 100%;border-bottom: 1px solid #666;}
+        .title-nav span{padding:0 10px;line-height:40px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
+        .title-nav span.active{background: white;border-top:3px solid #15BBDC ;color: #15BBDC;}
+        /*.table{border: 1px solid #666;}*/
+        #typediv a{
+            display: inline-block;
+            width: 70px;
+            text-align: center;
+        }
+        #typediv .active{
+            background-color: rgba(0, 157, 217, 1);
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>您当前所在位置：粉丝&会员>会员管理</h5>
+                </div>
+                <div class="ibox-content">
+                    <div id="typediv" style="height: 38px;line-height: 30px;">
+                        <a href="{:url('alter',['id'=>$id])}">基本资料</a>
+                        <a class="active">积分</a>
+                    </div>
+                    <div class="table-responsive" style="border: 1px rgb(228, 228, 228) solid;">
+                        <table class="table">
+                            <thead style="background-color: #f9f9f9">
+                            <tr>
+                                <th colspan="3">会员积分</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td width="20%">积分：</td>
+                                <td>{$user.integral}</td>
+                                <td width="5%">
+                                    <a href="javascript:;" onclick="editval('{$user.integral}','integral','修改积分')">修改</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 40px;margin-bottom: 10px;">积分变动记录</div>
+                    <div class="table-responsive" style="border: 1px rgb(228, 228, 228) solid;">
+                        <table class="table">
+                            <thead style="background-color: #f9f9f9">
+                            <tr>
+                                <th>序号</th>
+                                <th>积分增减</th>
+                                <th>操作员</th>
+                                <th>操作时间</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='$list' id="vo"}
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{if $vo.type==0}+{else /}-{/if}{$vo.nums}</td>
+                                <td>{if $vo.douid==0}系统{else /}{$admin_user[$vo.douid]}{/if}</td>
+                                <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                                <td>{$vo.note}</td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="float: right;width: 50%">
+                        <div class="pagesc">共计：{$list->total()}条 共：{$list->lastPage()}页</div>{$list->render()}
+                        <form action="{:url('alterint',['id'=>$id])}" style="margin-top:17px;margin-left:10px;">
+                            转向第
+                            <input type="number" name="page" style="width: 40px;" min="1">页
+                            <button type="submit" class="btn btn-primary">确定</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/zclip/zclip.js"></script>
+
+<script>
+    function editval(vals,type,titles) {
+        layer.open({
+            title:'修改'+titles,
+            type: 2,
+            area :['800px','500px'],
+            content: "{:url('doalterint',['type'=>'"+type+"','id'=>$id])}"
+        });
+    }
+
+</script>
+</body>
+</html>

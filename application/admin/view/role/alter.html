@@ -135,7 +135,7 @@
                                     {if condition="$vo['name'] eq 'cont_news'"}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>图片删除{/if}
                                     {/if}
-                                    <!--问答-->
+                                    <!--头条-->
                                     {if condition="$vo['name'] eq 'ask'"}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除问答图片{/if}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|answer',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="answer"{if condition="stristr($content.roles,$vo['name'].'|answer,') eq true"} checked{/if}>回答内容{/if}
@@ -148,6 +148,8 @@
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|titlesave',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="titlesave" {if condition="stristr($content.roles,$vo['name'].'|titlesave,') eq true"} checked{/if}>ajax自动保存{/if}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|titleedit',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="titleedit" {if condition="stristr($content.roles,$vo['name'].'|titleedit,') eq true"} checked{/if}>ajax修改{/if}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|drafts',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="drafts" {if condition="stristr($content.roles,$vo['name'].'|drafts,') eq true"} checked{/if}>草稿箱{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|serch',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="serch" {if condition="stristr($content.roles,$vo['name'].'|serch,') eq true"} checked{/if}>搜索评论{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|add_comment',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="add_comment" {if condition="stristr($content.roles,$vo['name'].'|add_comment,') eq true"} checked{/if}>添加评论{/if}
                                     {/if}
                                     <!--案例日记-->
                                     {if condition="$vo['name'] eq 'cases'"}
@@ -161,7 +163,9 @@
                                     <!--评论-->
                                     {if condition="$vo['name'] eq 'comment'"}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|isstatus',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="isstatus"{if condition="stristr($content.roles,$vo['name'].'|isstatus,') eq true"} checked{/if}>是否审核{/if}
-                                    {/if}
+                                        {if $Think.session.adminid==1 || in_array($vo.name.'|del',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="del" {if condition="stristr($content.roles,$vo['name'].'|del,') eq true"} checked{/if}>添加评论{/if}
+                                        {if $Think.session.adminid==1 || in_array($vo.name.'|visit_export',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="visit_export" {if condition="stristr($content.roles,$vo['name'].'|visit_export,') eq true"} checked{/if}>导出{/if}
+                                        {/if}
                                     <!--养护-->
                                     {if condition="$vo['name'] eq 'curing'"}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|delimg',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="delimg"{if condition="stristr($content.roles,$vo['name'].'|delimg,') eq true"} checked{/if}>删除图片{/if}
@@ -275,6 +279,14 @@
                                     {if condition="$vo['name'] eq 'visitmanagement'"}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|views',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="views" {if condition="stristr($content.roles,$vo['name'].'|views,') eq true"} checked{/if}>用户详情{/if}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|visit_export',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="visit_export" {if condition="stristr($content.roles,$vo['name'].'|visit_export,') eq true"} checked{/if}>导出{/if}
+                                    {/if}
+
+
+                                    <!--平台管理-->
+                                    {if condition="$vo['name'] eq 'sys_set'"}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|wechataccess',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="wechataccess" {if condition="stristr($content.roles,$vo['name'].'|wechataccess,') eq true"} checked{/if}>微信接入{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|step_one',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="step_one" {if condition="stristr($content.roles,$vo['name'].'|step_one,') eq true"} checked{/if}>步骤一{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|step_two',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="step_two" {if condition="stristr($content.roles,$vo['name'].'|step_two,') eq true"} checked{/if}>步骤二{/if}
                                     {/if}
                                 </div>
                                     {/if}

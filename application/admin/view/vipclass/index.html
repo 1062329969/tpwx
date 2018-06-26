@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+    <style type="text/css">
+        select{height: 30px;}
+        .row{margin-top: 20px;}
+        input[type=button]{margin-left: 50px;}
+        .title-nav{width: 100%;border-bottom: 1px solid #666;}
+        .title-nav span{padding:0 10px;line-height:40px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
+        .title-nav span.active{background: white;border-top:3px solid #15BBDC ;color: #15BBDC;}
+        /*.table{border: 1px solid #666;}*/
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>您当前所在位置：粉丝&会员>会员组</h5>
+                </div>
+                <div>
+                    <p>会员组的总积分是根据总积分的值算出来的,管理员不能直接修改会员所在的会员组. 如果需要修改会员组,请通过设置积分或者贡献的值来影响总积分,系统会根据影响后的总积分自动算出对应的会员组</p>
+                    <p>默认会员组的积分需设置为 0</p>
+                    <p>系统会根据会员的总积分多少自动对会员的分组进行调整</p>
+                </div>
+                <div class="ibox-content">
+                    <button class="btn btn-outline btn-info altersetting">会员组变更规则设置</button>
+                    <button class="btn btn-outline btn-info add" data-href="{:url('add')}">增加会员组</button>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th width="10%">会员组</th>
+                                <th width="10%">所需积分</th>
+                                <th width="10%">会员数</th>
+                                <th width="5%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='$list' id='vo'}
+                            <tr>
+                                <td>
+                                    {$vo.vc_name}
+                                    {if $vo.vc_isdefault==1}
+                                    <button type="button" class="btn btn-outline btn-info">默认</button>
+                                    {/if}
+                                </td>
+                                <td>{$vo.vc_int}</td>
+                                <td><?php echo return_vipsum($vo['vc_id']); ?></td>
+                                <td>
+                                    <a href="javascript:;" data-href="{:url('alter',['id'=>$vo.vc_id])}" class="btn btn-outline btn-info alter">编辑资料</a>
+                                    {if $vo.vc_id!=1}
+                                    <button type="button" class="btn btn-outline btn-info del" data-href="{:url('del',['id'=>$vo.vc_id])}">删除</button>
+                                    {/if}
+                                    {if $vo.vc_isdefault==2}
+                                    <button type="button" class="btn btn-outline btn-info isdefault" data-href="{:url('setdefault',['id'=>$vo.vc_id])}">设置为默认</button>
+                                    {/if}
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                        <div></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/zclip/zclip.js"></script>
+
+<script>
+    $(function () {
+        $('.alter').click(function () {
+            var urls = $(this).attr('data-href');
+            layer.open({
+                title:'编辑会员组',
+                type: 2,
+                area :['800px','500px'],
+                content: urls
+            });
+        })
+        $('.add').click(function () {
+            var urls = $(this).attr('data-href');
+            layer.open({
+                title:'编辑会员组',
+                type: 2,
+                area :['800px','500px'],
+                content: urls
+            });
+        })
+        $('.del').click(function () {
+            var urls = $(this).attr('data-href');
+
+            layer.confirm('确定删除吗?', function(index){
+
+                $.ajax({
+                    type: 'get',
+                    url: urls,
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg('删除成功');
+                            setTimeout(function () {
+                                window.location=window.location
+                            },1500)
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        })
+        $('.isdefault').click(function () {
+            var urls = $(this).attr('data-href');
+            layer.confirm('确定要设置为默认吗?', function(index){
+                $.ajax({
+                    type: 'get',
+                    url: urls,
+                    dataType: "json",
+                    success: function(data){
+                        if(data.code==1){
+                            layer.msg('设置成功');
+                            setTimeout(function () {
+                                window.location=window.location
+                            },1500)
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    }
+                });
+                layer.close(index);
+            });
+        })
+
+        $('.altersetting').click(function () {
+            var urls = "{:url('altersetting')}";
+            layer.open({
+                title:'更改会员组规则',
+                type: 2,
+                area :['800px','500px'],
+                content: urls
+            });
+        })
+
+    })
+</script>
+</body>
+</html>

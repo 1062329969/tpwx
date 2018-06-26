@@ -10,6 +10,7 @@ namespace app\admin\controller;
 
 use app\admin\model\FeedbacktypeModel;
 use app\admin\model\ForumOnetypeModel;
+use Hooklife\ThinkphpWechat\Wechat;
 use think\Db;
 use think\Session;
 class Virtualvipclass extends Admin
@@ -20,6 +21,10 @@ class Virtualvipclass extends Admin
 //        parent::_initialize();
     }
 
+    public function tes(){
+        Wechat::user_tag()->lists();
+        Wechat::user_group();
+    }
     public function index(){
         //查询分类
         $h_class = Db::name('virtualvipclass')->where(['vc_pid'=>0])->order('vc_order desc')->select();

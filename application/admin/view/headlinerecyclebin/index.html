@@ -12,13 +12,18 @@
     <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
     <script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
     <style type="text/css">
-        select{height: 30px;}
+		input,select{height: 30px;}
+		.col-sm-4{padding: 0;}
         .row{margin-top: 20px;}
+        /*.col-sm-4{padding-left: 0;}*/
         input[type=button]{margin-left: 50px;}
         .title-nav{width: 100%;border-bottom: 1px solid #666;}
-        .title-nav span{padding:0 10px;line-height:40px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
-        .title-nav span.active{background: white;border-top:3px solid #15BBDC ;color: #15BBDC;}
+        .title-nav span{color:#000;padding:0 10px;line-height:33px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
+        .title-nav span.active{background: #15BBDC;color: #ffffff;border:none;}
         /*.table{border: 1px solid #666;}*/
+       label{text-align: center;}
+        .btn{padding: 6px 8px;}
+        .row>button:last-of-type{margin-left:50px}
     </style>
 </head>
 <body class="gray-bg">
@@ -35,62 +40,67 @@
                     <div class="ibox-content">
                         <form  class="form-inline" role="form" method="get" action="{:url('index')}" onsubmit="return checksearchform()">
                             <div class="row">
-                                <div class="form-group col-sm-4">
-                                    <label class="form-label">文章标题</label>
-                                    <input type="text" class="form-control" name="qtitle" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['qtitle']}<?php } ?>"/>
+                                <div class="col-md-4 col-sm-4">
+                                    <label class=" col-md-4 col-sm-4">文章标题</label>
+                                    <input type="text" class="col-md-8 col-sm-8" name="qtitle" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['qtitle']}<?php } ?>"/>
                                 </div>
-                                <div class="form-group col-sm-4">
-                                    <label class="form-label">关键词</label>
-                                    <input type="text" class="form-control" name="question" value="<?php if(isset($datas['question'])){ ?>{$datas['question']}<?php } ?>" />
+                                <div class="col-md-4 col-sm-4">
+                                    <label class="col-md-4 col-sm-4">内容关键词</label>
+                                    <input type="text" class=" col-md-8 col-sm-8" name="question" value="<?php if(isset($datas['question'])){ ?>{$datas['question']}<?php } ?>" />
                                 </div>
-                                <div class="form-group col-sm-4">
-                                    <label class="form-label">创建人</label>
-                                    <input type="text" class="form-control" name="author" value="<?php if(isset($datas['author'])){ ?>{$datas['author']}<?php } ?>"/>
+                                <div class="col-sm-4">
+                                    <label class=" col-md-4 col-sm-4">创建人</label>
+                                    <input type="text" class="col-md-8 col-sm-8" name="author" value="<?php if(isset($datas['author'])){ ?>{$datas['author']}<?php } ?>"/>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-group col-sm-5 col-md-4">
-                                    <label class="form-label">分类</label>
-                                    <select id="class_first" name="class_first">
+                                <div class="col-sm-4 col-md-4">
+                                    <label class="col-sm-4 col-md-4">后台分类</label>
+                                    <select id="class_first" class="col-sm-8 col-md-8"" name="class_first">
                                         <option value="">请选择一级分类</option>
                                         {foreach name="class_arr" item="vo" key="k" }
                                         <option value='{$k}' {if $class_first==$k}selected="selected"{/if}>{$vo.name}</option>
                                         {/foreach}
-                                    </select>&#45;&#45;
-                                    <select id="class_second" name="class_second">
+                                    </select>
+                                </div>    
+                                <div class="col-sm-4 col-md-4">
+                                    <label class="col-sm-4 col-md-4">&#45;&#45;</label>
+                                    <select id="class_second" class="col-sm-8 col-md-8" name="class_second">
                                         <option value="">请选择二级分类</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-sm-7 col-md-6">
-                                    <label class="form-label">创建时间</label>
-                                    <input type="text" class="form-control" id="time_starandend" name="time_starandend" value="<?php if(isset($datas['time_starandend'])){ ?>{$datas['time_starandend']}<?php } ?>" />
+                                <div class="col-sm-4 col-md-4">
+                                    <label class="col-sm-4 col-md-4">创建时间</label>
+                                    <input type="text" class="col-sm-8 col-md-8" id="time_starandend" name="time_starandend" value="<?php if(isset($datas['time_starandend'])){ ?>{$datas['time_starandend']}<?php } ?>" />
                                 </div>
                             </div>
-                            <div style="text-align: center;margin: 30px 0 50px">
-                                <input type="submit" class="btn btn-primary" value="搜索">
-                                <input type="button" class="btn btn-primary" id="button_reset" value="重置条件">
+                            <div class="row" style="text-align: center;margin: 30px 0 50px">
+                                <button type="submit" class="btn btn-primary col-md-1 col-sm-1 col-md-offset-5 col-sm-offset-5">搜索</button>
+                                <button type="button" class="btn btn-primary col-md-1 col-sm-1" id="button_reset">重置条件</button>
                             </div>
+                            <input type="hidden" name="fid" value="<?php if(!empty($fid)){ ?>{$fid}<?php } ?>">
+
                         </form>
                         <div class="table-responsive">
                             <div class="title-nav">
-                                <?php if(empty($fid)){ ?>
+                                <?php if(empty($fid)&& empty($fids)){ ?>
                                 <a href="{:url('index')}"><span class="all active">全部文章</span></a>
                                 <?php }else{ ?>
                                 <a href="{:url('index')}"><span >全部文章</span></a>
                                 <?php } ?>
                                 {foreach name="$list" item="vo" key="k"}
-                                <a href="{:url('index',['fid'=>$k])}"><span {if !empty($fid)&&$fid==$k} class="active"{/if}>{$vo}</span></a>
+                                <a href="{:url('index',['fid'=>$k])}"><span {if !empty($fid)&&$fid==$k || $fids == $k} name="fid" class="active"{/if}>{$vo}</span></a>
                                 {/foreach}
                             </div>
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th width="5%"><input type="checkbox" name="checkall">全选</th>
-                                    <th width="15%">标题</th>
+                                    <th width="10%"><input type="checkbox" name="checkall">全选</th>
+                                    <th width="10%">标题</th>
                                     <th width="10%">部门/创建人</th>
-                                    <th width="5%">所属板块</th>
-                                    <th width="15%">创建时间</th>
-                                    <th width="20%">操作</th>
+                                    <th width="10%">所属板块</th>
+                                    <th width="20%">创建时间</th>
+                                    <th width="40%">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -99,10 +109,10 @@
                                     <td><input type="checkbox" class="cjh" value="{$vo.id}" ></td>
                                     <td>{$vo.qtitle}</td>
                                     <td><?php echo $admin_user[$vo['admin_user']]['dp'].">".$admin_user[$vo['admin_user']]['name']; ?></td>
-                                    <td>{php}if($vo['fid']==36){{/php}植发大讲堂{php}}elseif($vo['fid']==37){{/php}头发那些事{php}}elseif($vo['fid']==38){{/php}植发星播客{php}}else{{/php}毛发情报局{php}}{/php}</td>
+                                    <td>{$list[$vo.fid]}</td>
                                     <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
                                     <td>
-                                        <button type="button" class="btn btn-outline btn-info answer" data-id='{$vo.id}'>查看评论</button>
+                                        <a href="{:url('ask/usercomment',['id'=>$vo.id])}" style="margin-right:5px;"><button type="button" class="btn btn-outline btn-info answer" data-id='{$vo.id}'>查看评论</button></a>
                                         <button type="button" class="btn btn-outline btn-info alter" onclick="restore_drafts({$vo.id})" data-id='{$vo.id}' >恢复到草稿箱</button>
                                         <button type="button" class="btn btn-outline btn-info del" onclick='del({$vo.id})'>彻底删除</button>
                                     </td>
@@ -110,9 +120,21 @@
                                 {/volist}
                                 </tbody>
                             </table>
-                            <div><input type="button" onclick="alldele()"  class="btn btn-primary" value="删除已选" /><input type="button" onclick="restore_drafts_all()" class="btn btn-primary" value="恢复已选到草稿箱" /></div>
-                            <div></div>
-                            <div class="pagesc">共计：{$content->total()}条 共：{$content->lastPage()}页</div>{$content->render()}
+                            <div><button type="button" onclick="alldele()" style="margin-right: 25px"  class="btn btn-primary">删除已选</button><button onclick="restore_drafts_all()" class="btn btn-primary" >恢复已选到草稿箱</button></div>
+                            <div style="float: right;width: 50%">
+                                <div class="pagesc">共{$content->total()}条记录 共{$content->lastPage()}页</div>{$content->render()}
+                                <form action="{:url('index')}" style="margin-top:17px;margin-left:10px;">
+                                    <input type="hidden" class="form-control" name="qtitle" value="<?php if(isset($datas['qtitle'])){ ?>{$datas['qtitle']}<?php } ?>"/>
+                                    <input type="hidden" class="form-control" name="question" value="<?php if(isset($datas['question'])){ ?>{$datas['question']}<?php } ?>" />
+                                    <input type="hidden" class="form-control" name="author" value="<?php if(isset($datas['author'])){ ?>{$datas['author']}<?php } ?>"/>
+                                    <input type="hidden" class="form-control" name="class_first" value="<?php if(isset($class_first)){ ?>{$class_first}<?php } ?>"/>
+                                    <input type="hidden" class="form-control" name="class_second" value="<?php if(isset($class_second)){ ?>{$class_second}<?php } ?>"/>
+                                    <input type="hidden" class="form-control" name="time_starandend" value="<?php if(isset($datas['time_starandend'])){ ?>{$datas['time_starandend']}<?php } ?>"/>
+                                    转向第
+                                    <input type="number" name="page" style="width: 40px;" min="1">页
+                                    <button type="submit" class="btn btn-primary">确定</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
 

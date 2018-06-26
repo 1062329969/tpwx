@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+    <script src="{$Think.HTML_STATIC}/js/laydate/laydate.js"></script>
+    <style type="text/css">
+        select{height: 30px;}
+        .row{margin-top: 20px;}
+        input[type=button]{margin-left: 50px;}
+        .title-nav{width: 100%;border-bottom: 1px solid #666;}
+        .title-nav span{padding:0 10px;line-height:40px;display: inline-block; border-radius: 5px 5px 0 0;border: 1px solid #666;background: #F0F0F0;cursor: pointer;border-bottom: none;}
+        .title-nav span.active{background: white;border-top:3px solid #15BBDC ;color: #15BBDC;}
+        /*.table{border: 1px solid #666;}*/
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>您当前所在位置：粉丝&会员>会员管理</h5>
+                </div>
+                <div class="ibox-content">
+                    <form  class="form-inline" role="form" method="get" action="{:url('index')}" onsubmit="return checksearchform()">
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label class="form-label">会员姓名</label>
+                                <input type="text" class="form-control" name="wechaname" value="<?php if(isset($datas['wechaname'])){ ?>{$datas['wechaname']}<?php } ?>"/>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="form-label">会员电话</label>
+                                <input type="text" class="form-control" name="phonenum" value="<?php if(isset($datas['phonenum'])){ ?>{$datas['phonenum']}<?php } ?>" />
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="form-label">会员ID</label>
+                                <input type="text" class="form-control" name="id" value="<?php if(isset($datas['id'])){ ?>{$datas['id']}<?php } ?>"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label class="form-label">会员组
+                                </label>
+                                <select name="vipclass" class="form-control">
+                                    <option value="0">请选择分组</option>
+                                    {volist name="$viplass" id="vo"}
+                                    <option value="{$vo.vc_id}" {if isset($vipclass)&& $vo.vc_id==$vipclass}selected=selected{/if}>{$vo.vc_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="form-label">会员昵称</label>
+                                <input type="text" class="form-control" name="truename" value="<?php if(isset($datas['truename'])){ ?>{$datas['truename']}<?php } ?>" />
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <label class="form-label">openid</label>
+                                <input type="text" class="form-control" name="truename" value="<?php if(isset($datas['truename'])){ ?>{$datas['truename']}<?php } ?>"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-7 col-md-6">
+                                <label class="form-label">创建时间</label>
+                                <input type="text" class="form-control" id="regtime" name="regtime" value="<?php if(isset($datas['regtime'])){ ?>{$datas['regtime']}<?php } ?>" />
+                            </div>
+                        </div>
+                        <div style="text-align: center;margin: 30px 0 50px">
+                            <input type="submit" class="btn btn-primary" value="搜索">
+                        </div>
+                    </form>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th width="5%"><input type="checkbox" name="checkall">全选</th>
+                                <th width="5%">会员ID</th>
+                                <th width="10%">昵称/真实姓名</th>
+                                <th width="10%">绑定手机</th>
+                                <th width="5%">邮箱</th>
+                                <th width="15%">积分</th>
+                                <th width="15%">注册时间</th>
+                                <th width="20%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='$list' id='vo'}
+                            <tr>
+                                <td><input type="checkbox" class="cjh" value="{$vo.id}" ></td>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.wechaname}/{$vo.truename}</td>
+                                <td>{$vo.phonenum}</td>
+                                <td>{$vo.email}</td>
+                                <td>{$vo.integral}</td>
+                                <td>{$vo.regtime|date='Y-m-d H:i:s',###}</td>
+                                <td>
+                                    <a href="{:url('alter',['id'=>$vo.id])}" class="btn btn-outline btn-info alter">编辑资料</a>
+                                    <button type="button" class="btn btn-outline btn-info del" onclick='del({$vo.id})'>删除</button>
+                                </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                        <div></div>
+                        <div class="pagesc">共计：{$list->total()}条 共：{$list->lastPage()}页</div>{$list->render()}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/peity/jquery.peity.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/demo/peity-demo.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+<script src="{$Think.HTML_STATIC}/js/zclip/zclip.js"></script>
+
+<script>
+    $(function(){
+
+        //修改状态
+        laydate.render({
+            elem: '#regtime'
+            ,range: true
+        });
+
+        $('input[name=checkall]').click(function () {
+            if($(this).is(':checked')){
+                $("tbody :checkbox").prop("checked", true);
+            }else{
+                console.log(0);
+                $("tbody :checkbox").prop("checked", false);
+            }
+        })
+
+    });
+
+    function checksearchform() {
+        var start_time = $('#start_time').val();
+        var over_time = $('#over_time').val();
+        if((over_time=='' && start_time!='') || (over_time!='' && start_time=='')){
+            layer.msg('请选择完整时间')
+            return false;
+        }
+    }
+
+    function alldele() {
+        var ids = {}
+        $("tbody :checkbox:checked").each(function (m,n) {
+            ids[m] = $(n).val();
+        })
+        del(ids);
+    }
+    <!--全选删除-->
+    function del(id) {
+        layer.confirm('确定删除吗?', function(index){
+            $.ajax({
+                type: 'post',
+                url: "{:url('del')}",
+                data:{id:id},
+                dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                        layer.msg('删除成功');
+                        setTimeout(function () {
+                            window.location=window.location
+                        },1500)
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+            layer.close(index);
+        });
+    }
+
+    function restore_drafts_all() {
+        var ids = {}
+        $("tbody :checkbox:checked").each(function (m,n) {
+            ids[m] = $(n).val();
+        })
+        restore_drafts(ids);
+    }
+
+    //    恢复到草稿箱
+    function restore_drafts(id) {
+        layer.confirm('确定恢复吗?', function(index){
+            $.ajax({
+                type: 'post',
+                url: "{:url('alter')}",
+                data:{vm_id:id},
+                dataType: "json",
+                success: function(data){
+                    if(data.code==1){
+                        layer.msg('恢复成功');
+                        setTimeout(function () {
+                            window.location=window.location
+                        },1500)
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                }
+            });
+            layer.close(index);
+        });
+    }
+
+</script>
+</body>
+</html>

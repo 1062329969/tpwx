@@ -24,7 +24,7 @@ class ForumOnetype extends Admin
 
     public function index()
     {
-        $mid=input('param.mid',1);
+        $mid=input('param.mid',2);
         $this->assign('mid',$mid);
 
         //查询板块
@@ -206,12 +206,17 @@ class ForumOnetype extends Admin
     public function del(){
         $id=input('param.id');
         if(!empty($id)){
-            $Feedbacktype = new ForumOnetypeModel();
-            $va = $Feedbacktype->where(['id'=>$id])->delete();
-            if($va){
-                $this->success('success');
+            $sum = Db::name('ask')->where(['fid'=>$id])->count();
+            if($sum){
+                $this->error('请先转移文章');
             }else{
-                $this->error('error');
+                $Feedbacktype = new ForumOnetypeModel();
+                $va = $Feedbacktype->where(['id'=>$id])->delete();
+                if($va){
+                    $this->success('删除成功');
+                }else{
+                    $this->error('删除失败');
+                }
             }
         }else{
             $this->error('error');
