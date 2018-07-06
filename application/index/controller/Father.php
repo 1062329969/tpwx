@@ -26,6 +26,7 @@ class Father extends Wap{
         $this->timeStamp = time();
         $this->nonceStr  = rand(100000,999999);
         $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
         //获得jsdk签名
         $this->signature = $apiOauth->getSignature($this->nonceStr,$ticket,$this->timeStamp,$url);
         $this->assign('timeStamp',$this->timeStamp);

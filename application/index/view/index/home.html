@@ -224,45 +224,45 @@
     <ul>
         <li>
             <a href="{:url('cases/index')}">
-                <img src="{$Think.HTML_STATIC}/images/qn11.png" class="qimg"/>
+                <img src="{$Think.HTML_STATIC}/images/qn11.jpg" class="qimg"/>
                 <p class="ic">植发日记</p>
             </a>
         </li>
         <li>
             <a href="{:url('track/stage',['from'=>'index'])}">
-                <img src="{$Think.HTML_STATIC}/images/qn22.png" class="qimg"/>
+                <img src="{$Think.HTML_STATIC}/images/qn22.jpg" class="qimg"/>
                 <p class="ic">直击术后</p>
             </a>
         </li>
         <li>
             <a href="{:url('haircare/article',['from'=>'index'])}">
-                <img src="{$Think.HTML_STATIC}/images/qn33.png" class="qimg"/>
+                <img src="{$Think.HTML_STATIC}/images/qn3.jpg" class="qimg"/>
                 <p class="ic">术后养护</p>
             </a>
         </li>
         <li>
             <a href="{:url('track/index')}">
-                <img src="{$Think.HTML_STATIC}/images/qn44.png" class="qimg"/>
+                <img src="{$Think.HTML_STATIC}/images/qn44.jpg" class="qimg"/>
                 <p class="ic">自我检测</p>
             </a>
         </li>
     </ul>
     <ul>
         <li>
-            <a href="{:url('forum/index',['ppid'=>1])}">
-                <img src="{$Think.HTML_STATIC}/images/qn66.png" class="qimg"/>
-                <p class="ic">独家热点</p>
+            <a onclick="alert('敬请期待')">
+                <img src="{$Think.HTML_STATIC}/images/qn66.jpg" class="qimg"/>
+                <p class="ic">积分专享</p>
             </a>
         </li>
         <li onclick="alert('敬请期待')">
             <a href="">
-                <img src="{$Think.HTML_STATIC}/images/qn55.png" class="qimg"/>
-                <p class="ic">视频直播</p>
+                <img src="{$Think.HTML_STATIC}/images/qn55.jpg" class="qimg"/>
+                <p class="ic">视频点播</p>
             </a>
         </li>
         <li>
             <a href="{:url('yard/xy')}">
-                <img src="{$Think.HTML_STATIC}/images/qn77.png" class="qimg"/>
+                <img src="{$Think.HTML_STATIC}/images/qn77.jpg" class="qimg"/>
                 <p class="ic">各地分院</p>
             </a>
         </li>
@@ -341,7 +341,7 @@
 <div class="qshop qlog" style="padding-bottom:0;">
     <div class="cl">
         <div class="qtit">
-            <h3>植发日记</h3>
+            <h3>精选日记</h3>
             <a href="{:url('cases/index')}">更多<img src="{$Think.HTML_STATIC}/images/more.png" style="width:0.7rem;height:1rem;margin-top:-3px;margin-left:0.3rem;"/></a>
         </div>
     </div>
@@ -352,7 +352,7 @@
                 <li><img src="{$vo.userInfo.portrait}" class="qimg" id="ty"/></li>
                 <li>
                     <h5>{$vo.userInfo.wechaname}</h5>
-                    <h6>{$vo.data_time}</h6>
+                    <h6>{$vo.caser.create_time | date= 'm月d日',###}</h6>
                 </li>
             </ul>
 
@@ -372,24 +372,23 @@
                 <div id="qa">
                     <div><img src="{$vo.pic}" class="qimg"/><img src="{$Think.HTML_STATIC}/images/be.png" id="tag"/></div>
                     <div><img src="{$vo.pic2}" class="qimg"/><img src="{$Think.HTML_STATIC}/images/af.png" id="tag"/></div>
-
                 </div>
                 <?php }?>
                 <p id="di">{$vo.info}</p>
                 <p id="plant"><img src="{$Think.HTML_STATIC}/images/qicon.png"/>{$vo.project.proname}</p>
-
+                {php}$clicksr= $vo['clicks']+$vo['clickss']{/php}
                 <div class="qlist">
                     <ul>
                         <li>
-                            <a href="javascript:void(0);"><img src="{$Think.HTML_STATIC}/images/icon2.png" class="qimg" id="eye"/>{php}echo $vo['clicks']+$vo['clickss']{/php}</a>
+                            <a href="javascript:void(0);"><img src="{$Think.HTML_STATIC}/images/icon2.png" class="qimg" id="eye"/>{:comment_sum($clicksr)}</a>
                         </li>
                         <li>
-                            <a href="{:url('cases/detail',array('uid'=>$vo.id))};"><img src="{$Think.HTML_STATIC}/images/icon3.png"  data_id="{$vo.id}"/>{$vo.caser.comment}</a>
+                            <a href="{:url('cases/detail',array('uid'=>$vo.id))};"><img src="{$Think.HTML_STATIC}/images/icon3.png"  data_id="{$vo.id}"/>{:comment_sum($vo.caser.comment)}</a>
                         </li>
                         <li class="dianzan" name="dianzan"  res-id="{$fansInfo['id']}" uid="{$vo.caser.id}" dis=0 datas={if $vo.res.i_id && $fansInfo['id']==$vo.res.i_uids}1{else /}0{/if} data-idss={$vo.id}>
                         <!--首页点赞-->
                         <a href="javascript:void(0);">
-                            <img src="{$Think.HTML_STATIC}/images/{if $vo.res.i_id && $fansInfo['id']==$vo.res.i_uids}66{else /}65{/if}.png" /><span style="position:relative;top:0.2rem;">{$vo.caser.praise}</span>
+                            <img src="{$Think.HTML_STATIC}/images/{if $vo.res.i_id && $fansInfo['id']==$vo.res.i_uids}66{else /}65{/if}.jpg" /><span style="position:relative;top:0.2rem;">{:comment_sum($vo.caser.praise)}</span>
                         </a>
                         </li>
                     </ul>
@@ -592,13 +591,13 @@
         </div>
     </div>
 </div>
-
 {include file="public/footer" /}
 
 <script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
 <script src="{$Think.HTML_STATIC}/js/swiper-3.4.2.min.js"></script>
 <script type="text/javascript" src="{$Think.HTML_STATIC}/js/myslideup.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <script>
     $(function(){
         $(".line").slideUp();
@@ -669,7 +668,7 @@
             return false;
         }
         var _self = $(this);
-        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.jpg');
         $(this).attr('dis',1);
         var datas = $(this).attr('datas');
         $(this).attr('datas','1');
@@ -683,15 +682,38 @@
             dataType: "json",
             success: function(data)
             {
+                num= _self.find('span').html()
+                numVal=num.substr(0,num.length-1);
+                numNew1=numVal*10000+1;
+                numNew2=numVal*10000-1
+                numOld=num.substr(num.length-1)
                 if(data.code==1) {
                     if (datas == 0) {
-                        _self.find('span').html(Number(_self.find('span').html())+1);
+                        var reg = RegExp(/w/);
+                        if(reg.exec(num)){
+                            _self.find('span').html((numNew1/10000).toFixed(1) + 'w')
+                        }
+                        else if(num == 9999){
+                            _self.find('span').html(((Number(num)+1)/10000).toFixed(1) + 'w')
+                        }else{
+                            _self.find('span').html(Number(_self.find('span').html())+1);
+                        }
                         _self.attr('dis', 0);
                         _self.attr('datas', '1');
                     }
                 } else {
-                    _self.find('span').html(Number(_self.find('span').html())-1);
-                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                    console.log(numOld)
+                    if(num == 1+'w'){
+                        _self.find('span').html(9999)
+                    }
+                    else if(numVal>1&&numOld=="w"){
+                        console.log(1)
+
+                        _self.find('span').html((numNew2/10000).toFixed(1) + 'w')
+                    }else{
+                        _self.find('span').html(Number(_self.find('span').html())-1)
+                    }
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.jpg');
                     _self.attr('dis', 0);
                     _self.attr('datas', '0');
                 }
@@ -748,6 +770,38 @@
         h = $('.news_li li').length * 40;
         setTimeout(b,12000);
 
+    })
+</script>
+<script type="text/javascript">
+    wx.config({
+        debug: false,
+        appId:    '<?php echo think\Config::get('Appid'); ?>',
+        timestamp: '{$timeStamp}',
+        nonceStr: '{$nonceStr}',
+        signature: '{$signature}',
+        jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage']
+    });
+    wx.ready(function() {
+        //分享给朋友圈
+        wx.onMenuShareTimeline({
+            title: '{$sitename}', // 分享标题
+            link: '{$domain}', // 分享链接
+            imgUrl:"http://ihair.yongxianghui.net{$smallimg}",// 分享图标
+            success: function () {
+            }
+
+        });
+
+        //分享给朋友
+        wx.onMenuShareAppMessage({
+            title: '{$sitename}', // 分享标题
+            desc:'{$info}', // 分享描述
+            link:'{$domain}', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+            imgUrl:"http://ihair.yongxianghui.net{$smallimg}", // 分享图标
+            success: function () {
+            }
+
+        });
     })
 </script>
 </body>

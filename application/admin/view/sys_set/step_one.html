@@ -15,18 +15,11 @@
 			.control-label font {
 				color: #F00;
 			}
-			.form-group,
-			.m-b {
-				margin-bottom: 5px;
-			}
 			.hr-line-dashed {
 				margin: 5px 0px;
 			}
 			.step {
 				text-align: center;
-			}
-			.row {
-				margin-top: 50px;
 			}
 			select{height: 30px;}
 			.cj-btn{margin: 200px 0;text-align: center;}
@@ -34,10 +27,21 @@
 			font{color: red;}
 			textarea{width: 100%;}
 			.hr-line-dashed{margin: 20px 0;}
+			.table>tbody>tr>td{line-height: 40px;}
+			.table>tbody>tr:first-of-type>td{background: #f3f3f3;line-height: 30px;}
+			.col-sm-9 img{width: 80px;height: 80px;}	
+			.headerImg>tbody>tr:nth-of-type(2)>td,.headerImg>tbody>tr:nth-of-type(3)>td{line-height: 118px;}
+			.col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7,
+			 .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5,
+			  .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3,
+			   .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
+			    .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {padding-left: 0;padding-right: 0};
+			    
+			    .col-sm-2{text-align: center;}
 		</style>
 	</head>
 
-	<body class="gray-bg">
+	<form action="{:url('step_one')}" enctype="multipart/form-data" method="post" class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeInRight">
 			<div class="row">
 				<div class="col-sm-12">
@@ -51,129 +55,149 @@
 										接入微信公众号
 									</div>
 								</div>
-								<!--步骤yi-->
-								
 						<form method="post" class="form-horizontal" action="">
-							<div class="row">
-									<div class="col-md-12 col-sm-12 step">
-										<img class="col-sm-12 col-md-8 col-md-offset-2" src="{$Think.HTML_STATIC}/img/113.png" />
-									</div>
-								</div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 control-label">公众号名称<font>*</font></label>
-                                <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
-                                </div>
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-									填写公众号的名称
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">描述</label>
-                                <div class="col-sm-10">
-                                    <textarea name="" rows="10" ></textarea>
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">公众号账号<font>*</font></label>
-                                <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
-                                </div>
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-									填写公众号登录账号，一般为英文账号
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">原始ID<font>*</font></label>
-                                <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
-                                </div>
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-									在给粉丝发送客服消息时,原始ID不能为空。建议您完善该选项
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">公众号类型<font>*</font>：</label>
-                                <div class="col-sm-10">
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />普通订阅号</label>
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />普通服务号</label>
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />认证订阅号</label>
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />认证服务号/认证媒体/政府订阅号</label>
-                                </div>
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-									注意：即使公众平台显示为“未认证”, 但只要【公众号设置】/【账号详情】下【认证情况】显示资质审核通过, 即可认定为认证号.
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">开发者ID(AppID)<font>*</font></label>
-                                <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
-                                </div>
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-									请填写微信公众平台后台的AppId
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">开发者密码(AppSecret)<font>*</font></label>
-                                <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
-                                </div>
-                                <label class="col-sm-2 control-label"></label>
-                                <div class="col-sm-10">
-									请填写微信公众平台后台的AppSecret, 只有填写这两项才能管理自定义菜单
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">设置IP白名单<font>*</font></label>
-                                <div class="col-sm-10">
-                                    通过开发者ID及密码调用获取access_token接口时，需要设置访问来源IP为白名单。开发者需要在【基本配置】中设置服务器IP白名单
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
-							<div class="form-group">
-                                <label class="col-sm-2 control-label">Oauth 2.0<font>*</font></label>
-                                <div class="col-sm-10">
-			在微信公众号请求用户网页授权之前，开发者需要先到公众平台网站的【开发者中心】网页服务中配置授权回调域名。
-                                </div>
-                            </div>
-                            
-                            <div class="hr-line-dashed"></div>
-							<div class="form-group">
-	                            <label class="col-sm-2 control-label">公众号头像：</label>
-	                            <div class="col-sm-10">
-	                                <img style="margin-bottom: 10px;" class="caseimg" src="" width="100">
-	                                <input type="file" name="smallimg">
-	                                建议上传图片尺寸，300px * 300px
-	                            </div>
-	                        </div>
-                            <div class="hr-line-dashed"></div>
-                            
-                            <div class="form-group">
-	                            <label class="col-sm-2 control-label">公众号二维码：</label>
-	                            <div class="col-sm-10">
-	                                <img style="margin-bottom: 10px;" class="caseimg" src="" width="100">
-	                                <input type="file" name="smallimg">
-	                               		建议上传图片尺寸，600px * 600px
-	                            </div>
-	                        </div>
-                            <div class="hr-line-dashed"></div>
-                          
-                            <div class="form-group" style="text-align: center;">
-                                <div class="col-sm-4 col-sm-offset-2" > 
-                                    <button class="btn btn-primary" type="button">下一步</button>
+							<table class="table" style="border:1px solid #E4E4E4">
+								<tbody>
+								<tr>
+									<td>
+										<div class="col-sm-12">
+											站点信息设置
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="col-sm-2">站点域名<font>*</font></div>
+										<div class="col-sm-9">{$Think.config.domain}</div>
+										<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.domain}','domain','站点域名')"  data-toggle="modal" data-target="#myModal2">修改</button></div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<table class="table headerImg" style="border:1px solid #E4E4E4">
+								<tbody>
+									<tr>
+										<td>
+											<div class="col-sm-12">
+												公众号设置
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="col-sm-2">公众号头像<font>*</font></div>
+											<div class="col-sm-9"><img src="{$Think.config.smallimg}"/></div>
+											<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.smallimg}','smallimg','公众号头像')" data-toggle="modal" data-target="#myModal2">修改</button></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="col-sm-2">二维码<font>*</font></div>
+											<div class="col-sm-9"><img src="{$Think.config.code_img}"/></div>
+											<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.code_img}','code_img','二维码')">修改</button></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="col-sm-2">公众号名称<font>*</font></div>
+											<div class="col-sm-9">{$Think.config.sitename}</div>
+											<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.sitename}','sitename','公众号名称')"  data-toggle="modal" data-target="#myModal2">修改</button></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="col-sm-2">公众账号<font>*</font></div>
+											<div class="col-sm-9">{$Think.config.account}</div>
+											<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.account}','account','公众账号')" data-toggle="modal" data-target="#myModal3">修改</button></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="col-sm-2">原始ID<font>*</font></div>
+											<div class="col-sm-9">{$Think.config.yid}</div>
+											<div class="col-sm-1"><button class="btn btn-info btn-outline" onclick="editval('{$Think.config.yid}','yid','原始ID')"  type="button" data-toggle="modal" data-target="#myModal4">修改</button></div>
+										</td>
+									</tr>
+									<?php  $number=think\Config::get('number'); ?>
+									<tr>
+										<td>
+											<div class="col-sm-2">公众号类型<font>*</font></div>
+											<div class="col-sm-9">{php}if($number == 1){{/php}普通订阅号{php}}elseif($number == 2){{/php}普通服务号{php}}elseif($number == 3){{/php}认证订阅号{php}}else{{/php}认证服务号/认证媒体/政府订阅号{php}}{/php}</div>
+											<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.number}','number','公众号类型')" data-toggle="modal" data-target="#myModal5">修改</button></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table" style="border:1px solid #E4E4E4">
+								<tbody>
+								<tr>
+									<td>
+										<div class="col-sm-12">
+											自定义菜单通讯设置
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="col-sm-2">开发者ID(AppID)<font>*</font></div>
+										<div class="col-sm-9">{$Think.config.Appid}</div>
+										<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.Appid}','Appid','开发者ID')" data-toggle="modal" data-target="#myModal6">修改</button></div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="col-sm-2">开发者密码(AppSecret)<font>*</font></div>
+										<div class="col-sm-9">{$Think.config.AppSecret}</div>
+										<div class="col-sm-1"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.AppSecret}','AppSecret','开发者密码')" data-toggle="modal" data-target="#myModal7">修改</button></div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<table class="table copy_table" style="border:1px solid #E4E4E4">
+								<tbody>
+								<tr>
+									<td>
+										<div class="col-sm-12">
+											公众平台通信
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="col-sm-2">URL<font>*</font></div>
+										<div class="col-sm-4" id="p1">{$Think.config.domain}</div>
+										<div class="col-sm-2" style="text-align: center;"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
+										<div class="col-sm-3"></div>
+										<div class="col-sm-1"><button class="btn btn-info btn-outline copy_url" type="button" onclick="copyToClipboard('#p1')">点击复制</button></div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="col-sm-2">Token<font>*</font></div>
+										<div class="col-sm-4" id="p2">{$Think.config.Token}</div>
+										<input type="hidden" value="{$Think.config.Token}" name="Token">
+										<div class="col-sm-2" style="text-align: center;"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
+										<div class="col-sm-1" style="text-align: center;"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.Token}','Token','Token')" data-toggle="modal" data-target="#myModal8">修改</button></div>
+										<div class="col-sm-2" style="text-align: center;"><button class="btn btn-info btn-outline new_token" type="button">生成新的</button></div>
+										<div class="col-sm-1"><button class="btn btn-info btn-outline copy_token" type="button" onclick="copyToClipboard('#p2')">点击复制</button></div>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="col-sm-2">EncodingAESKey<font>*</font></div>
+										<div class="col-sm-4" id="p3">{$Think.config.EncodingAESKey}</div>
+										<input type="hidden" value="{$Think.config.EncodingAESKey}" name="EncodingAESKey">
+										<div class="col-sm-2" style="text-align: center;"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
+										<div class="col-sm-1" style="text-align: center;"><button class="btn btn-info btn-outline" type="button" onclick="editval('{$Think.config.EncodingAESKey}','EncodingAESKey','EncodingAESKey')" data-toggle="modal" data-target="#myModal9">修改</button></div>
+										<div class="col-sm-2" style="text-align: center;"><button class="btn btn-info btn-outline new_encod" type="button">生成新的</button></div>
+										<div class="col-sm-1"><button class="btn btn-info btn-outline copy_encod" type="button" onclick="copyToClipboard('#p3')">点击复制</button></div>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+                           	<div class="form-group" style="text-align: center;">
+                                <div class="col-sm-12" > 
+                                    <!--<button class="btn btn-primary" type="button">下一步</button>-->
                                 </div>
                             </div>
                         </form>
@@ -183,10 +207,381 @@
 				</div>
 			</div>
 		</div>
+		<!--&lt;!&ndash;修改站点域名 模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--修改站点域名-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<label class="col-md-3 col-sm-3">设置站点域名</label>-->
+					<!--<div class="input-group col-md-9 col-sm-9 ">-->
+						<!--<select name="select" class="col-md-4 col-sm-4">-->
+							<!--<option value="1">http://</option>-->
+							<!--<option value="2">https://</option>-->
+						<!--</select>-->
+						<!--<?php $sub = think\Config::get('domain'); ?>-->
+						<!--<input style="height: 30px;" type="text" value="<?php echo substr($sub,7); ?>" class="col-md-8 col-sm-8">-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+		<!--&lt;!&ndash;修改公众号名称 模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--修改公众号名称-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<input class="form-control" style="height: 30px;" value="<?php echo think\Config::get('sitename'); ?>" type="text" class="col-md-8 col-sm-8">-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+	<!--&lt;!&ndash;修改公众号账号模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--修改公众号账号-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<input class="form-control" style="height: 30px;" value="{$Think.config.account}" type="text" class="col-md-8 col-sm-8">-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--&lt;!&ndash;修改原始ID模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--修改原始ID-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<input class="form-control" style="height: 30px;" type="text" value="{$Think.config.yid}" class="col-md-8 col-sm-8">-->
+				<!--</div>-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--原始ID不能为空，请填写正确的公众号原始ID-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--&lt;!&ndash;修改原始ID模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--公众号类型-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<?php  $numbers=think\Config::get('number'); ?>-->
+			<!--<div class="modal-body row">-->
+				<!--<label class="col-sm-2 control-label">公众号类型<font>*</font>：</label>-->
+                <!--<div class="col-sm-10">-->
+                    <!--<label class="col-sm-3"><input type="radio" name="number" id="" value="1"{if $numbers==1}checked="checked"{/if} checked />普通订阅号</label>-->
+                    <!--<label class="col-sm-3"><input type="radio" name="number" id="" value="2"{if $numbers==2}checked="checked"{/if} checked />普通服务号</label>-->
+                    <!--<label class="col-sm-3"><input type="radio" name="number" id="" value="3"{if $numbers==3}checked="checked"{/if} checked/>认证订阅号</label>-->
+                    <!--<label class="col-sm-3"><input type="radio" name="number" id="" value="4"{if $numbers==4}checked="checked"{/if} checked />认证服务号/认证媒体/政府订阅号</label>-->
+                <!--</div>-->
+                <!--<label class="col-sm-2 control-label"></label>-->
+                <!--<div class="col-sm-10">-->
+					<!--注意：即使公众平台显示为“未认证”, 但只要【公众号设置】/【账号详情】下【认证情况】显示资质审核通过, 即可认定为认证号.-->
+                <!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--&lt;!&ndash;修改开发者ID模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal6" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--修改开发者ID(AppID)-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<input class="form-control" style="height: 30px;" type="text" class="col-md-8 col-sm-8">-->
+				<!--</div>-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--请填写微信公众平台后台的AppId-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--&lt;!&ndash;修改开发者ID模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal7" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--开发者密码(AppSecret)-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<input class="form-control" style="height: 30px;" type="text" class="col-md-8 col-sm-8">-->
+				<!--</div>-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--请填写微信公众平台后台的AppSecret, 只有填写这两项才能管理自定义菜单-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--&lt;!&ndash;修改开发者ID模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal8" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--修改Token-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<input class="form-control" style="height: 30px;" type="text" class="col-md-8 col-sm-8">-->
+				<!--</div>-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--请与公众号后台的Toten值保持一致-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+<!--&lt;!&ndash;修改开发者ID模态框（Modal） &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal9" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+	<!--<div class="modal-dialog">-->
+		<!--<div class="modal-content">-->
+			<!--<div class="modal-header">-->
+				<!--<button type="button" class="close" data-dismiss="modal"-->
+						<!--aria-hidden="true">×-->
+				<!--</button>-->
+				<!--<h4 class="modal-title" id="myModalLabel">-->
+					<!--修改EncodingAESKey-->
+				<!--</h4>-->
+			<!--</div>-->
+			<!--<div class="modal-body row">-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--<input class="form-control" style="height: 30px;" type="text" class="col-md-8 col-sm-8">-->
+				<!--</div>-->
+				<!--<div class="col-md-12 col-sm-12">-->
+					<!--请与公众号后台的EncodingAESKey值保持一致-->
+				<!--</div>-->
+			<!--</div>-->
+			<!--<div class="modal-footer">-->
+				<!--<button type="button" class="btn btn-default"-->
+						<!--data-dismiss="modal">关闭-->
+				<!--</button>-->
+				<!--<button type="submit" class="btn btn-primary">-->
+					<!--提交更改-->
+				<!--</button>-->
+			<!--</div>-->
+		<!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
+	<!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
+<!--</div>-->
+	</form>
+
+	<!-- /.modal -->
 		<script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
 		<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
 		<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
 		<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+		<script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+		<script>
+            function editval(vals,type,titles) {
+                layer.open({
+                    title:'修改'+titles,
+                    type: 2,
+                    area :['800px','500px'],
+                    content: "{:url('editval',['type'=>'"+type+"'])}"
+                });
+            }
+		</script>
+		<script type="text/javascript">
+			function copyToClipboard(element) {
+			  var $temp = $("<input>");
+			  $("body").append($temp);
+			  $temp.val($(element).text()).select();
+			  document.execCommand("copy");
+			  $temp.remove();
+			}
+			$(function(){
+				$('.copy_table tr td>div:last-of-type button').click(function(){
+					$(this).parents('td').find('img').show().parents('tr').siblings().find('img').hide()
+				})
+				//随机生成43位数
+				function randomWord(randomFlag, min, max){
+				    var str = "",
+				        range = min,
+				        arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+				    // 随机产生
+				    if(randomFlag){
+				        range = Math.round(Math.random() * (max-min)) + min;
+				    }
+				    for(var i=0; i<range; i++){
+				        pos = Math.round(Math.random() * (arr.length-1));
+				        str += arr[pos];
+				    }
+				    return str;
+				}
+				$('.new_encod').click(function(){
+				$('#p3').html(randomWord(false, 43))
+                    var newEncod=$('#p3').html()
+                    $('#p3').next().val(newEncod)
+                    $.ajax({
+                        type:"post",
+                        url:"{:url('step_two')}",
+                        async:true,
+                        dataType: "json",
+                        data:{EncodingAESKey:newEncod},
+                        success:function(data){
+                            if(data.code == 1) {
+                                layer.msg('生成成功');
+                            } else {
+                                layer.msg('生成失败');
+                            }
+                             setTimeout(function () {
+                                  window.location.href = "{:url('step_one')}";
+                             },1500)
+                        }
+                    });
+				})
+				$('.new_token').click(function(){
+				$('#p2').html(randomWord(true, 3, 32))
+                    var newToken=$('#p2').html()
+                    $('#p2').next().val(newToken)
+                    $.ajax({
+                        type:"post",
+                        url:"{:url('step_two')}",
+                        async:true,
+                        dataType: "json",
+                        data:{Token:newToken},
+                        success:function(data){
+                            if(data.code == 1) {
+                                layer.msg('生成成功');
+                            } else {
+                                layer.msg('生成失败');
+                            }
+                            setTimeout(function () {
+                                window.location.href = "{:url('step_one')}";
+                            },1500)
+                        }
+                    });
+				})
+			})
+		</script>
 	</body>
 
 </html>

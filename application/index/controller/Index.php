@@ -27,6 +27,8 @@ use app\index\model\IndexnewsModel;
 use app\index\model\GoodsTypeModel;
 use app\index\model\ForumModel;
 
+use think\Config;
+use ApiOauth\ApiOauth;
 use think\Db;
 use think\session;
 
@@ -42,6 +44,32 @@ class Index extends Wap
 
     //首页更改
     public function home(){
+
+        $info =Config::get('info');
+        $sitename =Config::get('sitename');
+        $domain =Config::get('domain');
+        $smallimg =Config::get('smallimg');
+        $Appid = Config::get('Appid');
+        $AppSecret = Config::get('AppSecret');
+
+        $apiOauth=new apiOauth();
+        $ticket = $apiOauth->getJsApiTicket($Appid,$AppSecret);
+        $this->timeStamp = time();
+        $this->nonceStr  = rand(100000,999999);
+        $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        //获得jsdk签名
+        $this->signature = $apiOauth->getSignature($this->nonceStr,$ticket,$this->timeStamp,$url);
+        $this->assign('timeStamp',$this->timeStamp);
+        $this->assign('nonceStr',$this->nonceStr);
+        $this->assign('signature',$this->signature);
+
+
+        $this->assign('info',$info);
+        $this->assign('sitename',$sitename);
+        $this->assign('domain',$domain);
+        $this->assign('smallimg',$smallimg);
+
+
         $portrait = $this->fansInfo['portrait'];
         $portraits = $this->fansInfo['wechaname'];
         $user_type = $this->fansInfo['stage_type'];

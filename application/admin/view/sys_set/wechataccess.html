@@ -52,8 +52,9 @@
 							<h5>您当前所在位置：平台设置>微信公众号接入</h5>
 						</div>
 						<div class="ibox-content">
+							<form action="{:url('wechataccess')}" enctype="multipart/form-data" method="post">
 							<!--步骤一-->
-							<form class="bs-example bs-example-form"  action="" role="form">	
+							<div class="bs-example bs-example-form form"  action="" role="form">
 								<div class="row">
 									<div class="col-md-12 col-sm-12 step">
 										<img class="col-sm-12 col-md-8 col-md-offset-2" src="{$Think.HTML_STATIC}/img/112.png" />
@@ -61,16 +62,14 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12 col-sm-12">
-																		
 												<label class="col-md-2 col-sm-2">设置站点域名</label>
 												<div class="input-group col-md-8 col-sm-8 ">
-													<select class="col-md-2 col-sm-2">
-														<option>http://</option>
-														<option>https://</option>
+													<select name="select" class="col-md-2 col-sm-2">
+														<option value="1" >http://</option>
+														<option value="2" >https://</option>
 													</select>
-													<input type="text" class="col-md-10 col-sm-10">
+													<input type="text"   name="domain" class="col-md-10 col-sm-10">
 												</div>
-										
 									</div>
 									<div class="col-md-12 col-sm-12">
 										<label class="col-md-2 col-sm-2"></label>
@@ -81,12 +80,12 @@
 								</div>
 								<div class="row">
 									<div  class="col-md-12 col-sm-12 cj-btn">
-										<button class="btn btn-primary step1" type="button">下一步</button>
+										<button class="btn btn-primary step1"  type="button">下一步</button>
 									</div>
 								</div>
-							</form>
+							</div>
 							<!--步骤二-->
-							<form method="post" class="form-horizontal" style="display: none;" action="">
+							<div method="post" class="form-horizontal form" style="display: none;" action="">
 							<div class="row">
 									<div class="col-md-12 col-sm-12 step">
 										<img class="col-sm-12 col-md-8 col-md-offset-2" src="{$Think.HTML_STATIC}/img/113.png" />
@@ -106,14 +105,14 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">描述</label>
                                 <div class="col-sm-10">
-                                    <textarea name="" rows="10" ></textarea>
+                                    <textarea name="info" rows="10" ></textarea>
                                 </div>
                             </div>
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">公众号账号<font>*</font></label>
                                 <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                    <input type="text" required="required" class="form-control" name="account" placeholder="请输入当前站点域名">
                                 </div>
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -124,7 +123,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">原始ID<font>*</font></label>
                                 <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                    <input type="text" required="required" class="form-control" name="yid" placeholder="原始ID">
                                 </div>
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -136,10 +135,10 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">公众号类型<font>*</font>：</label>
                                 <div class="col-sm-10">
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />普通订阅号</label>
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />普通服务号</label>
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />认证订阅号</label>
-                                    <label class="col-sm-3"><input type="radio" name="number" id="" value="" />认证服务号/认证媒体/政府订阅号</label>
+                                    <label class="col-sm-3"><input type="radio" name="number"  value="1" />普通订阅号</label>
+                                    <label class="col-sm-3"><input type="radio" name="number"  value="2" />普通服务号</label>
+                                    <label class="col-sm-3"><input type="radio" name="number"  value="3" />认证订阅号</label>
+                                    <label class="col-sm-3"><input type="radio" name="number"  value="4" />认证服务号/认证媒体/政府订阅号</label>
                                 </div>
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -150,7 +149,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">开发者ID(AppID)<font>*</font></label>
                                 <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                    <input type="text" required="required" class="form-control" name="kid" placeholder="请输入当前站点域名">
                                 </div>
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -161,7 +160,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">开发者密码(AppSecret)<font>*</font></label>
                                 <div class="col-sm-10">
-                                    <input type="text" required="required" class="form-control" name="sitename" placeholder="请输入当前站点域名">
+                                    <input type="text" required="required" class="form-control" name="kpwd" placeholder="请输入当前站点域名">
                                 </div>
                                 <label class="col-sm-2 control-label"></label>
                                 <div class="col-sm-10">
@@ -197,8 +196,8 @@
                             <div class="form-group">
 	                            <label class="col-sm-2 control-label">公众号二维码：</label>
 	                            <div class="col-sm-10">
-	                                <img style="margin-bottom: 10px;" class="caseimg" src="" width="100">
-	                                <input type="file" name="smallimg">
+	                                <img style="margin-bottom: 10px;" class="codeimg" src="" width="100">
+	                                <input type="file" name="code_img">
 	                               		建议上传图片尺寸，600px * 600px
 	                            </div>
 	                        </div>
@@ -209,9 +208,9 @@
                                     <button class="btn btn-primary step2" type="button">下一步</button>
                                 </div>
                             </div>
-                        </form>
+                        </div>
 							<!--步骤三-->
-							<form style="display: none;">
+							<div class="form" style="display: none;">
 								<div class="row">
 									<div class="col-md-12 col-sm-12 step">
 										<img class="col-sm-12 col-md-8 col-md-offset-2" src="{$Think.HTML_STATIC}/img/114.png" />
@@ -242,11 +241,11 @@
 		                                </div>
 		                                <div class="col-sm-2">
 		                                </div>
-		                            </div> 
+		                            </div>
 		                            <div class="form-group col-md-12 col-sm-12">
 		                            	<label class="col-sm-2 control-label">Token</label>
 		                                <div class="col-sm-8">
-											<p id="p2" onclick="copyToClipboard('#p2')" class="col-sm-8">2cd98a817c083ab796c654b82cb177fd</p>
+											<p id="p2" onclick="copyToClipboard('#p2')" name="token" class="col-sm-8"><?php echo(think\Config::get('Token')); ?></p>
 											<div class="col-sm-4"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
 		                                </div>
 		                                <div class="col-sm-2">
@@ -255,7 +254,8 @@
 		                            <div class="form-group col-md-12 col-sm-12" >
 		                            	<label class="col-sm-2 control-label">EncodingAESKey</label>
 		                                <div class="col-sm-8">
-											<p id="p3" onclick="copyToClipboard('#p3')" class="col-sm-8">B8gJBYGCYtNLylYlGNZ8T6gL6nCBGGlD6tTj67YGJ6y</p>
+											<p id="p3" onclick="copyToClipboard('#p3')" class="col-sm-8"><?php echo(think\Config::get('EncodingAESKey')); ?></p>
+											<input class="lxVal"  name="encodingaeskey" type="hidden" value="{$Think.config.EncodingAESKey}">
 											<div class="col-sm-4"><img style="display: none;" src="{$Think.HTML_STATIC}/img/117.png"/></div>
 		                                </div>
 		                                <div class="col-sm-2">
@@ -270,9 +270,10 @@
 								</div>
 								<div class="row">
 									<div class="col-md-12" style="text-align: center;">
-										<button class="btn btn-primary finish">完成配置并检测是否接入成功</button>
+										<button  class="btn btn-primary finish">完成配置并检测是否接入成功</button>
 									</div>
 								</div>
+							</div>
 							</form>
 						</div>
 					</div>
@@ -283,6 +284,57 @@
 		<script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
 		<script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
 		<script src="{$Think.HTML_STATIC}/js/plugins/iCheck/icheck.min.js"></script>
+		<!--<script>
+            //通过ajax提交数据
+            $(".step1").click(function(){
+                var type =$('#select option:selected').val();
+                var domain = $('input[name=domain]').val();
+                console.log(type);
+                console.log(domain);
+
+                $.ajax({
+                    type:"post",
+                    url:"{:url('wechataccess')}",
+                    async:true,
+                    dataType: "json",
+                    data:{type:type,domain:domain},
+                    success:function(data){
+                        if(data.code == 1) {
+                            layer.msg('修改成功');
+                        } else {
+                            layer.msg('修改失败');
+                        }
+                        setTimeout(function () {
+                            window.location.href = "{:url('wechataccess')}";
+                        },1500)
+                    }
+                });
+            });
+
+            //通过data:$("form").serialize()提交数据
+            //第二步
+            $(".step2").click(function(){
+                var sitename = $('input[name=sitename]').val();
+                console.log(sitename);
+                $.ajax({
+                    type:"post",
+                    url:"{:url('wechataccess')}",
+                    async:true,
+                    dataType: "json",
+                    data:{sitename:sitename},
+                    success:function(data){
+                        if(data.code == 1) {
+                            layer.msg('修改成功');
+                        } else {
+                            layer.msg('修改失败');
+                        }
+                        setTimeout(function () {
+                            window.location.href = "{:url('wechataccess')}";
+                        },1500)
+                    }
+                });
+            })
+		</script>-->
 		<script type="text/javascript">
 			function copyToClipboard(element) {
 			  var $temp = $("<input>");
@@ -296,10 +348,25 @@
 					$(this).next().find('img').show().parents('.form-group').siblings().find('img').hide()
 				})
 				$('.step1').click(function(){
-					$(this).parents('form').hide().next().show()
+                    var res = $('input[name=domain]').val();
+                    if(res == ''){
+				        alert('请填写站点域名');
+				        return;
+					}
+					$(this).parents('.form').hide().next().show()
 				})
 				$('.step2').click(function(){
-					$(this).parents('form').hide().next().show()
+					var a =$('input[name=sitename]').val();
+					var b =$('input[name=account]').val();
+					var c =$('input[name=yid]').val();
+					var d =$('input:radio[name=number]:checked').val();
+					var e =$('input[name=kid]').val();
+					var f =$('input[name=kpwd]').val();
+					if(a=='' || b == '' || c=='' || d==undefined || e=='' || f==''){
+                        alert('必填项不能为空！');
+                        return;
+					}
+					$(this).parents('.form').hide().next().show()
 				})
 				//随机生成43位数
 				function randomWord(randomFlag, min, max){
@@ -318,8 +385,10 @@
 				}
 				$('.new').click(function(){
 				$('#p3').html(randomWord(false, 43))
+				var random=	$('#p3').html()
+					$('.lxVal').val(random)
 				})
-				console.log(randomWord(false, 43))
+				// console.log(randomWord(false, 43))
 			})
 		</script>
 	</body>

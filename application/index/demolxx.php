@@ -1,0 +1,28 @@
+<?php
+return [
+    'sitename'=>'雍享汇',
+    'domain'=>'http://e1.yongxianghui.net',
+    'Appid'=>'wxa7704589f3ea416d',
+    'Appsecret'=>'5aa272ed957a388543431724afcd178a',
+    'mchid'=>'1487912712',
+    'apikey'=>'6960628810125927f1696d472f96ae27',
+    'tel'=>'400-888-6667',
+    'zoosnet'=>'https://www.sobot.com/chat/h5/index.html?sysNum=4bd44e32f01b4e50b69273c9626193c4&source=1',
+    'Token'=>'2cd98a817c083ab796c654b82cb177fd',
+    'EncodingAESKey'=>'2k3FjSc7pSG81ZrW9er5nYcXa9CJyM7FvLm5KXGQAcj',
+    'codeCont'=>'【雍享汇】您的验证码是：{code},5分钟内有效，请勿泄漏。如非本人操作，请忽略此信息。',
+    'sharejf'=>'30',
+    'signjf'=>'5',
+    'hpdjf'=>'1',
+    'conSignjf'=>'7|35,14|140,28|280',
+    'getIntegral'=>'10',
+    'EBusinessID'=>'1293292',
+    'AppKey'=>'ee62531a-ea57-43a2-91c1-16ef6831dfb9',
+    'account'=>'922123',
+    'password'=>'ecBZC6',
+    'extno'=>'1069080123',
+    'hudong'=>'您有什么需要咨询的？您对什么感兴趣可以随时反馈，我们最快的时间答复您！',
+    'code_img'=>'',
+    'smallimg'=>'',
+];
+?>

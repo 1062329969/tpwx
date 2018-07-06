@@ -13,17 +13,10 @@ return [
     '__pattern__' => [
         'name' => '\w+',
     ],
-//    '[hello]'     => [
-//        ':id'   => ['index/hellos', ['method' => 'get'], ['id' => '\d+']],
-//        ':name' => ['index/hellos', ['method' => 'post']],
-//    ],
+    '[hello]'     => [
+        ':id'   => ['index/hellos', ['method' => 'get'], ['id' => '\d+']],
+        ':name' => ['index/hellos', ['method' => 'post']],
+    ],
 //    'qn/:q'=>'@index/Questionnaire/index/qid/:id'
-//    'home'=>'@index/Index/homes'
-    //活动
-    'f'=>'@index/father/index',
-    'f/a'=>'@index/father/getresult'
-//    '[f]'=>[
-//        '/'=>'@index/father/index',
-//        '/a'=>'@index/father/getresult',
-//    ]
+    'home'=>'@index/Index/homes'
 ];

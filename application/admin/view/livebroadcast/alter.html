@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title></title>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="{$Think.HTML_STATIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/animate.min.css" rel="stylesheet">
+<link href="{$Think.HTML_STATIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.config.js?1.4.3.3"></script>
+<script type="text/javascript" charset="utf-8" src="{$Think.HTML_STATIC}/udeitor/ueditor.all.min.js?1.4.3.3"></script>
+<style>
+.control-label font{ color:#F00;}
+.form-group,.m-b{ margin-bottom:5px;}
+.hr-line-dashed{ margin:5px 0px;}
+.form-horizontal h5{font-size:15px;}
+.cen{text-align:center;padding:6px 12px;}
+span{color:red;}
+.bsw{text-align:center;}
+.bsw img{display:block;width:100%;}
+.hr-line-dashed{margin:15px 0;}
+</style>
+</head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>您当前所在位置：视频点播&nbsp;&nbsp;>&nbsp;&nbsp;编辑视频</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="{:url('index')}">返回视频点播</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form method="post" class="form-horizontal" enctype="multipart/form-data" action="{:url('alter')}">
+                            <h5>添加文章</h5>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">排序</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="m_order" onkeyup="onlyNonNegative(this)" value="{$live.m_order}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">视频标题<span>*</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control title" required placeholder="请输入文章标题" name="m_title" value="{$live.m_title}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">视频分类<span>*</span></label>
+                                <div class="col-sm-2">
+
+                                    <select class="form-control m-b s2" id="class_first" name="m_category_pid" style="width:120%;" required>
+                                        <option value="">请选择一级分类</option>
+                                        {foreach name="class_arr" item="vo" key="k" }
+                                        <option value='{$k}' {eq name="$live.m_category_pid" value="$k"}selected{/eq}>{$vo.name}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+
+                                    <select class="form-control m-b s2" id="class_second" name="m_category_id" style="width:120%;" required>
+                                        <option value="">请选择二级分类</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">显示状态</label>
+                                <div class="col-sm-10">
+                                    <div class="col-sm-2"><input type="radio" name="m_video_show" value="1"{if $live.m_video_show==1}checked="checked"{/if} checked/>显示</div>
+                                    <div class="col-sm-2"><input type="radio" name="m_video_show" value="0"{if $live.m_video_show==0}checked="checked"{/if}/>隐藏</div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">发布用户</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control uid" value="{$live.m_uid}" name="m_uid">
+                                        <span class="input-group-btn"><button type="button" class="btn btn-primary adduser">选择</button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">视频描述</label>
+                                <div class="col-sm-10">
+                                    <script id="container" type="text/plain" style="width:100%;height:400px;" name="m_content">{$live.m_content}</script>
+                                    <script type="text/javascript">
+                                    var ue = UE.getEditor('container');
+                                    </script>
+                                    <!--<textarea required style="width:100%;height:400px;" name="question" class="s4"></textarea>-->
+                                </div>
+                            </div>
+
+                            <div class="hr-line-dashed"></div>
+
+                            <div class="hr-line-dashed"></div>
+                            <link href="{$Think.HTML_STATIC}/css/webuploader.css" rel="stylesheet">
+                            <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+                            <script type="text/javascript" src="http://cdn.staticfile.org/webuploader/0.1.0/webuploader.js"></script>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">上传视频：</label>
+
+                                <div id="uploader" class="wu-example">
+                                    <!--用来存放文件信息-->
+                                    <div id="thelist" class="uploader-list">{$live.m_video_url}</div>
+                                    <div class="btns">
+                                        <div id="picker">选择文件</div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="m_video_url" value="" id="a_video">
+                                <div id="fileList"></div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">新视频加权</label>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" placeholder="评论数" name="m_comment_num" onkeyup="onlyNonNegative(this)" value="{$live.m_comment_num}">
+                                </div>
+                                <div class="col-sm-1 cen"></div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" placeholder="点赞数" name="m_collection_num" onkeyup="onlyNonNegative(this)" value="{$live.m_collection_num}">
+                                </div>
+                                <div class="col-sm-1 cen"></div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" placeholder="完播数" name="m_play_num" onkeyup="onlyNonNegative(this)" value="{$live.m_play_num}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">浏览量</label>
+                                <div class="col-sm-2">
+                                    <input readonly="readonly" class="form-control" name="m_real_browse" placeholder="展示浏览量" onkeyup="onlyNonNegative(this)" value="{$click =$live.m_virtual_browse+$live.m_browse}">
+                                </div>
+                                <div class="col-sm-1 cen">=</div>
+                                <div class="col-sm-2">
+                                    <input readonly="readonly" class="form-control" placeholder="真实浏览量" name="m_virtual_browse" onkeyup="onlyNonNegative(this)" value="{$live.m_virtual_browse}">
+                                </div>
+                                <div class="col-sm-1 cen">+</div>
+                                <div class="col-sm-2">
+                                    <input type="text" class="form-control" placeholder="虚拟浏览量" name="m_browse" onkeyup="onlyNonNegative(this)" value="{$live.m_browse}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+
+                            <!--<div class="form-group">
+                                <label class="col-sm-2 control-label">发布者：</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" placeholder="请输入发布者" name="author" value="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>-->
+
+                                <div style="display: none"  id="sids">
+
+                                </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-4">
+                                    {:token()}
+                                    <button class="btn btn-primary col-sm-5 col-sm-offset-1 save" type="submit">保存并发布</button>
+                                </div>
+
+                            </div>
+                            <input type="hidden">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="{$Think.HTML_STATIC}/js/laydate.js"></script>
+    <script src="{$Think.HTML_STATIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.HTML_STATIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.HTML_STATIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.HTML_STATIC}/js/plugins/layer/layer.js"></script>
+    <script>
+        var classstr = '<?php echo json_encode($class_arr); ?>'
+        classarr = JSON.parse(classstr);
+        $('#class_first').change(function () {
+            var f_id = $(this).val()
+            if(f_id){
+                $('#class_second').html('');
+            }
+            var _html = '';
+            for (x in classarr[f_id]['child']){
+                _html += '<option value="'+x+'">'+classarr[f_id]['child'][x]+'</option>'
+            }
+            $('#class_second').html(_html);
+        })
+
+        var classstr = '<?php echo json_encode($class_arr); ?>'
+        classarr = JSON.parse(classstr);
+        if($('#class_first').val()!=''){
+
+            var f_id = $('#class_first').val();
+            var f_sid = {if isset($live['m_category_pid'])&&$live['m_category_id']!=''} {$live['m_category_id']}{else /}null{/if};
+            var _html = '<option value="">请选择二级分类</option>';
+            for (x in classarr[f_id]['child']){
+                if(f_sid==x){
+                    _html += '<option value="'+x+'" selected>'+classarr[f_id]['child'][x]+'</option>'
+                }else{
+                    _html += '<option value="'+x+'">'+classarr[f_id]['child'][x]+'</option>'
+                }
+            }
+            $('#class_second').html(_html);
+        }
+
+
+
+        $('.adduser').click(function()
+        {
+            layer.open({
+                type: 2,
+                area: ['70%', '90%'],
+                fixed: false, //不固定
+                maxmin: true,
+                content: '{:url("Ask/selectUid")}'
+            });
+        });
+        $('#addimg').click(function(){
+            $('#imgs').append('<div class="input-group m-b"><span class="input-group-addon"><input type="radio" name="default_img" value="0">默认</span> <input type="file" name="pic[]" class="form-control"/> <span class="input-group-btn"> <button type="button" class="btn btn-primary del">删除</button> </span> </div>');
+            again();
+        });
+        $("#imgs").on("click",".del",function(){
+            $(this).parent().parent().remove();
+            again();
+        });
+
+        //对上传图片的默认单选按钮 重新赋值
+
+        function again()
+        {
+            i=0;
+            $("#imgs  input[type='radio']").each(function(){
+                $(this).val(i);
+                i=i+1;
+            })
+        }
+
+        //通过2步做到输入的为非负数
+        //1.去掉多余的小数点
+        //2.保证只能输入小数点或数字
+        function onlyNonNegative(obj) {
+            var inputChar = event.keyCode;
+            //alert(event.keyCode);
+
+            //1.判断是否有多于一个小数点
+            if(inputChar == 190) { //输入的是否为.
+                var index1 = obj.value.indexOf(".") + 1; //取第一次出现.的后一个位置
+                var index2 = obj.value.indexOf(".", index1);
+                while(index2 != -1) {
+                    //alert("有多个.");
+
+                    obj.value = obj.value.substring(0, index2);
+                    index2 = obj.value.indexOf(".", index1);
+                }
+            }
+            //2.如果输入的不是.或者不是数字，替换 g:全局替换
+            obj.value = obj.value.replace(/[^(\d|.)]/g, "");
+        }
+
+    </script>
+    <script type="text/javascript">
+        jQuery(function() {
+            $list = $('#thelist'),
+                $btn = $('#ctlBtn'),
+                state = 'pending',
+                uploader;
+            uploader = WebUploader.create({
+                // 不压缩image
+                resize: false,
+                // swf文件路径
+                swf: 'uploader.swf',
+                // 文件接收服务端。
+                server: "{:url('articlevideo')}",
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+                pick: '#picker',
+                chunked: true,
+                chunkSize:2*1024*1024,
+                auto: true,
+                accept: {
+                    title: 'Images',
+                    // extensions: 'gif,jpg,jpeg,bmp,png',
+                    // mimeTypes: 'image/*'
+                }
+            });
+            uploader.on('uploadSuccess', function (file,response) {
+                $('#a_video').val(response._raw);
+                $('.progress').remove();
+                $('#picker').parent().html('上传成功');
+            });
+            uploader.on( 'uploadProgress', function( file, percentage ) {
+                var $li = $( '#fileList' ),
+                    $percent = $li.find('.progress');
+                // 避免重复创建
+                if ( !$percent.length ) {
+                    $percent = $('<p class="progress" style="background:#48b7ee;width: 0%"></p>')
+                        .appendTo( $li )
+                        .find('span');
+                }
+                $('.progress').css( 'width', percentage * 100 + '%' );
+            });
+        })
+    </script>
+</body>
+</html>

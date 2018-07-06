@@ -83,7 +83,7 @@
         .o{float:left;width:50%;}
         .csuser img{width:2rem;height:2rem;line-height:2rem;margin-right:0.5%;}
         .o span{font-size:1.3rem;color:#aeaeae;height:1.5rem;line-height:1.5rem;}
-        .plinfos{padding: 0;position: absolute;left: 0;width: 100%;}
+        .plinfos{padding: 0;position: absolute;left: 0;width: 100%;top:0;}
         .clearfix:after{
 		    	content: "";
 		    	display: block;
@@ -322,10 +322,15 @@
 <script>
     $(function(){
     	//获取图片的高放在文字上
-    	var imgHeight=$('.dyimg img').height()
+    	//var imgHeight=$('#load >a:first').find(".dytitle").height();
+       /*var h1=$('#load >a:first').find(".dyimg img").height();
+        alert(h1);
     	var headerHeight=$('.plinfos').height()
     	var imgRem=imgHeight-headerHeight
-    	$(".plinfos ").css('top',imgRem+'px')
+    	$(".plinfos ").css('top',imgRem+'px')*/
+
+
+
     	//导航条可以滑动的
     	var ulNum = $('.cj_nav_little ul').length
     	if(ulNum>4){
@@ -421,7 +426,8 @@
                 }
             }
             //获取图片的高放在文字上
-    	var imgHeight=$('.dyimg img').height()
+    	var imgHeight=$('#load >a:first').find(".dyimg img").height();
+        //alert(imgHeight);
     	var headerHeight=$('.plinfos').height()
     	var imgRem=imgHeight-headerHeight
     	$(".plinfos ").css('top',imgRem+'px')

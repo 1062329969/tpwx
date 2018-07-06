@@ -48,6 +48,7 @@ class Virtualvipclass extends Admin
                 $this->error('请先删除该分类的子分类');
             }
         }else{
+            //等待虚拟会员完成后 修改查询
             $list = Db::name('ask')->where(['class_second'=>$id])->select();
             if($list){
                 $this->error('请先转移该分类的文章');

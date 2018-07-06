@@ -133,7 +133,7 @@
 		.cj-pl{width: 60%;margin-left: 3.2%;margin-right:0;position: relative;}
 		.cj-pl img{position: absolute;top: 0.95rem;left: 1.7rem;width:1.7rem ;}
 		.cj-pl input{width: 100%;height: 3.4rem;border-radius: 3.4rem;margin-bottom: 0;background: #f2f2f2;font-size: 1.5rem;color: #666;text-indent: 2em;border:none;}
-		.user img{width: 2.6rem;height: 2.6rem;border-radius: 50%;margin-left: 0.8rem;margin-right: 0.5rem;}
+		.user img{width: 2rem;height: 2rem;border-radius: 50%;margin-left: 0.8rem;margin-right: 0.5rem;}
 		.user span{line-height: 4.4rem;font-size: 1.2rem;color: #565656;}
 	</style>
 </head>
@@ -410,14 +410,7 @@
         //     recComment({$res.id},5,'{$Request.token}',plid,uid,text1);
         //
         // });
-
-
-
-
-
-
         //这是李啸更改过的评论回复
-
         $('#commnet_submit').click(function(){
             var commnet_text = $('#commnet_text').val();
             if(!commnet_text){
@@ -428,7 +421,6 @@
             var pid = $('#pid').val();
             var tid = $('#tid').val();
             var cuid = $('#cuid').val();
-
             $.ajax({
                 type: "post",
                 url: '{:url("Comment/articlecomment")}',
@@ -450,10 +442,6 @@
             });
             window.location.reload()
         })
-
-
-        //这是结尾
-
         //评论点赞
         $(".txdz").click(function(){
             plid=$(this).attr('data-id');
@@ -467,24 +455,6 @@
         //获取评论个数
         var cjNum=$(".cj_return").length
         $(".cj_pl_num span").html('（'+cjNum+'）')
-
-        // //回复评论
-        // $('.backText').click(function()
-        // {
-        //     $(".cj_com_reply").show();
-        //     $(".cj_shade").show();
-        //     $('#cjh').focus();
-        //     userName=$(this).attr('data-align');
-        //     plid=$(this).attr('data-plid');  //评论的id
-        //     uid=$(this).attr('data-uid');  //回复的评论用户id
-        //
-        // });
-
-        // //回复评论
-        // $(".cj_com_reply span.mui-pull-left,.cj_shade").click(function(){
-        //     $(".cj_com_reply").hide()
-        //     $(".cj_shade").hide()
-        // })
         var width = $(window).width(); //浏览器当前窗口可视区域宽度
         height = width/16*9;
         $('iframe').height(height);

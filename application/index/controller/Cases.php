@@ -39,7 +39,6 @@ class Cases extends Wap
         $tid=input('param.tid',0);
         //地区
         $hid=input('param.hid',0);
-
         //读取院部
         $gid = input('param.gid',0);
         $hosname = Db::name('hospital')->where(['id'=>$gid])->find();
@@ -48,6 +47,7 @@ class Cases extends Wap
         //读取项目
         $Hair_project = Db::name('project')->where(['id'=>$pid])->find();
         $project=ProjectModel::getAll();
+
 
         //读取案例内容
         $cases=CasesModel::getAll_tow($pid,$hid,$gid,$tid,10);
@@ -99,32 +99,37 @@ class Cases extends Wap
 		//浏览数增1
 		CasesModel::where('id',$id)->setInc('click',1);
 
+
         //读取术前的照片
 		$casesImgs=CasesImgsModel::getAll($id);
 		$this->assign('casesImgs',$casesImgs);
 		//读取日记记录
 		$casesRecord=CasesRecordModel::getAll($id,$ttime);
-		foreach($casesRecord as $key=>$v)
+        foreach($casesRecord as $key=>$v)
 		{
             //读取该记录的图片
 			$casesRecordImgs=CasesRecordImgsModel::getAll($v['id']);
 			$casesRecord[$key]['images']=$casesRecordImgs;
             $casesRecord[$key]['caser']= Db::name('information')->where(['i_ids'=>$v['id'],'i_uids'=>$this->fansInfo['id'],'i_module'=>1,'i_type'=> 2])->find();
 		}
+        $this->assign('cases_sum',count($casesRecord));
 		$this->assign('casesRecord',$casesRecord);
 
 
-		//读取相关案例
-		$aboutCases=CasesModel::getAll($cases['pid'],0,5);
-
+        //同分院其他日记
+//        $aboutCases = Db::name('cases')->where(['hosname_id'=>$cases['hosname_id'],'status'=>1,'del'=>0])->limit("0,3")->select();
+        $aboutId =$cases['hosname_id'];
+		$aboutCases=CasesModel::other($aboutId,$id,0,3);
+//		echo CasesModel::getLastSql();die;
 		foreach($aboutCases as $key=>$v)
 		{
+                //读取该案例的最后一次回复情况
+                $casesRecordModel=CasesRecordModel::getOne($v['id']);
+                $aboutCases[$key]['pic2']=$casesRecordModel['pic'];
 
-			//读取该案例的最后一次回复情况
-			$casesRecordModel=CasesRecordModel::getOne($v['id']);
-			$aboutCases[$key]['pic2']=$casesRecordModel['pic'];
 		}
 		$this->assign('aboutCases',$aboutCases);
+		$this->assign('aboutId',$aboutId);
 
 
 
@@ -146,12 +151,12 @@ class Cases extends Wap
 
     //植发日记 术后记录
     public function record(){
-        $id=input('param.id');
+        $id=input('param.id');//帖子id
         $this->assign('id',$id);
 
         $casesRecord=CasesRecordModel::getOneId($id);
-        $cid=$casesRecord['cid'];
-        $cases=CasesModel::getOne($cid);
+        $cid=$casesRecord['cid'];//术前帖id
+        $cases=CasesModel::getOne($cid);//术前帖
         $cases_hospital = Db::name('cases')
             ->alias('a')
             ->where(['a.id'=> $cid])
@@ -170,7 +175,6 @@ class Cases extends Wap
 
         //浏览数增1
         CasesRecordModel::where('id',$id)->setInc('click',1);
-
         //读取该记录的图片
         if(empty($casesRecord['vurl']))
         {
@@ -209,7 +213,7 @@ class Cases extends Wap
 
         //收藏 - 点赞
         $sc = Db::name('collection')->where(['aid'=>$id,'uid'=>$this->fansInfo['id']])->find();
-        $praise = Db::name('information')->where(['i_ids'=>$id,'i_uids'=>$this->fansInfo['id'],'i_module'=>1])->find();
+        $praise = Db::name('information')->where(['i_ids'=>$id,'i_uids'=>$this->fansInfo['id'],'i_module'=>1,'i_type'=>2])->find();
         $this->assign('sc',$sc);
         $this->assign('praise',$praise);
 
@@ -222,6 +226,9 @@ class Cases extends Wap
             $newuser[$uv['id']] = $uv;
         }
         $this->assign('alluser',$newuser);
+
+        $count = Db::name('cases_record')->where(['cid'=>$cid,'status'=>1,'del'=>0])->select();
+        $this->assign('count',count($count));
 
         return $this->fetch();
     }

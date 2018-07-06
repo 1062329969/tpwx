@@ -312,6 +312,7 @@ class Cases extends Admin
 		if($request->method()=='POST')
 		{
 			$data=input('post.');
+			$data['create_time'] = strtotime($data['create_time']);//帖子发布时间
 			$result=$this->validate($data,'ValidateClass.CK15');
 			if(true !== $result)
 			{
@@ -367,6 +368,8 @@ class Cases extends Admin
             $casesRecordModel=new CasesRecordModel;
 			$casesRecordModel->allowField(true)->save($data);
             $cases = Db::name('cases')->where(['id'=>$casesRecordModel['cid']])->update(['update_time'=>time()]);
+
+            $res = Db::name('cases')->where(['id'=>$casesRecordModel['cid']])->setInc('title_sum',1);
             if($cases)
 			{
                 //保存多图
@@ -382,7 +385,7 @@ class Cases extends Admin
 			}
 			else
 			{
-				$this->error('添加失败11',url('record',['cid'=>$data['cid']]));
+				$this->error('添加失败',url('record',['cid'=>$data['cid']]));
 			}
 		}
 		else
@@ -402,6 +405,7 @@ class Cases extends Admin
         if($request->method()=='POST')
         {
             $data=input('post.');
+            $data['create_time'] = strtotime($data['create_time']);//帖子发布时间
             $result=$this->validate($data,'ValidateClass.CK15');
             if(true !== $result)
             {
@@ -496,7 +500,12 @@ class Cases extends Admin
 	//案例管理删除
     public function record_del(){
 	    $id = input('post.id');
-        CasesRecordModel::where(['id'=>$id])->delete();
+	    $res = Db::name('cases_record')->find($id);
+        $info = Db::name('cases')->where(['id'=>$res['cid']])->setDec('title_sum',1);
+        if($info){
+            CasesRecordModel::where(['id'=>$id])->delete();
+        }
+
         return ['code'=>1];
 
     }

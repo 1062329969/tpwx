@@ -11,7 +11,6 @@
     <style>
 
         #header h1.mui-title{font-weight: normal;line-height: 4.4rem;}
-        #header a img{margin-top: 1.3rem;}
         .cjTime{background: url({$Think.HTML_STATIC}/images/13.png);text-indent: 1rem; width: 8.85rem;height: 1.85rem;background-size:cover ;color: white;line-height: 1.85rem;text-align: center;font-size: 1.3rem;}
         .csinfo img{ margin:0 0 1rem 0; width: 100%;}
         .cjshuq{background: white;padding: 0 1rem 1.5rem;margin-bottom:1.05rem;}
@@ -19,8 +18,7 @@
         .cjshuq-title span.cjDays{font-size: 1.2rem;color: #a7a7a7;margin-left: 0.9rem;}
         .cjshuq-content{width: 100%;}
         .cjshuq-content img{width: 32.33%;padding:0.5rem;border-radius: 1.5rem;box-sizing: border-box}
-
-        .csinfo img{margin: 0 0 1.5rem 0;padding: 0;}
+        .csinfo img{margin: 0 0 1rem 0;padding: 0;}
         .csmian{padding-bottom: 0;}
         .csinfo{padding: 1.25rem 0 0;}
         .plinfos{border-bottom: none;font-size: 1.3rem;border-top: 1px solid #dedede;position: fixed;left: 0;bottom: 0;width: 100%;z-index: 88;}
@@ -62,7 +60,6 @@
         .csuser p{font-size: 1.4rem;}
         .csuser1{font-size: 1.3rem;}
         .doctor,.hos1{font-size: 1.3rem;}
-        .csuser img{margin-top: 0.5rem;}
         .doctor button{line-height: 1.3rem;}
         .csinfo{padding-top: 0;}
         .lxcao{margin-bottom: 1rem}
@@ -76,42 +73,85 @@
         .cj_com_reply span.mui-pull-right,.cj_comment span.mui-pull-right{color: #15BBDC;line-height: 3.25rem;padding: 0 1rem;}
         .cj_collection{text-align: center;width: 32%;}
         .cj_collection img{width: 1.4rem;margin-right: 0.7rem;margin-top: -0.3rem;}
-        .plinfos .cdz img{vertical-align: top;width: 1.35rem;}
         .list-title-mlr{border-right:0.05rem solid #e4e4e4;border-left:0.05rem solid #e4e4e4;}
-        .plinfos .lll, .plinfos .cdz,.plinfos .cj_collection span{font-size: 1.3rem;color: #999;text-align: center;}
         audio, canvas, progress, video{width: 100%;margin: 0 auto;height: 22rem;}
         .bo{width:76%;margin:4% auto;}
         .bo img{width:100%;display:block;}
         .plmtop{height: 3.4rem;}
         .cj_shade{width: 100%;height: 100%;background: #000;opacity: 0.4;position: fixed;left: 0;top: 0;z-index: 100;display: none;}
         .cscontent{font-size:1.4rem;}
-
-        .csuser img{width:4.5rem;height:4.5rem;}
-        .csuser p{font-size:1.5rem;}
-        .csuser p.graph{font-size:1.2rem;}
-        .csuser1 span{font-size:1.4rem;}
-        .csuser1 font{font-size:1.4rem;}
-        .doctor, .hos1{font-size:1.4rem;}
-        .csuser p{padding-top:1.2rem;}
-        .csuser p.graph{padding-top:0.3rem;}
-        .csuser1,.hos1,.doctor{line-height:3.8rem;height:3.8rem;}
-        .csuser1 img,.doctor img{margin-left:1.7rem;}
-        .hos1 img{margin-left:0.5rem;}
-        .doctor button{width: 5.25rem;height: 2rem;border: 0.05rem solid #15bdde;text-align: center;margin-top:0.9rem;border-radius: 0.5rem;margin-right: 2.05rem;line-height: 2rem;font-size:1.4rem;}
+        .csuser p{padding-top:1.2rem;font-size:1.5rem;}
+        .csuser p.graph{padding-top:0.3rem;font-size:1.2rem;}
         .cscontent{font-size:1.5rem;}
         .csmian{padding-top:2rem;}
         .dymid{display: inline-block;margin-left:0.5rem;font-size: 1.4rem; color: #666;line-height: 3.35rem;vertical-align: middle;display: inline-block;}
         .cjname span:last-of-type{font-size:1.1rem;}
-        .plinfos .lll, .plinfos .cdz, .plinfos .cj_collection span{font-size:1.5rem;}
-        .dianzan{border-right:none;}
         .reCont p{font-size:1.4rem;}
         .cj_com_reply span.mui-pull-left, .cj_comment span.mui-pull-left{font-size:1.5rem;}
         .cj_com_reply span.mui-pull-right, .cj_comment span.mui-pull-right{font-size:1.5rem;}
         textarea::-webkit-input-placeholder{
             color:#CCCCCC;
         }
-
         .m{width:100%;margin-left: auto;margin-right: auto;margin-top:0;}
+        /*浮动之后一定要清除浮动啊*/
+   		.clearfix:after{
+		    	content: "";
+		    	display: block;
+		    	clear:both;
+		    	height: 0;
+		    	overflow: hidden;
+		    }
+		    .clearfix{
+		    	zoom:1;
+		    }
+        /*再次改版你敢相信？*/
+        .csuser img{display:block;width:9rem;height:9rem;position:relative;z-index:99999;border-radius:10px;margin-top: 0.5rem;margin-right: 1rem;}
+       	.wt{float: left;}
+       	.build{color:#999999;font-size:1.4rem;font-weight:normal;}
+       	.csuser h4{margin-top:1rem;}
+        .csuser h5{margin-top:1.8rem;font-size:1.4rem;color:#15bbdc;border:1px solid #15bbdc;width:8.5rem;line-height:2.2rem;height:2.2rem;text-align:center;border-radius:15px;}
+        .csuser1{background: white;border-top: 0.05rem solid #f0f0f0;height: 3.8rem;line-height: 3.8rem;font-size: 1.4rem;}
+		.csuser1 img{width: 1.4rem;height: 1.45rem; margin:0 1.7rem 0.15rem; vertical-align: middle;}
+		.csuser1 span{margin-right: 0.85rem;}
+		.csuser1 font{color: #15bdde;}
+		.hos1{padding: 0 1.4rem 0 1.6rem;font-size: 1.4rem;line-height: 3.25rem;}
+		.hos1 img{width: 1.75rem;margin: 0;margin-right: 0.7rem;}
+		.doctor font,.doctor button,.hos1 font{color: #666666;margin-left: 0.55rem;}
+		.doctor{background: white;font-size: 1.4rem;line-height: 3.25rem;padding: 0 1.4rem 0 1.85rem;margin-bottom: 0;}
+		.doctor img{width: 1.25rem;margin:0 1rem 0 0;}
+		.doctor button{width: 2rem;height: 2rem;border:none;text-align: center;margin-top:0.9rem;border-radius: 0.5rem;margin-right: 2.05rem;line-height: 2rem;font-size:1.4rem;}
+        .doctor a{float:right;line-height:1.8rem;}
+        .doctor a img{display:block;width:1rem;height:1.3rem;float:right;margin:0;}
+        .hos1 a{float:right;line-height:1.8rem;}
+        .hos1 a span,.doctor a span{line-height:3.25rem;color:#999999;}
+		.cj_gary{background: #F3F3F3;}
+        .cj_time{line-height: 2rem;margin: 0.35rem 0;}
+        .cj_time span{line-height: 2rem;display: inline-block;color: #9b9b9b;font-size: 1.3rem;}
+        .cj_time img{width: 1.3rem;height: 1.3rem;}
+        .cj_time span:first-of-type{color: #15BBDC;margin-left: 0.85rem;margin-right: 1.25rem;}
+        .csinfo_border{background: white;padding: 1rem;border-radius: 0.5rem;}
+        .cj-bgimg{width: 8.6rem;display: inline-block;height: 3.35rem;text-align: center;line-height: 3.35rem;font-size: 1.6rem;color: #333333;font-weight: 600;}
+   		.cj-day{color: #333333;font-weight: 600;font-size: 1.6rem;}
+   		.cj-article{ line-height: 2.2rem;font-size: 1.5rem;color: #666;margin-top: 1.1rem;margin-bottom: 0.75rem;}
+   		.plinfos .cdz img{width: 1.9rem;height: 1.9rem;margin-right: 0;}
+		.plinfos .lll, .plinfos .cdz,.plinfos .cj_collection span{font-size: 1.5rem;color: #999;text-align: center;}
+		.plinfos .lll{width: 19%;line-height: 3.4rem;}
+		.plinfos .lll span,.plinfos .cdz span{line-height: 3.4rem;}
+		.plinfos .cdz{width: 18%;line-height: 3.4rem;}
+		.plinfos .lll img{width: 2.05rem;height: 1.9rem;}
+		.plinfos{padding: 1.2rem 0;}
+		.cj-pl{width: 60%;margin-left: 3%;margin-right:0;position: relative;}
+		.cj-pl img{position: absolute;top: 0.95rem;left: 1.7rem;width:1.7rem ;}
+		.cj-pl input{width: 100%;height: 3.4rem;border-radius: 3.4rem;margin-bottom: 0;background: #f2f2f2;font-size: 1.5rem;color: #666;text-indent: 2em;border:none;}
+   		.csmian{padding-top: 0;padding-bottom: 0;}
+   		.sqzp{line-height: 4rem;font-size: 1.6rem;font-weight: 600;}
+   		.cjinfo{padding-left: 0;padding-right: 0;padding-top: 0;}
+   		.cjinfo img{margin: 0;width: 33.33%;padding: 0 0.55rem;border-radius: 1rem;box-sizing: border-box;}
+   		.cj_pad{padding:0rem 1.05rem 1.5rem;}
+   		.cstitle{font-size: 1.6rem;color:#4e4e4e;padding:0 1.6rem;}
+   		.lcti{font-size: 1.6rem;color: #333; margin:1rem 0;}
+        .lcti span{font-weight: 600;line-height: 4.4rem;}
+        .lcti span:last-of-type{font-weight: normal;color: #999;}
     </style>
 </head>
 <body class="bodyb">
@@ -119,34 +159,55 @@
     <a class="mui-action-back mui-pull-left" onclick="self.location=document.referrer;"><img src="{$Think.HTML_STATIC}/images/3.png"></a>
     <h1 class="mui-title">植发日记</h1>
 </header>
-
-<div class="csuser">
-    <img src="{:get_wxheadimg($cases.userInfo.portrait,132)}">
-    <p>{$cases.userInfo.wechaname}</p>
-    <!--<p class="ddtime">{:get_time($cases.create_time)}</p>-->
-    <p class="graph">写句签名吧，让大家更了解你~</p>
+<div class="csuser clearfix">
+      <img src="{:get_wxheadimg($cases.userInfo.portrait,132)}">
+      <div class="wt">
+          <p>{$cases.userInfo.wechaname}</p>
+          <h4 class="build"><span>{$casesRecord.create_time|date='Y年m月d日',###}</span><span>丨</span><span>共{$count}篇日记</span></h4>
+          <h5 class="kind">{$cases.project.proname}</h5>
+      </div>
 </div>
-<div class="csuser1">
-    <div class="tab"><img src="{$Think.HTML_STATIC}/images/9.png"/><span>项目：</span><font>{$cases.project.proname}</font></div>
+<div class="doctor clearfix"><img src="{$Think.HTML_STATIC}/images/117.png"/><span>医生：</span><font>{$doctor_name.docname}</font>
+	<a class="pull-right clearfix">
+		<span class="mui-icon mui-icon mui-icon-arrowright"></span>
+	</a>
 </div>
-<div class="hos hos1"><img src="{$Think.HTML_STATIC}/images/10.png"><span>医院：</span><font>{$cases_hospital.hosname}</font></div>
-<div class="doctor"><div><img src="{$Think.HTML_STATIC}/images/11.png"/><span>医生：</span><font>{$doctor_name.docname}</font><a href="{:url('Doctor/detail',array('id'=>$cases.doctor))}"><button class="mui-pull-right">查看</button><p style="clear: both;"></p></a></div></div>
+<div class="hos hos1 clearfix"><img src="{$Think.HTML_STATIC}/images/116.png"><span>分院：</span><font>{$cases_hospital.hosname}</font>
+	<a class="pull-right clearfix">
+		<span class="mui-icon mui-icon mui-icon-arrowright"></span>
+	</a>
+</div>
+<div class="cstitle lcti clearfix">
+    <span>查看Ta的其它日记</span>
+	<span class="mui-pull-right mui-icon mui-icon mui-icon-arrowright" onclick="location.href='{:url('detail',array('uid'=>$casesRecord['cid']))}'"></span>
+</div>
 <!--<div class="hos">{$cases.info}</div>-->
 {empty name='$casesRecord.vurl'}
-<div class="csmian piclistcont" style="padding:0px;">
-    <div class="csmian" style="border:0px;">
-        <div class="cjTime">{$casesRecord.dtitle}</div>
-        <div class="hos hos2">{$casesRecord.info}</div>
-        <div class="csinfo">
-            {volist name='$casesRecord.images' id='vo2'}
-            <img src="{$vo2.pic}" data-preview-src="{$vo2.pic|str_replace='m_','',###}" data-preview-group="2">
-            {/volist}
-            <!--<div class="cscontent"></div>-->
+<div class="csmian piclistcont cj_gary cjeach" style="padding:0px;">
+    <div class="csmian cj_gary" style="border:0px;">
+        <!--<div class="cjTime">{$casesRecord.dtitle}</div>-->
+        <div class="cj_time"><img src="{$Think.HTML_STATIC}/images/113.png"/><span>{$casesRecord.create_time|date='m月d日',###}</span><span>第{$count}篇日记</span></div>
+        <!--<div class="hos hos2">{$casesRecord.info}</div>-->
+        <div class="csinfo_border">
+	        <div class="csinfo">
+	        	<div class="cj_title">
+	         		<span class="cj-bgimg">{$cases.project.proname}</span>
+	         		<span class="cj-day">{$casesRecord.dtitle}</span>
+	         	</div>
+	         	<div class="cj-article">{$casesRecord.info}</div>
+	         	<div class="cj_img clearfix">
+	            {volist name='$casesRecord.images' id='vo2'}
+	            <img src="{$vo2.pic}" data-preview-src="{$vo2.pic|str_replace='m_','',###}" data-preview-group="2">
+	            {/volist}
+	            </div>
+                {php}$clciksr=$casesRecord['click']+$casesRecord['clicks']{/php}
+	            <div class="cscontent">{:comment_sum($clciksr)}浏览</div>
+	        </div>
         </div>
     </div>
 </div>
 {else/}
-<div class="csmian" style="padding:0px;">
+<div class="csmian " style="padding:0px;">
     <div class="csmian" style="border:0px;">
         <div class="cjTime lxcao">{$casesRecord.dtitle}</div>
         <div class="csinfo">
@@ -161,7 +222,10 @@
 </div>
 {/empty}
 {notempty name='$cont_ad'}<div class="casad"><a href="{$cont_ad.url}"><img src="{$Think.HTML_STATIC}/images/laba.png">{$cont_ad.title}</a></div>{/notempty}
-
+<div class="cstitle lcti clearfix">
+    <span>查看Ta的其它日记</span>
+	<span class="mui-pull-right mui-icon mui-icon mui-icon-arrowright" onclick="location.href='{:url('detail',array('uid'=>$casesRecord['cid']))}'"></span>
+</div>
 <div class="upl" id="b">
     <div class="pltitle">评论<span class="dymid">({$count3})</span></div>
     {volist name='$comment3' id='vo' empty="<p class='empty'>沙发空缺中~~</p>"}
@@ -185,19 +249,27 @@
         </div>
     </div>
     <div class="cjhuifu">
-        <span class="plinfo" >
+        <span class="plinfo lxx">
             <span class="backText" onclick="lx(this,{$vo.id},{$vo.id},{$vo.uid})">
-                    <img style="width: 1.5rem;" src="{$Think.HTML_STATIC}/images/14.png"/>
+                    <img style="width: 1.2rem;" src="{$Think.HTML_STATIC}/images/14.png"/>
                 </span>
         </span>
         <span class="txdz " id="txdz{$vo.id}" lx-uid="{$vo.uid}"  pdata-id="{$id}" hc-id="{$vo.id}" datas={if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}1{else /}0{/if} data-ids={$casesRecord.cid}>
-        <img src="{$Think.HTML_STATIC}/images/{if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}66{else/}65{/if}.png"><span>{$vo.praise}</span>
+        <img src="{$Think.HTML_STATIC}/images/{if $vo.info.i_id && $fansInfo['id']==$vo.info.i_uids}66{else/}65{/if}.jpg"><span>{$vo.praise}</span>
         </span>
     </div>
     <div class="fonline"></div>
     {/eq}
     {/volist}
 </div>
+
+
+
+
+
+
+
+
 <!--下拉加载-->
 <div id="loadinguser"></div>
 <!--<div id="loading" class="lmore">下拉加载更多...</div>-->
@@ -222,20 +294,21 @@
 </div>
 
 <div class="bo"><img style="width: 100%;" src="{$Think.HTML_STATIC}/images/bo.jpg"/></div>
-<div class="plinfos">
+<div class="plinfos clearfix">
+	<div class="cj-pl mui-pull-left lxx">
+		<input type="text" readonly="readonly" placeholder="写评论" />
+		<img src="{$Think.HTML_STATIC}/images/111.png"/>
+	</div>
     <div class="lll">
-        浏览：{php}echo $casesRecord['click']+$casesRecord['clicks']{/php}
+      <img src="{$Think.HTML_STATIC}/images/110.jpg"/><span>{:comment_sum($count3)}</span>
     </div>
-    <div class="lll  lxx" >
-        评论：{$count3}
-    </div>
+    <div class="cdz ds1 dianzan" name="dianzan" res-id="{$fansInfo['id']}" dis=0  data-idd="{$id}" datas={if $praise.i_id && $fansInfo['id']==$praise.i_uids}1{else/}0{/if} data-ids={$casesRecord.cid} >
+    	<img src="{$Think.HTML_STATIC}/images/{if $praise.i_id!==NULL && $fansInfo['id']==$praise.i_uids}66{else /}65{/if}.jpg">
+    	<span>{:comment_sum($casesRecord.praise)}</span>
+	</div>
+	<div style="clear: both;"></div>
+</div>
 
-    <div class="cdz ds1 dianzan list-title-mlr" name="dianzan" res-id="{$fansInfo['id']}" dis=0  data-idd="{$id}" datas={if $praise.i_id && $fansInfo['id']==$praise.i_uids}1{else/}0{/if} data-ids={$casesRecord.cid} >
-    <img src="{$Think.HTML_STATIC}/images/{if $praise.i_id!==NULL && $fansInfo['id']==$praise.i_uids}66{else /}65{/if}.png">
-    <span>{$casesRecord.praise}</span>
-</div>
-<div style="clear: both;"></div>
-</div>
 <div class="plmtop"></div>
 <div class="cj_shade"></div>
 <script src="{$Think.HTML_STATIC}/js/zepto.min.js"></script>
@@ -318,7 +391,7 @@
                 return false;
             }
             var _self = $(this);
-            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+            _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.jpg');
             $(this).attr('dis',1);
             var datas = $(this).attr('datas');
             $(this).attr('datas','1');
@@ -334,15 +407,38 @@
                 async:false,
                 success: function(data)
                 {
+                    num= _self.find('span').html()
+                    numVal=num.substr(0,num.length-1);
+                    numNew1=numVal*10000+1;
+                    numNew2=numVal*10000-1
+                    numOld=num.substr(num.length-1)
                     if(data.code==1) {
                         if (datas == 0) {
-                            _self.find('span').html(Number(_self.find('span').html())+1);
+                            var reg = RegExp(/w/);
+                            if(reg.exec(num)){
+                                _self.find('span').html((numNew1/10000).toFixed(1) + 'w')
+                            }
+                            else if(num == 9999){
+                                _self.find('span').html(((Number(num)+1)/10000).toFixed(1) + 'w')
+                            }else{
+                                _self.find('span').html(Number(_self.find('span').html())+1);
+                            }
                             _self.attr('dis', 0);
                             _self.attr('datas', '1');
                         }
                     } else {
-                        _self.find('span').html(Number(_self.find('span').html())-1);
-                        _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                        console.log(numOld)
+                        if(num == 1+'w'){
+                            _self.find('span').html(9999)
+                        }
+                        else if(numVal>1&&numOld=="w"){
+                            console.log(1)
+
+                            _self.find('span').html((numNew2/10000).toFixed(1) + 'w')
+                        }else{
+                            _self.find('span').html(Number(_self.find('span').html())-1)
+                        }
+                        _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.jpg');
                         _self.attr('dis', 0);
                         _self.attr('datas', '0');
                     }
@@ -460,7 +556,6 @@
             $(".doctor div").css("borderTop","0.05rem solid #cecece");
             $(".csuser1 .tab").css("borderTop","0.05rem solid #cecece");
             $("#header").css("borderBottom","0.05rem solid #cecece")
-            $(".lcti").css("borderBottom","0.05rem solid #cecece")
         }
         // $(".plinfos .lll").click(function(){
         //     $(".cj_comment").show()

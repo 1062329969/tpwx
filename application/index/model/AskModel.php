@@ -89,6 +89,7 @@ class AskModel extends Model
 
         if($ppid == 4){
             //推荐
+            $where['recommend'] = 0;
             $orders = 'sort desc,recommend desc';
         }elseif ($ppid ==3){
             //热榜
@@ -96,7 +97,7 @@ class AskModel extends Model
         }elseif ($ppid == 2){
             //精选
             $orders = 'sort desc,selecteds desc';
-        }else{
+        }elseif($ppid == 1){
             //最新
             $orders = 'sort desc,create_time desc';
         }
@@ -116,6 +117,7 @@ class AskModel extends Model
 
         if($ppid == 4){
             //推荐
+            $where['recommend'] = 0;
             $orders = 'sort desc,recommend desc';
         }elseif ($ppid ==3){
             //热榜
@@ -123,7 +125,7 @@ class AskModel extends Model
         }elseif ($ppid == 2){
             //精选
             $orders = 'sort desc,selecteds desc';
-        }else{
+        }elseif($ppid == 1){
             //最新
             $orders = 'sort desc,create_time';
         }
@@ -135,12 +137,22 @@ class AskModel extends Model
     {
         $where['fid'] = $tid;
         $where['status']=1;
+        $where['del']=0;
         $where['bs'] = 1;
         $orders = "";
-        if($ppid == 2){
+        if($ppid == 4){
+            //推荐
+            $where['recommend'] = 0;
+            $orders = 'sort desc,recommend desc';
+        }elseif ($ppid ==3){
+            //热榜
             $orders = 'sort desc,click desc';
-        }elseif ($ppid ==1){
-            $orders = 'sort desc,create_time desc';
+        }elseif ($ppid == 2){
+            //精选
+            $orders = 'sort desc,selecteds desc';
+        }elseif($ppid == 1){
+            //最新
+            $orders = 'sort desc,create_time';
         }
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
     }
@@ -165,11 +177,21 @@ class AskModel extends Model
         $where['fid'] = $tid;
         $where['status']=1;
         $where['bs'] = 2;
+        $where['del']=0;
         $orders = "";
-        if($ppid == 2){
-            $orders = 'click desc';
-        }elseif ($ppid ==1){
-            $orders = 'create_time desc';
+        if($ppid == 4){
+            //推荐
+            $where['recommend'] = 0;
+            $orders = 'sort desc,recommend desc';
+        }elseif ($ppid ==3){
+            //热榜
+            $orders = 'sort desc,click desc';
+        }elseif ($ppid == 2){
+            //精选
+            $orders = 'sort desc,selecteds desc';
+        }elseif($ppid == 1){
+            //最新
+            $orders = 'sort desc,create_time';
         }
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
     }
@@ -194,35 +216,51 @@ class AskModel extends Model
 
     public static function getOne_0ne($aid,$ppid,$page=5,$offsize=0)
     {
-        $where['fid'] = $aid;
-        $where['bs'] = 1;
+        $where = array('fid'=>$aid);
         $where['status']=1;
-
-//        $arr = array('fid'=>$aid);
+        $where['del']=0;
+        $where['bs'] = 1;
         $orders = "";
-        if($ppid ==1){
-            $orders= 'sort desc,create_time desc';
-        }elseif ($ppid == 2){
-            $orders= 'sort desc,click desc';
-        }
 
+        if($ppid == 4){
+            //推荐
+            $where['recommend'] = 0;
+            $orders = 'sort desc,recommend desc';
+        }elseif ($ppid ==3){
+            //热榜
+            $orders = 'sort desc,click desc';
+        }elseif ($ppid == 2){
+            //精选
+            $orders = 'sort desc,selecteds desc';
+        }elseif($ppid == 1){
+            //最新
+            $orders = 'sort desc,create_time';
+        }
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
     }
 
     public static function getOne_0nes($aid,$ppid,$page=5,$offsize=0)
     {
-        $where['fid'] = $aid;
-        $where['bs'] = 2;
+        $where = array('fid'=>$aid);
         $where['status']=1;
-
-//        $arr = array('fid'=>$aid);
+        $where['del']=0;
+        $where['bs'] = 2;
         $orders = "";
-        if($ppid ==1){
-            $orders= 'sort desc,create_time desc';
-        }elseif ($ppid == 2){
-            $orders= 'sort desc,click desc';
-        }
 
+        if($ppid == 4){
+            //推荐
+            $where['recommend'] = 0;
+            $orders = 'sort desc,recommend desc';
+        }elseif ($ppid ==3){
+            //热榜
+            $orders = 'sort desc,click desc';
+        }elseif ($ppid == 2){
+            //精选
+            $orders = 'sort desc,selecteds desc';
+        }elseif($ppid == 1){
+            //最新
+            $orders = 'sort desc,create_time';
+        }
         return self::where($where)->order($orders)->limit($offsize,$page)->select();
     }
 

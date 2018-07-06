@@ -111,10 +111,17 @@ class Praise extends Wap
 				$NcaseModel->where(['id'=>$data['aid']])->setInc('dianzan',1);
 			}
 
-			//记录点赞日志
-			$PraiseRegModel=new PraiseRegModel;
-			$PraiseRegModel->save(['aid'=>$data['aid'],'uid'=>$this->fansInfo['id'],'type'=>$data['type'],'create_time'=>time()]);
-			//记录点赞积分
+			if($data['type'] == 6){
+                //记录点赞日志
+                $PraiseRegModel=new PraiseRegModel;
+                $PraiseRegModel->save(['aid'=>$data['i_ids'],'uid'=>$this->fansInfo['id'],'type'=>$data['type'],'create_time'=>time()]);
+            }else{
+                //记录点赞日志
+                $PraiseRegModel=new PraiseRegModel;
+                $PraiseRegModel->save(['aid'=>$data['aid'],'uid'=>$this->fansInfo['id'],'type'=>$data['type'],'create_time'=>time()]);
+                //记录点赞积分
+            }
+
 			$integral=new Integral();
 			$integral->addition($this->fansInfo['id'],config('hpdjf'),'点赞');
 			return ['code'=>1];

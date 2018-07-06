@@ -224,7 +224,6 @@ class Forum extends Wap
         //大图
         $big_c = AskModel::getOne_0nes($aid,$ppid,2,0);
 
-
         $one = Db::name('forum_onetype')->order('id asc')->select();
         $one_arr = array_column($one,'name','id');
 
@@ -248,12 +247,8 @@ class Forum extends Wap
         $big_offsize = ($offsize / 3);
 //        $forum= AskModel::f_tow($tid,$ppid,6,$offsize);
         $hair = AskModel::f_tow($tid,$ppid,6,$offsize);
-
         //大图
         $big_c = AskModel::f_tows($tid,$ppid,2,$big_offsize);
-
-
-
 
         if(empty($hair) && empty($big_c))
         {

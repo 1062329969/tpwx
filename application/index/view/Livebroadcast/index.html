@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>{$Think.config.sitename}</title>
+    <link type="text/css" rel="stylesheet" href="{$Think.HTML_STATIC}/css/style2.css">
+    <link rel="stylesheet" href="{$Think.HTML_STATIC}/css/showimgs.css">
+    <link href="{$Think.HTML_STATIC}/css/case.css" rel="stylesheet" type="text/css">
+	<link href="{$Think.HTML_STATIC}/css/details1.css" rel="stylesheet" type="text/css">
+    <link href="{$Think.HTML_STATIC}/css/mui.css" rel="stylesheet">
+    
+    <style>
+    	html,body{width: 100%;overflow: hidden;}
+    	video{width: 100%;height: 100%;overflow: hidden;}
+        .video-back{padding:0;}
+        .heart1{width:18.1333%;display:none;position:absolute;}
+        .heart1 img{width:100%;}
+        .center img{display:block;width:100%;}
+        .heart2{width:9.333%;position:absolute;right:1.6rem;top:40%;z-index:9999;}
+        .heart2 div span{font-size:12px;color:#fffefe;text-align:center;line-height:24px;margin-top:-10px;}
+        .heart2 div img{width:35px;}
+        .yard{width:57.667%;position:absolute;top:75%;left:1.6rem;z-index:2000;}
+        .comment{padding:0 1.6rem;text-align:left;color:#cccccc;position:absolute;top:86%;font-size:15px;line-height:24px;z-index:2000;}
+        .heart {background: url({$Think.HTML_STATIC}/images/web_heart_animation.png);background-position: left;background-repeat: no-repeat;
+        height:100px;width: 100px;cursor: pointer;position: relative;right:32px;background-size:2900%;}
+        @-webkit-keyframes heartBlast {
+            0% {
+                background-position: left;
+            }
+            100% {
+                background-position: right;
+            }
+        }
+        @keyframes heartBlast {
+            0% {
+                background-position: left;
+            }
+            100% {
+                background-position: right;
+            }
+        }
+        .heartAnimation {display: inline-block;-webkit-animation-name: heartBlast;animation-name: heartBlast;
+            -webkit-animation-duration: .8s;animation-duration: .8s;-webkit-animation-iteration-count: 1;animation-iteration-count: 1;-webkit-animation-timing-function: steps(28);animation-timing-function: steps(28);background-position: right;}
+        .yard div:nth-of-type(1){width:100%;}
+        .yard div:nth-of-type(1) img{width:100%;}
+        .likeCount{font-size:12px;color:#fffefe;position:relative;top:-30px;}
+        .self{position:absolute;bottom:4%;right:0;width:100%;overflow:hidden;}
+        .self img{width:25%;margin-left:0.2rem;margin-top:0.2rem;float:left;}
+        .self span{width:65%;float:left;margin-left:0;margin-top:9%;color:#ffffff;text-align:left;padding-left:5%;}
+        /*.htmleaf-container{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;}*/
+        .htmleaf-container{position:relative;}
+        .Movies{position:relative;z-index:1000;}
+        .heart2{z-index:2000;}
+        /*浮动之后一定要清除浮动啊*/
+   		.clearfix:after{
+		    content: "";
+		    display: block;
+		    clear:both;
+		    height: 0;
+		    overflow: hidden;
+		}
+		.clearfix{
+		    zoom:1;
+		}
+		/*遮罩层*/
+		.cj_shade{width: 100%;height: 100%;background: #000;opacity: 0.4;position: absolute;left: 0;top: 0;z-index: 999998;display: none;}
+		/*评论*/
+		.talk1{box-sizing: border-box; }
+		.comment_num{line-height: 4rem;text-align: center;font-size: 1.3rem;color: #999;border-bottom: 1px solid #EAEAEA;padding: 0 1.6rem;position: relative;top: 0;left: 0;}
+		.comment_num div{display: inline-block;}
+		.comment_num img{float: right;width:1.3rem;height: 1.3rem;line-height:4rem;margin-top: 1.35rem;}	
+		.cj_horn{position: absolute;top: -0.95rem;left: 2.7rem;height: 0.95rem;}
+		.upl .tximg img{width: 4rem;margin-right: 0.95rem;}
+		.tximg div{float: left;}
+		.tximg{width:4rem;height:4rem;margin-right: 1.15rem;float: left}
+		.cjname{font-size: 1.4rem;color: #999;}
+		.cj_date{font-size: 1.2rem;color: #999;}
+		.comment_content{font-size: 1.5rem;color: #333;margin-bottom: 0;}
+		.cjimg img{width: 100%;border-radius: 50%}
+		.cj_reply{position: relative;padding: 0 3.2rem 0 5.3rem;}
+		.cj_horn{position: absolute;top: -0.95rem;left: 2.7rem;height: 0.95rem;}
+		.cj_lit_reply{width: 100%;margin-top:2rem;border-bottom: 1px solid #dedede;}
+		.reCont {padding: 0;line-height: 1.8rem;border-left: 2px solid #929292;padding-left: 0.85rem;}
+		.reCont p{padding-right: 2.4rem; text-indent: 0;line-height: 1.3rem;}
+		.reCont font{color: #999;margin-right: 0.9rem;}
+		.cjhuifu{text-align: right;color: #999999;margin-top: 1rem;}
+		.cjhuifu span{color: #999999;}
+		.cjhuifu span.backText img{margin: 0 0.6rem 0 0;}	
+		.plinfo{padding: 0;}
+		.plinfo span img{width: 1.2rem;}
+		.plinfo span{float: none;}    
+		.tx{float: left;}
+		.cj_return{padding: 0 1.6rem;}
+		.comment_user{margin-top: 1.8rem;}
+		.txdz{float: right;}
+		.txdz img{width: 1.8rem;height: 1.6rem;}
+		.txdz span{color: #ccc;font-size: 1.4rem;}
+		.reCont p.reply_name{color: #999;font-size: 1.4rem;margin-bottom: 0.5rem;}
+		.reCont p.reply_content{color: #333;font-size: 1.5rem;margin-bottom: 3rem;}
+		.cj-pl{width: 100%;margin-right:0;position: absolute;left: 0;bottom: 0; padding: 0 1.6rem;box-sizing: border-box;border-top: 1px solid #f0f0f0;line-height: 4.9rem;background: white;}
+		.cj-pl img{position: absolute;top: 1.25rem;left: 3.3rem;width:1.7rem ;}
+		.cj-pl input{width: 100%;height: 3.4rem;border-radius: 3.4rem;margin-bottom: 0;background: #f2f2f2;font-size: 1.5rem;color: #666;text-indent: 3em;border:none;margin-bottom: 1rem;}
+		.cj_comment{background: white;position: fixed;bottom: 0;left: 0;z-index: 999999;width: 100%;font-size: 1.5rem;}
+		.cj_comment textarea{width: 100%;border: none;border-top: 0.08rem solid #eaeaea;padding:0.5rem 1.6rem;font-size: 1.4rem;}
+		.cj_comment span.mui-pull-left{color: #666666;line-height: 3.25rem;padding: 0 1.6rem;}
+		.cj_comment span.mui-pull-right{color: #15BBDC;line-height: 3.25rem;padding: 0 1.6rem;}
+		.comment_nomore{text-align: center;font-size: 1.4rem;color: #D3D3D3;}
+		.bigBox{overflow:scroll;overflow-x: hidden;width: 100%;height: 100%;}
+		.transition{
+         	width:1.8rem;height:1.6rem;
+            animation: change 0.2s;
+            -moz-animation: change 0.2s;    
+            -webkit-animation: change 0.2s;    
+            -o-animation: change 0.2s;
+        }
+        @keyframes change{
+            0% {width:1.8rem;height:1.6rem;}
+            50%{width:1.2rem;height:1.07rem;}
+            to {width:1.8rem;height:1.6rem;}
+        }
+        /*#commentText{opacity: .8;}*/
+    </style>
+</head>
+<body>
+<div class="htmleaf-container">
+    <!--视频内容-->
+    <video class="Movies" controls preload="auto" width="100%" poster="{$Think.HTML_STATIC}/images/screenshot1.jpg" webkit-playsinline="true" x-webkit-airplay="true" playsinline="true"
+           x5-playsinline="true" style="object-fit: fill;" x5-video-player-fullscreen="true" x5-video-player-type='h5'>
+        <source src="{$Think.HTML_STATIC}/images/Rallye.mp4" type="video/mp4">
+    </video>
+    <!--视频评论、点赞、头像、昵称、评论删除、举报-->
+    <div class="video-back">
+        <div class="htmleaf-demo center">
+            <!--视频点赞-->
+            <div class="heart1"><img src="{$Think.HTML_STATIC}/images/heart1.png"/></div>
+            <!--视频评论、点赞-->
+            <div class="heart2">
+                <div class="good">
+                    <div class="heart " id="like1" rel="like"></div>
+                    <div class="likeCount" id="likeCount1">12</div>
+                </div>
+                <div class="info">
+                    <img src="{$Think.HTML_STATIC}/images/info2.png"/>
+                    <span>11.8w</span>
+                </div>
+            </div>
+            <!--视频头像、昵称-->
+            <div class="yard">
+                <div><img src="{$Think.HTML_STATIC}/images/yard.png"/></div>
+                <div class="self">
+                    <img src="{$Think.HTML_STATIC}/images/peo.png"/>
+                    <span>@乌鲁木齐院部</span>
+                </div>
+            </div>
+            <!--视频评论删除、举报-->
+            <div class="comment">评论长按可以删除自己的评论长按别人的评论可举报别人的评论123</div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="talk1" style="width:100%;height:74%;background:#fff;position:absolute;bottom:0;left:0;z-index:99999;border-radius: 1rem 1rem 0 0;">
+    	<div class="comment_num clearfix">
+    		<div>1.8w条评论</div> 
+    		<img src="{$Think.HTML_STATIC}/images/118.png" class="close1">
+    	</div>
+    	<!--这是一个包含评论内容的盒子-->
+    	<div class="bigBox">
+    		<div class="box">
+		    	<!--评论内容-->
+		    	<div class="cj_return clearfix">
+		    		<div class="clearfix comment_user">
+			    		<div class="tximg"><div class="cjimg"><img src="{$Think.HTML_STATIC}/images/1.jpg"></div></div>
+						<div class="tx">
+							<div class="cjname">会飞的企鹅</div>
+							<p class="comment_content comment1">我是评论的内容</p>
+							<div class="cj_date">1天前</div>
+						</div>
+						<div class="txdz">
+							<img src="{$Think.HTML_STATIC}/images/120.png">
+							<span>111</span>
+						</div>
+					</div>
+					<div class="cj_reply">
+						<div class="cj_lit_reply">
+							<div class="cjpl">
+								<div class="reCont">
+									<p class="reply_name">会飞的企鹅</p>
+									<p class="reply_content comment2" onclick="">我是回复的内容</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="cj_return clearfix">
+		    		<div class="clearfix comment_user">
+			    		<div class="tximg"><div class="cjimg"><img src="{$Think.HTML_STATIC}/images/1.jpg"></div></div>
+						<div class="tx">
+							<div class="cjname">会飞的企鹅</div>
+							<p class="comment_content comment1">我是评论的内容</p>
+							<div class="cj_date">1天前</div>
+						</div>
+						<div class="txdz">
+							<img src="{$Think.HTML_STATIC}/images/120.png">
+							<span>111</span>
+						</div>
+					</div>
+					<div class="cj_reply">
+						<div class="cj_lit_reply">
+							<div class="cjpl">
+								<div class="reCont">
+									<p class="reply_name">会飞的企鹅</p>
+									<p class="reply_content comment2" onclick="">我是回复的内容</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="cj_return clearfix">
+		    		<div class="clearfix comment_user">
+			    		<div class="tximg"><div class="cjimg"><img src="{$Think.HTML_STATIC}/images/1.jpg"></div></div>
+						<div class="tx">
+							<div class="cjname">会飞的企鹅</div>
+							<p class="comment_content comment1">我是评论的内容</p>
+							<div class="cj_date">1天前</div>
+						</div>
+						<div class="txdz">
+							<img src="{$Think.HTML_STATIC}/images/120.png">
+							<span>111</span>
+						</div>
+					</div>
+					<div class="cj_reply">
+						<div class="cj_lit_reply">
+							<div class="cjpl">
+								<div class="reCont">
+									<p class="reply_name">会飞的企鹅</p>
+									<p class="reply_content comment2" onclick="">我是回复的内容</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="comment_nomore">~没有更多评论了~</div>
+			</div>
+		</div>
+		<!--写评论-->
+		<div class="cj-pl mui-pull-left">
+			<input type="text" readonly="readonly" placeholder="写评论" />
+			<img src="{$Think.HTML_STATIC}/images/111.png"/>
+		</div>
+		<!--评论-->
+		<div class="cj_comment" style="display: none;">
+			<div>
+				<span class="mui-pull-left">取消</span><span id="commnet_submit" class="mui-pull-right">发表</span>
+			</div>
+			<div id="commentText">
+				<textarea id="commnet_text" style="height: 17rem;" placeholder="我的评论更精彩"></textarea>
+				<input type="hidden" name="aid" id="aid" value=""> 
+				<!--/*{ $ id }是id='aid'的值*/-->
+				<input type="hidden" name="pid" id="pid" value="0">
+				<input type="hidden" name="tid" id="tid" value="0">
+				<input type="hidden" name="cuid" id="cuid" value="0">
+			</div>
+		</div>
+		 <!--<div class="cj_shade"></div>-->
+    </div>
+   
+</div>
+<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.min.js"></script>
+<script src="{$Think.HTML_STATIC}/js/video.min.js"></script>
+<script src="http://vjs.zencdn.net/5.19/lang/zh-CN.js"></script>
+<script src="{$Think.HTML_STATIC}/js/mui.min.js"></script>
+<script>
+	//获取评论区的高度
+	var replyNum=$('.cj_return').length
+	var replyHeight=$('.cj_return').height()
+	$(".box").css('height',(replyNum+1.5)*replyHeight+'px')
+    $(".info").click(function(){
+        $(".talk1").show();
+    });
+    $(".close1").click(function(){
+        $(".talk1").hide();
+    });
+    //评论的js
+    function lx(_self,pid,tid,c_uid){
+        $('#pid').val(pid);
+        $('#tid').val(tid);
+        $('#cuid').val(c_uid);
+        $('#commnet_text').focus();
+        $(".cj_comment").show();
+        $(".cj_shade").show();
+        $('#commnet_text').focus();
+        $("#commnet_text").attr("placeHolder","我的回复更精彩")
+    }
+    $('#commnet_submit').click(function(){
+            var commnet_text = $('#commnet_text').val();
+            if(!commnet_text){
+                alert('回复不能为空');
+                return false;
+            }
+            var aid = $('#aid').val();
+            var pid = $('#pid').val();
+            var tid = $('#tid').val();
+            var cuid = $('#cuid').val();
+            $.ajax({
+                type: "post",
+                url: '{:url("Comment/articlecomment")}',
+                data: {aid:aid,pid:pid,tid:tid,cuid:cuid,commnet_text:commnet_text,__token__:'{$Request.token}'},
+                dataType: "json",
+				async:true,
+                success: function(data)
+                {
+                    if(data.code==1){
+                        alert("不能回复自己的评论");
+                        window.location.reload();
+                    }else{
+                        // alert(data.msg);
+                        $('#pid').val(0);
+                        $('#tid').val(0);
+                        $('#cuid').val(0);
+                    }
+                }
+            });
+            window.location.reload()
+        })
+       //评论
+        $(".cj-pl").click(function(){
+            $(".cj_comment").show();
+            $('#commnet_text').focus();
+            $(".cj_shade").show();
+            $("#commnet_text").attr("placeHolder","我的评论更精彩")
+        })
+        $(".cj_comment span").click(function(){
+            $(".cj_comment").hide()
+            $(".cj_shade").hide()
+        })
+        $(".cj_shade").click(function(){
+            $(".cj_comment").hide();
+            $(".cj_shade").hide()
+        })
+//评论点赞        
+        $('.txdz').click(function(){
+        	$(this).find('img').addClass('transition')
+        if($(this).attr('dis')==1){
+            return false;
+        }
+        var _self = $(this);
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/119.png');
+        _self.find('span').css('color','#ff2942')
+        $(this).attr('dis',1);
+        var datas = $(this).attr('datas');
+        $(this).attr('datas','1');
+        var res = _self.attr('res-id');
+        var uid = _self.attr('uid');
+        var aid = _self.attr('data-ids');
+        $.ajax({
+            type: "post",
+            url: '{:url("praise/index")}',
+            data: {aid:aid,is:datas,res:res,uid:uid,type:5,__token__:'{$Request.token}'},
+            dataType: "json",
+            success: function(data)
+            {
+                if(data.code==1) {
+                    if (datas == 0) {
+                        _self.find('span').html(Number(_self.find('span').html())+1);
+                        _self.find('span').css('color','#ff2942')
+                        _self.attr('dis', 0);
+                        _self.attr('datas', '1');
+                    }
+                } else {
+                    _self.find('span').html(Number(_self.find('span').html())-1);
+                    _self.find('span').css('color','ccc')
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/120.png');
+                    _self.attr('dis', 0);
+                    _self.attr('datas', '0');
+
+                }
+
+            }
+        });
+    })
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(window).resize(function(){
+            var windowWidth=$(window).innerWidth();
+            var windowHeight=$(window).innerHeight();
+            $('.Movies').css({
+                width:windowWidth,
+                height:windowHeight
+            })
+        })
+    })
+
+        $(function(){
+            /*var sh=$(".swiper-container").height();
+            var sw=$(".swiper-container").width();
+            $(".Movies").height(sh);
+            $(".Movies").width(sw);*/
+
+            var windowWidth=$(window).innerWidth();
+            var windowHeight=$(window).innerHeight();
+            $('.Movies').css({
+                width:windowWidth,
+                height:windowHeight
+            })
+        })
+
+    $(function(){
+        var h1=$(".heart1").height();
+        var h2=$(window).height();
+        var h3=(h2-h1)/2;
+        var w1=$(".heart1").width();
+        var w2=$(window).width();
+        var w3=(w2-w1)/2;
+        //alert(h3);
+        //var h4=(h2-h1)/2+20;
+
+        var h4=$(window).height()-140;
+
+        //$("video").css({"width":w2+"px","height":h4+"px"});
+
+        $(".heart1").css({"top":h3+"px","left":w3+"px"});
+        //$(".heart2").css({"top":h4+"px"});
+        $(".good").click(function(){
+            $(this).attr("data-num","2");
+        });
+
+        $('body').on("click",'.heart',function()
+        {
+            var A=$(this).attr("id");
+            var B=A.split("like");
+            var messageID=B[1];
+            var C=parseInt($("#likeCount"+messageID).html());
+            /*$(this).css("background-position","");*/
+            var D=$(this).attr("rel");
+            if(D === 'like')
+            {
+                $("#likeCount"+messageID).html(C+1);
+                $(this).addClass("heartAnimation").attr("rel","unlike");
+                $(".heart1").css("display","block");
+                setTimeout("a()",500);
+            }
+            else
+            {
+                $("#likeCount"+messageID).html(C-1);
+                $(this).removeClass("heartAnimation").attr("rel","like");
+                $(this).css("background-position","left");
+            }
+        });
+
+
+        $(".comment").on({
+            touchstart: function(e) {
+                // 长按事件触发
+                timeOutEvent = setTimeout(function() {
+                    timeOutEvent = 0;
+                    //alert('你长按了');
+                    $(".comment").remove();
+                }, 400);
+                //长按400毫秒
+                // e.preventDefault();
+            }
+        });
+    });
+    function a(){
+        $(".heart1").css("display","none");
+    }
+</script>
+
+</body>
+</html>

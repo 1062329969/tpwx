@@ -33,12 +33,12 @@
         	
         }
         .topsearch{border-bottom:0.05rem solid #F0F0F0;border-top:none;}
-        .csmian2{border-bottom:0.05rem solid #F0F0F0;}
+        .csmian2{border-bottom:1rem solid #f0f0f0;}
         #header img{margin-top: 1.25rem;}
         .plinfos{border-top:1px solid #f0f0f0;margin-top:0.8rem;}
         .plinfos .lll,.plinfos .pl,.plinfos .cdz{text-align:center;width:33%;}
         .plinfos{padding:1rem 0;}
-        .docsmleft, .docsmright{width:50%;}
+        .docsmleft, .docsmright{width:33.333%;}
         .mui-title{line-height: 4.4rem}
 
         .list-title span{font-size:1.5rem;}
@@ -47,8 +47,8 @@
         .xlmenus{top:8.2rem;}
         .xlmenus ul li{height:50px;line-height:50px;}
 
-        .xlpro ul li a{margin-left:65.8%;}
-        .xldj li a{margin-left:15.8%;}
+        /*.xlpro ul li a{margin-left:65.8%;}*/
+        /*.xldj li a{margin-left:15.8%;}*/
         .csuser p{font-size:1.5rem;}
         .csuser p.ddtime{font-size:1.2rem;}
         .tags{font-size:1.3rem;color:#15bdde;}
@@ -65,6 +65,7 @@
         .video-js .vjs-big-play-button{margin:0 auto;width:60px;height:60px;border-radius: 100%;position:relative;top:36%;left:0px;}
         .video-js .vjs-big-play-button{line-height:6rem;}
         .video-js .vjs-control-text{width:3px;height:3px;color:red;}
+        video{border-radius:8px;}
     </style>
 </head>
 </head>
@@ -74,17 +75,20 @@
     <h1 class="mui-title">植发日记</h1>
 </header>
 
+<!--全部分院-->
 <div class="topsearch list-title">
 	<div class="docsmleft {neq name='$gid' value='0'}on{/neq}" id="showArea">
 	    <span>
             <?php if(empty($gid)){ ?>
-                全部院部
+                全部分院
             <?php }else{ ?>
                {$hosname.hosname}
             <?php } ?>
         </span>
 	    <img id="b1" src="{$Think.HTML_STATIC}/images/2.png"/>
 	</div>
+
+<!--全部项目-->
 	<div class="docsmright {neq name='$pid' value='0'}on{/neq}  list-title-mlr" id="showPro">
 	    <span>
             <?php if(empty($pid)){ ?>
@@ -95,21 +99,42 @@
         </span>
 	    <img src="{$Think.HTML_STATIC}/images/2.png"/>
     </div>
+
+
+<!--智能排序-->
+    <div class="docsmleft " id="showUpdate">
+    <?php if(empty($tid)){ ?>
+	    <span>
+            智能排序
+        </span>
+    <?php }elseif($tid == 1){ ?>
+        <span>评论最多</span>
+    <?php }elseif($tid == 2){ ?>
+        <span>点赞最多</span>
+    <?php }elseif($tid == 3){ ?>
+        <span>浏览最多</span>
+    <?php }elseif($tid == 4){ ?>
+        <span>日记最多</span>
+    <?php }elseif($tid == 5){ ?>
+        <span>最新日记</span>
+    <?php } ?>
+
+        <img id="b1" src="{$Think.HTML_STATIC}/images/2.png"/>
+    </div>
 </div>
 <div style="height:8rem;"></div>
 
 <!--跳到机器人那里的链接-->
 <!--onclick="location.href='{$Think.config.zoosnet}'"-->
 {volist name='$cases' id='voo'}
-
-    <div class="csmian2" style="width: 100%; background: white;">
+<div class="csmian2">
 	<div class="csmian1">
         <a href="{:url('detail',array('uid'=>$voo.id))}">
              <div class="csmian" style="border:0px;">
                    <div class="csuser abtx">
                           <img src="{$voo.userInfo.portrait}">
                           <p>{$voo.userInfo.wechaname}</p>
-                          <p class="ddtime">{$voo.data_time}
+                          <p class="ddtime">{$voo.caser.create_time| date = 'm月d日',###}
                     </div>
                    {if $voo.caser.vurl}
                          <div class="csmian" onclick="location.href='{:url('record',['uid'=>$voo.id])}'">
@@ -138,30 +163,30 @@
                     <div class="tags"><img src="{$Think.HTML_STATIC}/images/qicon.png">{$voo.project.proname}</div>
              </div>
         </a>
-     <div class="plinfos">
-     	<div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{php}echo $voo['clicks']+$voo['clickss']{/php}</div>
-         <div class="pl list-title-mlr" onclick="location.href='{:url('record',['id'=>$voo.caser.id])}#b'"><img src="{$Think.HTML_STATIC}/images/7.png">
-             {$voo.caser.comment}
-         </div>
-             <div class="cdz" name="dianzan" uid="{$voo.caser.id}" res-id="{$fansInfo['id']}"  dis=0 datas={if $voo.res.i_id && $fansInfo['id']==$voo.res.i_uids}1{else /}0{/if} data-idss={$voo.id}>
-         <img src="{$Think.HTML_STATIC}/images/{if $voo.res.i_id && $fansInfo['id']==$voo.res.i_uids}66{else/}65{/if}.png">
-         <!--点赞-->
-         {php}if(!empty($voo['caser']['praise'])){{/php}
-            <span>{$voo.caser.praise}</span>
-         {php}}else{ {/php}
-            <span>{$voo.praise}</span>
-         {php}}{/php}
+        {php}$clickr= $voo['clicks']+$voo['clickss']{/php}
+         <div class="plinfos">
+            <div class="lll"><img src="{$Think.HTML_STATIC}/images/6.png">{:comment_sum($clickr)}</div>
+             <div class="pl list-title-mlr" onclick="location.href='{:url('record',['id'=>$voo.caser.id])}#b'"><img src="{$Think.HTML_STATIC}/images/7.png">
+                 {:comment_sum($voo.caser.comment)}
              </div>
-     </div>
+                 <div class="cdz" name="dianzan" uid="{$voo.caser.id}" res-id="{$fansInfo['id']}"  dis=0 datas={if $voo.res.i_id && $fansInfo['id']==$voo.res.i_uids}1{else /}0{/if} data-idss={$voo.id}>
+             <img src="{$Think.HTML_STATIC}/images/{if $voo.res.i_id && $fansInfo['id']==$voo.res.i_uids}66{else/}65{/if}.jpg">
+             <!--点赞-->
+             {php}if(!empty($voo['caser']['praise'])){{/php}
+                <span>{:comment_sum($voo.caser.praise)}</span>
+             {php}}else{ {/php}
+                <span>{:comment_sum($voo.praise)}</span>
+             {php}}{/php}
+                 </div>
+         </div>
+    </div>
 </div>
-</div>
-
 {/volist}
 
 <!--下拉搜索院部-->
 <div class="xlmenus xldj" id="xldj">
     <ul>
-        <li><a href="{:url('index')}">全部院部<span></span></a></li>
+        <li><a href="{:url('index')}">全部分院<span></span></a></li>
         {volist name='$grade' id='vo'}
         <li {eq name="$vo.id" value="$gid"} active="1"{/eq}><a href="javascript:;" onclick="goserachgid(this)" gid="{$vo.id}" data-url="{:url('index',['gid'=>$vo.id])}">{$vo.hosname}</a></li>
         {/volist}
@@ -178,13 +203,25 @@
     </ul>
 </div>
 <!--下拉搜索最近更新-->
-<div class="xlmenus xlupdate">
+<!--<div class="xlmenus xlupdate">
 	<ul>
 		<li><a href="javascript:;" onclick="goserachtid(this)" data-id="1" {if $tid==1} class="active" active="3" {/if}>最近更新</a></li>
 		<li><a href="javascript:;" onclick="goserachtid(this)" data-id="2" {if $tid==2} class="active" active="3" {/if}>人气日记</a></li>
 		<li><a href="javascript:;" onclick="goserachtid(this)" data-id="3" {if $tid==3} class="active" active="3" {/if}>最新回复</a></li>
 	</ul>
+</div>-->
+
+<!--下拉智能排序-->
+<div class="xlmenus xlupdate">
+    <ul>
+        <li><a href="javascript:;" onclick="goserachtid(this)" data-id="1" {if $tid==1} class="active" active="3" {/if}>评论最多</a></li>
+        <li><a href="javascript:;" onclick="goserachtid(this)" data-id="2" {if $tid==2} class="active" active="3" {/if}>点赞最多</a></li>
+        <li><a href="javascript:;" onclick="goserachtid(this)" data-id="3" {if $tid==3} class="active" active="3" {/if}>浏览最多</a></li>
+        <li><a href="javascript:;" onclick="goserachtid(this)" data-id="4" {if $tid==4} class="active" active="3" {/if}>日记最多</a></li>
+        <li><a href="javascript:;" onclick="goserachtid(this)" data-id="5" {if $tid==5} class="active" active="3" {/if}>最新日记</a></li>
+    </ul>
 </div>
+
 <script type="text/javascript">
     function goserachgid(_self) {
         var dataurl = "<?php echo think\Request::instance()->domain(); ?>/cases/index";
@@ -212,13 +249,14 @@
         dataurl += '.html';
         window.location.href=dataurl;
     }
+    //智能排序
     function goserachtid(_self) {
         var dataurl = "<?php echo think\Request::instance()->domain(); ?>/cases/index";
 
-        if($('li[active=1] a').attr('gid')!=undefined){
+        if($('li[active=1] a').attr('tid')!=undefined){
             dataurl +='/gid/'+$('li[active=1] a').attr('gid');
         }
-        if($('li[active=2] a').attr('pid')!=undefined){
+        if($('li[active=2] a').attr('data-id')!=undefined){
             dataurl +='/pid/'+$('li[active=2] a').attr('pid');
         }
         dataurl += '/tid/'+$(_self).attr('data-id');
@@ -249,7 +287,7 @@
             return false;
         }
         var _self = $(this);
-        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.png');
+        _self.find('img').attr('src','{$Think.HTML_STATIC}/images/66.jpg');
         $(this).attr('dis',1);
         var datas = $(this).attr('datas');
         $(this).attr('datas','1');
@@ -263,15 +301,38 @@
             dataType: "json",
             success: function(data)
             {
+                num= _self.find('span').html()
+                numVal=num.substr(0,num.length-1);
+                numNew1=numVal*10000+1;
+                numNew2=numVal*10000-1
+                numOld=num.substr(num.length-1)
                 if(data.code==1) {
                     if (datas == 0) {
-                        _self.find('span').html(Number(_self.find('span').html())+1);
+                        var reg = RegExp(/w/);
+                        if(reg.exec(num)){
+                            _self.find('span').html((numNew1/10000).toFixed(1) + 'w')
+                        }
+                        else if(num == 9999){
+                            _self.find('span').html(((Number(num)+1)/10000).toFixed(1) + 'w')
+                        }else{
+                            _self.find('span').html(Number(_self.find('span').html())+1);
+                        }
                         _self.attr('dis', 0);
                         _self.attr('datas', '1');
                     }
                 } else {
-                    _self.find('span').html(Number(_self.find('span').html())-1);
-                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.png');
+                    console.log(numOld)
+                    if(num == 1+'w'){
+                        _self.find('span').html(9999)
+                    }
+                    else if(numVal>1&&numOld=="w"){
+                        console.log(1)
+
+                        _self.find('span').html((numNew2/10000).toFixed(1) + 'w')
+                    }else{
+                        _self.find('span').html(Number(_self.find('span').html())-1)
+                    }
+                    _self.find('img').attr('src', '{$Think.HTML_STATIC}/images/65.jpg');
                     _self.attr('dis', 0);
                     _self.attr('datas', '0');
                 }
@@ -302,7 +363,7 @@
 	if (/(iPhone)/i.test(navigator.userAgent)) {
         $(".topsearch").css("borderColor","#cecece");
         $("#header").css("borderColor","#cecece");
-        $(".csmian2").css("borderColor","#cecece");
+        $(".csmian2").css("borderColor","#f0f0f0");
     }
 	
 	$(".list-title div").click(function(){

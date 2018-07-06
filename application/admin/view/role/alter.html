@@ -287,7 +287,14 @@
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|wechataccess',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="wechataccess" {if condition="stristr($content.roles,$vo['name'].'|wechataccess,') eq true"} checked{/if}>微信接入{/if}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|step_one',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="step_one" {if condition="stristr($content.roles,$vo['name'].'|step_one,') eq true"} checked{/if}>步骤一{/if}
                                     {if $Think.session.adminid==1 || in_array($vo.name.'|step_two',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="step_two" {if condition="stristr($content.roles,$vo['name'].'|step_two,') eq true"} checked{/if}>步骤二{/if}
+                                    {if $Think.session.adminid==1 || in_array($vo.name.'|editval',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="editval" {if condition="stristr($content.roles,$vo['name'].'|editval,') eq true"} checked{/if}>修改{/if}
                                     {/if}
+
+
+                                     <!--视频点播上传视频-->
+                                        {if condition="$vo['name'] eq 'livebroadcast'"}
+                                        {if $Think.session.adminid==1 || in_array($vo.name.'|articlevideo',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlevideo" {if condition="stristr($content.roles,$vo['name'].'|articlevideo,') eq true"} checked{/if}>视频上传{/if}
+                                        {/if}
                                 </div>
                                     {/if}
                                     {/volist}

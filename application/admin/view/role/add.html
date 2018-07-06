@@ -295,6 +295,13 @@
                                                     {if in_array($vo.name.'|wechataccess',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="wechataccess">微信接入{/if}
                                                     {if in_array($vo.name.'|wechataccess',step_one)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="wechataccess">步骤一{/if}
                                                     {if in_array($vo.name.'|wechataccess',step_two)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="wechataccess">步骤二{/if}
+                                                    {if in_array($vo.name.'|wechataccess',editval)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="editval">弹窗修改{/if}
+                                                    {/if}
+
+
+                                                    <!--视频点播-->
+                                                    {if condition="$vo['name'] eq 'livebroadcast'"}
+                                                    {if in_array($vo.name.'|articlevideo',$rolesarr)}<input type="checkbox" class="{$vo.id}" name="{$so.id}[{$vo['name']}][]" value="articlevideo">视频上传{/if}
                                                     {/if}
                                                </div>
 
